@@ -18,3 +18,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+/* TEST ROUTE */
+
+Route::prefix('test')->group(function(){
+    Route::get('/create-company', function(){
+        return view('pages.company.create-company');
+    });
+    Route::get('/create-ajb', function(){
+        return view('pages.transaction.ajb.create-ajb');
+    });
+});
