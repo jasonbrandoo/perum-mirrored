@@ -28,4 +28,16 @@ Route::prefix('test')->group(function(){
     Route::get('/create-ajb', function(){
         return view('pages.transaction.ajb.create-ajb');
     });
+    Route::get('/create-berkas', function(){
+        return view('pages.transaction.berkas.create-berkas');
+    });
+    Route::get('/create-customer', function(){
+        return view('pages.customer.create-customer');
+    });
+    Route::get('/create-komisi-akad', function(){
+        return view('pages.transaction.komisiakad.create-komisi-akad');
+    });
+    Route::get('/create-komisi-eksternal', function(){
+        return view('pages.transaction.komisieksternal.create-komisi-eksternal');
+    });
 });

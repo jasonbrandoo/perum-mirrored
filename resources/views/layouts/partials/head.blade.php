@@ -25,27 +25,29 @@
 <!-- /Core JS files -->
 
 <!-- Theme JS files -->
-<script src="/template/global_assets/js/plugins/visualization/d3/d3.min.js"></script>
-<script src="/template/global_assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
-<script src="/template/global_assets/js/plugins/forms/styling/switchery.min.js"></script>
-<script src="/template/global_assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
-<script src="/template/global_assets/js/plugins/forms/styling/uniform.min.js"></script>
-<script src="/template/global_assets/js/plugins/forms/selects/select2.min.js"></script>
 <script src="/template/global_assets/js/plugins/ui/moment/moment.min.js"></script>
+
+<!--Forms-->
+<script src="/template/global_assets/js/plugins/forms/styling/switchery.min.js"></script>
+<script src="/template/global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+<script src="/template/global_assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+<script src="/template/global_assets/js/plugins/forms/selects/select2.min.js"></script>
+<script src="/template/global_assets/js/plugins/forms/inputs/inputmask.js"></script>
+<script src="/template/global_assets/js/plugins/forms/validation/validate.min.js"></script>
+<script src="/template/global_assets/js/plugins/forms/wizards/steps.min.js"></script>
+<!--/Forms-->
+
+<!--Pickers-->
 <script src="/template/global_assets/js/plugins/pickers/daterangepicker.js"></script>
-
-<!--DatePicker-->
-<script type="text/javascript" src="/template/global_assets/js/plugins/pickers/pickadate/picker.js"></script>
-<script type="text/javascript" src="/template/global_assets/js/plugins/pickers/pickadate/picker.date.js"></script>
-<script type="text/javascript" src="/template/global_assets/js/plugins/pickers/pickadate/picker.time.js"></script>
-<script type="text/javascript" src="/template/global_assets/js/plugins/pickers/pickadate/legacy.js"></script>
-<script type="text/javascript" src="/template/global_assets/js/plugins/pickers/daterangepicker.js"></script>
-<script type="text/javascript" src="/template/global_assets/js/plugins/pickers/anytime.min.js"></script>
-<!--/DatePicker-->
-
+<script src="/template/global_assets/js/plugins/pickers/pickadate/picker.js"></script>
+<script src="/template/global_assets/js/plugins/pickers/pickadate/picker.date.js"></script>
+<script src="/template/global_assets/js/plugins/pickers/pickadate/picker.time.js"></script>
+<script src="/template/global_assets/js/plugins/pickers/pickadate/legacy.js"></script>
+<!--/Pickers-->
 
 <script src="/template/assets/js/app.js"></script>
 <script src="/template/global_assets/js/demo_pages/dashboard.js"></script>
 <script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>
 <script src="/template/global_assets/js/demo_pages/picker_date.js"></script>
+<script src="/template/global_assets/js/demo_pages/form_wizard.js"></script>
 <!-- /Theme JS files -->

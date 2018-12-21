@@ -3,7 +3,7 @@
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">
-    <h5 class="card-title">New AJB</h5>
+    <h5 class="card-title">Create New AJB</h5>
     <div class="header-elements">
       <div class="list-icons">
         <a class="list-icons-item" data-action="collapse"></a>
