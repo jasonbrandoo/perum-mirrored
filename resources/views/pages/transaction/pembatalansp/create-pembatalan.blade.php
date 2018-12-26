@@ -3,7 +3,7 @@
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">
-    <h5 class="card-title">Create New Komisi Eksternal</h5>
+    <h5 class="card-title">Create New Pembatalan SP</h5>
     <div class="header-elements">
       <div class="list-icons">
         <a class="list-icons-item" data-action="collapse"></a>
@@ -35,51 +35,50 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Komisi Koordinator:</label>
+              <label class="col-lg-3 col-form-label">Alasan:</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Komisi:</label>
+              <label class="col-lg-3 col-form-label">Perincian Refund:</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No MOU:</label>
+              <label class="col-lg-3 col-form-label">Dibuat Oleh:</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal Mulai:</label>
+              <label class="col-lg-3 col-form-label">Status:</label>
               <div class="col-lg-9">
-                <div class="input-group">
-                  <span class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-calendar2"></i></span>
-                  </span>
-                  <input type="text" class="form-control pickadate" >
-                </div>
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc>
+                  <option></option>
+                    <option value="#">CREATED</option>
+                    <option value="#">APPROVE</option>
+                    <option value="#">REJECT</option>
+                </select>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal Akhir:</label>
+              <label class="col-lg-3 col-form-label">Oleh:</label>
               <div class="col-lg-9">
-                <div class="input-group">
-                  <span class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-calendar2"></i></span>
-                  </span>
-                  <input type="text" class="form-control pickadate" >
-                </div>
+                <input type="text" class="form-control">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Active:</label>
+              <label class="col-lg-3 col-form-label">Tanggal:</label>
               <div class="col-lg-9">
-                <div class="form-check">
-                  <input type="checkbox" class="form-check-input">
-                </div>
+                <input type="text" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Tambahan:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control">
               </div>
             </div>
           </fieldset>
@@ -159,7 +158,13 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Supervisor:</label>
+              <label class="col-lg-3 col-form-label">Perincian:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Jumlah:</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control">
               </div>

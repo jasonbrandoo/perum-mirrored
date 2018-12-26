@@ -34,7 +34,6 @@
           <a href="#" class="nav-link"><i class="icon-office"></i> <span>Company</span></a>
 
           <ul class="nav nav-group-sub" data-submenu-title="Themes">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="icon-list"></i>Company List</a></li>
             <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>New Company</a></li>
           </ul>
         </li>
@@ -47,6 +46,17 @@
         </li>
         <li class="nav-item">
           <a href="#" class="nav-link"><i class="icon-home7"></i> <span>Kavling</span></a>
+        </li>
+        <li class="nav-item nav-item-submenu">
+          <a href="#" class="nav-link"><i class="icon-database"></i> <span>Master</span></a>
+
+          <ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+            <li class="nav-item"><a href="#" class="nav-link">Company</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Payment Method</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Price List</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Referensi Surat Pesanan</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Role</a></li>
+          </ul>
         </li>
         <li class="nav-item">
           <a href="#" class="nav-link"><i class="icon-checkmark"></i> <span>Payment Method</span></a>
@@ -95,10 +105,34 @@
           <a href="#" class="nav-link"><i class="icon-cash"></i> <span>Transaction</span></a>
 
           <ul class="nav nav-group-sub" data-submenu-title="Layouts">
-            <li class="nav-item"><a href="#" class="nav-link">AJB</a></li>            
+            <li class="nav-item nav-item-submenu">
+              <a href="#" class="nav-link">AJB</a>
+              <ul class="nav nav-group-sub">
+                  <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>Create New AJB</a></li>
+              </ul>
+            </li>
+            <li class="nav-item nav-item-submenu">
+              <a href="#" class="nav-link">Berkas</a>
+              <ul class="nav nav-group-sub">
+                  <li class="nav-item"><a href="#" class="nav-link"><i class="icon-list"></i>Berkas List</a></li>
+                  <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>Create New Berkas</a></li>
+              </ul>
+            </li>
             <li class="nav-item"><a href="#" class="nav-link">Komisi Eksternal</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Pembatalan SP</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Legalitas</a></li>
+            <li class="nav-item nav-item-submenu">
+              <a href="#" class="nav-link">Pembatalan SP</a>
+              <ul class="nav nav-group-sub">
+                <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>Create New Pembatalan SP</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><i class="icon-list"></i>Pembatalan SP List</a></li>
+              </ul>
+            </li>
+            <li class="nav-item nav-item-submenu">
+              <a href="#" class="nav-link">Legal</a>
+              <ul class="nav nav-group-sub">
+                <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>Create New Legal</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><i class="icon-list"></i>Legalitas List</a></li>
+              </ul>
+            </li>
             <li class="nav-item"><a href="#" class="nav-link">SPK</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Legal</a></li>
             <li class="nav-item nav-item-submenu">

@@ -3,7 +3,7 @@
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">
-    <h5 class="card-title">Create New Komisi Eksternal</h5>
+    <h5 class="card-title">Create New Kuitansi</h5>
     <div class="header-elements">
       <div class="list-icons">
         <a class="list-icons-item" data-action="collapse"></a>
@@ -18,7 +18,7 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Request:</label>
+              <label class="col-lg-3 col-form-label">No LPA:</label>
               <div class="col-lg-9">
                 <input type="number" class="form-control">
               </div>
@@ -35,25 +35,24 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Komisi Koordinator:</label>
+              <label class="col-lg-3 col-form-label">Type:</label>
+              <div class="col-lg-9">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc>
+                  <option></option>
+                    <option value="#">Listrik</option>
+                    <option value="#">Bestek</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">No SHGB:</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Komisi:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No MOU:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal Mulai:</label>
+              <label class="col-lg-3 col-form-label">Tanggal SHGB:</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -64,14 +63,9 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal Akhir:</label>
+              <label class="col-lg-3 col-form-label">No IMB:</label>
               <div class="col-lg-9">
-                <div class="input-group">
-                  <span class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-calendar2"></i></span>
-                  </span>
-                  <input type="text" class="form-control pickadate" >
-                </div>
+                <input type="text" class="form-control">
               </div>
             </div>
             <div class="form-group row">
@@ -84,6 +78,7 @@
             </div>
           </fieldset>
         </div>
+
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
@@ -92,60 +87,53 @@
                 <input type="text" class="form-control">
               </div>
             </div>
+
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal SP:</label>
+              <label class="col-lg-3 col-form-label">Tanggal Sp:</label>
               <div class="col-lg-9">
-                <div class="input-group">
-                  <span class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-calendar2"></i></span>
-                  </span>
-                  <input type="text" class="form-control pickadate" >
-                </div>
+                <input type="text" class="form-control">
               </div>
             </div>
+
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal AJB:</label>
+              <label class="col-lg-3 col-form-label">Customer ID:</label>
               <div class="col-lg-9">
-                <div class="input-group">
-                  <span class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-calendar2"></i></span>
-                  </span>
-                  <input type="text" class="form-control pickadate" >
-                </div>
+                <input type="text" class="form-control">
               </div>
             </div>
+
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Customer:</label>
+              <label class="col-lg-3 col-form-label">Customer Name:</label>
+              <div class="col-lg-9">
+                  <input type="text" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Kavling:</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tipe Rumah:</label>
+              <label class="col-lg-3 col-form-label">Luas Tanah:</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Blok:</label>
-              <div class="col-lg-9">
-                <div class="row">
-                  <div class="col-md-6">
-                    <input type="text" class="form-control">
-                  </div>
-                  <label class="col-form-label">No:</label>
-                  <div class="col-md-5">
-                    <input type="text" class="form-control">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Payment Type:</label>
+              <label class="col-lg-3 col-form-label">Luas Bangunan:</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control">
               </div>
             </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">TL:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control">
+              </div>
+            </div>
+
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Perusahaan:</label>
               <div class="col-lg-9">
@@ -154,12 +142,6 @@
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Sales:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Supervisor:</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control">
               </div>
