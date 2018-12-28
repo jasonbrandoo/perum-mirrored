@@ -39,6 +39,7 @@
 
 <!--Pickers-->
 <script src="/template/global_assets/js/plugins/pickers/daterangepicker.js"></script>
+<script src="/template/global_assets/js/plugins/pickers/anytime.min.js"></script>
 <script src="/template/global_assets/js/plugins/pickers/pickadate/picker.js"></script>
 <script src="/template/global_assets/js/plugins/pickers/pickadate/picker.date.js"></script>
 <script src="/template/global_assets/js/plugins/pickers/pickadate/picker.time.js"></script>
@@ -46,8 +47,8 @@
 <!--/Pickers-->
 
 <script src="/template/assets/js/app.js"></script>
-<script src="/template/global_assets/js/demo_pages/dashboard.js"></script>
 <script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>
-<script src="/template/global_assets/js/demo_pages/picker_date.js"></script>
 <script src="/template/global_assets/js/demo_pages/form_wizard.js"></script>
+<script src="/template/global_assets/js/demo_pages/picker_date.js"></script>
+{{-- <script src="/template/global_assets/js/demo_pages/dashboard.js"></script>s --}}
 <!-- /Theme JS files -->

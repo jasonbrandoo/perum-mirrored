@@ -56,6 +56,7 @@
             <li class="nav-item"><a href="#" class="nav-link">Price List</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Referensi Surat Pesanan</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Role</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Rumah</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -118,7 +119,13 @@
                   <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>Create New Berkas</a></li>
               </ul>
             </li>
-            <li class="nav-item"><a href="#" class="nav-link">Komisi Eksternal</a></li>
+            <li class="nav-item nav-item-submenu">
+              <a href="#" class="nav-link">Komisi Eksternal</a>
+              <ul class="nav nav-group-sub">
+                <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>Create New Komisi Eksternal</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><i class="icon-list"></i>Komisi Eksternal List</a></li>
+              </ul>
+            </li>
             <li class="nav-item nav-item-submenu">
               <a href="#" class="nav-link">Pembatalan SP</a>
               <ul class="nav nav-group-sub">
@@ -133,13 +140,11 @@
                 <li class="nav-item"><a href="#" class="nav-link"><i class="icon-list"></i>Legalitas List</a></li>
               </ul>
             </li>
-            <li class="nav-item"><a href="#" class="nav-link">SPK</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Legal</a></li>
             <li class="nav-item nav-item-submenu">
-              <a href="#" class="nav-link">Berkas</a>
+              <a href="#" class="nav-link">SPK</a>
               <ul class="nav nav-group-sub">
-                <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>Create New Berkas</a></li>
-                <li class="nav-item"><a href="#" class="nav-link"><i class="icon-list"></i>Berkas List</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>Create New SPK</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><i class="icon-list"></i>SPK List</a></li>
               </ul>
             </li>
             <li class="nav-item nav-item-submenu">

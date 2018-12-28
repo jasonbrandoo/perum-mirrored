@@ -11,7 +11,7 @@ export default class Example extends Component {
                             <div className="card-header">Example Component</div>
 
                             <div className="card-body">
-                                I'm an example component!
+                                FUCK
                             </div>
                         </div>
                     </div>
@@ -21,6 +21,6 @@ export default class Example extends Component {
     }
 }
 
-if (document.getElementById('example')) {
-    ReactDOM.render(<Example />, document.getElementById('example'));
+if (document.getElementById('company')) {
+    ReactDOM.render(<Example />, document.getElementById('company'));
 }

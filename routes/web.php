@@ -73,4 +73,22 @@ Route::prefix('test')->group(function(){
     Route::get('/create-rumah', function(){
         return view('pages.rumah.create-rumah');
     });
+    Route::get('/create-sales', function(){
+        return view('pages.sales.create-sales');
+    });
+    Route::get('/create-spk', function(){
+        return view('pages.transaction.spk.create-spk');
+    });
+    Route::get('/create-surat', function(){
+        return view('pages.transaction.surat.create-surat');
+    });
+    Route::get('/create-user', function(){
+        return view('pages.user.create-user');
+    });
+    Route::get('/create-wawancara', function(){
+        return view('pages.transaction.wawancara.create-wawancara');
+    });
+    Route::get('/data-company', function(){
+        return view('pages.company.data-company');
+    });
 });
