@@ -13,33 +13,43 @@
     </div>
   </div>
   <div class="card-body">
-    <form action="#">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <form action="{{ route('role.store')}}" method="POST">
+      @csrf
       <div class="row">
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Role ID:</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control">
+                <input type="text" class="form-control" name="role_id" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Role Name:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="role_name" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Description:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="role_description">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Active:</label>
               <div class="col-lg-9">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input">
+                  <input type="checkbox" class="form-check-input" name="active" value="active">
                 </div>
               </div>
             </div>
@@ -47,17 +57,17 @@
         </div>
         <div class="col-md-6">
           <fieldset>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Menu:</label>
-              <div class="col-lg-9">
+            <div class="form-group row justify-content-center">
+              <div class="col-lg-6">
+                <label>Menu</label>
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input">not selected
+                  <input type="checkbox" class="form-check-input" name="role_function" value="not_selected">not selected
                 </div>
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input">selected
+                  <input type="checkbox" class="form-check-input" name="role_function" value="selected">selected
                 </div>
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input">indeterminate
+                  <input type="checkbox" class="form-check-input" name="role_function" value="indeterminate">indeterminate
                 </div>
               </div>
             </div>

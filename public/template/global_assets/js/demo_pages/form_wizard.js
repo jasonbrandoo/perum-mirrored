@@ -36,7 +36,8 @@ var FormWizard = function() {
                 finish: 'Submit form <i class="icon-arrow-right14 ml-2" />'
             },
             onFinished: function (event, currentIndex) {
-                alert('Form submitted.');
+                alert('Form submitted1.');
+                event.target.submit();
             }
         });
 
@@ -60,7 +61,7 @@ var FormWizard = function() {
                 _componentUniform();
             },
             onFinished: function (event, currentIndex) {
-                alert('Form submitted.');
+                alert('Form submitted2.');
             }
         });
 
@@ -78,7 +79,7 @@ var FormWizard = function() {
             saveState: true,
             autoFocus: true,
             onFinished: function (event, currentIndex) {
-                alert('Form submitted.');
+                alert('Form submitted3.');
             }
         });
 
@@ -96,7 +97,7 @@ var FormWizard = function() {
             startIndex: 2,
             autoFocus: true,
             onFinished: function (event, currentIndex) {
-                alert('Form submitted.');
+                alert('Form submitted4.');
             }
         });
 
@@ -113,7 +114,7 @@ var FormWizard = function() {
                 finish: 'Submit form <i class="icon-arrow-right14 ml-2" />'
             },
             onFinished: function (event, currentIndex) {
-                alert('Form submitted.');
+                alert('Form submitted5.');
             }
         });
 

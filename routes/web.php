@@ -19,6 +19,40 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+/**
+ * Transaction Route
+ */
+
+Route::prefix('transaction')->group(function(){
+    Route::prefix('surat-pesanan')->group(function(){
+        Route::get('/', 'Transaction\SuratPesanan\SuratPesananController@index')->name('transaction.surat-pesanan.index');
+        Route::get('/create', 'Transaction\SuratPesanan\SuratPesananController@create')->name('transaction.surat-pesanan.create');
+        Route::post('/store', 'Transaction\SuratPesanan\SuratPesananController@store')->name('transaction.surat-pesanan.store');
+    });
+});
+
+/**
+ * Role Route
+ */
+
+ Route::prefix('role')->group(function(){
+    Route::get('/', 'Role\RoleController@index')->name('role.index');
+    Route::get('/create', 'Role\RoleController@create')->name('role.create');
+    Route::post('/store', 'Role\RoleController@store')->name('role.store');
+    Route::get('/data', 'Role\RoleController@data')->name('role.data');
+ });
+
+/**
+ * User Route
+ */
+
+Route::prefix('users')->group(function(){
+    Route::get('/', 'Users\UsersController@index')->name('users.index');  
+    Route::get('/create', 'Users\UsersController@create')->name('users.create');
+    Route::post('/store', 'Users\UsersController@store')->name('users.store');
+    Route::get('/data', 'Users\UsersController@data')->name('users.data');    
+});
+
 /* TEST ROUTE */
 
 Route::prefix('test')->group(function(){

@@ -46,9 +46,17 @@
 <script src="/template/global_assets/js/plugins/pickers/pickadate/legacy.js"></script>
 <!--/Pickers-->
 
+<!--DataTables-->
+<script src="/template/global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
+<script src="/template/global_assets/js/plugins/tables/datatables/extensions/select.min.js"></script>
+<script src="/template/global_assets/js/plugins/tables/datatables/extensions/buttons.min.js"></script>
+<!--/DataTables-->
+
 <script src="/template/assets/js/app.js"></script>
 <script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>
 <script src="/template/global_assets/js/demo_pages/form_wizard.js"></script>
 <script src="/template/global_assets/js/demo_pages/picker_date.js"></script>
+{{-- <script src="/template/global_assets/js/demo_pages/datatables_extension_select.js"></script> --}}
 {{-- <script src="/template/global_assets/js/demo_pages/dashboard.js"></script>s --}}
 <!-- /Theme JS files -->
+@stack('scripts')

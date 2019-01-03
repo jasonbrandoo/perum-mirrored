@@ -13,44 +13,48 @@
     </div>
   </div>
   <div class="card-body">
-    <form action="#">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <form action="{{ route('users.store')}}" method="POST">
+      @csrf
       <div class="row">
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Username</label>
-              <div class="col-lg-9">
-                <input type="number" class="form-control">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Password:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control">
-              </div>
-            </div>
-            <div class="form-group row">
               <label class="col-lg-3 col-form-label">Staff ID:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="staff_id">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Name:</label>
+              <label class="col-lg-3 col-form-label">Full Name</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="fullname">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Mobile No:</label>
+              <label class="col-lg-3 col-form-label">Phone Number:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="phone_number">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Email:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" name="email">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Address:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="address">
               </div>
             </div>
           </fieldset>
@@ -60,10 +64,10 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Role:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc>
-                  <option></option>
-                    <option value="#">-</option>
-                    <option value="#">-</option>
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="role_id">
+                  @foreach ($roles as $role)
+                    <option value="{{$role->id}}">{{$role->role_name}}</option>
+                  @endforeach
                 </select>
               </div>
             </div>
@@ -71,8 +75,20 @@
               <label class="col-lg-3 col-form-label">Active:</label>
               <div class="col-lg-9">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input">
+                  <input type="checkbox" class="form-check-input" name="active" value="active">
                 </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Password:</label>
+              <div class="col-lg-9">
+                <input type="password" class="form-control" name="password">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Confirm Password:</label>
+              <div class="col-lg-9">
+                <input type="password" class="form-control" name="password_confirmation">
               </div>
             </div>
           </fieldset>

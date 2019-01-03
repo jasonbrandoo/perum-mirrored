@@ -82,8 +82,8 @@
           <a href="#" class="nav-link"><i class="icon-users2"></i> <span>Role</span></a>
 
           <ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>New Role</a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="icon-list"></i> Role List</a></li>
+            <li class="nav-item"><a href="{{ route('role.create') }}" class="nav-link"><i class="icon-plus2"></i>New Role</a></li>
+            <li class="nav-item"><a href="{{ route('role.index') }}" class="nav-link"><i class="icon-list"></i> Role List</a></li>
           </ul>
         </li>
         <li class="nav-item nav-item-submenu">
@@ -192,8 +192,8 @@
             <li class="nav-item nav-item-submenu">
               <a href="#" class="nav-link">Surat Pesanan</a>
               <ul class="nav nav-group-sub">
-                <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>Create New Surat</a></li>
-                <li class="nav-item"><a href="#" class="nav-link"><i class="icon-list"></i>Surat List</a></li>
+                <li class="nav-item"><a href="{{ route('transaction.surat-pesanan.create') }}" class="nav-link"><i class="icon-plus2"></i>Create New Surat</a></li>
+                <li class="nav-item"><a href="{{ route('transaction.surat-pesanan.index') }}" class="nav-link"><i class="icon-list"></i>Surat List</a></li>
               </ul>
             </li>
             <li class="nav-item nav-item-submenu">
@@ -209,36 +209,8 @@
           <a href="#" class="nav-link"><i class="icon-user"></i> <span>User</span></a>
 
           <ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>Create New User</a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="icon-list"></i>User List</a></li>
-            <li class="nav-item"><a href="../seed/sidebar_main.html" class="nav-link">1 sidebar</a></li>
-            <li class="nav-item nav-item-submenu">
-              <a href="#" class="nav-link">2 sidebars</a>
-              <ul class="nav nav-group-sub">
-                <li class="nav-item"><a href="../seed/sidebar_secondary.html" class="nav-link">Secondary sidebar</a></li>
-                <li class="nav-item"><a href="../seed/sidebar_right.html" class="nav-link">Right sidebar</a></li>
-              </ul>
-            </li>
-            <li class="nav-item nav-item-submenu">
-              <a href="#" class="nav-link">3 sidebars</a>
-              <ul class="nav nav-group-sub">
-                <li class="nav-item"><a href="../seed/sidebar_right_hidden.html" class="nav-link">Right sidebar hidden</a></li>
-                <li class="nav-item"><a href="../seed/sidebar_right_visible.html" class="nav-link">Right sidebar visible</a></li>
-              </ul>
-            </li>
-            <li class="nav-item nav-item-submenu">
-              <a href="#" class="nav-link">Content sidebars</a>
-              <ul class="nav nav-group-sub">
-                <li class="nav-item"><a href="../seed/sidebar_content_left.html" class="nav-link">Left sidebar</a></li>
-                <li class="nav-item"><a href="../seed/sidebar_content_right.html" class="nav-link">Right sidebar</a></li>
-              </ul>
-            </li>
-            <li class="nav-item"><a href="../seed/layout_boxed.html" class="nav-link">Boxed layout</a></li>
-            <li class="nav-item-divider"></li>
-            <li class="nav-item"><a href="../seed/navbar_fixed_main.html" class="nav-link">Fixed main navbar</a></li>
-            <li class="nav-item"><a href="../seed/navbar_fixed_secondary.html" class="nav-link">Fixed secondary navbar</a></li>
-            <li class="nav-item"><a href="../seed/navbar_fixed_both.html" class="nav-link">Both navbars fixed</a></li>
-            <li class="nav-item"><a href="../seed/layout_fixed.html" class="nav-link">Fixed layout</a></li>
+            <li class="nav-item"><a href="{{ route('users.create') }}" class="nav-link"><i class="icon-plus2"></i>Create New User</a></li>
+            <li class="nav-item"><a href="{{ route('users.index') }}" class="nav-link"><i class="icon-list"></i>User List</a></li>
           </ul>
         </li>
         <!-- /main -->
