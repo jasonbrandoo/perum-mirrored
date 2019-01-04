@@ -51,7 +51,8 @@ class RoleController extends Controller
             'role_id' => $request->input('role_id'),
             'role_name' => $request->input('role_name'),
             'role_description' => $request->input('role_description'),
-            'role_function' => $request->input('role_function')
+            'role_function' => $request->input('role_function'),
+            'active' => $request->input('active')
         ]);
         return redirect('role')->with('success', 'Successfull create role');
     }

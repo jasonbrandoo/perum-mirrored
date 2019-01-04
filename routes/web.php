@@ -20,6 +20,17 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 /**
+ * Consumer Route
+ */
+
+ Route::prefix('customer')->group(function(){
+    Route::get('/', 'Customer\CustomerController@index')->name('customer.index');
+    Route::get('/create', 'Customer\CustomerController@create')->name('customer.create');
+    Route::post('/store', 'Customer\CustomerController@store')->name('customer.store');
+    Route::get('/data', 'Customer\CustomerController@data')->name('customer.data');
+ });
+
+/**
  * Transaction Route
  */
 
@@ -40,6 +51,17 @@ Route::prefix('transaction')->group(function(){
     Route::get('/create', 'Role\RoleController@create')->name('role.create');
     Route::post('/store', 'Role\RoleController@store')->name('role.store');
     Route::get('/data', 'Role\RoleController@data')->name('role.data');
+ });
+
+ /**
+  * Sales Route
+  */
+
+  Route::prefix('sales')->group(function(){
+    Route::get('/', 'Sales\SalesController@index')->name('sales.index');
+    Route::get('/create', 'Sales\SalesController@create')->name('sales.create');
+    Route::post('/store', 'Sales\SalesController@store')->name('sales.store');
+    Route::get('/data', 'Sales\SalesController@data')->name('sales.data');
  });
 
 /**

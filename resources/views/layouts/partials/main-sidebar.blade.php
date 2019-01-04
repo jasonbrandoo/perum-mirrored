@@ -98,8 +98,8 @@
           <a href="#" class="nav-link"><i class="icon-user-tie"></i> <span>Sales</span></a>
 
           <ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>New Sales</a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="icon-list"></i>Sales List</a></li>
+            <li class="nav-item"><a href="{{ route('sales.create') }}" class="nav-link"><i class="icon-plus2"></i>New Sales</a></li>
+            <li class="nav-item"><a href="{{ route('sales.index') }}" class="nav-link"><i class="icon-list"></i>Sales List</a></li>
           </ul>
         </li>
         <li class="nav-item nav-item-submenu">
