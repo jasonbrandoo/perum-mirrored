@@ -30,7 +30,8 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Staff ID:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="staff_id">
+                <input type="text" class="form-control" value="STF000{{$id}}" readonly>
+                <input type="hidden" name="staff_id" value="{{$id}}">
               </div>
             </div>
             <div class="form-group row">

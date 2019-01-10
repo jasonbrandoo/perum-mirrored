@@ -38,7 +38,8 @@ class UsersController extends Controller
     {
         //
         $roles = Role::where('active', 'active')->get();
-        return view('pages.user.create-user', compact('roles'));
+        $id = (new User)->max('id') + 1;
+        return view('pages.user.create-user', compact('roles', 'id'));
     }
 
     /**
@@ -57,7 +58,7 @@ class UsersController extends Controller
             'phone_number' => $request->input('phone_number'),
             'email' => $request->input('email'),
             'address' => $request->input('address'),
-            'active' => $request->input('active'),
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active',
             'password' => $request->input('password')
         ]);
         return redirect('users')->with('success', 'Successfull create user');

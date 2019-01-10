@@ -13,39 +13,49 @@
     </div>
   </div>
   <div class="card-body">
-    <form action="#">
+    @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+    <form action="{{ route('rumah.store') }}" method="POST">
+      @csrf
       <div class="row">
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">ID:</label>
+              <label class="col-lg-3 col-form-label">ID Rumah:</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control">
+                <input type="text" class="form-control" name="rumah_id" >
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tipe :</label>
+              <label class="col-lg-3 col-form-label">Name Tipe Rumah :</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="rumah_type_name">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Luas Tanah:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control">
+              <div class="col-lg-3">
+                <input type="text" class="form-control" name="surface_area">
               </div>
             </div>
             <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Luas Bangunan:</label>
-                <div class="col-lg-9">
-                  <input type="text" class="form-control">
+                <div class="col-lg-3">
+                  <input type="text" class="form-control" name="building_area">
                 </div>
               </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Active:</label>
               <div class="col-lg-9">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input">
+                  <input type="checkbox" class="form-check-input" name="active">
                 </div>
               </div>
             </div>

@@ -34,18 +34,22 @@
           <a href="#" class="nav-link"><i class="icon-office"></i> <span>Company</span></a>
 
           <ul class="nav nav-group-sub" data-submenu-title="Themes">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>New Company</a></li>
+            <li class="nav-item"><a href="{{ route('company.create') }}" class="nav-link"><i class="icon-plus2"></i>New Company</a></li>
+            <li class="nav-item"><a href="{{ route('company.index') }}" class="nav-link"><i class="icon-list"></i>Company List</a></li>            
           </ul>
         </li>
         <li class="nav-item nav-item-submenu">
           <a href="#" class="nav-link"><i class="icon-users4"></i> <span>Customer</span></a>
-
           <ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>New Customer</a></li>
+            <li class="nav-item"><a href="{{ route('customer.create') }}" class="nav-link"><i class="icon-plus2"></i>New Customer</a></li>
           </ul>
         </li>
-        <li class="nav-item">
+        <li class="nav-item nav-item-submenu">
           <a href="#" class="nav-link"><i class="icon-home7"></i> <span>Kavling</span></a>
+          <ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+            <li class="nav-item"><a href="{{ route('kavling.create') }}" class="nav-link"><i class="icon-plus2"></i>New Kavling</a></li>
+            <li class="nav-item"><a href="{{ route('kavling.index') }}" class="nav-link"><i class="icon-list"></i>Kavling List</a></li>
+          </ul>
         </li>
         <li class="nav-item nav-item-submenu">
           <a href="#" class="nav-link"><i class="icon-database"></i> <span>Master</span></a>
@@ -59,23 +63,27 @@
             <li class="nav-item"><a href="#" class="nav-link">Rumah</a></li>
           </ul>
         </li>
-        <li class="nav-item">
+        <li class="nav-item nav-item-submenu">
           <a href="#" class="nav-link"><i class="icon-checkmark"></i> <span>Payment Method</span></a>
+          <ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+            <li class="nav-item"><a href="{{ route('payment.create') }}" class="nav-link"><i class="icon-plus2"></i>New Payment Method</a></li>
+            <li class="nav-item"><a href="{{ route('payment.index') }}" class="nav-link"><i class="icon-list"></i>Payment Method List</a></li>
+          </ul>
         </li>
         <li class="nav-item nav-item-submenu">
           <a href="#" class="nav-link"><i class="icon-coin-dollar"></i> <span>Price</span></a>
 
           <ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>New Price</a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="icon-list"></i>Price List</a></li>
+            <li class="nav-item"><a href="{{ route('price.create') }}" class="nav-link"><i class="icon-plus2"></i>New Price</a></li>
+            <li class="nav-item"><a href="{{ route('price.index') }}" class="nav-link"><i class="icon-list"></i>Price List</a></li>
           </ul>
         </li>
         <li class="nav-item nav-item-submenu">
           <a href="#" class="nav-link"><i class="icon-envelop2"></i> <span>Referensi SP</span></a>
 
           <ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>New Referensi SP</a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="icon-list"></i>Referensi List</a></li>
+            <li class="nav-item"><a href="{{ route('referensi.create') }}" class="nav-link"><i class="icon-plus2"></i>New Referensi SP</a></li>
+            <li class="nav-item"><a href="{{ route('referensi.index') }}" class="nav-link"><i class="icon-list"></i>Referensi List</a></li>
           </ul>
         </li>
         <li class="nav-item nav-item-submenu">
@@ -90,8 +98,8 @@
           <a href="#" class="nav-link"><i class="icon-home5"></i> <span>Rumah</span></a>
 
           <ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>New Rumah</a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="icon-list"></i>Rumah List</a></li>
+            <li class="nav-item"><a href="{{ route('rumah.create') }}" class="nav-link"><i class="icon-plus2"></i>New Rumah</a></li>
+            <li class="nav-item"><a href="{{ route('rumah.index') }}" class="nav-link"><i class="icon-list"></i>Rumah List</a></li>
           </ul>
         </li>
         <li class="nav-item nav-item-submenu">
@@ -178,8 +186,8 @@
             <li class="nav-item nav-item-submenu">
                 <a href="#" class="nav-link">MOU</a>
                 <ul class="nav nav-group-sub">
-                  <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>Create New MOU</a></li>
-                  <li class="nav-item"><a href="#" class="nav-link"><i class="icon-list"></i>MOU List</a></li>
+                  <li class="nav-item"><a href="{{ route('transaction.mou.create') }}" class="nav-link"><i class="icon-plus2"></i>Create New MOU</a></li>
+                  <li class="nav-item"><a href="{{ route('transaction.mou.index') }}" class="nav-link"><i class="icon-list"></i>MOU List</a></li>
                 </ul>
               </li>
             <li class="nav-item nav-item-submenu">

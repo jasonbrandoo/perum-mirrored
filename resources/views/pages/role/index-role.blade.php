@@ -59,7 +59,7 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('role.data') !!}',
             columns: [
-                {data: 'role_id'},
+                {data: 'id'},
                 {data: 'role_name'},
                 {data: 'role_description'},
                 {data: 'active'},

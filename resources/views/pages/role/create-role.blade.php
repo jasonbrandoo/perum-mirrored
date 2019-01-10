@@ -30,13 +30,13 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Role ID:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="role_id" required>
+                <input type="text" class="form-control" name="role_id" value="R000{{$id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Role Name:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="role_name" required>
+                <input type="text" class="form-control" name="role_name">
               </div>
             </div>
             <div class="form-group row">

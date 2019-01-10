@@ -20,7 +20,18 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 /**
- * Consumer Route
+ * Company Route
+ */
+
+Route::prefix('company')->group(function(){
+    Route::get('/', 'Company\CompanyController@index')->name('company.index');
+    Route::get('/create', 'Company\CompanyController@create')->name('company.create');
+    Route::post('/store', 'Company\CompanyController@store')->name('company.store');
+    Route::get('/data', 'Company\CompanyController@data')->name('company.data');
+ });
+
+/**
+ * Customer Route
  */
 
  Route::prefix('customer')->group(function(){
@@ -28,6 +39,53 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/create', 'Customer\CustomerController@create')->name('customer.create');
     Route::post('/store', 'Customer\CustomerController@store')->name('customer.store');
     Route::get('/data', 'Customer\CustomerController@data')->name('customer.data');
+    Route::get('/company_customer', 'Customer\CustomerController@company')->name('customer.company');
+ });
+
+ /**
+ * Kavling Route
+ */
+
+Route::prefix('kavling')->group(function(){
+    Route::get('/', 'Kavling\KavlingController@index')->name('kavling.index');
+    Route::get('/create', 'Kavling\KavlingController@create')->name('kavling.create');
+    Route::post('/store', 'Kavling\KavlingController@store')->name('kavling.store');
+    Route::get('/data', 'Kavling\KavlingController@data')->name('kavling.data');
+    Route::get('/prices', 'Kavling\KavlingController@prices')->name('kavling.prices');
+ });
+
+/**
+ * Payment Method Route
+ */
+
+Route::prefix('payment')->group(function(){
+    Route::get('/', 'Payment\PaymentController@index')->name('payment.index');
+    Route::get('/create', 'Payment\PaymentController@create')->name('payment.create');
+    Route::post('/store', 'Payment\PaymentController@store')->name('payment.store');
+    Route::get('/data', 'Payment\PaymentController@data')->name('payment.data');
+ });
+
+ /**
+ * Payment Method Route
+ */
+
+Route::prefix('price')->group(function(){
+    Route::get('/', 'Price\PriceController@index')->name('price.index');
+    Route::get('/create', 'Price\PriceController@create')->name('price.create');
+    Route::post('/store', 'Price\PriceController@store')->name('price.store');
+    Route::get('/data', 'Price\PriceController@data')->name('price.data');
+    Route::get('/houses', 'Price\PriceController@houses')->name('price.houses');
+ });
+
+ /**
+ * Payment Method Route
+ */
+
+Route::prefix('referensi')->group(function(){
+    Route::get('/', 'Referensi\ReferensiController@index')->name('referensi.index');
+    Route::get('/create', 'Referensi\ReferensiController@create')->name('referensi.create');
+    Route::post('/store', 'Referensi\ReferensiController@store')->name('referensi.store');
+    Route::get('/data', 'Referensi\ReferensiController@data')->name('referensi.data');
  });
 
 /**
@@ -40,6 +98,12 @@ Route::prefix('transaction')->group(function(){
         Route::get('/create', 'Transaction\SuratPesanan\SuratPesananController@create')->name('transaction.surat-pesanan.create');
         Route::post('/store', 'Transaction\SuratPesanan\SuratPesananController@store')->name('transaction.surat-pesanan.store');
     });
+    Route::prefix('mou')->group(function(){
+        Route::get('/', 'Transaction\Mou\MouController@index')->name('transaction.mou.index');
+        Route::get('/create', 'Transaction\Mou\MouController@create')->name('transaction.mou.create');
+        Route::post('/store', 'Transaction\Mou\MouController@store')->name('transaction.mou.store');
+        Route::get('/data', 'Transaction\Mou\MouController@data')->name('transaction.mou.data');
+     });
 });
 
 /**
@@ -51,6 +115,17 @@ Route::prefix('transaction')->group(function(){
     Route::get('/create', 'Role\RoleController@create')->name('role.create');
     Route::post('/store', 'Role\RoleController@store')->name('role.store');
     Route::get('/data', 'Role\RoleController@data')->name('role.data');
+ });
+
+ /**
+ * Rumah Route
+ */
+
+Route::prefix('rumah')->group(function(){
+    Route::get('/', 'Rumah\RumahController@index')->name('rumah.index');
+    Route::get('/create', 'Rumah\RumahController@create')->name('rumah.create');
+    Route::post('/store', 'Rumah\RumahController@store')->name('rumah.store');
+    Route::get('/data', 'Rumah\RumahController@data')->name('rumah.data');
  });
 
  /**

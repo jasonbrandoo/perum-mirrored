@@ -13,33 +13,43 @@
     </div>
   </div>
   <div class="card-body">
-    <form action="#">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <form action="{{ route('referensi.store') }}" method="POST">
+      @csrf
       <div class="row">
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kode:</label>
+              <label class="col-lg-3 col-form-label">Kode Referensi:</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control">
+                <input type="text" class="form-control" value="RSP000{{$id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Group Referensi:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="reference_group">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Deskripsi:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="reference_description">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Active:</label>
               <div class="col-lg-9">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input">
+                  <input type="checkbox" class="form-check-input" name="active">
                 </div>
               </div>
             </div>

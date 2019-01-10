@@ -35,7 +35,8 @@ class RoleController extends Controller
     public function create()
     {
         //
-        return view('pages.role.create-role');
+        $id = (new Role)->max('id') + 1;
+        return view('pages.role.create-role', compact('id'));
     }
 
     /**
@@ -48,11 +49,10 @@ class RoleController extends Controller
     {
         //
         Role::create([
-            'role_id' => $request->input('role_id'),
             'role_name' => $request->input('role_name'),
             'role_description' => $request->input('role_description'),
             'role_function' => $request->input('role_function'),
-            'active' => $request->input('active')
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active'
         ]);
         return redirect('role')->with('success', 'Successfull create role');
     }

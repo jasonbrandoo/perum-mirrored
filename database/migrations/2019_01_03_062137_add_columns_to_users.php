@@ -17,8 +17,8 @@ class AddColumnsToUsers extends Migration
             //
             $table->integer('staff_id')->after('id');
             $table->integer('role_id')->after('id');
-            $table->string('phone_number')->after('name');
-            $table->string('address')->after('email');
+            $table->string('phone_number')->after('name')->nullable();
+            $table->string('address')->after('email')->nullable();
             $table->string('active');
         });
     }

@@ -36,7 +36,8 @@ class SalesController extends Controller
     public function create()
     {
         //
-        return view('pages.sales.create-sales');
+        $id = (new Sales)->max('id') + 1;
+        return view('pages.sales.create-sales', compact('id'));
     }
 
     /**
@@ -49,7 +50,6 @@ class SalesController extends Controller
     {
         //
         Sales::create([
-            'sales_id' => $request->input('sales_id'),
             'sales_name' => $request->input('sales_name'),
             'sales_mobile_number' => $request->input('sales_mobile_number'),
             'sales_number' => $request->input('sales_number'),
@@ -59,7 +59,8 @@ class SalesController extends Controller
             'sales_province' => $request->input('sales_province'),
             'sales_zipcode' => $request->input('sales_zipcode'),
             'sales_position' => $request->input('sales_position'),
-            'active' => $request->input('active'),
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active',
+            'sales_void' => $request->input('sales_void') == null ? 'Not Void' : 'Void',
             'sales_komisi' => $request->input('sales_komisi'),
             'sales_target' => $request->input('sales_target'),
             'sales_spv' => $request->input('sales_spv'),

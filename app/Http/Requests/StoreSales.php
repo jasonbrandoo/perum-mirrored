@@ -25,7 +25,6 @@ class StoreSales extends FormRequest
     {
         return [
             //
-            'sales_id' => ['required', 'integer'],
             'sales_name' => ['required', 'string'],
             'sales_mobile_number' => ['required', 'numeric'],
             'sales_number' => ['required', 'numeric'],
@@ -36,7 +35,8 @@ class StoreSales extends FormRequest
             'sales_zipcode' => ['required', 'numeric'],
             'sales_position' => ['required'],
             'sales_target' => ['required'],
-            'sales_in' => ['required']
+            'sales_in' => ['required'],
+            'active' => ['required']
         ];
     }
 }

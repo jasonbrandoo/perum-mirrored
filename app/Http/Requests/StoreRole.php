@@ -25,7 +25,6 @@ class StoreRole extends FormRequest
     {
         return [
             //
-            'role_id' => 'required|integer',
             'role_name' => 'required',
             'role_function' => 'required'
         ];
@@ -39,7 +38,6 @@ class StoreRole extends FormRequest
     public function messages()
     {
         return [
-            'role_id.required' => 'Role ID is required',
             'role_name.required'  => 'Role Name is required',
             'role_function.required'  => 'Role Function is required',
         ];

@@ -15,7 +15,6 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('sales_id');
             $table->string('sales_name');
             $table->string('sales_mobile_number');
             $table->string('sales_number');
@@ -26,11 +25,12 @@ class CreateSalesTable extends Migration
             $table->string('sales_zipcode');
             $table->string('sales_position');
             $table->string('active');
-            $table->string('sales_komisi');
+            $table->string('sales_komisi')->nullable();
+            $table->string('sales_void')->nullable();
             $table->string('sales_target');
-            $table->string('sales_spv');
+            $table->string('sales_spv')->nullable();
             $table->dateTime('sales_in');
-            $table->dateTime('sales_out');
+            $table->dateTime('sales_out')->nullable();
             $table->timestamps();
         });
     }

@@ -30,7 +30,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Sales ID:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sales_id">
+                <input type="text" class="form-control" value="S000{{$id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
@@ -90,8 +90,8 @@
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sales_position">
                   <option></option>
-                    <option value="#">Sales</option>
-                    <option value="#">Supervisor</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Supervisor">Supervisor</option>
                 </select>
               </div>
             </div>
@@ -118,6 +118,14 @@
               </div>
             </div>
             <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Void:</label>
+              <div class="col-lg-9">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" name="sales_void">
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
               <label class="col-lg-3 col-form-label">Supervisor:</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sales_spv">
@@ -133,7 +141,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate" name="sales_in">
+                  <input type="text" class="form-control pickadate-selectors" name="sales_in">
                 </div>
               </div>
             </div>
@@ -144,7 +152,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate" name="sales_out">
+                  <input type="text" class="form-control pickadate-selectors" name="sales_out">
                 </div>
               </div>
             </div>
@@ -158,3 +166,30 @@
   </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+var DateTimePickers = function() {
+  var _componentPickadate = function() {
+    if (!$().pickadate) {
+      console.warn('Warning - picker.js and/or picker.date.js is not loaded.');
+      return;
+    }
+    $('.pickadate-selectors').pickadate({
+      selectYears: true,
+      selectMonths: true
+    });
+  };
+
+  return {
+    init: function() {
+      _componentPickadate();
+    }
+  }
+}();
+
+document.addEventListener('DOMContentLoaded', function() {
+  DateTimePickers.init();
+});
+</script>    
+@endpush

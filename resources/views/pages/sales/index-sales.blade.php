@@ -59,7 +59,7 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('sales.data') !!}',
             columns: [
-                {data: 'sales_id'},
+                {data: 'id'},
                 {data: 'sales_name'},
                 {data: 'sales_position'},
                 {data: 'active'},

@@ -3,7 +3,7 @@
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">
-    <h5 class="card-title">Payment Method Detail</h5>
+    <h5 class="card-title">Payment Method</h5>
     <div class="header-elements">
       <div class="list-icons">
         <a class="list-icons-item" data-action="collapse"></a>
@@ -13,27 +13,31 @@
     </div>
   </div>
   <div class="card-body">
-    <form action="#">
+    @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+    <form action="{{ route('payment.store') }}" method="POST">
+      @csrf
       <div class="row">
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No LPA:</label>
+              <label class="col-lg-3 col-form-label">Cara Pembayaran:</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No SHGB:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="payment_method">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Active:</label>
               <div class="col-lg-9">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input">
+                  <input type="checkbox" class="form-check-input" name="active" value="active">
                 </div>
               </div>
             </div>

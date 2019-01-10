@@ -26,7 +26,7 @@ class StoreUsers extends FormRequest
         return [
             //
             'staff_id' => ['required', 'integer'],
-            'role_id' => ['required'],
+            'role_id' => ['required', 'integer'],
             'fullname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
