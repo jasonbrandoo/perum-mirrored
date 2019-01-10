@@ -15,7 +15,6 @@ class CreateMousTable extends Migration
     {
         Schema::create('mous', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('mou_id');
             $table->integer('mou_company_id');
             $table->string('mou_coordinator');
             $table->string('mou_coordinator_position');

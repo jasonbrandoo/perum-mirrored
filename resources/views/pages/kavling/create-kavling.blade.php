@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@section('page-title')
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Kavling</span> - Create New Kavling</h4>
+<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+@endsection
+
+@section('breadcrumb')
+<a href="{{ route('kavling.index') }}" class="breadcrumb-item">Kavling</a>    
+<a href="{{ route('kavling.create') }}" class="breadcrumb-item">New Kavling</a>    
+@endsection
+
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">
@@ -30,7 +40,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Kavling</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kavling_id" id="kavling_id" value="KAV{{$id}}" disabled>
+                <input type="text" class="form-control" name="kavling_id" id="kavling_id" value="KAV000{{$id}}" disabled>
               </div>
             </div>
             <div class="form-group row">

@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('page-title')
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">MOU</span> - Create New MOU</h4>
+<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+@endsection
+
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">
@@ -30,7 +35,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nomer Perjanjian:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="mou_id">
+                <input type="text" class="form-control" name="mou_id" value="MOU000{{$id}}" readonly>
               </div>
             </div>
             
@@ -39,7 +44,7 @@
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="mou_company_id">
                   @foreach ($companies as $company)
-                    <option value="{{$company->id}}">{{$company->company_id}}, {{$company->company_type}}, {{$company->company_name}}</option>
+                    <option value="{{$company->id}}">{{$company->id}}, {{$company->company_type}}, {{$company->company_name}}</option>
                   @endforeach
                 </select>
               </div>

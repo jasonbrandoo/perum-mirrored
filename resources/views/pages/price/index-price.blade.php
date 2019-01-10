@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@section('page-title')
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Price</span> - Price List</h4>
+<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+@endsection
+
+@section('breadcrumb')
+<a href="{{ route('price.index') }}" class="breadcrumb-item">Price</a>
+@endsection
+
 @section('content')
 @if (session('success'))
     <div class="alert alert-success">
@@ -61,7 +70,7 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('price.data') !!}',
             columns: [
-                {data: 'price_id'},
+                {data: 'id'},
                 {data: 'house.rumah_type_name'},
                 {data: 'price_start_date'},
                 {data: 'price_end_date'},

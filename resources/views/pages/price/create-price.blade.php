@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@section('page-title')
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Price</span> - Create New Price</h4>
+<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+@endsection
+
+@section('breadcrumb')
+<a href="{{ route('price.index') }}" class="breadcrumb-item">Price</a>    
+<a href="{{ route('price.create') }}" class="breadcrumb-item">New Price</a>    
+@endsection
+
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">
@@ -30,7 +40,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Harga</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="price_id">
+                <input type="text" class="form-control" value="H000{{$id}}" readonly>
               </div>
             </div>
             <div class="form-group row">

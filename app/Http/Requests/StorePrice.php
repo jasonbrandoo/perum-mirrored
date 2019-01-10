@@ -25,7 +25,6 @@ class StorePrice extends FormRequest
     {
         return [
             //
-            'price_id' => ['required', 'integer'],
             'price_start_date' => ['required'],
             'price_end_date' => ['required'],
             'price_house_id' => ['required', 'integer'],

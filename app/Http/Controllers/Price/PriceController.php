@@ -38,7 +38,8 @@ class PriceController extends Controller
     {
         //
         $buildings = Rumah::all();
-        return view('pages.price.create-price', compact('buildings'));
+        $id = (new Price)->max('id') + 1;
+        return view('pages.price.create-price', compact('buildings', 'id'));
     }
 
     public function houses(Request $request)
@@ -57,7 +58,6 @@ class PriceController extends Controller
     {
         //
         Price::create([
-            'price_id' => $request->input('price_id'),
             'price_house_id' => $request->input('price_house_id'),
             'price_selling' => $request->input('price_selling'),
             'price_discount' => $request->input('price_discount'),

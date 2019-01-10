@@ -25,7 +25,6 @@ class StoreMou extends FormRequest
     {
         return [
             //
-            'mou_id' => ['required', 'integer'],
             'mou_company_id' => ['required'],
             'mou_coordinator' => ['required'],
             'mou_coordinator_position' => ['required'],

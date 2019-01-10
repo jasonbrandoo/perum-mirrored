@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@section('page-title')
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Customer</span> - Create New Customer</h4>
+<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+@endsection
+
+@section('breadcrumb')
+<a href="{{ route('customer.create') }}" class="breadcrumb-item">New Customer</a>    
+@endsection
+
 @section('content')
 <div class="card">
   <div class="card-header bg-white header-elements-inline">
@@ -641,12 +650,8 @@ var FormWizard = function() {
   }
 }();
 
-
-// Initialize module
-// ------------------------------
-
 document.addEventListener('DOMContentLoaded', function() {
-FormWizard.init();
+  FormWizard.init();
 });
 
 var DateTimePickers = function() {
@@ -667,14 +672,9 @@ var DateTimePickers = function() {
     }
 }();
 
-
-// Initialize module
-// ------------------------------
-
 document.addEventListener('DOMContentLoaded', function() {
-    DateTimePickers.init();
+  DateTimePickers.init();
 });
-
 
 </script>
 @endpush

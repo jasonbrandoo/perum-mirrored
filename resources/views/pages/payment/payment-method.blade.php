@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@section('page-title')
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Payment</span> - Create New Payment</h4>
+<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+@endsection
+
+@section('breadcrumb')
+<a href="{{ route('payment.create') }}" class="breadcrumb-item">New Payment Method</a>    
+@endsection
+
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">

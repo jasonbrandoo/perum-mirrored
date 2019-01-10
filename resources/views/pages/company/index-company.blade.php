@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@section('page-title')
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Company</span> - Company List</h4>
+<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+@endsection
+
+@section('breadcrumb')
+<a href="{{ route('company.index') }}" class="breadcrumb-item">Company</a>    
+@endsection
+
 @section('content')
 @if (session('success'))
     <div class="alert alert-success">

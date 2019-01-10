@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@section('page-title')
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Sales</span> - Create New Sales</h4>
+<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+@endsection
+
+@section('breadcrumb')
+<a href="{{ route('sales.index') }}" class="breadcrumb-item">Sales</a>    
+<a href="{{ route('sales.create') }}" class="breadcrumb-item">New Sales</a>    
+@endsection
+
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">

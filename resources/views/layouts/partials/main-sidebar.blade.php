@@ -51,7 +51,7 @@
             <li class="nav-item"><a href="{{ route('kavling.index') }}" class="nav-link"><i class="icon-list"></i>Kavling List</a></li>
           </ul>
         </li>
-        <li class="nav-item nav-item-submenu">
+        {{-- <li class="nav-item nav-item-submenu">
           <a href="#" class="nav-link"><i class="icon-database"></i> <span>Master</span></a>
 
           <ul class="nav nav-group-sub" data-submenu-title="Starter kit">
@@ -62,7 +62,7 @@
             <li class="nav-item"><a href="#" class="nav-link">Role</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Rumah</a></li>
           </ul>
-        </li>
+        </li> --}}
         <li class="nav-item nav-item-submenu">
           <a href="#" class="nav-link"><i class="icon-checkmark"></i> <span>Payment Method</span></a>
           <ul class="nav nav-group-sub" data-submenu-title="Starter kit">

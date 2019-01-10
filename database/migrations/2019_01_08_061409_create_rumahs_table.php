@@ -15,7 +15,6 @@ class CreateRumahsTable extends Migration
     {
         Schema::create('rumahs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('rumah_id');
             $table->string('rumah_type_name');
             $table->integer('surface_area_m2');
             $table->integer('building_area_m2');

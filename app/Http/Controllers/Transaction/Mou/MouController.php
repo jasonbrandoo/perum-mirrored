@@ -38,7 +38,8 @@ class MouController extends Controller
     {
         //
         $companies = Company::all();
-        return view('pages.transaction.mou.create-mou', compact('companies'));
+        $id = (new Mou)->max('id') + 1;
+        return view('pages.transaction.mou.create-mou', compact('companies', 'id'));
     }
 
     /**
@@ -51,7 +52,6 @@ class MouController extends Controller
     {
         //
         Mou::create([
-            'mou_id' => $request->input('mou_id'),
             'mou_company_id' => $request->input('mou_company_id'),
             'mou_coordinator' => $request->input('mou_coordinator'),
             'mou_coordinator_position' => $request->input('mou_coordinator_position'),

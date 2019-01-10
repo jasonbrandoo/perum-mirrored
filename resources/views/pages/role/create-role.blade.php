@@ -1,9 +1,19 @@
 @extends('layouts.app')
 
+@section('page-title')
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Role</span> - Create New Role</h4>
+<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+@endsection
+
+@section('breadcrumb')
+<a href="{{ route('role.index') }}" class="breadcrumb-item">Role</a>    
+<a href="{{ route('role.create') }}" class="breadcrumb-item">New Role</a>    
+@endsection
+
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">
-    <h5 class="card-title">Payment Method Detail</h5>
+    <h5 class="card-title">Create New Role</h5>
     <div class="header-elements">
       <div class="list-icons">
         <a class="list-icons-item" data-action="collapse"></a>

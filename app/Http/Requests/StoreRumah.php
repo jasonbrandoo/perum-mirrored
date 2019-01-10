@@ -25,7 +25,6 @@ class StoreRumah extends FormRequest
     {
         return [
             //
-            'rumah_id' => ['required', 'integer'],
             'rumah_type_name' => ['required', 'string'],
             'surface_area' => ['required', 'numeric'],
             'building_area' => ['required', 'numeric'],

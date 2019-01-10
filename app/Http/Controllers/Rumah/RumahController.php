@@ -35,7 +35,8 @@ class RumahController extends Controller
     public function create()
     {
         //
-        return view('pages.rumah.create-rumah');
+        $id = (new Rumah)->max('id') + 1;
+        return view('pages.rumah.create-rumah', compact('id'));
     }
 
     /**
@@ -48,7 +49,6 @@ class RumahController extends Controller
     {
         //
         Rumah::create([
-            'rumah_id' => $request->input('rumah_id'),
             'rumah_type_name' => $request->input('rumah_type_name'),
             'surface_area_m2' => $request->input('surface_area'),
             'building_area_m2' => $request->input('building_area'),

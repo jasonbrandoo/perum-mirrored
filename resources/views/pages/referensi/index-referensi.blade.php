@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@section('page-title')
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Referensi</span> - Referensi List</h4>
+<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+@endsection
+
+@section('breadcrumb')
+<a href="{{ route('referensi.index') }}" class="breadcrumb-item">Referensi</a>
+@endsection
+
 @section('content')
 @if (session('success'))
     <div class="alert alert-success">
@@ -8,7 +17,7 @@
 @endif
 <div class="card">
     <div class="card-header header-elements-inline">
-        <h5 class="card-title">Company</h5>
+        <h5 class="card-title">Referensi List</h5>
         <div class="header-elements">
             <div class="list-icons">
                 <a class="list-icons-item" data-action="collapse"></a>
