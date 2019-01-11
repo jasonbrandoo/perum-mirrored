@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('pages.company.index-company');
 });
 
 Auth::routes();
@@ -93,6 +93,19 @@ Route::prefix('referensi')->group(function(){
  */
 
 Route::prefix('transaction')->group(function(){
+    Route::prefix('kwitansi')->group(function(){
+        Route::get('/', 'Transaction\Kwitansi\KwitansiController@index')->name('transaction.kwitansi.index');
+        Route::get('/create', 'Transaction\Kwitansi\KwitansiController@create')->name('transaction.kwitansi.create');
+        Route::post('/store', 'Transaction\Kwitansi\KwitansiController@store')->name('transaction.kwitansi.store');
+        Route::get('/data', 'Transaction\Kwitansi\KwitansiController@data')->name('transaction.kwitansi.data');
+     });
+    Route::prefix('pembatalan')->group(function(){
+        Route::get('/', 'Transaction\Pembatalan\PembatalanController@index')->name('transaction.pembatalan.index');
+        Route::get('/create', 'Transaction\Pembatalan\PembatalanController@create')->name('transaction.pembatalan.create');
+        Route::post('/store', 'Transaction\Pembatalan\PembatalanController@store')->name('transaction.pembatalan.store');
+        Route::get('/data', 'Transaction\Pembatalan\PembatalanController@data')->name('transaction.pembatalan.data');
+        Route::get('/load_sp', 'Transaction\Pembatalan\PembatalanController@load_sp')->name('transaction.pembatalan.load_sp');
+     });
     Route::prefix('surat-pesanan')->group(function(){
         Route::get('/', 'Transaction\SuratPesanan\SuratPesananController@index')->name('transaction.surat-pesanan.index');
         Route::get('/create', 'Transaction\SuratPesanan\SuratPesananController@create')->name('transaction.surat-pesanan.create');

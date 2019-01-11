@@ -25,9 +25,9 @@ class CreateSuratPesanansTable extends Migration
             //
             $table->string('sp_prebook');
             $table->string('sp_no');
-            $table->string('sp_date');
+            $table->dateTime('sp_date');
             $table->string('sp_ppjb');
-            $table->string('sp_ppjb_date');
+            $table->dateTime('sp_ppjb_date');
             
             $table->string('sp_koordinator');
             
@@ -37,17 +37,17 @@ class CreateSuratPesanansTable extends Migration
             $table->string('sp_house_cluster');
             $table->string('sp_house_building');
             $table->string('sp_house_surface');
-            $table->string('sp_tl');
-            $table->string('sp_tt');
+            $table->string('sp_tl')->nullable();
+            $table->string('sp_tt')->nullable();
             //
             $table->string('sp_price');
-            $table->string('sp_price_tl');
+            $table->string('sp_price_tl')->nullable();
             $table->string('sp_price_list');
             $table->string('sp_total_harga_jual');
             $table->string('sp_harga_jual_tanah');
-            $table->string('sp_included_tl');
-            $table->string('sp_discount');
-            $table->string('sp_after_discount');
+            $table->string('sp_included_tl')->nullable();
+            $table->string('sp_discount')->nullable();
+            $table->string('sp_after_discount')->nullable();
             $table->string('sp_ppn_percentage');
             $table->string('sp_after_ppn');
             $table->string('sp_harga_tanah_bangunan');
@@ -59,10 +59,10 @@ class CreateSuratPesanansTable extends Migration
             //
             $table->string('sp_bill');
             $table->string('sp_dp');
-            $table->string('sp_subsidi');
-            $table->string('sp_tanah_lebih');
-            $table->string('sp_harga_m2');
-            $table->string('sp_total_harga_tanah_lebih');
+            $table->string('sp_subsidi')->nullable();
+            $table->string('sp_tanah_lebih')->nullable();
+            $table->string('sp_harga_m2')->nullable();
+            $table->string('sp_total_harga_tanah_lebih')->nullable();
             $table->string('sp_ppn');
             $table->string('sp_sub_total');
             $table->string('sp_total_bill');

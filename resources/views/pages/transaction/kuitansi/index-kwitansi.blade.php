@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('page-title')
-<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">SP</span> - SP List</h4>
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span> - Kwitansi List</h4>
 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 @endsection
 
 @section('breadcrumb')
-<a href="{{ route('transaction.surat-pesanan.index') }}" class="breadcrumb-item">Surat Pesanan</a>    
+<a href="{{ route('transaction.kwitansi.index') }}" class="breadcrumb-item">Kwitansi</a>
 @endsection
 
 @section('content')
@@ -17,7 +17,7 @@
 @endif
 <div class="card">
     <div class="card-header header-elements-inline">
-        <h5 class="card-title">SP List</h5>
+        <h5 class="card-title">Kwitansi List</h5>
         <div class="header-elements">
             <div class="list-icons">
                 <a class="list-icons-item" data-action="collapse"></a>
@@ -30,13 +30,13 @@
     <table class="table datatable-select-checkbox" id="role-table">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Tgl Surat Pesanan</th>
-                <th>Kode Pre Book</th>
+                <th>Request No</th>
+                <th>Nomor SP</th>
+                <th>Alasan</th>
+                <th>Dibuat Oleh</th>
                 <th>Customer</th>
-                <th>Sales</th>
-                <th>Kavling</th>
-                <th>Active</th>
+                <th>Status</th>
+                <th>Disetujui Oleh</th>
             </tr>
         </thead>
     </table>
@@ -69,15 +69,15 @@ var DatatableSelect = function() {
         $('#role-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! route('transaction.surat-pesanan.data') !!}',
+            ajax: '{!! route('transaction.pembatalan.data') !!}',
             columns: [
                 {data: 'id'},
-                {data: 'sp_date'},
-                {data: 'sp_prebook'},
-                {data: 'customer.customer_name'},
-                {data: 'sales.sales_name'},
-                {data: 'kavling.kavling_type'},
-                {data: 'active'},
+                {data: 'cancel_sp_id'},
+                {data: 'cancel_reason'},
+                {data: 'cancel_make_by'},
+                {data: 'sp.customer.customer_name'},
+                {data: 'cancel_status'},
+                {data: 'cancel_approve_by'},
             ],
             select: {
                 style: 'multi'

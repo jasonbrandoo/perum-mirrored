@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@section('page-title')
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span> - Create New Kwitansi</h4>
+<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+@endsection
+
+@section('breadcrumb')
+<a href="{{ route('transaction.kwitansi.index') }}" class="breadcrumb-item">Kwitansi</a>
+<a href="{{ route('transaction.kwitansi.create') }}" class="breadcrumb-item">New Kwitansi</a>
+@endsection
+
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">

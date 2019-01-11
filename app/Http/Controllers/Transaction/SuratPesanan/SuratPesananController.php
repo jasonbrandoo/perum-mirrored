@@ -12,6 +12,7 @@ use App\Model\Company;
 use App\Model\Price;
 use App\Model\SuratPesanan;
 use App\Http\Requests\StoreSuratPesanan;
+use Yajra\DataTables\DataTables;
 
 class SuratPesananController extends Controller
 {
@@ -24,6 +25,15 @@ class SuratPesananController extends Controller
     {
         //
         return view('pages.transaction.surat.index-surat');
+    }
+
+    /**
+     * Show datatables
+     */
+    public function data()
+    {
+        $sp = SuratPesanan::with('customer', 'sales', 'kavling')->get();
+        return DataTables::of($sp)->toJson();
     }
 
     /**

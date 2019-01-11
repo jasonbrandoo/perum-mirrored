@@ -59,4 +59,12 @@
 {{-- <script src="/template/global_assets/js/demo_pages/datatables_extension_select.js"></script> --}}
 {{-- <script src="/template/global_assets/js/demo_pages/dashboard.js"></script>s --}}
 <!-- /Theme JS files -->
+
+<script>
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+</script>
 @stack('scripts')

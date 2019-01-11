@@ -137,8 +137,8 @@
             <li class="nav-item nav-item-submenu">
               <a href="#" class="nav-link">Pembatalan SP</a>
               <ul class="nav nav-group-sub">
-                <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>Create New Pembatalan SP</a></li>
-                <li class="nav-item"><a href="#" class="nav-link"><i class="icon-list"></i>Pembatalan SP List</a></li>
+                <li class="nav-item"><a href="{{ route('transaction.pembatalan.create') }}" class="nav-link"><i class="icon-plus2"></i>Create New Pembatalan SP</a></li>
+                <li class="nav-item"><a href="{{ route('transaction.pembatalan.index') }}" class="nav-link"><i class="icon-list"></i>Pembatalan SP List</a></li>
               </ul>
             </li>
             <li class="nav-item nav-item-submenu">
@@ -172,8 +172,8 @@
             <li class="nav-item nav-item-submenu">
               <a href="#" class="nav-link">Kuitansi</a>
               <ul class="nav nav-group-sub">
-                <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>Create New Kuitansi</a></li>
-                <li class="nav-item"><a href="#" class="nav-link"><i class="icon-list"></i>Kuitansi List</a></li>
+                <li class="nav-item"><a href="{{ route('transaction.kwitansi.create') }}" class="nav-link"><i class="icon-plus2"></i>Create New Kuitansi</a></li>
+                <li class="nav-item"><a href="{{ route('transaction.kwitansi.index') }}" class="nav-link"><i class="icon-list"></i>Kuitansi List</a></li>
               </ul>
             </li>
             <li class="nav-item nav-item-submenu">

@@ -348,7 +348,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Jumlah Pembayaran:</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="sp_bill">
+                <input type="text" class="form-control" name="sp_bill">
               </div>
             </div>
             <div class="form-group row">
