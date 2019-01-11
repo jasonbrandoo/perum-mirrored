@@ -110,6 +110,7 @@ Route::prefix('transaction')->group(function(){
         Route::get('/', 'Transaction\SuratPesanan\SuratPesananController@index')->name('transaction.surat-pesanan.index');
         Route::get('/create', 'Transaction\SuratPesanan\SuratPesananController@create')->name('transaction.surat-pesanan.create');
         Route::post('/store', 'Transaction\SuratPesanan\SuratPesananController@store')->name('transaction.surat-pesanan.store');
+        Route::get('/data', 'Transaction\SuratPesanan\SuratPesananController@data')->name('transaction.surat-pesanan.data');
         Route::get('/load_customer', 'Transaction\SuratPesanan\SuratPesananController@load_customer')->name('transaction.surat-pesanan.load_customer');
         Route::get('/load_company', 'Transaction\SuratPesanan\SuratPesananController@load_company')->name('transaction.surat-pesanan.load_company');
         Route::get('/load_sales', 'Transaction\SuratPesanan\SuratPesananController@load_sales')->name('transaction.surat-pesanan.load_sales');
@@ -121,6 +122,13 @@ Route::prefix('transaction')->group(function(){
         Route::get('/create', 'Transaction\Mou\MouController@create')->name('transaction.mou.create');
         Route::post('/store', 'Transaction\Mou\MouController@store')->name('transaction.mou.store');
         Route::get('/data', 'Transaction\Mou\MouController@data')->name('transaction.mou.data');
+     });
+     Route::prefix('wawancara')->group(function(){
+        Route::get('/', 'Transaction\Wawancara\WawancaraController@index')->name('transaction.wawancara.index');
+        Route::get('/create', 'Transaction\Wawancara\WawancaraController@create')->name('transaction.wawancara.create');
+        Route::post('/store', 'Transaction\Wawancara\WawancaraController@store')->name('transaction.wawancara.store');
+        Route::get('/data', 'Transaction\Wawancara\WawancaraController@data')->name('transaction.wawancara.data');
+        Route::get('/load_sp', 'Transaction\Wawancara\WawancaraController@load_sp')->name('transaction.wawancara.load_sp');
      });
 });
 

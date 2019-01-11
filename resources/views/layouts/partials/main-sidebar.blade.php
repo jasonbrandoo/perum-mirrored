@@ -207,8 +207,8 @@
             <li class="nav-item nav-item-submenu">
               <a href="#" class="nav-link">Wawancara</a>
               <ul class="nav nav-group-sub">
-                <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>Create New Wawancara</a></li>
-                <li class="nav-item"><a href="#" class="nav-link"><i class="icon-list"></i>Wawancara List</a></li>
+                <li class="nav-item"><a href="{{ route('transaction.wawancara.create') }}" class="nav-link"><i class="icon-plus2"></i>Create New Wawancara</a></li>
+                <li class="nav-item"><a href="{{ route('transaction.wawancara.index') }}" class="nav-link"><i class="icon-list"></i>Wawancara List</a></li>
               </ul>
             </li>
           </ul>

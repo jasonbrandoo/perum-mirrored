@@ -189,13 +189,23 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Dibuat Oleh:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="cancel_make_by">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="cancel_make_by">
+                  @foreach ($users as $user)
+                    <option value=""></option>
+                    <option value="{{$user->id}}">{{$user->name}}</option>
+                  @endforeach
+                </select>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Disetujui oleh:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="cancel_approve_by">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="cancel_approve_by">
+                  @foreach ($users as $user)
+                    <option value=""></option>
+                    <option value="{{$user->id}}">{{$user->name}}</option>
+                  @endforeach
+                </select>
               </div>
             </div>
           </fieldset>

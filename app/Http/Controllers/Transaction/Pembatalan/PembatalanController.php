@@ -9,6 +9,7 @@ use App\Http\Requests\StorePembatalan;
 use App\Model\SuratPesanan;
 use Illuminate\Support\Carbon;
 use Yajra\DataTables\DataTables;
+use App\User;
 
 class PembatalanController extends Controller
 {
@@ -39,7 +40,8 @@ class PembatalanController extends Controller
         //
         $id = (new Pembatalan)->max('id') + 1;
         $sps = SuratPesanan::all();
-        return view('pages.transaction.pembatalansp.create-pembatalan', compact('id', 'sps'));
+        $users = User::all();
+        return view('pages.transaction.pembatalansp.create-pembatalan', compact('id', 'sps', 'users'));
     }
 
     public function load_sp(Request $request)

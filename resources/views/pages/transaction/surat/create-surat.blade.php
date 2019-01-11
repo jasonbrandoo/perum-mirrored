@@ -22,7 +22,15 @@
       </div>
     </div>
   </div>
-
+  @if ($errors->any())
+    <div class="alert alert-danger">
+      <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
   <form class="wizard-form steps-basic" action="{{ route('transaction.surat-pesanan.store') }}" method="POST" data-fouc>
     @csrf
     <h6>1</h6>
