@@ -22,7 +22,7 @@
 
         <!-- Main -->
         <li class="nav-item">
-          <a href="index.html" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="icon-home4"></i>
             <span>
               Dashboard

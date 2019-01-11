@@ -11,6 +11,7 @@ use App\Model\Kavling;
 use App\Model\Company;
 use App\Model\Price;
 use App\Model\SuratPesanan;
+use App\Http\Requests\StoreSuratPesanan;
 
 class SuratPesananController extends Controller
 {
@@ -79,7 +80,7 @@ class SuratPesananController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSuratPesanan $request)
     {
         //
         // return $request;
