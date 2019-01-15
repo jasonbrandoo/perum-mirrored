@@ -76,7 +76,7 @@ var DatatableSelect = function() {
                 {data: 'wawancara_sp_id'},
                 {data: 'surat.customer.customer_name'},
                 {data: 'wawancara_analyst'},
-                {data: null},
+                {data: 'realisasi.rlw_date'},
                 {data: 'wawancara_status'},
             ],
             select: {

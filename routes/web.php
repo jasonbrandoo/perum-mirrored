@@ -93,11 +93,43 @@ Route::prefix('referensi')->group(function(){
  */
 
 Route::prefix('transaction')->group(function(){
+    Route::prefix('legal')->group(function(){
+        Route::get('/', 'Transaction\Legal\LegalController@index')->name('transaction.legal.index');
+        Route::get('/create', 'Transaction\Legal\LegalController@create')->name('transaction.legal.create');
+        Route::post('/store', 'Transaction\Legal\LegalController@store')->name('transaction.legal.store');
+        Route::get('/data', 'Transaction\Legal\LegalController@data')->name('transaction.legal.data');
+        Route::get('/load_sp', 'Transaction\Legal\LegalController@load_sp')->name('transaction.legal.load_sp');
+     });
+    Route::prefix('komisi-akad')->group(function(){
+        Route::get('/', 'Transaction\Komisi\KomisiAkadController@index')->name('transaction.komisi-akad.index');
+        Route::get('/create', 'Transaction\Komisi\KomisiAkadController@create')->name('transaction.komisi-akad.create');
+        Route::post('/store', 'Transaction\Komisi\KomisiAkadController@store')->name('transaction.komisi-akad.store');
+        Route::get('/data', 'Transaction\Komisi\KomisiAkadController@data')->name('transaction.komisi-akad.data');
+        Route::get('/load_sp', 'Transaction\Komisi\KomisiAkadController@load_sp')->name('transaction.komisi-akad.load_sp');
+     });
+    Route::prefix('komisi-eksternal')->group(function(){
+        Route::get('/', 'Transaction\Komisi\KomisiEksternalController@index')->name('transaction.komisi-eksternal.index');
+        Route::get('/create', 'Transaction\Komisi\KomisiEksternalController@create')->name('transaction.komisi-eksternal.create');
+        Route::post('/store', 'Transaction\Komisi\KomisiEksternalController@store')->name('transaction.komisi-eksternal.store');
+        Route::get('/data', 'Transaction\Komisi\KomisiEksternalController@data')->name('transaction.komisi-eksternal.data');
+        Route::get('/load_sp', 'Transaction\Komisi\KomisiEksternalController@load_sp')->name('transaction.komisi-eksternal.load_sp');
+        Route::get('/load_company', 'Transaction\Komisi\KomisiEksternalController@load_company')->name('transaction.komisi-eksternal.load_company');
+        Route::get('/load_mou', 'Transaction\Komisi\KomisiEksternalController@load_mou')->name('transaction.komisi-eksternal.load_mou');
+
+     });
+    Route::prefix('berkas')->group(function(){
+        Route::get('/', 'Transaction\Berkas\BerkasController@index')->name('transaction.berkas.index');
+        Route::get('/create', 'Transaction\Berkas\BerkasController@create')->name('transaction.berkas.create');
+        Route::post('/store', 'Transaction\Berkas\BerkasController@store')->name('transaction.berkas.store');
+        Route::get('/data', 'Transaction\Berkas\BerkasController@data')->name('transaction.berkas.data');
+        Route::get('/load_sp', 'Transaction\Berkas\BerkasController@load_sp')->name('transaction.berkas.load_sp');
+     });
     Route::prefix('kwitansi')->group(function(){
         Route::get('/', 'Transaction\Kwitansi\KwitansiController@index')->name('transaction.kwitansi.index');
         Route::get('/create', 'Transaction\Kwitansi\KwitansiController@create')->name('transaction.kwitansi.create');
         Route::post('/store', 'Transaction\Kwitansi\KwitansiController@store')->name('transaction.kwitansi.store');
         Route::get('/data', 'Transaction\Kwitansi\KwitansiController@data')->name('transaction.kwitansi.data');
+        Route::get('/load_sp', 'Transaction\Kwitansi\KwitansiController@load_sp')->name('transaction.kwitansi.load_sp');
      });
     Route::prefix('pembatalan')->group(function(){
         Route::get('/', 'Transaction\Pembatalan\PembatalanController@index')->name('transaction.pembatalan.index');
@@ -123,12 +155,26 @@ Route::prefix('transaction')->group(function(){
         Route::post('/store', 'Transaction\Mou\MouController@store')->name('transaction.mou.store');
         Route::get('/data', 'Transaction\Mou\MouController@data')->name('transaction.mou.data');
      });
-     Route::prefix('wawancara')->group(function(){
+    Route::prefix('wawancara')->group(function(){
         Route::get('/', 'Transaction\Wawancara\WawancaraController@index')->name('transaction.wawancara.index');
         Route::get('/create', 'Transaction\Wawancara\WawancaraController@create')->name('transaction.wawancara.create');
         Route::post('/store', 'Transaction\Wawancara\WawancaraController@store')->name('transaction.wawancara.store');
         Route::get('/data', 'Transaction\Wawancara\WawancaraController@data')->name('transaction.wawancara.data');
         Route::get('/load_sp', 'Transaction\Wawancara\WawancaraController@load_sp')->name('transaction.wawancara.load_sp');
+     });
+    Route::prefix('realisasi-wawancara')->group(function(){
+        Route::get('/', 'Transaction\Wawancara\RealisasiWawancaraController@index')->name('transaction.realisasi.index');
+        Route::get('/create', 'Transaction\Wawancara\RealisasiWawancaraController@create')->name('transaction.realisasi.create');
+        Route::post('/store', 'Transaction\Wawancara\RealisasiWawancaraController@store')->name('transaction.realisasi.store');
+        Route::get('/data', 'Transaction\Wawancara\RealisasiWawancaraController@data')->name('transaction.realisasi.data');
+        Route::get('/load_wawancara', 'Transaction\Wawancara\RealisasiWawancaraController@load_wawancara')->name('transaction.realisasi.load_wawancara');
+     });
+    Route::prefix('keputusan-wawancara')->group(function(){
+        Route::get('/', 'Transaction\Wawancara\KeputusanController@index')->name('transaction.keputusan.index');
+        Route::get('/create', 'Transaction\Wawancara\KeputusanController@create')->name('transaction.keputusan.create');
+        Route::post('/store', 'Transaction\Wawancara\KeputusanController@store')->name('transaction.keputusan.store');
+        Route::get('/data', 'Transaction\Wawancara\KeputusanController@data')->name('transaction.keputusan.data');
+        Route::get('/load_wawancara', 'Transaction\Wawancara\KeputusanController@load_wawancara')->name('transaction.keputusan.load_wawancara');
      });
 });
 

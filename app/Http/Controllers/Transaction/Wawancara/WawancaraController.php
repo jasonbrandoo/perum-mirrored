@@ -25,7 +25,7 @@ class WawancaraController extends Controller
 
     public function data()
     {
-        $wawancara = Wawancara::with('surat.customer')->get();
+        $wawancara = Wawancara::with('surat.customer', 'realisasi')->get();
         return DataTables::of($wawancara)->toJson();
     }
 

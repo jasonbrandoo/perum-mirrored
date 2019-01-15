@@ -9,6 +9,11 @@ class SuratPesanan extends Model
     //
     protected $guarded = [];
 
+    public function company()
+    {
+        return $this->belongsTo('App\Model\Company', 'sp_company_id');
+    }
+
     public function customer()
     {
         return $this->belongsTo('App\Model\Customer', 'sp_customer_id');

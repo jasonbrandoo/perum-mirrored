@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('page-title')
-<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span> - Kwitansi List</h4>
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span> - Legal List</h4>
 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 @endsection
 
 @section('breadcrumb')
-<a href="{{ route('transaction.kwitansi.index') }}" class="breadcrumb-item">Kwitansi</a>
+<a href="{{ route('transaction.legal.index') }}" class="breadcrumb-item">Legal</a>
 @endsection
 
 @section('content')
@@ -17,7 +17,7 @@
 @endif
 <div class="card">
     <div class="card-header header-elements-inline">
-        <h5 class="card-title">Kwitansi List</h5>
+        <h5 class="card-title">Legal List</h5>
         <div class="header-elements">
             <div class="list-icons">
                 <a class="list-icons-item" data-action="collapse"></a>
@@ -30,12 +30,11 @@
     <table class="table datatable-select-checkbox" id="role-table">
         <thead>
             <tr>
-                <th>No Kwitansi</th>
-                <th>Tgl Kwitansi</th>
+                <th>No</th>
+                <th>Tanggal</th>
+                <th>SHGB Induk</th>
+                <th>SHGB Pecahan</th>
                 <th>No SP</th>
-                <th>Nama Staff</th>
-                <th>Customer</th>
-                <th>Method</th>
                 <th>Active</th>
             </tr>
         </thead>
@@ -69,14 +68,13 @@ var DatatableSelect = function() {
         $('#role-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! route('transaction.kwitansi.data') !!}',
+            ajax: '{!! route('transaction.legal.data') !!}',
             columns: [
                 {data: 'id'},
-                {data: 'kwitansi_date'},
-                {data: 'kwitansi_sp_id'},
-                {data: 'kwitansi_staff_name'},
-                {data: 'surat.customer.customer_name'},
-                {data: 'kwitansi_payment_method'},
+                {data: 'legal_date'},
+                {data: 'legal_shgb_parent_date'},
+                {data: 'legal_shgb_fraction_date'},
+                {data: 'surat.id'},
                 {data: 'active'},
             ],
             select: {

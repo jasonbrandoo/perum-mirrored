@@ -13,6 +13,7 @@ use App\Model\Price;
 use App\Model\SuratPesanan;
 use App\Http\Requests\StoreSuratPesanan;
 use Yajra\DataTables\DataTables;
+use Carbon\Carbon;
 
 class SuratPesananController extends Controller
 {
@@ -97,9 +98,9 @@ class SuratPesananController extends Controller
         SuratPesanan::create([
             'sp_prebook' => $request->input('sp_prebook'),
             'sp_no' => $request->input('sp_no'),
-            'sp_date' => $request->input('sp_date'),
+            'sp_date' => Carbon::parse($request->input('sp_date'))->format('Y-m-d H:i:s'),
             'sp_ppjb' => $request->input('sp_ppjb'),
-            'sp_ppjb_date' => $request->input('sp_ppjb_date'),
+            'sp_ppjb_date' => Carbon::parse($request->input('sp_ppjb_date'))->format('Y-m-d H:i:s'),
             'sp_customer_id' => $request->input('sp_customer_id'),
             'sp_company_id' => $request->input('sp_company_id'),
             'sp_mou_id' => $request->input('sp_mou_id'),
