@@ -55,7 +55,7 @@ class MouController extends Controller
             'mou_company_id' => $request->input('mou_company_id'),
             'mou_coordinator' => $request->input('mou_coordinator'),
             'mou_coordinator_position' => $request->input('mou_coordinator_position'),
-            'mou_active' => $request->input('mou_active') == null ? 'Not Active' : 'Active',
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active',
             'mou_date' => Carbon::parse($request->input('mou_date'))->format('Y-m-d H:i:s'),
             'mou_start_date' => Carbon::parse($request->input('mou_start_date'))->format('Y-m-d H:i:s'),
             'mou_end_date' => Carbon::parse($request->input('mou_end_date'))->format('Y-m-d H:i:s'),

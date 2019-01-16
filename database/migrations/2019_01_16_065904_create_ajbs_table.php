@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReferensisTable extends Migration
+class CreateAjbsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateReferensisTable extends Migration
      */
     public function up()
     {
-        Schema::create('referensis', function (Blueprint $table) {
+        Schema::create('ajbs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('reference_group');
-            $table->string('reference_description')->nullable();
-            $table->string('active')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ class CreateReferensisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('referensis');
+        Schema::dropIfExists('ajbs');
     }
 }

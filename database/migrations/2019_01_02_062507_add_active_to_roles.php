@@ -15,7 +15,7 @@ class AddActiveToRoles extends Migration
     {
         Schema::table('roles', function (Blueprint $table) {
             //
-            $table->string('active');
+            $table->string('active')->nullable();
         });
     }
 

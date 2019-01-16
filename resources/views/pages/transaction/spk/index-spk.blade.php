@@ -2,16 +2,16 @@
 
 @section('page-title')
 <div class="mr-auto">
-    <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Users</span> - User List</h4>
+    <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span> - SPK List</h4>
     <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 </div>
 <div>
-  <a href="{{ route ('users.create') }}" class="btn btn-lg btn-primary"><i class="icon-plus-circle2 mr-2"></i>Add</a>
+  <a href="{{ route ('transaction.spk.create') }}" class="btn btn-lg btn-primary"><i class="icon-plus-circle2 mr-2"></i>Add</a>
 </div>
 @endsection
 
 @section('breadcrumb')
-<a href="{{ route('users.index') }}" class="breadcrumb-item">Users</a>
+<a href="{{ route('transaction.spk.index') }}" class="breadcrumb-item">SPK</a>
 @endsection
 
 @section('content')
@@ -22,7 +22,7 @@
 @endif
 <div class="card">
     <div class="card-header header-elements-inline">
-        <h5 class="card-title">Users</h5>
+        <h5 class="card-title">SPK List</h5>
         <div class="header-elements">
             <div class="list-icons">
                 <a class="list-icons-item" data-action="collapse"></a>
@@ -35,9 +35,10 @@
     <table class="table datatable-select-checkbox" id="role-table">
         <thead>
             <tr>
-                <th>Full Name</th>
-                <th>Staff ID</th>
-                <th>Role</th>
+                <th>No SPK</th>
+                <th>Tanggal</th>
+                <th>No SP</th>
+                <th>Customer</th>
                 <th>Active</th>
             </tr>
         </thead>
@@ -71,11 +72,12 @@ var DatatableSelect = function() {
         $('#role-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! route('users.data') !!}',
+            ajax: '{!! route('transaction.spk.data') !!}',
             columns: [
-                {data: 'name'},
-                {data: 'staff_id'},
-                {data: 'roles.role_name'},
+                {data: 'id'},
+                {data: 'spk_date'},
+                {data: 'spk_sp_id'},
+                {data: 'surat.customer.customer_name'},
                 {data: 'active'},
             ],
             select: {

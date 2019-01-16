@@ -100,6 +100,14 @@ Route::prefix('transaction')->group(function(){
         Route::get('/data', 'Transaction\Legal\LegalController@data')->name('transaction.legal.data');
         Route::get('/load_sp', 'Transaction\Legal\LegalController@load_sp')->name('transaction.legal.load_sp');
      });
+     Route::prefix('lpa')->group(function(){
+        Route::get('/', 'Transaction\Lpa\LPAController@index')->name('transaction.lpa.index');
+        Route::get('/create', 'Transaction\Lpa\LPAController@create')->name('transaction.lpa.create');
+        Route::post('/store', 'Transaction\Lpa\LPAController@store')->name('transaction.lpa.store');
+        Route::get('/data', 'Transaction\Lpa\LPAController@data')->name('transaction.lpa.data');
+        Route::get('/load_sp', 'Transaction\Lpa\LPAController@load_sp')->name('transaction.lpa.load_sp');
+        Route::get('/load_kavling', 'Transaction\Lpa\LPAController@load_kavling')->name('transaction.lpa.load_kavling');
+     });
     Route::prefix('komisi-akad')->group(function(){
         Route::get('/', 'Transaction\Komisi\KomisiAkadController@index')->name('transaction.komisi-akad.index');
         Route::get('/create', 'Transaction\Komisi\KomisiAkadController@create')->name('transaction.komisi-akad.create');
@@ -154,6 +162,13 @@ Route::prefix('transaction')->group(function(){
         Route::get('/create', 'Transaction\Mou\MouController@create')->name('transaction.mou.create');
         Route::post('/store', 'Transaction\Mou\MouController@store')->name('transaction.mou.store');
         Route::get('/data', 'Transaction\Mou\MouController@data')->name('transaction.mou.data');
+     });
+    Route::prefix('spk')->group(function(){
+        Route::get('/', 'Transaction\Spk\SpkController@index')->name('transaction.spk.index');
+        Route::get('/create', 'Transaction\Spk\SpkController@create')->name('transaction.spk.create');
+        Route::post('/store', 'Transaction\Spk\SpkController@store')->name('transaction.spk.store');
+        Route::get('/data', 'Transaction\Spk\SpkController@data')->name('transaction.spk.data');
+        Route::get('/load_sp', 'Transaction\Spk\SpkController@load_sp')->name('transaction.spk.load_sp');
      });
     Route::prefix('wawancara')->group(function(){
         Route::get('/', 'Transaction\Wawancara\WawancaraController@index')->name('transaction.wawancara.index');

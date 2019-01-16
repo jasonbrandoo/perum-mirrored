@@ -175,7 +175,6 @@
                 </div>
               </div>
             </div>
-
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Active:</label>
               <div class="col-lg-9">

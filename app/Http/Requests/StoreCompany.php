@@ -36,4 +36,24 @@ class StoreCompany extends FormRequest
             'company_email' => ['required', 'email']
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'company_name.required' => 'Company name is required',
+            'company_type.required' => 'Company type is required',
+            'company_address.required' => 'Company address is required',
+            'company_city.required' => 'Company city is required',
+            'company_province.required' => 'Company province is required',
+            'company_zipcode.required' => 'Company zipcode is required',
+            'company_state.required' => 'Company state is required',
+            'company_phone.required' => 'Company phone name is required',
+            'company_email.required' => 'Company email is required'
+        ];
+    }
 }

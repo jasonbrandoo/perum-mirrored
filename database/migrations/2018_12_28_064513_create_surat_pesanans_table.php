@@ -70,7 +70,7 @@ class CreateSuratPesanansTable extends Migration
             $table->string('sp_internal_bill');
             $table->string('sp_per_month_kreditur');
             $table->string('sp_kreditur_bill');
-            $table->string('active');
+            $table->string('active')->nullable();
             $table->timestamps();
         });
     }

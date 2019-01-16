@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreMou extends FormRequest
+class StoreSpk extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,14 +25,9 @@ class StoreMou extends FormRequest
     {
         return [
             //
-            'mou_company_id' => ['required'],
-            'mou_coordinator' => ['required'],
-            'mou_coordinator_position' => ['required'],
-            'active' => ['required'],
-            'mou_date' => ['required', 'string'],
-            'mou_start_date' => ['required'],
-            'mou_end_date' => ['required'],
-            'mou_commision' => ['required', 'numeric']
+            'spk_date' => ['required'],
+            'spk_price' => ['required'],
+            'spk_sp_id' => ['required'],
         ];
     }
 }

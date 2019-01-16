@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReferensisTable extends Migration
+class CreateSpksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateReferensisTable extends Migration
      */
     public function up()
     {
-        Schema::create('referensis', function (Blueprint $table) {
+        Schema::create('spks', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('reference_group');
-            $table->string('reference_description')->nullable();
+            $table->integer('spk_sp_id');
+            $table->dateTime('spk_date');
+            $table->integer('spk_price');
             $table->string('active')->nullable();
             $table->timestamps();
         });
@@ -29,6 +30,6 @@ class CreateReferensisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('referensis');
+        Schema::dropIfExists('spks');
     }
 }

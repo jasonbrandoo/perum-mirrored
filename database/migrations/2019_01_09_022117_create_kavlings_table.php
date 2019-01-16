@@ -38,6 +38,7 @@ class CreateKavlingsTable extends Migration
             $table->dateTime('kavling_shgb_date');
             $table->string('kavling_imb');
             $table->dateTime('kavling_imb_date');
+            $table->string('active')->nullable();
             $table->timestamps();
         });
     }

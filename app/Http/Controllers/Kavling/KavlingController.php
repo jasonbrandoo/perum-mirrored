@@ -81,6 +81,7 @@ class KavlingController extends Controller
             'kavling_shgb_date' => Carbon::parse($request->input('kavling_shgb_date'))->format('Y-m-d H:i:s'),
             'kavling_imb' => $request->input('kavling_imb'),
             'kavling_imb_date' => Carbon::parse($request->input('kavling_imb_date'))->format('Y-m-d H:i:s'),
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active'
         ]);
         return redirect('kavling')->with('success', 'Successfull create Kavling');
     }

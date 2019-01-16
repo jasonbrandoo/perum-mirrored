@@ -18,7 +18,7 @@ class CreateMousTable extends Migration
             $table->integer('mou_company_id');
             $table->string('mou_coordinator');
             $table->string('mou_coordinator_position');
-            $table->string('mou_active');
+            $table->string('active')->nullable();
             $table->dateTime('mou_date');
             $table->dateTime('mou_start_date');
             $table->dateTime('mou_end_date');

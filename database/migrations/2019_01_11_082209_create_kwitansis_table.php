@@ -25,7 +25,7 @@ class CreateKwitansisTable extends Migration
             $table->integer('kwitansi_jumlah');
             $table->string('kwitansi_payment_method');
             $table->dateTime('kwitansi_transfer_date');
-            $table->string('active');
+            $table->string('active')->nullable();
             $table->timestamps();
         });
     }

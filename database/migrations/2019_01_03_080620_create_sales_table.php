@@ -24,7 +24,7 @@ class CreateSalesTable extends Migration
             $table->string('sales_province');
             $table->string('sales_zipcode');
             $table->string('sales_position');
-            $table->string('active');
+            $table->string('active')->nullable();
             $table->string('sales_komisi')->nullable();
             $table->string('sales_void')->nullable();
             $table->string('sales_target');

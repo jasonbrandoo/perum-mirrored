@@ -20,8 +20,8 @@ class CreateKomisiAkadsTable extends Migration
             $table->dateTime('akad_date');
             $table->integer('akad_sales_commision');
             $table->integer('akad_spv_commision');
-            $table->string('akad_coordiantor');
-            $table->string('active');
+            $table->string('akad_coordinator');
+            $table->string('active')->nullable();
             $table->dateTime('akad_ajb_date');
             $table->timestamps();
         });

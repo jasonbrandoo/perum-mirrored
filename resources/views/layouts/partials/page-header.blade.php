@@ -1,5 +1,5 @@
 <div class="page-header page-header-light">
-  <div class="page-header-content header-elements-md-inline">
+  <div class="page-header-content">
     <div class="page-title d-flex">
       @yield('page-title')
     </div>

@@ -33,7 +33,7 @@ class CreatePricesTable extends Migration
             $table->integer('price_20_year');
             $table->dateTime('price_start_date');
             $table->dateTime('price_end_date');
-            $table->string('active');
+            $table->string('active')->nullable();
             $table->timestamps();
         });
     }

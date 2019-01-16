@@ -26,7 +26,7 @@ class CreateCompaniesTable extends Migration
             $table->string('company_ext')->nullable();
             $table->string('company_fax')->nullable();
             $table->string('company_email');
-            $table->string('active');
+            $table->string('active')->nullable();
             $table->timestamps();
         });
     }

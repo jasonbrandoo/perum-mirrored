@@ -29,7 +29,7 @@ class CreateLegalsTable extends Migration
             $table->dateTime('legal_imb_date');
             $table->integer('legal_nop_pbb');
             $table->dateTime('legal_nop_pbb_date');
-            $table->string('active');
+            $table->string('active')->nullable();
             $table->timestamps();
         });
     }

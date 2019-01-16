@@ -1,8 +1,13 @@
 @extends('layouts.app')
 
 @section('page-title')
-<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Kavling</span> - Kavling List</h4>
-<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+<div class="mr-auto">
+    <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Kavling</span> - Kavling List</h4>
+    <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+</div>
+<div>
+  <a href="{{ route ('kavling.create') }}" class="btn btn-lg btn-primary"><i class="icon-plus-circle2 mr-2"></i>Add</a>
+</div>
 @endsection
 
 @section('breadcrumb')
@@ -36,6 +41,7 @@
                 <th>Cluster</th>
                 <th>Hook</th>
                 <th>Tipe Rumah</th>
+                <th>Active</th>
             </tr>
         </thead>
     </table>
@@ -76,6 +82,7 @@ var DatatableSelect = function() {
                 {data: 'kavling_cluster'},
                 {data: 'kavling_hook'},
                 {data: 'price.house.rumah_type_name'},
+                {data: 'active'},
             ],
             select: {
                 style: 'multi'

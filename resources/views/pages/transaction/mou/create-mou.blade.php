@@ -5,6 +5,11 @@
 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 @endsection
 
+@section('breadcrumb')
+<a href="{{ route('transaction.mou.index') }}" class="breadcrumb-item">MOU</a>
+<a href="{{ route('transaction.mou.create') }}" class="breadcrumb-item">New MOU</a>
+@endsection
+
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">
@@ -38,7 +43,6 @@
                 <input type="text" class="form-control" name="mou_id" value="MOU000{{$id}}" readonly>
               </div>
             </div>
-            
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Perusahaan / Instansi:</label>
               <div class="col-lg-9">
@@ -65,7 +69,7 @@
               <label class="col-lg-3 col-form-label">Status Perjanjian(MOU):</label>
               <div class="col-lg-9">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input" name="mou_active">
+                  <input type="checkbox" class="form-check-input" name="active">
                 </div>
               </div>
             </div>

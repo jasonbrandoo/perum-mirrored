@@ -82,6 +82,14 @@
               </div>
             </div>
             <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Active:</label>
+              <div class="col-lg-9">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" name="active">
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
               <label class="col-lg-3 col-form-label">No. TL</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="kavling_tl">

@@ -20,7 +20,7 @@ class CreateBerkasTable extends Migration
             $table->string('berkas_giver');
             $table->string('berkas_reciever');
             $table->string('berkas_note')->nullable();
-            $table->string('active');
+            $table->string('active')->nullable();
             $table->timestamps();
         });
     }

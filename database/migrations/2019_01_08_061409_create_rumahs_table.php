@@ -18,7 +18,7 @@ class CreateRumahsTable extends Migration
             $table->string('rumah_type_name');
             $table->integer('surface_area_m2');
             $table->integer('building_area_m2');
-            $table->string('active');
+            $table->string('active')->nullable();
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReferensisTable extends Migration
+class CreateLPAsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateReferensisTable extends Migration
      */
     public function up()
     {
-        Schema::create('referensis', function (Blueprint $table) {
+        Schema::create('l_p_as', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('reference_group');
-            $table->string('reference_description')->nullable();
+            $table->dateTime('lpa_date');
+            $table->string('lpa_type');
+            $table->integer('lpa_kavling_id');
+            $table->integer('lpa_sp_id');
             $table->string('active')->nullable();
             $table->timestamps();
         });
@@ -29,6 +31,6 @@ class CreateReferensisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('referensis');
+        Schema::dropIfExists('l_p_as');
     }
 }

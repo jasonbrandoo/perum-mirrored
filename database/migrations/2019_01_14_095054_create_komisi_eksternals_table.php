@@ -19,10 +19,10 @@ class CreateKomisiEksternalsTable extends Migration
             $table->integer('eksternal_coordinator');
             $table->integer('eksternal_commision');
             $table->integer(('eksternal_company_id'));
-            $table->integer('eksterna_mou_id');
+            $table->integer('eksternal_mou_id');
             $table->integer('eksternal_sp_id');
             $table->dateTime('eksternal_ajb_date');
-            $table->string('active');
+            $table->string('active')->nullable();
             $table->timestamps();
         });
     }

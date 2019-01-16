@@ -1,8 +1,13 @@
 @extends('layouts.app')
 
 @section('page-title')
-<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span> - Berkas List</h4>
-<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+<div class="mr-auto">
+    <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span> - Berkas List</h4>
+    <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+</div>
+<div>
+  <a href="{{ route ('transaction.berkas.create') }}" class="btn btn-lg btn-primary"><i class="icon-plus-circle2 mr-2"></i>Add</a>
+</div>
 @endsection
 
 @section('breadcrumb')
