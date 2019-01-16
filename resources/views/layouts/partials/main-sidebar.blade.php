@@ -95,7 +95,10 @@
             <li class="nav-item nav-item-submenu">
               <a href="#" class="nav-link">AJB</a>
               <ul class="nav nav-group-sub">
-                  <li class="nav-item"><a href="#" class="nav-link"><i class="icon-plus2"></i>Create New AJB</a></li>
+                  <li class="nav-item"><a href="{{ route('transaction.ajb.create') }}" class="nav-link"><i class="icon-plus2"></i>Create New AJB</a></li>
+                  <li class="nav-item"><a href="{{ route('transaction.ajb.realization') }}" class="nav-link"><i class="icon-plus2"></i>Realisasi AJB</a></li>
+                  <li class="nav-item"><a href="{{ route('transaction.ajb.disbursement') }}" class="nav-link"><i class="icon-plus2"></i>Pencairan</a></li>
+                  <li class="nav-item"><a href="{{ route('transaction.ajb.index') }}" class="nav-link"><i class="icon-plus2"></i>AJB List</a></li>
               </ul>
             </li>
             {{--  --}}

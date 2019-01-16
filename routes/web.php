@@ -93,6 +93,17 @@ Route::prefix('referensi')->group(function(){
  */
 
 Route::prefix('transaction')->group(function(){
+    Route::prefix('ajb')->group(function(){
+        Route::get('/', 'Transaction\Ajb\AjbController@index')->name('transaction.ajb.index');
+        Route::get('/create', 'Transaction\Ajb\AjbController@create')->name('transaction.ajb.create');
+        Route::get('/realization', 'Transaction\Ajb\AjbController@realization')->name('transaction.ajb.realization');
+        Route::get('/disbursement', 'Transaction\Ajb\AjbController@disbursement')->name('transaction.ajb.disbursement');
+        Route::post('/store', 'Transaction\Ajb\AjbController@store')->name('transaction.ajb.store');
+        Route::post('/store-realization', 'Transaction\Ajb\AjbController@storeRealization')->name('transaction.ajb.store-realization');
+        Route::post('/store-disbursement', 'Transaction\Ajb\AjbController@storeDisbursement')->name('transaction.ajb.store-disbursement');
+        Route::get('/data', 'Transaction\Ajb\AjbController@data')->name('transaction.ajb.data');
+        Route::get('/load_sp', 'Transaction\Ajb\AjbController@load_sp')->name('transaction.ajb.load_sp');
+     });
     Route::prefix('legal')->group(function(){
         Route::get('/', 'Transaction\Legal\LegalController@index')->name('transaction.legal.index');
         Route::get('/create', 'Transaction\Legal\LegalController@create')->name('transaction.legal.create');
@@ -100,7 +111,7 @@ Route::prefix('transaction')->group(function(){
         Route::get('/data', 'Transaction\Legal\LegalController@data')->name('transaction.legal.data');
         Route::get('/load_sp', 'Transaction\Legal\LegalController@load_sp')->name('transaction.legal.load_sp');
      });
-     Route::prefix('lpa')->group(function(){
+    Route::prefix('lpa')->group(function(){
         Route::get('/', 'Transaction\Lpa\LPAController@index')->name('transaction.lpa.index');
         Route::get('/create', 'Transaction\Lpa\LPAController@create')->name('transaction.lpa.create');
         Route::post('/store', 'Transaction\Lpa\LPAController@store')->name('transaction.lpa.store');
