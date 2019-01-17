@@ -125,7 +125,7 @@
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="kavling_price_id" id="kavling_price_code">
                   @foreach ($prices as $price)
                     <option></option>
-                    <option value="{{$price->id}}">H{{$price->id}}</option>
+                    <option value="{{$price->id}}">H000{{$price->id}}</option>
                   @endforeach
                 </select>
               </div>
@@ -300,4 +300,5 @@ document.addEventListener('DOMContentLoaded', function() {
   DateTimePickers.init();
 });
 </script>
+<script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>
 @endpush

@@ -6,6 +6,7 @@ use App\Model\Keputusan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\RealisasiWawancara;
+use App\Model\SuratPesanan;
 
 class KeputusanController extends Controller
 {
@@ -29,7 +30,20 @@ class KeputusanController extends Controller
         //
         $id = (new Keputusan)->max('id') + 1;
         $rlw = RealisasiWawancara::all();
-        return view('pages.transaction.wawancara.create-keputusan', compact('id', 'rlw'));
+        $sps = SuratPesanan::all();
+        return view('pages.transaction.wawancara.create-keputusan', compact('id', 'rlw', 'sps'));
+    }
+
+    public function load_realisasi(Request $request)
+    {
+        $rlw_id = RealisasiWawancara::find($request->id);
+        return response()->json($rlw_id);
+    }
+
+    public function load_sp(Request $request)
+    {
+        $sp = SuratPesanan::with('customer', 'kavling', 'sales')->find($request->id);
+        return response()->json($sp);
     }
 
     /**
@@ -38,9 +52,10 @@ class KeputusanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(\App\Http\Requests\StoreKeputusan $request)
     {
         //
+        return $request;
     }
 
     /**

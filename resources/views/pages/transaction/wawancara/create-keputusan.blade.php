@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
 @section('page-title')
-<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span></span>SP</span> - Create New Keputusan Wawancara</h4>
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span> - Create New Keputusan Wawancara</h4>
 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 @endsection
 
 @section('breadcrumb')
-<a href="{{ route('transaction.keputusan.index') }}" class="breadcrumb-item">Keputusan Wawancara</a>    
+<a href="{{ route('transaction.keputusan.index') }}" class="breadcrumb-item">Wawancara</a>    
 <a href="{{ route('transaction.keputusan.create') }}" class="breadcrumb-item">New Keputusan Wawancara</a>    
 @endsection
 
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">
-    <h5 class="card-title">Create New Keputusan Wawancara</h5>
+    <h5 class="card-title">Create New Result</h5>
     <div class="header-elements">
       <div class="list-icons">
         <a class="list-icons-item" data-action="collapse"></a>
@@ -22,16 +22,16 @@
       </div>
     </div>
   </div>
-  @if ($errors->any())
-    <div class="alert alert-danger">
-      <ul>
-        @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-  @endif
   <div class="card-body">
+    @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
     <form action="{{ route('transaction.keputusan.store') }}" method="POST">
       @csrf
       <div class="row">
@@ -40,16 +40,10 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No Wawancara:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" value="RLW000{{$id}}" readonly>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Rencana Wawancara:</label>
-              <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="rlw_wawancara_id" id="wawancara_id">
-                  @foreach ($wawancaras as $wawancara)
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="result_realization_id" id="rlw_id">
+                  @foreach ($rlw as $realisasi)
                     <option></option>
-                    <option value="{{$wawancara->id}}">RW000{{$wawancara->id}}</option>
+                    <option value="{{$realisasi->id}}">RW000{{$realisasi->id}}</option>
                   @endforeach
                 </select>
               </div>
@@ -61,32 +55,64 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="rlw_date">
+                  <input type="text" class="form-control pickadate-selectors" id="rlw_date" readonly>
+                </div>
+              </div>
+            </div>
+            
+            
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Hasil:</label>
+              <div class="col-lg-9">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="result_status">
+                  <option></option>
+                    <option value="accept">Diterima</option>
+                    <option value="reject">DiTolak</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Banding:</label>
+              <div class="col-lg-9">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="result_banding">
+                  <option></option>
+                    <option value="yes">Ya</option>
+                    <option value="no">Tidak</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Alasan:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" name="result_reason"> 
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">No Keputusan Diterima/Ditolak:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" value="KP000{{$id}}" readonly>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Tanggal Keputusan Diterima/Ditolak:</label>
+              <div class="col-lg-9">
+                <div class="input-group">
+                  <span class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-calendar2"></i></span>
+                  </span>
+                  <input type="text" class="form-control pickadate-selectors" name="result_date">
                 </div>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Harga Jual:</label>
+              <label class="col-lg-3 col-form-label">Tanggal Expired:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="wawancara_price">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">KPR Dimohon:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" id="wawancara_kpr">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Analis:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="rlw_analyst">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Catatan:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="rlw_note">
+                <div class="input-group">
+                  <span class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-calendar2"></i></span>
+                  </span>
+                  <input type="text" class="form-control pickadate-selectors" name="result_expired_date">
+                </div>
               </div>
             </div>
           </fieldset>
@@ -94,9 +120,9 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nomer SP:</label>
+              <label class="col-lg-3 col-form-label">No Sp:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="rlw_sp_id" id="sp_id">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="result_sp_id" id="sp_id">
                   @foreach ($sps as $sp)
                     <option></option>
                     <option value="{{$sp->id}}">SP000{{$sp->id}}</option>
@@ -104,52 +130,174 @@
                 </select>
               </div>
             </div>
+
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal SP:</label>
+              <label class="col-lg-3 col-form-label">Tanggal Sp:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_date">
+                <input type="text" class="form-control" id="sp_date" readonly>
               </div>
             </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Sales:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_se">
-              </div>
-            </div>
+
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Customer ID:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_customer_id">
+                <input type="text" class="form-control" id="sp_customer" readonly>
               </div>
             </div>
+
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Customer Name:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_customer_name">
-              </div>
+                  <input type="text" class="form-control" id="sp_customer_name" readonly>
+                </div>
             </div>
+
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kavling:</label>
+              <label class="col-lg-3 col-form-label">Sales:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_kavling">
+                <input type="text" class="form-control" id="sp_sales" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tipe Rumah:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_rumah">
+                <input type="text" class="form-control" id="sp_house_type" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kode Kreditur:</label>
+              <label class="col-lg-3 col-form-label">Kavling:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_kreditur" name="rlw_kreditur_id">
+                <input type="text" class="form-control" id="sp_kavling" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nama Kreditur:</label>
+              <label class="col-lg-3 col-form-label">Harga Jual SP:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_kreditur_name" name="rlw_kreditur_name">
+                <input type="text" class="form-control" id="sp_price" readonly>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">KPR Dimohon:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" id="sp_kpr" readonly>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="col-md-12">
+          <br>
+          <hr>
+          <br>
+        </div>
+        <div class="col-md-6">
+          <fieldset>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">KPR Disetujui:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" name="result_kpr_approve">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Tambah Uang Muka:</label>
+              <div class="col-lg-9">
+                <input type="number" class="form-control" name="result_dp_plus">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Jangka Waktu - Bunga(%):</label>
+              <div class="col-lg-9">
+                <input type="number" class="form-control" name="result_waktu_bunga">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Angsuran Per Bulan:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" name="result_angsuran_bulan">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">No Rek:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" name="result_account">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Angsuran Bulan Pertama:</label>
+              <div class="col-lg-9">
+                  <input type="text" class="form-control" name="result_angsuran_first_month">
+                </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Provisi Bank:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" name="result_provisi">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Bi Notaris:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" name="result_bi_notaris">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Bi APHT:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" name="result_bi_apht">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Bi Penilai / Appraiser:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" name="result_appraiser">
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="col-md-6">
+          <fieldset>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Premi Asuransi Kebakaran:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" name="result_premi_kebakaran">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Premi Asuransi Jiwa:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" name="result_premi_jiwa">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Saldo Tabungan Diblokir:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" name="result_tabungan_diblokir">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Bi Administrasi:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" name="result_bi_administrasi">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Sub Total:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" name="result_sub_total">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Grand Total:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" name="result_grand_total">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Catatan Penting:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" name="result_note">
               </div>
             </div>
           </fieldset>
@@ -166,41 +314,42 @@
 @push('scripts')
 <script>
 $(document).ready(function(){
-
-  $('#sp_id').on('change', function(e){
+  $('#rlw_id').on('change', function(e){
     var id = $(this).val();
     console.log(id);
     $.ajax({
-    url: '{{route('transaction.wawancara.load_sp')}}',
+    url: '{{route('transaction.keputusan.load_realisasi')}}',
     data: {
       id: id
     },
     success: function (result) {
       console.log(result);
-      $('#sp_date').val(result.sp_date);
-      $('#sp_se').val(result.sales.sales_name);
-      $('#sp_customer_id').val(result.sp_customer_id);
-      $('#sp_customer_name').val(result.customer.customer_name);
-      $('#sp_kavling').val(result.sp_kavling_id);
-      $('#sp_rumah').val(result.kavling.price.house.rumah_type_name);
+      $('#rlw_date').val(result.rlw_date);
     },
     error: function (e) {
       console.log(e);
     }
     });
   });
-  $('#wawancara_id').on('change', function(e){
+
+  $('#sp_id').on('change', function(e){
     var id = $(this).val();
     console.log(id);
     $.ajax({
-    url: '{{route('transaction.realisasi.load_wawancara')}}',
+    url: '{{route('transaction.keputusan.load_sp')}}',
     data: {
       id: id
     },
     success: function (result) {
       console.log(result);
-      $('#wawancara_price').val(result.wawancara_price);
-      $('#wawancara_kpr').val(result.wawancara_kpr);
+      $('#sp_date').val(result.sp_date);
+      $('#sp_customer').val(result.sp_customer_id);
+      $('#sp_customer_name').val(result.customer.customer_name);
+      $('#sp_sales').val(result.sales.sales_name);
+      $('#sp_house_type').val(result.sp_house_type);
+      $('#sp_kavling').val(result.sp_kavling_id);
+      $('#sp_price').val(result.sp_price);
+      $('#sp_kpr').val(result.sp_kpr_plan);
     },
     error: function (e) {
       console.log(e);
@@ -231,4 +380,5 @@ document.addEventListener('DOMContentLoaded', function() {
   DateTimePickers.init();
 });
 </script>
+<script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>
 @endpush

@@ -95,10 +95,10 @@
             <li class="nav-item nav-item-submenu">
               <a href="#" class="nav-link">AJB</a>
               <ul class="nav nav-group-sub">
-                  <li class="nav-item"><a href="{{ route('transaction.ajb.create') }}" class="nav-link"><i class="icon-plus2"></i>Create New AJB</a></li>
-                  <li class="nav-item"><a href="{{ route('transaction.ajb.realization') }}" class="nav-link"><i class="icon-plus2"></i>Realisasi AJB</a></li>
-                  <li class="nav-item"><a href="{{ route('transaction.ajb.disbursement') }}" class="nav-link"><i class="icon-plus2"></i>Pencairan</a></li>
-                  <li class="nav-item"><a href="{{ route('transaction.ajb.index') }}" class="nav-link"><i class="icon-plus2"></i>AJB List</a></li>
+                  <li class="nav-item"><a href="{{ route('transaction.ajb.create') }}" class="nav-link">Create New AJB</a></li>
+                  <li class="nav-item"><a href="{{ route('transaction.ajb.realization') }}" class="nav-link">Realisasi AJB</a></li>
+                  <li class="nav-item"><a href="{{ route('transaction.ajb.disbursement') }}" class="nav-link">Pencairan</a></li>
+                  <li class="nav-item"><a href="{{ route('transaction.ajb.index') }}" class="nav-link">AJB List</a></li>
               </ul>
             </li>
             {{--  --}}
@@ -175,7 +175,10 @@
             <li class="nav-item nav-item-submenu">
               <a href="#" class="nav-link">Wawancara</a>
               <ul class="nav nav-group-sub">
-                <li class="nav-item"><a href="{{ route('transaction.wawancara.index') }}" class="nav-link"><i class="icon-list"></i>Wawancara List</a></li>
+                <li class="nav-item"><a href="{{ route('transaction.wawancara.create') }}" class="nav-link">New Wawancara</a></li>
+                <li class="nav-item"><a href="{{ route('transaction.realisasi.create') }}" class="nav-link">Realisasi Wawancara</a></li>
+                <li class="nav-item"><a href="{{ route('transaction.keputusan.create') }}" class="nav-link">Keputusan Wawancara</a></li>
+                <li class="nav-item"><a href="{{ route('transaction.wawancara.index') }}" class="nav-link">Wawancara List</a></li>
               </ul>
             </li>
           </ul>

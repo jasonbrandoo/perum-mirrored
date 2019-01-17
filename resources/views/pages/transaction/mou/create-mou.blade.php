@@ -188,4 +188,5 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 </script>
+<script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>
 @endpush

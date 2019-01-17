@@ -200,7 +200,8 @@ Route::prefix('transaction')->group(function(){
         Route::get('/create', 'Transaction\Wawancara\KeputusanController@create')->name('transaction.keputusan.create');
         Route::post('/store', 'Transaction\Wawancara\KeputusanController@store')->name('transaction.keputusan.store');
         Route::get('/data', 'Transaction\Wawancara\KeputusanController@data')->name('transaction.keputusan.data');
-        Route::get('/load_wawancara', 'Transaction\Wawancara\KeputusanController@load_wawancara')->name('transaction.keputusan.load_wawancara');
+        Route::get('/load_realisasi', 'Transaction\Wawancara\KeputusanController@load_realisasi')->name('transaction.keputusan.load_realisasi');
+        Route::get('/load_sp', 'Transaction\Wawancara\KeputusanController@load_sp')->name('transaction.keputusan.load_sp');
      });
 });
 

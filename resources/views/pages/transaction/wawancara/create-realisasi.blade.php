@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('page-title')
-<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span></span>SP</span> - Create New Realisasi Wawancara</h4>
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span> - Create New Realisasi Wawancara</h4>
 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 @endsection
 
@@ -231,4 +231,5 @@ document.addEventListener('DOMContentLoaded', function() {
   DateTimePickers.init();
 });
 </script>
+<script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>
 @endpush

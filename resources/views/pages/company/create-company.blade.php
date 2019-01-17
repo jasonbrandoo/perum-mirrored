@@ -145,3 +145,7 @@
     </div>
   </div>
 @endsection
+
+@push('scripts')
+<script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>    
+@endpush

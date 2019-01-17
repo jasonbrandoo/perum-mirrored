@@ -214,4 +214,5 @@ document.addEventListener('DOMContentLoaded', function() {
   DateTimePickers.init();
 });
 </script>
+<script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>
 @endpush

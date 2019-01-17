@@ -71,7 +71,7 @@
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="price_house_id" id="house-type">
                   @foreach ($buildings as $home)
                     <option></option>
-                    <option value="{{$home->id}}">{{$home->id}}</option>
+                    <option value="{{$home->id}}">R000{{$home->id}}</option>
                   @endforeach
                 </select>
               </div>
@@ -254,4 +254,5 @@ document.addEventListener('DOMContentLoaded', function() {
   DateTimePickers.init();
 });
 </script>
+<script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>
 @endpush

@@ -47,7 +47,7 @@ class SuratPesananController extends Controller
         //
         $customers =  Customer::all();
         $companies = Company::where('company_type', 'mou')->get();
-        $mous = Mou::where('mou_active', 'Active')->get();
+        $mous = Mou::where('active', 'Active')->get();
         $sales = Sales::where('sales_position', 'Sales')->get();
         $spvs = Sales::where('sales_position', 'Supervisor')->get();
         $kavlings = Kavling::with('price.house')->get();

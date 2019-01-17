@@ -53,7 +53,7 @@
 <!--/DataTables-->
 
 <script src="/template/assets/js/app.js"></script>
-<script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>
+{{-- <script src="/template/global_assets/js/demo_pages/form_layouts.js"></script> --}}
 {{-- <script src="/template/global_assets/js/demo_pages/form_wizard.js"></script> --}}
 {{-- <script src="/template/global_assets/js/demo_pages/picker_date.js"></script> --}}
 {{-- <script src="/template/global_assets/js/demo_pages/datatables_extension_select.js"></script> --}}
