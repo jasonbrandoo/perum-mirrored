@@ -26,6 +26,7 @@
 
 <!-- Theme JS files -->
 <script src="/template/global_assets/js/plugins/ui/moment/moment.min.js"></script>
+<script src="/template/global_assets/js/plugins/notifications/sweet_alert.min.js"></script>
 
 <!--Forms-->
 <script src="/template/global_assets/js/plugins/forms/styling/switchery.min.js"></script>

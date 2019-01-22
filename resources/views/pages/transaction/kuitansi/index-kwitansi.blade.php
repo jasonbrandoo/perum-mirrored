@@ -35,6 +35,7 @@
     <table class="table datatable-select-checkbox" id="role-table">
         <thead>
             <tr>
+                <th></th>
                 <th>No Kwitansi</th>
                 <th>Tgl Kwitansi</th>
                 <th>No SP</th>
@@ -76,7 +77,8 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('transaction.kwitansi.data') !!}',
             columns: [
-                {data: 'id'},
+                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
+                {data: 'id', render: (id) => `KRF000${id}`},
                 {data: 'kwitansi_date'},
                 {data: 'kwitansi_sp_id'},
                 {data: 'kwitansi_staff_name'},

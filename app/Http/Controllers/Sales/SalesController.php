@@ -67,7 +67,7 @@ class SalesController extends Controller
             'sales_in' => Carbon::parse($request->input('sales_in'))->format('Y-m-d H:i:s'),
             'sales_out' => Carbon::parse($request->input('sales_out'))->format('Y-m-d H:i:s')
         ]);
-        return redirect('sales')->with('success', 'Successfull create Constomer');        
+        return redirect('sales')->with('success', 'Successfull create Sales');        
     }
 
     /**

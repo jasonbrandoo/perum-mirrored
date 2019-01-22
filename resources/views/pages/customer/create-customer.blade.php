@@ -30,7 +30,7 @@
       </ul>
     </div>
   @endif
-  <form class="wizard-form steps-async" action="{{ route('customer.store') }}" method="POST" data-fouc>
+  <form class="wizard-form steps-validation" action="{{ route('customer.store') }}" method="POST" data-fouc>
     @csrf
     <h6>Personal data</h6>
     <fieldset>
@@ -46,55 +46,55 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Name Lengkap:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_name">
+                <input type="text" class="form-control" name="customer_name" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nomor KTP:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_ktp">
+                <input type="text" class="form-control" name="customer_ktp" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Berlaku KTP sampai:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_ktp_expired">
+                <input type="text" class="form-control pickadate-selectors" name="customer_ktp_expired" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Alamat Rumah (Sesuai KTP):</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_ktp_address">
+                <input type="text" class="form-control" name="customer_ktp_address" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kota:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_city">
+                <input type="text" class="form-control" name="customer_city" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Pos:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_zipcode">
+                <input type="text" class="form-control" name="customer_zipcode" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Alamat Tempat Tinggal (Sekarang):</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_current_address">
+                <input type="text" class="form-control" name="customer_current_address" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kota:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_current_city">
+                <input type="text" class="form-control" name="customer_current_city" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Pos:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_current_zipcode">
+                <input type="text" class="form-control" name="customer_current_zipcode" required>
               </div>
             </div>
             <div class="form-group row">
@@ -110,86 +110,90 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No HP:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_mobile_number">
+                <input type="text" class="form-control" name="customer_mobile_number" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Status Rumah:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_house_status">
+                <input type="text" class="form-control" name="customer_house_status" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Lama Tinggal:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_length_of_stay">
+                <input type="text" class="form-control" name="customer_length_of_stay" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tempat Lahir:</label>
               <div class="col-lg-9">
-                  <input type="text" class="form-control" name="customer_birth_place">
+                  <input type="text" class="form-control" name="customer_birth_place" required>
                 </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tgl Lahir:</label>
               <div class="col-lg-9">
-                  <input type="text" class="form-control pickadate-selectors" name="customer_birthdate">
+                  <input type="text" class="form-control pickadate-selectors" name="customer_birthdate" required>
                 </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Status Perkawinan:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_maternal_status">
+                <input type="text" class="form-control" name="customer_maternal_status" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tanggungan:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_tanggungan">
+                <input type="text" class="form-control" name="customer_tanggungan" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nomor NPWP:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_npwp">
+                <input type="text" class="form-control" name="customer_npwp" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Agama:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_religion">
+                <input type="text" class="form-control" name="customer_religion" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Jenis Kelamin:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_gender">
+                <select data-placeholder="Jenis Kelamin" class="form-control form-control-select2" data-fouc id="reference_id" name="customer_gender" required>
+                    <option></option>
+                    <option value="Laki-laki">Laki-Laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                </select>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nama Ibu Kandung:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_mother">
+                <input type="text" class="form-control" name="customer_mother" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Alamat Surat Menyurat:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_address_mail">
+                <input type="text" class="form-control" name="customer_address_mail" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Referensi:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc id="reference_id" name="customer_reference_id">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc id="reference_id" name="customer_reference_id" required>
                   @foreach ($references as $reference)
                     <option></option>
                     <option value="{{$reference->id}}">RSP000{{$reference->id}}</option>
@@ -200,7 +204,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Sales Executives:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc id="sales_executive_id" name="customer_executive_id">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc id="sales_executive_id" name="customer_executive_id" required>
                   @foreach ($sales_executives as $se)
                     <option></option>
                     <option value="{{$se->id}}">{{$se->sales_name}}</option>
@@ -211,7 +215,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Sales Supervisor:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc id="sales_supervisor_id" name="customer_supervisor_id">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc id="sales_supervisor_id" name="customer_supervisor_id" required>
                   @foreach ($sales_supervisor as $spv)
                     <option></option>
                     <option value="{{$spv->id}}">{{$spv->sales_name}}</option>
@@ -232,19 +236,19 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Jenis Pekerjaan:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_job_name">
+                <input type="text" class="form-control" name="customer_job_name" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">NIP / NRP:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_nip">
+                <input type="text" class="form-control" name="customer_nip" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Pangkat / Jabatan:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_job_title">
+                <input type="text" class="form-control" name="customer_job_title" required>
               </div>
             </div>
             <div class="form-group row">
@@ -252,7 +256,7 @@
               <div class="col-lg-9">
                 <div class="row">
                   <div class="col-md-6">
-                    <input type="text" class="form-control" name="customer_job_duration">
+                    <input type="text" class="form-control" name="customer_job_duration" required>
                   </div>
                   <label class="col-form-label">Tahun</label>
                 </div>
@@ -265,7 +269,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nama Perusahaan:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc id="company" name="customer_office_id">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc id="company" name="customer_office_id" required>
                   @foreach ($companies as $company)
                     <option></option>
                     <option value="{{$company->id}}">{{$company->company_name}}</option>
@@ -306,7 +310,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Email:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_office_email">
+                <input type="text" class="form-control" name="customer_office_email" required>
               </div>
             </div>
           </fieldset>
@@ -322,28 +326,28 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Penghasilan Pemohon:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_income">
+                <input type="text" class="form-control" name="customer_income" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Penghasilan Tambahan:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_additional_income">
+                <input type="text" class="form-control" name="customer_additional_income" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Penghasilan Suami/Istri:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_family_income">
+                <input type="text" class="form-control" name="customer_family_income" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Total:</label>
               <div class="col-lg-9">
-                  <input type="text" class="form-control" name="customer_total_income">
+                  <input type="text" class="form-control" name="customer_total_income" required>
                 </div>
             </div>
           </fieldset>
@@ -353,21 +357,21 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Pengeluaran Rutin:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_routine_expenses">
+                <input type="text" class="form-control" name="customer_routine_expenses" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Sisa Penghasilan:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_residual_income">
+                <input type="text" class="form-control" name="customer_residual_income" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kemampuan Angsuran:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_installment_ability">
+                <input type="text" class="form-control" name="customer_installment_ability" required>
               </div>
             </div>
           </fieldset>
@@ -410,27 +414,89 @@ var FormWizard = function() {
       console.warn('Warning - steps.min.js is not loaded.');
       return;
     }
-    $('.steps-async').steps({
+
+    if (!$().validate) {
+      console.warn('Warning - validate.min.js is not loaded.');
+      return;
+    }
+    
+    var form = $('.steps-validation').show();
+
+    $('.steps-validation').steps({
         headerTag: 'h6',
         bodyTag: 'fieldset',
-        transitionEffect: 'fade',
         titleTemplate: '<span class="number">#index#</span> #title#',
-        loadingTemplate: '<div class="card-body text-center"><i class="icon-spinner2 spinner mr-2"></i>  #text#</div>',
         labels: {
             previous: '<i class="icon-arrow-left13 mr-2" /> Previous',
             next: 'Next <i class="icon-arrow-right14 ml-2" />',
             finish: 'Submit form <i class="icon-arrow-right14 ml-2" />'
         },
-        onContentLoaded: function (event, currentIndex) {
-            $(this).find('.card-body').addClass('hide');
+        transitionEffect: 'fade',
+        autoFocus: true,
+        onStepChanging: function (event, currentIndex, newIndex) {
 
-            // Re-initialize components
-            _componentSelect2();
-            _componentUniform();
+            // Allways allow previous action even if the current form is not valid!
+            if (currentIndex > newIndex) {
+                return true;
+            }
+
+            // Needed in some cases if the user went back (clean up)
+            if (currentIndex < newIndex) {
+
+                // To remove error styles
+                form.find('.body:eq(' + newIndex + ') label.error').remove();
+                form.find('.body:eq(' + newIndex + ') .error').removeClass('error');
+            }
+
+            form.validate().settings.ignore = ':disabled,:hidden';
+            return form.valid();
+        },
+        onFinishing: function (event, currentIndex) {
+            form.validate().settings.ignore = ':disabled';
+            return form.valid();
         },
         onFinished: function (event, currentIndex) {
-            alert('Form submitted2.');
-            event.target.submit();
+            alert('Submitted!');
+        }
+    });
+
+    $('.steps-validation').validate({
+        ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
+        errorClass: 'validation-invalid-label',
+        highlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+        unhighlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+
+        // Different components require proper error label placement
+        errorPlacement: function(error, element) {
+
+            // Unstyled checkboxes, radios
+            if (element.parents().hasClass('form-check')) {
+                error.appendTo( element.parents('.form-check').parent() );
+            }
+
+            // Input with icons and Select2
+            else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
+                error.appendTo( element.parent() );
+            }
+
+            // Input group, styled file input
+            else if (element.parent().is('.uniform-uploader, .uniform-select') || element.parents().hasClass('input-group')) {
+                error.appendTo( element.parent().parent() );
+            }
+
+            // Other elements
+            else {
+                error.insertAfter(element);
+            }
+        },
+        rules: {
+            email: {
+                email: true
+            }
         }
     });
   };

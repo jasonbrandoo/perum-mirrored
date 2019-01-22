@@ -35,6 +35,7 @@
     <table class="table datatable-select-checkbox" id="role-table">
         <thead>
             <tr>
+                <th></th>
                 <th>No</th>
                 <th>Tanggal</th>
                 <th>SHGB Induk</th>
@@ -75,7 +76,8 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('transaction.legal.data') !!}',
             columns: [
-                {data: 'id'},
+                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
+                {data: 'id', render: (id) => `PLK000${id}`},
                 {data: 'legal_date'},
                 {data: 'legal_shgb_parent_date'},
                 {data: 'legal_shgb_fraction_date'},

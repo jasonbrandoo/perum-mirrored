@@ -31,7 +31,7 @@
       </ul>
     </div>
   @endif
-  <form class="wizard-form steps-basic" action="{{ route('transaction.surat-pesanan.store') }}" method="POST" data-fouc>
+  <form class="wizard-form steps-validation" action="{{ route('transaction.surat-pesanan.store') }}" method="POST" data-fouc>
     @csrf
     <h6>1</h6>
     <fieldset>
@@ -41,21 +41,21 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Pre Book:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_prebook">
+                <input type="text" class="form-control" name="sp_prebook" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Active:</label>
               <div class="col-lg-9">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input" name="active">
+                  <input type="checkbox" class="form-check-input" name="active" required>
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No Surat Pesanan:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_no">
+                <input type="text" class="form-control" name="sp_no" required>
               </div>
             </div>
             <div class="form-group row">
@@ -65,14 +65,14 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="sp_date">
+                  <input type="text" class="form-control pickadate-selectors" name="sp_date" required>
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No PPJB:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_ppjb">
+                <input type="text" class="form-control" name="sp_ppjb" required>
               </div>
             </div>
             <div class="form-group row">
@@ -82,14 +82,14 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="sp_ppjb_date">
+                  <input type="text" class="form-control pickadate-selectors" name="sp_ppjb_date" required>
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Customer ID:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_customer_id" id="customer_id">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_customer_id" id="customer_id" required>
                   @foreach ($customers as $customer)
                     <option></option>
                     <option value="{{$customer->id}}">C000{{$customer->id}}</option>
@@ -106,7 +106,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Perusahaan ID:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_company_id" id="company_id">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_company_id" id="company_id" required>
                   @foreach ($companies as $company)
                     <option></option>
                     <option value="{{$company->id}}">PM000{{$company->id}}</option>
@@ -123,7 +123,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">MOU ID:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_mou_id">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_mou_id" required>
                   @foreach ($mous as $mou)
                     <option></option>
                     <option value="{{$mou->id}}">{{$mou->id}}</option>
@@ -134,13 +134,13 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Koordinator:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_koordinator">
+                <input type="text" class="form-control" name="sp_koordinator" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Sales Executives ID:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_se_id" id="sales_id">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_se_id" id="sales_id" required>
                   @foreach ($sales as $person)
                     <option></option>
                     <option value="{{$person->id}}">SE000{{$person->id}}</option>
@@ -157,7 +157,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Supervisor ID:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_spv_id" >
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_spv_id" required>
                   @foreach ($spvs as $person)
                     <option></option>
                     <option value="{{$person->id}}">SP000{{$person->id}}</option>
@@ -168,7 +168,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kavling ID:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_kavling_id" id="kavling_id">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_kavling_id" id="kavling_id" required>
                   @foreach ($kavlings as $kav)
                     <option></option>
                     <option value="{{$kav->id}}">KAV000{{$kav->id}}</option>
@@ -179,7 +179,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">House Type:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_house_type" id="house_type">
+                <input type="text" class="form-control" name="sp_house_type" id="house_type" required>
               </div>
             </div>
             <div class="form-group row">
@@ -187,11 +187,11 @@
               <div class="col-lg-9">
                 <div class="row">
                   <div class="col-md-6">
-                    <input type="text" class="form-control" name="sp_house_block" id="house_block">
+                    <input type="text" class="form-control" name="sp_house_block" id="house_block" required>
                   </div>
                   <label class="col-form-label">No:</label>
                   <div class="col-md-5">
-                    <input type="text" class="form-control" name="sp_house_no" id="house_no">
+                    <input type="text" class="form-control" name="sp_house_no" id="house_no" required>
                   </div>
                 </div>
               </div>
@@ -199,19 +199,19 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Cluster:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_house_cluster" id="house_cluster">
+                <input type="text" class="form-control" name="sp_house_cluster" id="house_cluster" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Luas Bangunan:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_house_building" id="house_building">
+                <input type="text" class="form-control" name="sp_house_building" id="house_building" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Luas Tanah:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_house_surface" id="house_surface" >
+                <input type="text" class="form-control" name="sp_house_surface" id="house_surface" required>
               </div>
             </div>
             <div class="form-group row">
@@ -239,7 +239,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Harga:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_price_id" id="price_id">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_price_id" id="price_id" required>
                   @foreach ($prices as $price)
                     <option></option>
                     <option value="{{$price->id}}">P000{{$price->id}}</option>
@@ -250,7 +250,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Harga:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_price" id="price">
+                <input type="text" class="form-control" name="sp_price" id="price" required>
               </div>
             </div>
             <div class="form-group row">
@@ -262,19 +262,19 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Price List:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_price_list">
+                <input type="text" class="form-control" name="sp_price_list" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Total Harga Jual:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_total_harga_jual">
+                <input type="text" class="form-control" name="sp_total_harga_jual" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Harga Jual Tanah:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_harga_jual_tanah">
+                <input type="text" class="form-control" name="sp_harga_jual_tanah" required>
               </div>
             </div>
             <div class="form-group row">
@@ -298,13 +298,13 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Persentase Pajak:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_ppn_percentage">
+                <input type="text" class="form-control" name="sp_ppn_percentage" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nilai Pajak:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_after_ppn">
+                <input type="text" class="form-control" name="sp_after_ppn" required>
               </div>
             </div>
             <div class="form-group row">
@@ -316,31 +316,31 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Cara Pembayaran:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_payment_method">
+                <input type="text" class="form-control" name="sp_payment_method" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Harga jual pengikatan:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_harga_jual_pengikatan">
+                <input type="text" class="form-control" name="sp_harga_jual_pengikatan" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Rencana KPR:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_kpr_plan">
+                <input type="text" class="form-control" name="sp_kpr_plan" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Harga Jual AJB:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_ajb_price">
+                <input type="text" class="form-control" name="sp_ajb_price" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Total Surat Pesanan:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_total">
+                <input type="text" class="form-control" name="sp_total" required>
               </div>
             </div>
           </fieldset>
@@ -356,13 +356,13 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Jumlah Pembayaran:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_bill">
+                <input type="text" class="form-control" name="sp_bill" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">DP:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_dp">
+                <input type="text" class="form-control" name="sp_dp" required>
               </div>
             </div>
             <div class="form-group row">
@@ -392,43 +392,43 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">PPN:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_ppn">
+                <input type="text" class="form-control" name="sp_ppn" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Sub Total:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_sub_total">
+                <input type="text" class="form-control" name="sp_sub_total" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Jumlah Harus Dibayar:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_total_bill">
+                <input type="text" class="form-control" name="sp_total_bill" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Angsuran/Bulan (Internal):</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_per_month_internal">
+                <input type="text" class="form-control" name="sp_per_month_internal" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nilai Internal:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_internal_bill">
+                <input type="text" class="form-control" name="sp_internal_bill" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Angsuran/Bulan (Kreditur):</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_per_month_kreditur">
+                <input type="text" class="form-control" name="sp_per_month_kreditur" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nilai Kreditur:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_kreditur_bill">
+                <input type="text" class="form-control" name="sp_kreditur_bill" required>
               </div>
             </div>
           </fieldset>
@@ -548,117 +548,14 @@ var FormWizard = function() {
           return;
       }
 
-      // Basic wizard setup
-      $('.steps-basic').steps({
-          headerTag: 'h6',
-          bodyTag: 'fieldset',
-          transitionEffect: 'fade',
-          titleTemplate: '<span class="number">#index#</span> #title#',
-          labels: {
-              previous: '<i class="icon-arrow-left13 mr-2" /> Previous',
-              next: 'Next <i class="icon-arrow-right14 ml-2" />',
-              finish: 'Submit form <i class="icon-arrow-right14 ml-2" />'
-          },
-          onFinished: function (event, currentIndex) {
-              alert('Form submitted1.');
-              event.target.submit();
-          }
-      });
 
-      // Async content loading
-      $('.steps-async').steps({
-          headerTag: 'h6',
-          bodyTag: 'fieldset',
-          transitionEffect: 'fade',
-          titleTemplate: '<span class="number">#index#</span> #title#',
-          loadingTemplate: '<div class="card-body text-center"><i class="icon-spinner2 spinner mr-2"></i>  #text#</div>',
-          labels: {
-              previous: '<i class="icon-arrow-left13 mr-2" /> Previous',
-              next: 'Next <i class="icon-arrow-right14 ml-2" />',
-              finish: 'Submit form <i class="icon-arrow-right14 ml-2" />'
-          },
-          onContentLoaded: function (event, currentIndex) {
-              $(this).find('.card-body').addClass('hide');
-
-              // Re-initialize components
-              _componentSelect2();
-              _componentUniform();
-          },
-          onFinished: function (event, currentIndex) {
-              alert('Form submitted2.');
-              event.target.submit();
-          }
-      });
-
-      // Saving wizard state
-      $('.steps-state-saving').steps({
-          headerTag: 'h6',
-          bodyTag: 'fieldset',
-          titleTemplate: '<span class="number">#index#</span> #title#',
-          labels: {
-              previous: '<i class="icon-arrow-left13 mr-2" /> Previous',
-              next: 'Next <i class="icon-arrow-right14 ml-2" />',
-              finish: 'Submit form <i class="icon-arrow-right14 ml-2" />'
-          },
-          transitionEffect: 'fade',
-          saveState: true,
-          autoFocus: true,
-          onFinished: function (event, currentIndex) {
-              alert('Form submitted3.');
-          }
-      });
-
-      // Specify custom starting step
-      $('.steps-starting-step').steps({
-          headerTag: 'h6',
-          bodyTag: 'fieldset',
-          titleTemplate: '<span class="number">#index#</span> #title#',
-          labels: {
-              previous: '<i class="icon-arrow-left13 mr-2" /> Previous',
-              next: 'Next <i class="icon-arrow-right14 ml-2" />',
-              finish: 'Submit form <i class="icon-arrow-right14 ml-2" />'
-          },
-          transitionEffect: 'fade',
-          startIndex: 2,
-          autoFocus: true,
-          onFinished: function (event, currentIndex) {
-              alert('Form submitted4.');
-          }
-      });
-
-      // Enable all steps and make them clickable
-      $('.steps-enable-all').steps({
-          headerTag: 'h6',
-          bodyTag: 'fieldset',
-          transitionEffect: 'fade',
-          enableAllSteps: true,
-          titleTemplate: '<span class="number">#index#</span> #title#',
-          labels: {
-              previous: '<i class="icon-arrow-left13 mr-2" /> Previous',
-              next: 'Next <i class="icon-arrow-right14 ml-2" />',
-              finish: 'Submit form <i class="icon-arrow-right14 ml-2" />'
-          },
-          onFinished: function (event, currentIndex) {
-              alert('Form submitted5.');
-          }
-      });
-
-
-      //
-      // Wizard with validation
-      //
-
-      // Stop function if validation is missing
       if (!$().validate) {
           console.warn('Warning - validate.min.js is not loaded.');
           return;
       }
 
-      // Show form
       var form = $('.steps-validation').show();
 
-
-      // Initialize wizard
       $('.steps-validation').steps({
           headerTag: 'h6',
           bodyTag: 'fieldset',
@@ -697,8 +594,6 @@ var FormWizard = function() {
           }
       });
 
-
-      // Initialize validation
       $('.steps-validation').validate({
           ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
           errorClass: 'validation-invalid-label',

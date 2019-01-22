@@ -35,6 +35,7 @@
     <table class="table datatable-select-checkbox" id="role-table">
         <thead>
             <tr>
+                <th></th>
                 <th>Request No</th>
                 <th>Nomor SP</th>
                 <th>Alasan</th>
@@ -76,7 +77,8 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('transaction.pembatalan.data') !!}',
             columns: [
-                {data: 'id'},
+                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
+                {data: 'id', render: (id) => `PSP000${id}`},
                 {data: 'cancel_sp_id'},
                 {data: 'cancel_reason'},
                 {data: 'cancel_make_by'},

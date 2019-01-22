@@ -35,6 +35,7 @@
     <table class="table datatable-select-checkbox" id="role-table">
         <thead>
             <tr>
+                <th></th>
                 <th>No SPK</th>
                 <th>Tanggal</th>
                 <th>No SP</th>
@@ -74,7 +75,8 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('transaction.spk.data') !!}',
             columns: [
-                {data: 'id'},
+                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
+                {data: 'id', render: (id) => `SPK000${id}`},
                 {data: 'spk_date'},
                 {data: 'spk_sp_id'},
                 {data: 'surat.customer.customer_name'},

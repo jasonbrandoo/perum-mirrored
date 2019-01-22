@@ -36,7 +36,8 @@
     <table class="table datatable-select-checkbox" id="role-table">
         <thead>
             <tr>
-                <th>ID</th>
+                <th></th>
+                <th>No</th>
                 <th>Method</th>
                 <th>Active</th>
             </tr>
@@ -73,6 +74,7 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('payment.data') !!}',
             columns: [
+                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},                
                 {data: 'id'},
                 {data: 'payment_method'},
                 {data: 'active'},

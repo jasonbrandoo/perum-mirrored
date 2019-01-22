@@ -35,7 +35,8 @@
     <table class="table datatable-select-checkbox" id="role-table">
         <thead>
             <tr>
-                <th>ID</th>
+                <th></th>
+                <th>No</th>
                 <th>Group Referensi</th>
                 <th>Detail</th>
                 <th>Active</th>
@@ -73,7 +74,8 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('referensi.data') !!}',
             columns: [
-                {data: 'id'},
+                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
+                {data: 'id', render: (id) => `RSP000${id}`},
                 {data: 'reference_group'},
                 {data: 'reference_description'},
                 {data: 'active'},

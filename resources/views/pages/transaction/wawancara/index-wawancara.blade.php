@@ -35,6 +35,7 @@
     <table class="table datatable-select-checkbox" id="role-table">
         <thead>
             <tr>
+                <th></th>
                 <th>Plan No</th>
                 <th>Tgl Plan</th>
                 <th>No SP</th>
@@ -76,7 +77,8 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('transaction.wawancara.data') !!}',
             columns: [
-                {data: 'id'},
+                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
+                {data: 'id', render: (id) => `RW000${id}`},
                 {data: 'wawancara_date'},
                 {data: 'wawancara_sp_id'},
                 {data: 'surat.customer.customer_name'},

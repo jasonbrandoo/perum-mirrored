@@ -35,6 +35,7 @@
     <table class="table datatable-select-checkbox" id="role-table">
         <thead>
             <tr>
+                <th></th>
                 <th>No LPA</th>
                 <th>Tanggal</th>
                 <th>Type</th>
@@ -76,7 +77,8 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('transaction.lpa.data') !!}',
             columns: [
-                {data: 'id'},
+                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
+                {data: 'id', render: (id) => `LPA000${id}`},
                 {data: 'lpa_date'},
                 {data: 'lpa_type'},
                 {data: 'lpa_sp_id'},

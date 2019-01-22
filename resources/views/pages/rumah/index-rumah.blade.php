@@ -35,6 +35,7 @@
     <table class="table datatable-select-checkbox" id="role-table">
         <thead>
             <tr>
+                <th></th>
                 <th>ID</th>
                 <th>Tipe</th>
                 <th>Luas Bangunan</th>
@@ -74,7 +75,8 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('rumah.data') !!}',
             columns: [
-                {data: 'id'},
+                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
+                {data: 'id', render: (id) => `R000${id}`},
                 {data: 'rumah_type_name'},
                 {data: 'building_area_m2'},
                 {data: 'surface_area_m2'},

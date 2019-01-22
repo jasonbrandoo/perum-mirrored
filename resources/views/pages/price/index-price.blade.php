@@ -35,6 +35,7 @@
     <table class="table datatable-select-checkbox" id="role-table">
         <thead>
             <tr>
+                <th></th>
                 <th>Kode</th>
                 <th>Tipe Rumah</th>
                 <th>Tanggal Mulai</th>
@@ -75,7 +76,8 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('price.data') !!}',
             columns: [
-                {data: 'id'},
+                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
+                {data: 'id', render: (id) => `H000${id}`},
                 {data: 'house.rumah_type_name'},
                 {data: 'price_start_date'},
                 {data: 'price_end_date'},

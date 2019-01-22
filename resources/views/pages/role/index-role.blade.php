@@ -35,6 +35,7 @@
     <table class="table datatable-select-checkbox" id="role-table">
         <thead>
             <tr>
+                <th></th>
                 <th>Role ID</th>
                 <th>Role Name</th>
                 <th>Description</th>
@@ -73,7 +74,8 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('role.data') !!}',
             columns: [
-                {data: 'id'},
+                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
+                {data: 'id', render: (id) => `R000${id}`},
                 {data: 'role_name'},
                 {data: 'role_description'},
                 {data: 'active'},

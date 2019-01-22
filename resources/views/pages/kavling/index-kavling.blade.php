@@ -35,6 +35,7 @@
     <table class="table datatable-select-checkbox" id="role-table">
         <thead>
             <tr>
+                <th></th>
                 <th>ID</th>
                 <th>Kavling</th>
                 <th>Blok</th>
@@ -76,7 +77,8 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('kavling.data') !!}',
             columns: [
-                {data: 'id'},
+                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
+                {data: 'id', render: (id) => `KAV000${id}`},
                 {data: 'kavling_type'},
                 {data: 'kavling_block'},
                 {data: 'kavling_cluster'},
@@ -85,7 +87,7 @@ var DatatableSelect = function() {
                 {data: 'active'},
             ],
             select: {
-                style: 'multi'
+                style: 'multi',
             }
         });
         

@@ -35,6 +35,7 @@
     <table class="table datatable-select-checkbox" id="role-table">
         <thead>
             <tr>
+                <th></th>
                 <th>ID</th>
                 <th>Tgl MOU</th>
                 <th>Koordinator</th>
@@ -74,7 +75,8 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('transaction.mou.data') !!}',
             columns: [
-                {data: 'id'},
+                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
+                {data: 'id', render: (id) => `MOU000${id}`},
                 {data: 'mou_date'},
                 {data: 'mou_coordinator'},
                 {data: 'companies.company_name'},

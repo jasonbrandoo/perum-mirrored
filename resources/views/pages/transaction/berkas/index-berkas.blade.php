@@ -35,6 +35,7 @@
     <table class="table datatable-select-checkbox" id="role-table">
         <thead>
             <tr>
+                <th></th>
                 <th>No Berkas</th>
                 <th>Tgl Penerimaan</th>
                 <th>Penerima</th>
@@ -75,7 +76,8 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('transaction.berkas.data') !!}',
             columns: [
-                {data: 'id'},
+                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
+                {data: 'id', render: (id) => `TBK000${id}`},
                 {data: 'berkas_date'},
                 {data: 'berkas_reciever'},
                 {data: 'berkas_sp_id'},

@@ -35,6 +35,7 @@
     <table class="table datatable-select-checkbox" id="role-table">
         <thead>
             <tr>
+                <th></th>
                 <th>Request No</th>
                 <th>Tanggal</th>
                 <th>Nomor MOU</th>
@@ -76,7 +77,8 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('transaction.komisi-eksternal.data') !!}',
             columns: [
-                {data: 'id'},
+                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
+                {data: 'id', render: (id) => `KE000${id}`},
                 {data: 'eksternal_date'},
                 {data: 'mou.id'},
                 {data: 'eksternal_sp_id'},
