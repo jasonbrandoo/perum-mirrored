@@ -11,6 +11,6 @@ class Kavling extends Model
 
     public function price()
     {
-        return $this->belongsTo('App\Model\price', 'kavling_price_id');
+        return $this->belongsTo('App\Model\Price', 'kavling_price_id');
     }
 }
