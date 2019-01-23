@@ -2,16 +2,16 @@
 
 @section('page-title')
 <div class="mr-auto">
-    <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Kavling</span> - Kavling List</h4>
+    <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Customer</span> - Customer List</h4>
     <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 </div>
 <div>
-  <a href="{{ route ('kavling.create') }}" class="btn btn-lg btn-primary"><i class="icon-plus-circle2 mr-2"></i>Add</a>
+  <a href="{{ route ('customer.create') }}" class="btn btn-lg btn-primary"><i class="icon-plus-circle2 mr-2"></i>Add</a>
 </div>
 @endsection
 
 @section('breadcrumb')
-<a href="{{ route('kavling.index') }}" class="breadcrumb-item">Kavling</a>    
+<a href="{{ route('customer.index') }}" class="breadcrumb-item">Customer</a>
 @endsection
 
 @section('content')
@@ -22,7 +22,7 @@
 @endif
 <div class="card">
     <div class="card-header header-elements-inline">
-        <h5 class="card-title">Kavling List</h5>
+        <h5 class="card-title">Customer List</h5>
         <div class="header-elements">
             <div class="list-icons">
                 <a class="list-icons-item" data-action="collapse"></a>
@@ -37,12 +37,9 @@
             <tr>
                 <th></th>
                 <th>ID</th>
-                <th>Kavling</th>
-                <th>Blok</th>
-                <th>Cluster</th>
-                <th>Hook</th>
-                <th>Tipe Rumah</th>
-                <th>Active</th>
+                <th>Nama</th>
+                <th>Sales Executives</th>
+                <th>Sales Supervisor</th>
             </tr>
         </thead>
     </table>
@@ -75,16 +72,13 @@ var DatatableSelect = function() {
         $('#role-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! route('kavling.data') !!}',
+            ajax: '{!! route('customer.data') !!}',
             columns: [
                 {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
-                {data: 'id', render: (id) => `KAV000${id}`},
-                {data: 'kavling_type'},
-                {data: 'kavling_block'},
-                {data: 'kavling_cluster'},
-                {data: 'kavling_hook'},
-                {data: 'price.house.rumah_type_name'},
-                {data: 'active'},
+                {data: 'id', render: (id) => `CUST000${id}`},
+                {data: 'customer_name'},
+                {data: 'sales_executive.sales_name'},
+                {data: 'sales_supervisor.sales_name'},
             ],
             select: {
                 style: 'multi',

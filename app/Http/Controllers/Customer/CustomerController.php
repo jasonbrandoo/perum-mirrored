@@ -10,6 +10,7 @@ use App\Model\Referensi;
 use App\Model\Sales;
 use App\Model\Company;
 use Illuminate\Support\Carbon;
+use Yajra\DataTables\DataTables;
 
 class CustomerController extends Controller
 {
@@ -22,6 +23,12 @@ class CustomerController extends Controller
     {
         //
         return view('pages.customer.index-customer');
+    }
+
+    public function data()
+    {
+        $customer = Customer::with('sales_executive', 'sales_supervisor')->get();
+        return DataTables::of($customer)->toJson();
     }
 
     /**
@@ -95,7 +102,7 @@ class CustomerController extends Controller
             'customer_residual_income' => $request->input('customer_residual_income'),
             'customer_installment_ability' => $request->input('customer_installment_ability'),
         ]);
-        return redirect('home')->with('success', 'Successfull create customer');
+        return redirect('/customer')->with('success', 'Successfull create customer');
     }
 
     /**

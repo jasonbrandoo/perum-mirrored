@@ -46,7 +46,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Name Lengkap:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_name" required>
+                <input type="text" class="form-control" name="customer_name" id="customer_name" required>
               </div>
             </div>
             <div class="form-group row">
@@ -347,7 +347,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Total:</label>
               <div class="col-lg-9">
-                  <input type="text" class="form-control" name="customer_total_income" required>
+                  <input type="text" class="form-control" name="customer_total_income" required readonly>
                 </div>
             </div>
           </fieldset>
@@ -364,7 +364,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Sisa Penghasilan:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_residual_income" required>
+                <input type="text" class="form-control" name="customer_residual_income" required readonly>
               </div>
             </div>
 
@@ -407,6 +407,19 @@ $(document).ready(function(){
     }
     });
   });
+  
+  const total = $('input[name=customer_income], input[name=customer_additional_income], input[name=customer_family_income], input[name=customer_routine_expenses]').keyup(() => {
+    const a = parseFloat($('input[name=customer_income]').val()) || 0;
+    const b = parseFloat($('input[name=customer_additional_income').val()) || 0;
+    const c = parseFloat($('input[name=customer_family_income').val()) || 0;
+    // const d = parseFloat($('input[name=customer_total_income').val(a + b + c)) || 0;
+    const d = parseFloat($('input[name=customer_routine_expenses]').val()) || 0;
+    $('input[name=customer_total_income').val(a + b + c);
+    $('input[name=customer_residual_income]').val((a + b + c) - d);
+  });
+
+  console.log(total);
+
 });
 var FormWizard = function() {
   var _componentWizard = function() {
@@ -456,7 +469,11 @@ var FormWizard = function() {
             return form.valid();
         },
         onFinished: function (event, currentIndex) {
-            alert('Submitted!');
+            swal({
+              type: 'success',
+              title: 'Success',
+            });
+            event.target.submit();
         }
     });
 

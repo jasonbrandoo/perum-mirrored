@@ -590,7 +590,11 @@ var FormWizard = function() {
               return form.valid();
           },
           onFinished: function (event, currentIndex) {
-              alert('Submitted!');
+              swal({
+              type: 'success',
+              title: 'Success',
+              });
+              event.target.submit();
           }
       });
 

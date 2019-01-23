@@ -21,7 +21,7 @@
         {{--  --}}
         <li class="nav-item"><a href="{{ route('company.index') }}" class="nav-link"><i class="icon-office"></i>Company</a></li>            
         {{--  --}}
-        <li class="nav-item"><a href="{{ route('customer.create') }}" class="nav-link"><i class="icon-users"></i>Customer</a></li>
+        <li class="nav-item"><a href="{{ route('customer.index') }}" class="nav-link"><i class="icon-users"></i>Customer</a></li>
         {{--  --}}
         <li class="nav-item"><a href="{{ route('kavling.index') }}" class="nav-link"><i class="icon-home7"></i></i>Kavling</a></li>
         {{--  --}}
