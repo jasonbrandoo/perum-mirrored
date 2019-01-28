@@ -10,7 +10,7 @@
                         <i class="icon-home icon-3x"></i>
                         <h4 class="mb-4">Login to your account</h4>
                     </div>
-                    @if ($errors->any())
+                    {{-- @if ($errors->any())
                         <div class="alert alert-danger">
                         <ul>
                             @foreach ($errors->all() as $error)
@@ -18,8 +18,8 @@
                             @endforeach
                         </ul>
                         </div>
-                    @endif
-                    <form method="POST" action="{{ route('login') }}">
+                    @endif --}}
+                    <form method="POST" action="">
                         @csrf
                         <div class="form-group row justify-content-center">
                             <div class="col">
@@ -43,7 +43,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col">
-                                <button type="submit" class="btn btn-primary btn-block">
+                                <button type="submit" class="btn btn-primary btn-block" id="submit-button">
                                     <i class="fas fa-sign-in-alt"></i>
                                     {{ __('Login') }}
                                 </button>
@@ -65,3 +65,31 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function(){
+      $('#submit-button').click(function(e){
+        e.preventDefault();
+        $.ajax({
+            url: '{{ route('login') }}',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function(response){
+                swal({
+                    type: 'success',
+                    confirmButtonClass: 'btn btn-primary',
+                });
+                window.location.href = '/';
+            },
+            error: function (err) {
+                swal({
+                    type: 'error',
+                    confirmButtonClass: 'btn btn-primary',
+                });
+            }
+        });
+      });
+    });
+</script>
+@endpush

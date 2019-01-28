@@ -32,7 +32,14 @@
         </ul>
       </div>
     @endif
-    <form action="{{ route('kavling.store') }}" method="POST">
+
+    @if (isset($kavling))
+      <form action="{{ route('kavling.update') }}" method="POST">
+        @method('PATCH')
+        <input type="hidden" name="id" value="{{$kavling->id}}">
+    @else
+      <form action="{{ route('kavling.store') }}" method="POST">
+    @endif
       @csrf
       <div class="row">
         <div class="col-md-6">
@@ -40,41 +47,41 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Kavling</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kavling_id" id="kavling_id" value="KAV000{{$id}}" disabled>
+                <input type="text" class="form-control" name="kavling_id" id="kavling_id" value="KAV000{{ isset($kavling) ? $kavling->id : $id}}" disabled>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tipe Kavling</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kavling_type">
+                <input type="text" class="form-control" name="kavling_type" value="{{ isset($kavling) ? $kavling->kavling_type : '' }}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Blok</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kavling_block">
+                <input type="text" class="form-control" name="kavling_block" value="{{ isset($kavling) ? $kavling->kavling_block : '' }}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kavling_number">
+                <input type="text" class="form-control" name="kavling_number" value="{{ isset($kavling) ? $kavling->kavling_number : '' }}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">S/D</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kavling_s_d">
+                <input type="text" class="form-control" name="kavling_s_d" value="{{ isset($kavling) ? $kavling->kavling_s_d : '' }}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Cluster</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kavling_cluster">
+                <input type="text" class="form-control" name="kavling_cluster" value="{{ isset($kavling) ? $kavling->kavling_cluster : '' }}">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Hook:</label>
+              <label class="col-lg-3 col-form-label">Hook</label>
               <div class="col-lg-9">
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" name="kavling_hook">
@@ -82,7 +89,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Active:</label>
+              <label class="col-lg-3 col-form-label">Active</label>
               <div class="col-lg-9">
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" name="active">
@@ -92,35 +99,35 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No. TL</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kavling_tl">
+                <input type="text" class="form-control" name="kavling_tl" value="{{ isset($kavling) ? $kavling->kavling_tl : '' }}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Luas Bangunan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kavling_building">
+                <input type="text" class="form-control" name="kavling_building" value="{{ isset($kavling) ? $kavling->kavling_building : '' }}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Luas Tanah</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kavling_surface">
+                <input type="text" class="form-control" name="kavling_surface" value="{{ isset($kavling) ? $kavling->kavling_surface : '' }}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">TL Aktif</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kavling_tl_active">
+                <input type="text" class="form-control" name="kavling_tl_active" value="{{ isset($kavling) ? $kavling->kavling_tl_active : '' }}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">TL Lama</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kavling_tl_old">
+                <input type="text" class="form-control" name="kavling_tl_old" value="{{ isset($kavling) ? $kavling->kavling_tl_old : '' }}">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kode Harga:</label>
+              <label class="col-lg-3 col-form-label">Kode Harga</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="kavling_price_id" id="kavling_price_code">
                   @foreach ($prices as $price)
@@ -131,13 +138,13 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Harga Jual:</label>
+              <label class="col-lg-3 col-form-label">Harga Jual</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" readonly id="kavling_price_selling" name="kavling_price_selling">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Harga TL/M2:</label>
+              <label class="col-lg-3 col-form-label">Harga TL/M2</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" readonly id="kavling_price_tl_m2" name="kavling_price_tl_m2">
               </div>
@@ -147,13 +154,13 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Discount Uang Muka:</label>
+              <label class="col-lg-3 col-form-label">Discount Uang Muka</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="kavling_discount_dp">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Status Penjualan Kavling:</label>
+              <label class="col-lg-3 col-form-label">Status Penjualan Kavling</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="kavling_sell_status">
                     <option></option>
@@ -163,7 +170,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kavling Boleh Dipasarkan:</label>
+              <label class="col-lg-3 col-form-label">Kavling Boleh Dipasarkan</label>
               <div class="col-lg-9">
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" name="kavling_market_status">
@@ -171,7 +178,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Status Pembangunan %:</label>
+              <label class="col-lg-3 col-form-label">Status Pembangunan %</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="kavling_build_status">
                     <option></option>
@@ -182,7 +189,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Mulai Dibangun Tgl.:</label>
+              <label class="col-lg-3 col-form-label">Mulai Dibangun Tgl.</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -193,13 +200,13 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Progress Pembangunan (%):</label>
+              <label class="col-lg-3 col-form-label">Progress Pembangunan (%)</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="kavling_progress">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Selesai Dibangun Tgl.:</label>
+              <label class="col-lg-3 col-form-label">Selesai Dibangun Tgl.</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -210,13 +217,13 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No. SHGB Induk:</label>
+              <label class="col-lg-3 col-form-label">No. SHGB Induk</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="kavling_shgb">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tgl. SHGB Induk:</label>
+              <label class="col-lg-3 col-form-label">Tgl. SHGB Induk</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -227,13 +234,13 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No. IMB Pecahan:</label>
+              <label class="col-lg-3 col-form-label">No. IMB Pecahan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="kavling_imb">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tgl. IMB Pecahan:</label>
+              <label class="col-lg-3 col-form-label">Tgl. IMB Pecahan</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">

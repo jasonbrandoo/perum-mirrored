@@ -23,6 +23,11 @@ class KavlingController extends Controller
         return view('pages.kavling.index-kavling');
     }
 
+    /**
+     * Display Datatables
+     * 
+     * @return Datatables
+     */
     public function data()
     {
         $kavlings = Kavling::with('price.house')->get();
@@ -42,6 +47,11 @@ class KavlingController extends Controller
         return view('pages.kavling.create-kavling', compact('prices', 'id'));
     }
 
+    /**
+     * Load Prices
+     * 
+     * @return Prices
+     */
     public function prices(Request $request)
     {
         $price = Price::find($request->id);
@@ -64,7 +74,7 @@ class KavlingController extends Controller
             'kavling_number' => $request->input('kavling_number'),
             'kavling_s_d' => $request->input('kavling_s_d'),
             'kavling_cluster' => $request->input('kavling_cluster'),
-            'kavling_hook' => $request->input('kavling_hook'),
+            'kavling_hook' => $request->input('kavling_hook') == null ? 'Not Active' : 'Active',
             'kavling_tl' => $request->input('kavling_tl'),
             'kavling_building' => $request->input('kavling_building'),
             'kavling_surface' => $request->input('kavling_surface'),
@@ -72,7 +82,7 @@ class KavlingController extends Controller
             'kavling_tl_old' => $request->input('kavling_tl_old'),
             'kavling_discount_dp' => $request->input('kavling_discount_dp'),
             'kavling_sell_status' => $request->input('kavling_sell_status'),
-            'kavling_market_status' => $request->input('kavling_market_status'),
+            'kavling_market_status' => $request->input('kavling_market_status') == null ? 'Not Active' : 'Active',
             'kavling_build_status' => $request->input('kavling_build_status'),
             'kavling_start_date' => Carbon::parse($request->input('kavling_start_date'))->format('Y-m-d H:i:s'),
             'kavling_progress' => $request->input('kavling_progress'),
@@ -84,6 +94,23 @@ class KavlingController extends Controller
             'active' => $request->input('active') == null ? 'Not Active' : 'Active'
         ]);
         return redirect('kavling')->with('success', 'Successfull create Kavling');
+    }
+
+    /**
+     * Active / Deactive
+     * 
+     * @return Kavling Status
+     */
+    public function action(Request $request, $id)
+    {
+        $kavling = Kavling::find($id);
+        if ($request->input('active') == 'Deactive') {
+            $kavling->active = 'Deactive';
+            $kavling->save();
+        } else if ($request->input('active') == 'Active'){
+            $kavling->active = 'Active';
+            $kavling->save();
+        } 
     }
 
     /**
@@ -103,9 +130,12 @@ class KavlingController extends Controller
      * @param  \App\Kavling  $kavling
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kavling $kavling)
+    public function edit(Kavling $kavling, $id)
     {
         //
+        $kavling = Kavling::find($id);
+        $prices = Price::all();
+        return view('pages.kavling.create-kavling', compact('prices', 'kavling'));
     }
 
     /**
@@ -115,9 +145,36 @@ class KavlingController extends Controller
      * @param  \App\Kavling  $kavling
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kavling $kavling)
+    public function update(StoreKavling $request, Kavling $kavling)
     {
         //
+        $kavling::find($request->id)->update([
+            'kavling_price_id' => $request->input('kavling_price_id'),
+            'kavling_type' => $request->input('kavling_type'),
+            'kavling_block' => $request->input('kavling_block'),
+            'kavling_number' => $request->input('kavling_number'),
+            'kavling_s_d' => $request->input('kavling_s_d'),
+            'kavling_cluster' => $request->input('kavling_cluster'),
+            'kavling_hook' => $request->input('kavling_hook') == null ? 'Not Active' : 'Active',
+            'kavling_tl' => $request->input('kavling_tl'),
+            'kavling_building' => $request->input('kavling_building'),
+            'kavling_surface' => $request->input('kavling_surface'),
+            'kavling_tl_active' => $request->input('kavling_tl_active'),
+            'kavling_tl_old' => $request->input('kavling_tl_old'),
+            'kavling_discount_dp' => $request->input('kavling_discount_dp'),
+            'kavling_sell_status' => $request->input('kavling_sell_status'),
+            'kavling_market_status' => $request->input('kavling_market_status') == null ? 'Not Active' : 'Active',
+            'kavling_build_status' => $request->input('kavling_build_status'),
+            'kavling_start_date' => Carbon::parse($request->input('kavling_start_date'))->format('Y-m-d H:i:s'),
+            'kavling_progress' => $request->input('kavling_progress'),
+            'kavling_end_date' => Carbon::parse($request->input('kavling_end_date'))->format('Y-m-d H:i:s'),
+            'kavling_shgb' => $request->input('kavling_shgb'),
+            'kavling_shgb_date' => Carbon::parse($request->input('kavling_shgb_date'))->format('Y-m-d H:i:s'),
+            'kavling_imb' => $request->input('kavling_imb'),
+            'kavling_imb_date' => Carbon::parse($request->input('kavling_imb_date'))->format('Y-m-d H:i:s'),
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active'
+        ]);
+        return redirect('kavling')->with('success', 'Successfull Update Kavling');
     }
 
     /**

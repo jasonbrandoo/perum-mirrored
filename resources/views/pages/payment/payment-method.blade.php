@@ -31,7 +31,14 @@
         </ul>
       </div>
     @endif
+
+    @if (isset($payment))
+    <form action="{{ route('payment.update') }}" method="POST">
+      @method('PATCH')        
+      <input type="hidden" name="id" value="{{$payment->id}}">
+    @else
     <form action="{{ route('payment.store') }}" method="POST">
+    @endif
       @csrf
       <div class="row">
         <div class="col-md-6">
@@ -39,7 +46,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Cara Pembayaran:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="payment_method">
+                <input type="text" class="form-control" name="payment_method" value="{{ isset($payment) ? $payment->payment_method : '' }}">
               </div>
             </div>
             <div class="form-group row">

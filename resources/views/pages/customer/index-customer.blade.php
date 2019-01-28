@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    <table class="table datatable-select-checkbox" id="role-table">
+    <table class="table table-bordered datatable-select-checkbox" id="role-table">
         <thead>
             <tr>
                 <th></th>
@@ -40,6 +40,7 @@
                 <th>Nama</th>
                 <th>Sales Executives</th>
                 <th>Sales Supervisor</th>
+                <th></th>
             </tr>
         </thead>
     </table>
@@ -74,14 +75,39 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('customer.data') !!}',
             columns: [
-                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
-                {data: 'id', render: (id) => `CUST000${id}`},
-                {data: 'customer_name'},
-                {data: 'sales_executive.sales_name'},
-                {data: 'sales_supervisor.sales_name'},
+                {
+                    data: 'id',
+                    className: 'select-checkbox',
+                    orderable: false,
+                    width: '10px',
+                    render: () => ''
+                },
+                {
+                    data: 'id',
+                    width: '100px',
+                    render: (id) => `CUST000${id}`}
+                ,
+                {
+                    data: 'customer_name',
+                    width: '200px'
+                },
+                {
+                    data: 'sales_executive.sales_name',
+                    width: '200px'
+                },
+                {
+                    data: 'sales_supervisor.sales_name',
+                    width: '200px'
+                },
+                {
+                    data: null,
+                    width: '50px',
+                    className: 'text-center',
+                    render: ({id}) => `<a href="/customer/${id}/edit"><span class="badge badge-success">Edit</span></a>`
+                }
             ],
             select: {
-                style: 'multi',
+                style: 'os',
             }
         });
         

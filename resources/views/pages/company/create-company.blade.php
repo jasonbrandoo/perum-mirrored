@@ -33,27 +33,34 @@
           </ul>
         </div>
       @endif
+
+      @if (isset($company))
+      <form action="{{ route('company.update') }}" method="POST">
+        @method('PATCH')
+        <input type="hidden" name="id" value="{{ $company->id }}">
+      @else
       <form action="{{ route('company.store') }}" method="POST">
+      @endif
         @csrf
         <div class="row">
           <div class="col-md-6">
             <fieldset>
               <div class="form-group row">
-                <label class="col-lg-3 col-form-label">Kode Perusahaan / Instansi:</label>
+                <label class="col-lg-3 col-form-label">Kode Perusahaan / Instansi</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" placeholder="Company ID" value="P000{{$id}}" readonly>
+                  <input type="text" class="form-control" placeholder="Company ID" value="P000{{ isset($company) ? $company->id : $id}}" readonly>
                 </div>
               </div>
 
               <div class="form-group row">
-                <label class="col-lg-3 col-form-label">Nama Perusahaan / Instansi:</label>
+                <label class="col-lg-3 col-form-label">Nama Perusahaan / Instansi</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" placeholder="Company Name" name="company_name">
+                  <input type="text" class="form-control" placeholder="Company Name" name="company_name" value="{{ isset($company) ? $company->company_name : '' }}">
                 </div>
               </div>
 
               <div class="form-group row">
-                <label class="col-lg-3 col-form-label">Type:</label>
+                <label class="col-lg-3 col-form-label">Type</label>
                 <div class="col-lg-9">
                   <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="company_type">
                     <option></option>
@@ -64,7 +71,7 @@
               </div>
 
               <div class="form-group row">
-                <label class="col-lg-3 col-form-label">Active:</label>
+                <label class="col-lg-3 col-form-label">Active</label>
                 <div class="col-lg-9">
                   <div class="form-check">
                     <input type="checkbox" class="form-check-input" name="active" value="active">
@@ -77,61 +84,61 @@
           <div class="col-md-6">
             <fieldset>
               <div class="form-group row">
-                <label class="col-lg-3 col-form-label">Alamat:</label>
+                <label class="col-lg-3 col-form-label">Alamat</label>
                 <div class="col-lg-9">
-                  <input type="text" placeholder="Alamat" class="form-control" name="company_address">
+                  <input type="text" placeholder="Alamat" class="form-control" name="company_address" value="{{ isset($company) ? $company->company_address : '' }}">
                 </div>
               </div>
 
               <div class="form-group row">
-                <label class="col-lg-3 col-form-label">Kota:</label>
+                <label class="col-lg-3 col-form-label">Kota</label>
                 <div class="col-lg-9">
-                  <input type="text" placeholder="Kode Pos" class="form-control" name="company_city">
+                  <input type="text" placeholder="Kode Pos" class="form-control" name="company_city" value="{{ isset($company) ? $company->company_city : '' }}">
                 </div>
               </div>
 
               <div class="form-group row">
-                <label class="col-lg-3 col-form-label">Provinsi:</label>
+                <label class="col-lg-3 col-form-label">Provinsi</label>
                 <div class="col-lg-9">
-                  <input type="text" placeholder="Provinsi" class="form-control" name="company_province">
+                  <input type="text" placeholder="Provinsi" class="form-control" name="company_province" value="{{ isset($company) ? $company->company_province : '' }}">
                 </div>
               </div>
 
               <div class="form-group row">
-                <label class="col-lg-3 col-form-label">Kode Pos:</label>
+                <label class="col-lg-3 col-form-label">Kode Pos</label>
                 <div class="col-lg-9">
-                    <input type="text" placeholder="Kode Pos" class="form-control" name="company_zipcode">
+                    <input type="text" placeholder="Kode Pos" class="form-control" name="company_zipcode" value="{{ isset($company) ? $company->company_zipcode : '' }}">
                   </div>
               </div>
 
               <div class="form-group row">
-                <label class="col-lg-3 col-form-label">Negara:</label>
+                <label class="col-lg-3 col-form-label">Negara</label>
                 <div class="col-lg-9">
-                  <input type="text" placeholder="Negara" class="form-control" name="company_state">
+                  <input type="text" placeholder="Negara" class="form-control" name="company_state" value="{{ isset($company) ? $company->company_state : '' }}">
                 </div>
               </div>
 
               <div class="form-group row">
-                <label class="col-lg-3 col-form-label">No Telp:</label>
+                <label class="col-lg-3 col-form-label">No Telp</label>
                 <div class="col-lg-6">
-                  <input type="text" placeholder="Telp" class="form-control" name="company_phone">
+                  <input type="text" placeholder="Telp" class="form-control" name="company_phone" value="{{ isset($company) ? $company->company_phone : '' }}">
                 </div>
                 <div class="col-lg-3">
-                  <input type="text" placeholder="Ext" class="form-control" name="company_ext">
+                  <input type="text" placeholder="Ext" class="form-control" name="company_ext" value="{{ isset($company) ? $company->company_ext : '' }}">
                 </div>
               </div>
 
               <div class="form-group row">
-                <label class="col-lg-3 col-form-label">Fax:</label>
+                <label class="col-lg-3 col-form-label">Fax</label>
                 <div class="col-lg-9">
-                  <input type="text" placeholder="Fax" class="form-control" name="company_fax">
+                  <input type="text" placeholder="Fax" class="form-control" name="company_fax" value="{{ isset($company) ? $company->company_fax : '' }}">
                 </div>
               </div>
 
               <div class="form-group row">
-                <label class="col-lg-3 col-form-label">Email:</label>
+                <label class="col-lg-3 col-form-label">Email</label>
                 <div class="col-lg-9">
-                  <input type="text" placeholder="Email" class="form-control" name="company_email">
+                  <input type="text" placeholder="Email" class="form-control" name="company_email" value="{{ isset($company) ? $company->company_email : '' }}">
                 </div>
               </div>
             </fieldset>
@@ -139,7 +146,7 @@
         </div>
 
         <div class="text-right">
-          <button type="submit" class="btn btn-primary">Submit <i class="icon-paperplane ml-2"></i></button>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </div>
       </form>
     </div>

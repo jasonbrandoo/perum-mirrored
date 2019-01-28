@@ -21,6 +21,11 @@ class PaymentController extends Controller
         return view('pages.payment.payment-index');
     }
 
+    /**
+     * Display Datatables
+     * 
+     * @return DataTables
+     */
     public function data()
     {
         $payment = Payment::all();
@@ -35,7 +40,8 @@ class PaymentController extends Controller
     public function create()
     {
         //
-        return view('pages.payment.payment-method');
+        $id= 1;
+        return view('pages.payment.payment-method', compact('id'));
     }
 
     /**
@@ -55,6 +61,23 @@ class PaymentController extends Controller
     }
 
     /**
+     * Active / Deactive
+     * 
+     * @return Kavling Status
+     */
+    public function action(Request $request, $id)
+    {
+        $payment = Payment::find($id);
+        if ($request->input('active') == 'Deactive') {
+            $payment->active = 'Deactive';
+            $payment->save();
+        } else if ($request->input('active') == 'Active'){
+            $payment->active = 'Active';
+            $payment->save();
+        } 
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\Payment  $payment
@@ -71,9 +94,11 @@ class PaymentController extends Controller
      * @param  \App\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Payment $payment)
+    public function edit(Payment $payment, $id)
     {
         //
+        $payment = Payment::find($id);
+        return view('pages.payment.payment-method', compact('payment'));
     }
 
     /**
@@ -83,9 +108,14 @@ class PaymentController extends Controller
      * @param  \App\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Payment $payment)
+    public function update(StorePayment $request, Payment $payment)
     {
         //
+        $payment::find($request->id)->update([
+            'payment_method' => $request->input('payment_method'),
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active'
+        ]);
+        return redirect('payment')->with('success', 'Successfull Update payment method');
     }
 
     /**

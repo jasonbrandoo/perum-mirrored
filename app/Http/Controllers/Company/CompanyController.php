@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCompany;
 use App\Model\Company;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller
 {
@@ -21,6 +22,12 @@ class CompanyController extends Controller
         return view('pages.company.index-company');
     }
 
+
+    /**
+     * Display Datables
+     * 
+     * @return Company
+     */
     public function data()
     {
         $companies = Company::all();
@@ -48,7 +55,6 @@ class CompanyController extends Controller
     public function store(StoreCompany $request)
     {
         //
-        // return $request;
         Company::create([
             'company_name' => $request->input('company_name'),
             'company_type' => $request->input('company_type'),
@@ -64,7 +70,24 @@ class CompanyController extends Controller
             'active' => $request->input('active') == null ? 'Not Active' : 'Active'
         ]);
 
-        return redirect('company')->with('success', 'Successfull create Company');        
+        return redirect('company')->with('success', 'Successfull create Company');
+    }
+
+    /**
+     * Active / Deactive
+     * 
+     * @return Company Status
+     */
+    public function action(Request $request, $id)
+    {
+        $company = Company::find($id);
+        if ($request->input('active') == 'Deactive') {
+            $company->active = 'Deactive';
+            $company->save();
+        } else if ($request->input('active') == 'Active'){
+            $company->active = 'Active';
+            $company->save();
+        } 
     }
 
     /**
@@ -84,9 +107,11 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit(Company $company, $id)
     {
         //
+        $company = Company::find($id);
+        return view('pages.company.create-company', compact('company'));
     }
 
     /**
@@ -96,9 +121,24 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(StoreCompany $request, Company $company)
     {
         //
+        $company::find($request->id)->update([
+            'company_name' => $request->input('company_name'),
+            'company_type' => $request->input('company_type'),
+            'company_address' => $request->input('company_address'),
+            'company_city' => $request->input('company_city'),
+            'company_province' => $request->input('company_province'),
+            'company_zipcode' => $request->input('company_zipcode'),
+            'company_state' => $request->input('company_state'),
+            'company_phone' => $request->input('company_phone'),
+            'company_fax' => $request->input('company_ext'),
+            'company_fax' => $request->input('company_fax'),
+            'company_email' => $request->input('company_email'),
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active'
+        ]);
+        return redirect('/company')->with('success', 'Successfull update Company');
     }
 
     /**

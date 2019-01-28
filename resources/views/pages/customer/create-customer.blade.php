@@ -6,6 +6,7 @@
 @endsection
 
 @section('breadcrumb')
+<a href="{{ route('customer.index') }}" class="breadcrumb-item">Customer</a>    
 <a href="{{ route('customer.create') }}" class="breadcrumb-item">New Customer</a>    
 @endsection
 
@@ -23,14 +24,21 @@
   </div>
   @if ($errors->any())
     <div class="alert alert-danger">
-      <ul>
+      <ul> 
         @foreach ($errors->all() as $error)
           <li>{{ $error }}</li>
         @endforeach
       </ul>
     </div>
   @endif
+
+  @if (isset($customer))
+  <form class="wizard-form steps-validation" action="{{ route('customer.update') }}" method="POST" data-fouc>        
+    @method('PATCH')
+    <input type="hidden" name="id" value="{{ $customer->id }}">
+  @else
   <form class="wizard-form steps-validation" action="{{ route('customer.store') }}" method="POST" data-fouc>
+  @endif
     @csrf
     <h6>Personal data</h6>
     <fieldset>
@@ -38,69 +46,69 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">ID Konsumen:</label>
+              <label class="col-lg-3 col-form-label">ID Konsumen</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" value="C000{{$id}}" readonly>
+                <input type="text" class="form-control" value="C000{{ isset($customer) ? $customer->id : $id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Name Lengkap:</label>
+              <label class="col-lg-3 col-form-label">Name Lengkap</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_name" id="customer_name" required>
+                <input type="text" class="form-control" name="customer_name" id="customer_name" value="{{ isset($customer) ? $customer->customer_name : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nomor KTP:</label>
+              <label class="col-lg-3 col-form-label">Nomor KTP</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_ktp" required>
+                <input type="text" class="form-control" name="customer_ktp" value="{{ isset($customer) ? $customer->customer_ktp : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Berlaku KTP sampai:</label>
+              <label class="col-lg-3 col-form-label">Berlaku KTP sampai</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control pickadate-selectors" name="customer_ktp_expired" required>
+                <input type="text" class="form-control pickadate-selectors" name="customer_ktp_expired" value="{{ isset($customer) ? $customer->customer_ktp_expired : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Alamat Rumah (Sesuai KTP):</label>
+              <label class="col-lg-3 col-form-label">Alamat Rumah (Sesuai KTP)</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_ktp_address" required>
+                <input type="text" class="form-control" name="customer_ktp_address" value="{{ isset($customer) ? $customer->customer_ktp_address : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kota:</label>
+              <label class="col-lg-3 col-form-label">Kota</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_city" required>
+                <input type="text" class="form-control" name="customer_city" value="{{ isset($customer) ? $customer->customer_city : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kode Pos:</label>
+              <label class="col-lg-3 col-form-label">Kode Pos</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_zipcode" required>
+                <input type="text" class="form-control" name="customer_zipcode" value="{{ isset($customer) ? $customer->customer_zipcode : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Alamat Tempat Tinggal (Sekarang):</label>
+              <label class="col-lg-3 col-form-label">Alamat Tempat Tinggal (Sekarang)</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_current_address" required>
+                <input type="text" class="form-control" name="customer_current_address" value="{{ isset($customer) ? $customer->customer_current_address : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kota:</label>
+              <label class="col-lg-3 col-form-label">Kota</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_current_city" required>
+                <input type="text" class="form-control" name="customer_current_city" value="{{ isset($customer) ? $customer->customer_current_city : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kode Pos:</label>
+              <label class="col-lg-3 col-form-label">Kode Pos</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_current_zipcode" required>
+                <input type="text" class="form-control" name="customer_current_zipcode" value="{{ isset($customer) ? $customer->customer_current_zipcode : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Telp:</label>
+              <label class="col-lg-3 col-form-label">No Telp</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_telp">
+                <input type="text" class="form-control" name="customer_telp" value="{{ isset($customer) ? $customer->customer_telp : '' }}">
               </div>
             </div>
           </fieldset>
@@ -108,90 +116,94 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No HP:</label>
+              <label class="col-lg-3 col-form-label">No HP</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_mobile_number" required>
+                <input type="text" class="form-control" name="customer_mobile_number" value="{{ isset($customer) ? $customer->customer_mobile_number : '' }}" required>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Status Rumah:</label>
+              <label class="col-lg-3 col-form-label">Status Rumah</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_house_status" required>
+                <input type="text" class="form-control" name="customer_house_status" value="{{ isset($customer) ? $customer->customer_house_status : '' }}" required>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Lama Tinggal:</label>
+              <label class="col-lg-3 col-form-label">Lama Tinggal</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_length_of_stay" required>
+                <input type="text" class="form-control" name="customer_length_of_stay" value="{{ isset($customer) ? $customer->customer_length_of_stay : '' }}" required>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tempat Lahir:</label>
+              <label class="col-lg-3 col-form-label">Tempat Lahir</label>
               <div class="col-lg-9">
-                  <input type="text" class="form-control" name="customer_birth_place" required>
+                  <input type="text" class="form-control" name="customer_birth_place" value="{{ isset($customer) ? $customer->customer_birth_place : '' }}" required>
                 </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tgl Lahir:</label>
+              <label class="col-lg-3 col-form-label">Tgl Lahir</label>
               <div class="col-lg-9">
-                  <input type="text" class="form-control pickadate-selectors" name="customer_birthdate" required>
+                  <input type="text" class="form-control pickadate-selectors" name="customer_birthdate" value="{{ isset($customer) ? $customer->customer_birthdate : '' }}" required>
                 </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Status Perkawinan:</label>
+              <label class="col-lg-3 col-form-label">Status Perkawinan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_maternal_status" required>
+                <input type="text" class="form-control" name="customer_maternal_status" value="{{ isset($customer) ? $customer->customer_maternal_status : '' }}" required>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggungan:</label>
+              <label class="col-lg-3 col-form-label">Tanggungan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_tanggungan" required>
+                <input type="text" class="form-control" name="customer_tanggungan" value="{{ isset($customer) ? $customer->customer_tanggungan : '' }}" required>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nomor NPWP:</label>
+              <label class="col-lg-3 col-form-label">Nomor NPWP</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_npwp" required>
+                <input type="text" class="form-control" name="customer_npwp" value="{{ isset($customer) ? $customer->customer_npwp : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Agama:</label>
+              <label class="col-lg-3 col-form-label">Agama</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_religion" required>
+                <input type="text" class="form-control" name="customer_religion" value="{{ isset($customer) ? $customer->customer_religion : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Jenis Kelamin:</label>
+              <label class="col-lg-3 col-form-label">Jenis Kelamin</label>
               <div class="col-lg-9">
                 <select data-placeholder="Jenis Kelamin" class="form-control form-control-select2" data-fouc id="reference_id" name="customer_gender" required>
+                  @if (isset($customer))
+                    <option value="{{$customer->customer_gender}}">Laki-Laki</option>                      
+                  @else
                     <option></option>
                     <option value="Laki-laki">Laki-Laki</option>
                     <option value="Perempuan">Perempuan</option>
+                  @endif
                 </select>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nama Ibu Kandung:</label>
+              <label class="col-lg-3 col-form-label">Nama Ibu Kandung</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_mother" required>
+                <input type="text" class="form-control" name="customer_mother" value="{{ isset($customer) ? $customer->customer_mother : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Alamat Surat Menyurat:</label>
+              <label class="col-lg-3 col-form-label">Alamat Surat Menyurat</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_address_mail" required>
+                <input type="text" class="form-control" name="customer_address_mail" value="{{ isset($customer) ? $customer->customer_address_mail : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kode Referensi:</label>
+              <label class="col-lg-3 col-form-label">Kode Referensi</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc id="reference_id" name="customer_reference_id" required>
                   @foreach ($references as $reference)
@@ -202,7 +214,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Sales Executives:</label>
+              <label class="col-lg-3 col-form-label">Sales Executives</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc id="sales_executive_id" name="customer_executive_id" required>
                   @foreach ($sales_executives as $se)
@@ -213,7 +225,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Sales Supervisor:</label>
+              <label class="col-lg-3 col-form-label">Sales Supervisor</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc id="sales_supervisor_id" name="customer_supervisor_id" required>
                   @foreach ($sales_supervisor as $spv)
@@ -234,29 +246,29 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Jenis Pekerjaan:</label>
+              <label class="col-lg-3 col-form-label">Jenis Pekerjaan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_job_name" required>
+                <input type="text" class="form-control" name="customer_job_name" value="{{ isset($customer) ? $customer->customer_job_name : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">NIP / NRP:</label>
+              <label class="col-lg-3 col-form-label">NIP / NRP</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_nip" required>
+                <input type="text" class="form-control" name="customer_nip" value="{{ isset($customer) ? $customer->customer_nip : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Pangkat / Jabatan:</label>
+              <label class="col-lg-3 col-form-label">Pangkat / Jabatan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_job_title" required>
+                <input type="text" class="form-control" name="customer_job_title" value="{{ isset($customer) ? $customer->customer_job_title : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Masa Kerja:</label>
+              <label class="col-lg-3 col-form-label">Masa Kerja</label>
               <div class="col-lg-9">
                 <div class="row">
                   <div class="col-md-6">
-                    <input type="text" class="form-control" name="customer_job_duration" required>
+                    <input type="text" class="form-control" name="customer_job_duration" value="{{ isset($customer) ? $customer->customer_job_duration : '' }}" required>
                   </div>
                   <label class="col-form-label">Tahun</label>
                 </div>
@@ -267,7 +279,7 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nama Perusahaan:</label>
+              <label class="col-lg-3 col-form-label">Nama Perusahaan</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc id="company" name="customer_office_id" required>
                   @foreach ($companies as $company)
@@ -278,37 +290,37 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Alamat Perusahaan:</label>
+              <label class="col-lg-3 col-form-label">Alamat Perusahaan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="customer_office_address" id="customer_office_address" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kota:</label>
+              <label class="col-lg-3 col-form-label">Kota</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="customer_office_city" id="customer_office_city" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kode Pos:</label>
+              <label class="col-lg-3 col-form-label">Kode Pos</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="customer_office_zipcode" id="customer_office_zipcode" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Telp:</label>
+              <label class="col-lg-3 col-form-label">Telp</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="customer_office_phone" id="customer_office_phone" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Fax:</label>
+              <label class="col-lg-3 col-form-label">Fax</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="customer_office_fax" id="customer_office_fax" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Email:</label>
+              <label class="col-lg-3 col-form-label">Email</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="customer_office_email" required>
               </div>
@@ -324,28 +336,28 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Penghasilan Pemohon:</label>
+              <label class="col-lg-3 col-form-label">Penghasilan Pemohon</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="customer_income" required>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Penghasilan Tambahan:</label>
+              <label class="col-lg-3 col-form-label">Penghasilan Tambahan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="customer_additional_income" required>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Penghasilan Suami/Istri:</label>
+              <label class="col-lg-3 col-form-label">Penghasilan Suami/Istri</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="customer_family_income" required>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Total:</label>
+              <label class="col-lg-3 col-form-label">Total</label>
               <div class="col-lg-9">
                   <input type="text" class="form-control" name="customer_total_income" required readonly>
                 </div>
@@ -355,21 +367,21 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Pengeluaran Rutin:</label>
+              <label class="col-lg-3 col-form-label">Pengeluaran Rutin</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="customer_routine_expenses" required>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Sisa Penghasilan:</label>
+              <label class="col-lg-3 col-form-label">Sisa Penghasilan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="customer_residual_income" required readonly>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kemampuan Angsuran:</label>
+              <label class="col-lg-3 col-form-label">Kemampuan Angsuran</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="customer_installment_ability" required>
               </div>

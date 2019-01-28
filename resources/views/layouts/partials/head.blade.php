@@ -7,6 +7,8 @@
 
 <title>{{ config('app.name', 'Laravel') }}</title>
 
+<link rel="shortcut icon" href="/icon/favicon.png" type="image/x-icon">
+
 <!-- Global stylesheets -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
 <link href="/template/global_assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
@@ -21,7 +23,6 @@
 <script src="/template/global_assets/js/main/jquery.min.js"></script>
 <script src="/template/global_assets/js/main/bootstrap.bundle.min.js"></script>
 <script src="/template/global_assets/js/plugins/loaders/blockui.min.js"></script>
-<script src="/template/global_assets/js/plugins/ui/ripple.min.js"></script>
 <!-- /Core JS files -->
 
 <!-- Theme JS files -->
@@ -54,11 +55,6 @@
 <!--/DataTables-->
 
 <script src="/template/assets/js/app.js"></script>
-{{-- <script src="/template/global_assets/js/demo_pages/form_layouts.js"></script> --}}
-{{-- <script src="/template/global_assets/js/demo_pages/form_wizard.js"></script> --}}
-{{-- <script src="/template/global_assets/js/demo_pages/picker_date.js"></script> --}}
-{{-- <script src="/template/global_assets/js/demo_pages/datatables_extension_select.js"></script> --}}
-{{-- <script src="/template/global_assets/js/demo_pages/dashboard.js"></script>s --}}
 <!-- /Theme JS files -->
 
 <script>
