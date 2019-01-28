@@ -18,7 +18,7 @@
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->middleware('auth');
 
 /**
  * Company Route
@@ -99,6 +99,9 @@ Route::group([
 ], function () {
     Route::get('/', 'Price\PriceController@index')->name('price.index');
     Route::get('/create', 'Price\PriceController@create')->name('price.create');
+    Route::get('/{id}/edit', 'Price\PriceController@edit')->name('price.edit');
+    Route::patch('/{id}/action', 'Price\PriceController@action')->name('price.action');
+    Route::patch('/update', 'Price\PriceController@update')->name('price.update');
     Route::post('/store', 'Price\PriceController@store')->name('price.store');
     Route::get('/data', 'Price\PriceController@data')->name('price.data');
     Route::get('/houses', 'Price\PriceController@houses')->name('price.houses');
@@ -114,6 +117,9 @@ Route::group([
 ], function () {
     Route::get('/', 'Referensi\ReferensiController@index')->name('referensi.index');
     Route::get('/create', 'Referensi\ReferensiController@create')->name('referensi.create');
+    Route::get('/{id}/edit', 'Referensi\ReferensiController@edit')->name('referensi.edit');
+    Route::patch('/{id}/action', 'Referensi\ReferensiController@action')->name('referensi.action');
+    Route::patch('/update', 'Referensi\ReferensiController@update')->name('referensi.update');
     Route::post('/store', 'Referensi\ReferensiController@store')->name('referensi.store');
     Route::get('/data', 'Referensi\ReferensiController@data')->name('referensi.data');
 });
@@ -303,6 +309,9 @@ Route::group([
 ], function () {
     Route::get('/', 'Role\RoleController@index')->name('role.index');
     Route::get('/create', 'Role\RoleController@create')->name('role.create');
+    Route::get('/{id}/edit', 'Role\RoleController@edit')->name('role.edit');
+    Route::patch('/{id}/action', 'Role\RoleController@action')->name('role.action');
+    Route::patch('/update', 'Role\RoleController@update')->name('role.update');
     Route::post('/store', 'Role\RoleController@store')->name('role.store');
     Route::get('/data', 'Role\RoleController@data')->name('role.data');
 });
@@ -316,6 +325,9 @@ Route::group([
 ], function () {
     Route::get('/', 'Rumah\RumahController@index')->name('rumah.index');
     Route::get('/create', 'Rumah\RumahController@create')->name('rumah.create');
+    Route::get('/{id}/edit', 'Rumah\RumahController@edit')->name('rumah.edit');
+    Route::patch('/{id}/action', 'Rumah\RumahController@action')->name('rumah.action');
+    Route::patch('/update', 'Rumah\RumahController@update')->name('rumah.update');
     Route::post('/store', 'Rumah\RumahController@store')->name('rumah.store');
     Route::get('/data', 'Rumah\RumahController@data')->name('rumah.data');
 });
@@ -329,6 +341,9 @@ Route::group([
 ], function () {
     Route::get('/', 'Sales\SalesController@index')->name('sales.index');
     Route::get('/create', 'Sales\SalesController@create')->name('sales.create');
+    Route::get('/{id}/edit', 'Sales\SalesController@edit')->name('sales.edit');
+    Route::patch('/{id}/action', 'Sales\SalesController@action')->name('sales.action');
+    Route::patch('/update', 'Sales\SalesController@update')->name('sales.update');
     Route::post('/store', 'Sales\SalesController@store')->name('sales.store');
     Route::get('/data', 'Sales\SalesController@data')->name('sales.data');
 });
@@ -342,6 +357,9 @@ Route::group([
 ], function () {
     Route::get('/', 'Users\UsersController@index')->name('users.index');
     Route::get('/create', 'Users\UsersController@create')->name('users.create');
+    Route::get('/{id}/edit', 'Users\UsersController@edit')->name('users.edit');
+    Route::patch('/{id}/action', 'Users\UsersController@action')->name('users.action');
+    Route::patch('/update', 'Users\UsersController@update')->name('users.update');
     Route::post('/store', 'Users\UsersController@store')->name('users.store');
     Route::get('/data', 'Users\UsersController@data')->name('users.data');
 });

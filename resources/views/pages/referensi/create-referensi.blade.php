@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('page-title')
-<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Referensi</span> - Create New Referensi</h4>
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Referensi</span> - {{ isset($reference) ? 'Update Referensi' : 'Create New Referensi' }}</h4>
 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 @endsection
 
 @section('breadcrumb')
 <a href="{{ route('referensi.index') }}" class="breadcrumb-item">Referensi</a>    
-<a href="{{ route('referensi.create') }}" class="breadcrumb-item">New Referensi</a>    
+<a href="#" class="breadcrumb-item">{{ isset($reference) ? 'Update Referensi' : 'Create New Referensi' }}</a>
 @endsection
 
 @section('content')
@@ -32,7 +32,14 @@
             </ul>
         </div>
     @endif
+
+    @if (isset($reference))
+    <form action="{{ route('referensi.update') }}" method="POST">
+      @method('PATCH')
+      <input type="hidden" name="id" value="{{$reference->id}}">
+    @else
     <form action="{{ route('referensi.store') }}" method="POST">
+    @endif
       @csrf
       <div class="row">
         <div class="col-md-6">
@@ -40,19 +47,19 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Referensi:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" value="RSP000{{$id}}" readonly>
+                <input type="text" class="form-control" value="RSP000{{ isset($reference) ? $reference->id : $id }}" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Group Referensi:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="reference_group">
+                <input type="text" class="form-control" name="reference_group" value="{{ isset($reference) ? $reference->reference_group : ''}}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Deskripsi:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="reference_description">
+                <input type="text" class="form-control" name="reference_description" value="{{ isset($reference) ? $reference->reference_description : ''}}">
               </div>
             </div>
             <div class="form-group row">

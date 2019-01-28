@@ -23,6 +23,11 @@ class PriceController extends Controller
         return view('pages.price.index-price');
     }
 
+    /**
+     * Display DataTables
+     * 
+     * @return DataTables
+     */
     public function data()
     {
         $price = Price::with('house')->get();
@@ -42,6 +47,11 @@ class PriceController extends Controller
         return view('pages.price.create-price', compact('buildings', 'id'));
     }
 
+    /**
+     * Load House
+     * 
+     * @return House
+     */
     public function houses(Request $request)
     {
         $house = Rumah::find($request->id);
@@ -82,6 +92,23 @@ class PriceController extends Controller
     }
 
     /**
+     * Active / Deactive
+     * 
+     * @return Price Status
+     */
+    public function action(Request $request, $id)
+    {
+        $price = Price::find($id);
+        if ($request->input('active') == 'Deactive') {
+            $price->active = 'Deactive';
+            $price->save();
+        } else if ($request->input('active') == 'Active'){
+            $price->active = 'Active';
+            $price->save();
+        } 
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\Price  $price
@@ -98,9 +125,12 @@ class PriceController extends Controller
      * @param  \App\Price  $price
      * @return \Illuminate\Http\Response
      */
-    public function edit(Price $price)
+    public function edit(Price $price, $id)
     {
         //
+        $buildings = Rumah::all();
+        $price = Price::find($id);
+        return view('pages.price.create-price', compact('buildings', 'price'));
     }
 
     /**
@@ -110,9 +140,31 @@ class PriceController extends Controller
      * @param  \App\Price  $price
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Price $price)
+    public function update(StorePrice $request, Price $price)
     {
         //
+        $price::find($request->id)->update([
+            'price_house_id' => $request->input('price_house_id'),
+            'price_selling' => $request->input('price_selling'),
+            'price_discount' => $request->input('price_discount'),
+            'price_ppn' => $request->input('price_ppn'),
+            'price_adm' => $request->input('price_adm'),
+            'price_netto' => $request->input('price_netto'),
+            'price_max_kpr' => $request->input('price_max_kpr'),
+            'price_dp' => $request->input('price_dp'),
+            'price_discount_dp' => $request->input('price_discount_dp'),
+            'price_booking' => $request->input('price_booking'),
+            'price_surface_m2' => $request->input('price_surface_m2'),
+            'price_notaris' => $request->input('price_notaris'),
+            'price_5_year' => $request->input('price_5_year'),
+            'price_10_year' => $request->input('price_10_year'),
+            'price_15_year' => $request->input('price_15_year'),
+            'price_20_year' => $request->input('price_20_year'),
+            'price_start_date' => Carbon::parse($request->input('price_start_date'))->format('Y-m-d H:i:s'),
+            'price_end_date' => Carbon::parse($request->input('price_end_date'))->format('Y-m-d H:i:s'),
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active'
+        ]);
+        return redirect('price')->with('success', 'Successfull Update Price');
     }
 
     /**

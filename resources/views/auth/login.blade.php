@@ -1,5 +1,4 @@
-@extends('layouts.auth')
-
+@extends('layouts.auth') 
 @section('auth')
 <div class="container">
     <div class="row justify-content-center">
@@ -11,13 +10,13 @@
                         <h4 class="mb-4">Login to your account</h4>
                     </div>
                     {{-- @if ($errors->any())
-                        <div class="alert alert-danger">
+                    <div class="alert alert-danger">
                         <ul>
                             @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                             @endforeach
                         </ul>
-                        </div>
+                    </div>
                     @endif --}}
                     <form method="POST" action="">
                         @csrf
@@ -52,10 +51,9 @@
                         <div class="form-group-row">
                             <div class="col text-center">
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
+                                    </a> @endif
                             </div>
                         </div>
                     </form>
@@ -65,8 +63,7 @@
     </div>
 </div>
 @endsection
-
-@push('scripts')
+ @push('scripts')
 <script>
     $(document).ready(function(){
       $('#submit-button').click(function(e){
@@ -78,18 +75,23 @@
             success: function(response){
                 swal({
                     type: 'success',
+                    text: 'Login Successfull',
                     confirmButtonClass: 'btn btn-primary',
+                }).then(() => {
+                    window.location.href = '/home';
                 });
-                window.location.href = '/';
             },
             error: function (err) {
                 swal({
                     type: 'error',
+                    text: err.responseJSON.message,
                     confirmButtonClass: 'btn btn-primary',
                 });
             }
         });
       });
     });
+
 </script>
+
 @endpush

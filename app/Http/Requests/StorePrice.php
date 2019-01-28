@@ -46,7 +46,6 @@ class StorePrice extends FormRequest
             'price_10_year' => ['required', 'numeric'],
             'price_15_year' => ['required', 'numeric'],
             'price_20_year' => ['required', 'numeric'],
-            'active' => ['required']
         ];
     }
 }

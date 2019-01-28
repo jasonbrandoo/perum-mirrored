@@ -36,7 +36,6 @@ class StoreSales extends FormRequest
             'sales_position' => ['required'],
             'sales_target' => ['required'],
             'sales_in' => ['required'],
-            'active' => ['required']
         ];
     }
 }

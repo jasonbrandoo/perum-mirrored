@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    <table class="table datatable-select-checkbox" id="role-table">
+    <table class="table datatable-select-checkbox table-bordered" id="role-table">
         <thead>
             <tr>
                 <th></th>
@@ -60,7 +60,7 @@ var DatatableSelect = function() {
                 orderable: false,
                 width: 100,
             }],
-            dom: '<"datatable-header"fl><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+            dom: '<"datatable-header"flB><"datatable-scroll-wrap"t><"datatable-footer"ip>',
             language: {
                 search: '<span>Filter:</span> _INPUT_',
                 searchPlaceholder: 'Type to filter...',
@@ -74,15 +74,103 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('sales.data') !!}',
             columns: [
-                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
-                {data: 'id', render: (id) => `S000${id}`},
-                {data: 'sales_name'},
-                {data: 'sales_position'},
-                {data: 'active'},
+                {
+                    data: 'id',
+                    className: 'select-checkbox',
+                    orderable: false,
+                    width: '50px',
+                    render: () => ''
+                },
+                {
+                    data: 'id',
+                    render: (id) => `S000${id}`
+                },
+                {
+                    data: 'sales_name',
+                    render: (data, type, row) => `<a href="/sales/${row.id}/edit">${row.sales_name}</a>`
+                },
+                {
+                    data: 'sales_position'
+                },
+                {
+                    data: 'active',
+                    width: '50px',
+                    className: 'text-center',
+                    render: (active) => active === 'Active' ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-danger">Deactive</span>'
+                },
             ],
             select: {
-                style: 'multi'
-            }
+                style: 'os'
+            },
+            buttons: [
+                {
+                    extend: 'collection',
+                    text: 'Select Action',
+                    className: 'btn',
+                    buttons: [
+                        {
+                            text: 'Deactive',
+                            className: '_active',
+                            action: (e, dt, type, indexes) => {
+                                const { id } = dt.row({selected: true}).data();
+                                $.ajax({
+                                    url: `/sales/${id}/action`,
+                                    type: 'PATCH',
+                                    data: {
+                                        id: id,
+                                        active: 'Deactive'
+                                    },
+                                    success: (response) => {
+                                        swal({
+                                            type: 'success',
+                                            text: 'Success'
+                                        }).then(() => {
+                                            window.location.reload();
+                                        });
+                                        console.log(response)
+                                    },
+                                    error: (err) => {
+                                        swal({
+                                            type: 'error',
+                                            text: 'Error'
+                                        })
+                                    }
+                                })
+                            }
+                        },
+                        {
+                            text: 'Active',
+                            className: '_active',
+                            action: (e, dt, type, indexes) => {
+                                const { id } = dt.row({selected: true}).data();
+                                $.ajax({
+                                    url: `/sales/${id}/action`,
+                                    type: 'PATCH',
+                                    data: {
+                                        id: id,
+                                        active: 'Active'
+                                    },
+                                    success: (response) => {
+                                        swal({
+                                            type: 'success',
+                                            text: 'Success'
+                                        }).then(() => {
+                                            window.location.reload();
+                                        });
+                                        console.log(response)
+                                    },
+                                    error: (err) => {
+                                        swal({
+                                            type: 'error',
+                                            text: 'Error'
+                                        })
+                                    }
+                                })
+                            }
+                        }
+                    ]
+                }
+            ]
         });
         
     };

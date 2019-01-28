@@ -40,7 +40,6 @@
                 <th>Nama</th>
                 <th>Sales Executives</th>
                 <th>Sales Supervisor</th>
-                <th></th>
             </tr>
         </thead>
     </table>
@@ -89,7 +88,8 @@ var DatatableSelect = function() {
                 ,
                 {
                     data: 'customer_name',
-                    width: '200px'
+                    width: '200px',
+                    render: (data, type, row) => `<a href="/customer/${row.id}/edit">${row.customer_name}</a>`
                 },
                 {
                     data: 'sales_executive.sales_name',
@@ -98,12 +98,6 @@ var DatatableSelect = function() {
                 {
                     data: 'sales_supervisor.sales_name',
                     width: '200px'
-                },
-                {
-                    data: null,
-                    width: '50px',
-                    className: 'text-center',
-                    render: ({id}) => `<a href="/customer/${id}/edit"><span class="badge badge-success">Edit</span></a>`
                 }
             ],
             select: {

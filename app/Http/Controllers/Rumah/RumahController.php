@@ -21,6 +21,11 @@ class RumahController extends Controller
         return view('pages.rumah.index-rumah');
     }
 
+    /**
+     * Display DataTables
+     * 
+     * @return DataTables
+     */
     public function data()
     {
         $rumah = Rumah::all();
@@ -58,6 +63,23 @@ class RumahController extends Controller
     }
 
     /**
+     * Active / Deactive
+     * 
+     * @return Rumah Status
+     */
+    public function action(Request $request, $id)
+    {
+        $rumah = Rumah::find($id);
+        if ($request->input('active') == 'Deactive') {
+            $rumah->active = 'Deactive';
+            $rumah->save();
+        } else if ($request->input('active') == 'Active'){
+            $rumah->active = 'Active';
+            $rumah->save();
+        } 
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\Rumah  $rumah
@@ -74,9 +96,11 @@ class RumahController extends Controller
      * @param  \App\Rumah  $rumah
      * @return \Illuminate\Http\Response
      */
-    public function edit(Rumah $rumah)
+    public function edit(Rumah $rumah, $id)
     {
         //
+        $rumah = Rumah::find($id);
+        return view('pages.rumah.create-rumah', compact('rumah'));
     }
 
     /**
@@ -86,9 +110,16 @@ class RumahController extends Controller
      * @param  \App\Rumah  $rumah
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rumah $rumah)
+    public function update(StoreRumah $request, Rumah $rumah)
     {
         //
+        $rumah::find($request->id)->update([
+            'rumah_type_name' => $request->input('rumah_type_name'),
+            'surface_area_m2' => $request->input('surface_area'),
+            'building_area_m2' => $request->input('building_area'),
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active'
+        ]);
+        return redirect('rumah')->with('success', 'Successfull Update Rumah');
     }
 
     /**

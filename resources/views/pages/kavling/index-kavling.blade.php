@@ -89,7 +89,8 @@ var DatatableSelect = function() {
                     render: (id) => `KAV000${id}`
                 },
                 {
-                    data: 'kavling_type'
+                    data: 'kavling_type',
+                    render: (data, type, row) => `<a href="/kavling/${row.id}/edit">${row.kavling_type}</a>`
                 },
                 {
                     data: 'kavling_block'
@@ -107,10 +108,6 @@ var DatatableSelect = function() {
                     data: 'active',
                     className: 'text-center',
                     render: (active) => active === 'Active' ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-danger">Deactive</span>'
-                },
-                {
-                    data: null,
-                    render: ({id}) => `<a href="/kavling/${id}/edit"><span class="badge badge-success">Edit</span></a>`
                 }
             ],
             select: {

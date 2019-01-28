@@ -40,7 +40,6 @@
                 <th>No</th>
                 <th>Method</th>
                 <th>Active</th>
-                <th></th>
             </tr>
         </thead>
     </table>
@@ -83,21 +82,18 @@ var DatatableSelect = function() {
                     render: () => ''
                 },                
                 {
-                    data: 'id'
+                    data: 'id',
+                    width: '50px'
                 },
                 {
-                    data: 'payment_method'
+                    data: 'payment_method',
+                    render: (data, type, row) => `<a href="/payment/${row.id}/edit">${row.payment_method}</a>`
                 },
                 {
                     data: 'active',
                     width: '50px',
                     className: 'text-center',
                     render: (active) => active === 'Active' ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-danger">Deactive</span>'
-                },
-                {
-                    data: null,
-                    width: '50px',
-                    render: ({id}) => `<a href="/payment/${id}/edit"><span class="badge badge-success">Edit</span></a>`
                 }
             ],
             select: {

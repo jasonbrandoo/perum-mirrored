@@ -28,7 +28,6 @@ class StoreRumah extends FormRequest
             'rumah_type_name' => ['required', 'string'],
             'surface_area' => ['required', 'numeric'],
             'building_area' => ['required', 'numeric'],
-            'active' => ['required']
         ];
     }
 }

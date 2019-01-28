@@ -58,6 +58,23 @@ class RoleController extends Controller
     }
 
     /**
+     * Active / Deactive
+     * 
+     * @return Role Status
+     */
+    public function action(Request $request, $id)
+    {
+        $role = Role::find($id);
+        if ($request->input('active') == 'Deactive') {
+            $role->active = 'Deactive';
+            $role->save();
+        } else if ($request->input('active') == 'Active'){
+            $role->active = 'Active';
+            $role->save();
+        } 
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\Role  $role
@@ -74,9 +91,11 @@ class RoleController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function edit(Role $role, $id)
     {
         //
+        $role = Role::find($id);
+        return view('pages.role.create-role', compact('role'));
     }
 
     /**
@@ -86,9 +105,16 @@ class RoleController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(StoreRole $request, Role $role)
     {
         //
+        $role::find($request->id)->update([
+            'role_name' => $request->input('role_name'),
+            'role_description' => $request->input('role_description'),
+            'role_function' => $request->input('role_function'),
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active'
+        ]);
+        return redirect('role')->with('success', 'Successfull create role');
     }
 
     /**

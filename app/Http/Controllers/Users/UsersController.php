@@ -9,6 +9,7 @@ use App\Model\Role;
 use App\User;
 use App\Http\Requests\StoreUsers;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -65,6 +66,23 @@ class UsersController extends Controller
     }
 
     /**
+     * Active / Deactive
+     * 
+     * @return Users Status
+     */
+    public function action(Request $request, $id)
+    {
+        $users = Users::find($id);
+        if ($request->input('active') == 'Deactive') {
+            $users->active = 'Deactive';
+            $users->save();
+        } else if ($request->input('active') == 'Active'){
+            $users->active = 'Active';
+            $users->save();
+        } 
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\Users  $users
@@ -81,9 +99,12 @@ class UsersController extends Controller
      * @param  \App\Users  $users
      * @return \Illuminate\Http\Response
      */
-    public function edit(Users $users)
+    public function edit(Users $users, $id)
     {
         //
+        $roles = Role::where('active', 'active')->get();
+        $users = Users::find($id);
+        return view('pages.user.create-user', compact('roles', 'users'));
     }
 
     /**
@@ -93,9 +114,20 @@ class UsersController extends Controller
      * @param  \App\Users  $users
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Users $users)
+    public function update(StoreUsers $request, User $users)
     {
         //
+        $users::find($request->id)->update([
+            'role_id' => $request->input('role_id'),
+            'staff_id' => $request->input('staff_id'),
+            'name' => $request->input('fullname'),
+            'phone_number' => $request->input('phone_number'),
+            'email' => $request->input('email'),
+            'address' => $request->input('address'),
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active',
+            'password' => Hash::make($request->input('password'))
+        ]);
+        return redirect('/users')->with('success', 'Successfull Update user');
     }
 
     /**

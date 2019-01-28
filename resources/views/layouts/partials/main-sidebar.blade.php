@@ -17,25 +17,32 @@
     <div class="card card-sidebar-mobile">
       <ul class="nav nav-sidebar text-nowrap" data-nav-type="accordion">
         <!-- Main -->
-        <li class="nav-item"><a href="/" class="nav-link"><i class="icon-home4"></i>Dashboard</a></li>
         {{--  --}}
-        <li class="nav-item"><a href="{{ route('company.index') }}" class="nav-link"><i class="icon-office"></i>Company</a></li>            
-        {{--  --}}
-        <li class="nav-item"><a href="{{ route('customer.index') }}" class="nav-link"><i class="icon-users"></i>Customer</a></li>
-        {{--  --}}
-        <li class="nav-item"><a href="{{ route('kavling.index') }}" class="nav-link"><i class="icon-home7"></i></i>Kavling</a></li>
-        {{--  --}}
-        <li class="nav-item"><a href="{{ route('payment.index') }}" class="nav-link"><i class="icon-checkmark"></i>Payment Method</a></li>
-        {{--  --}}
-        <li class="nav-item"><a href="{{ route('price.index') }}" class="nav-link"><i class="icon-coin-dollar"></i>Price</a></li>
-        {{--  --}}
-        <li class="nav-item"><a href="{{ route('referensi.index') }}" class="nav-link"><i class="icon-envelop2"></i>Referensi</a></li>
-        {{--  --}}
-        <li class="nav-item"><a href="{{ route('role.index') }}" class="nav-link"><i class="icon-users2"></i>Role</a></li>
-        {{--  --}}
-        <li class="nav-item"><a href="{{ route('rumah.index') }}" class="nav-link"><i class="icon-home5"></i>Rumah</a></li>
-        {{--  --}}
-        <li class="nav-item"><a href="{{ route('sales.index') }}" class="nav-link"><i class="icon-user-tie"></i>Sales</a></li>
+        <li class="nav-item nav-item-submenu">
+          <a href="#" class="nav-link"><i class="icon-database"></i><span>Master</span></a>
+          <ul class="nav nav-group-sub" data-submenu-title="Layouts">
+            {{--  --}}
+            <li class="nav-item"><a href="{{ route('company.index') }}" class="nav-link"><i class="icon-office"></i>Company</a></li>            
+            {{--  --}}
+            <li class="nav-item"><a href="{{ route('customer.index') }}" class="nav-link"><i class="icon-users"></i>Customer</a></li>
+            {{--  --}}
+            <li class="nav-item"><a href="{{ route('kavling.index') }}" class="nav-link"><i class="icon-home7"></i></i>Kavling</a></li>
+            {{--  --}}
+            <li class="nav-item"><a href="{{ route('payment.index') }}" class="nav-link"><i class="icon-checkmark"></i>Payment Method</a></li>
+            {{--  --}}
+            <li class="nav-item"><a href="{{ route('price.index') }}" class="nav-link"><i class="icon-coin-dollar"></i>Price</a></li>
+            {{--  --}}
+            <li class="nav-item"><a href="{{ route('referensi.index') }}" class="nav-link"><i class="icon-envelop2"></i>Referensi</a></li>
+            {{--  --}}
+            <li class="nav-item"><a href="{{ route('role.index') }}" class="nav-link"><i class="icon-users2"></i>Role</a></li>
+            {{--  --}}
+            <li class="nav-item"><a href="{{ route('rumah.index') }}" class="nav-link"><i class="icon-home5"></i>Rumah</a></li>
+            {{--  --}}
+            <li class="nav-item"><a href="{{ route('sales.index') }}" class="nav-link"><i class="icon-user-tie"></i>Sales</a></li>
+            {{--  --}}
+            <li class="nav-item"><a href="{{ route('users.index') }}" class="nav-link"><i class="icon-user"></i>User</a></li>
+          </ul>
+        </li>
         {{--  --}}
         <li class="nav-item nav-item-submenu">
           <a href="#" class="nav-link"><i class="icon-cash"></i> <span>Transaction</span></a>
@@ -81,8 +88,6 @@
             </li>
           </ul>
         </li>
-        {{--  --}}
-        <li class="nav-item"><a href="{{ route('users.index') }}" class="nav-link"><i class="icon-user"></i>User</a></li>
         <!-- /main -->
       </ul>
     </div>

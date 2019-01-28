@@ -39,7 +39,6 @@
                 <th>Provinsi</th>
                 <th>Type</th>
                 <th>Active</th>
-                <th></th>
             </tr>
         </thead>
     </table>
@@ -88,7 +87,8 @@
                 },
                 {
                     data: 'company_name',
-                    width: '100px'
+                    width: '100px',
+                    render: (data, type, row) => `<a href="/company/${row.id}/edit">${row.company_name}</a>`
                 },
                 {
                     data: 'company_province',
@@ -103,13 +103,6 @@
                     width: '50px',
                     className: 'text-center',
                     render: (active) => active === 'Active' ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-danger">Deactive</span>'
-                },
-                {
-                    data: null,
-                    width: '50px',
-                    orderable: false,
-                    className: 'text-center',
-                    render: ({id}) => `<a href="/company/${id}/edit"><span class="badge badge-success">Edit</span></a>`
                 }
             ],
             select: {

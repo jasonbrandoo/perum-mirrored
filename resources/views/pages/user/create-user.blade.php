@@ -32,7 +32,14 @@
             </ul>
         </div>
     @endif
+
+    @if (isset($users))
+    <form action="{{ route('users.update')}}" method="POST">
+      @method('PATCH')
+      <input type="hidden" name="id" value="{{$users->id}}">
+    @else
     <form action="{{ route('users.store')}}" method="POST">
+    @endif
       @csrf
       <div class="row">
         <div class="col-md-6">
@@ -40,32 +47,32 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Staff ID:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" value="STF000{{$id}}" readonly>
-                <input type="hidden" name="staff_id" value="{{$id}}">
+                <input type="text" class="form-control" value="STF000{{ isset($users) ? $users->id : $id}}" readonly>
+                <input type="hidden" name="staff_id" value="{{ isset($users) ? $users->id : $id }}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Full Name</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="fullname">
+                <input type="text" class="form-control" name="fullname" value="{{ isset($users) ? $users->name : '' }}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Phone Number:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="phone_number">
+                <input type="text" class="form-control" name="phone_number" value="{{ isset($users) ? $users->phone_number : '' }}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Email:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="email">
+                <input type="text" class="form-control" name="email" value="{{ isset($users) ? $users->email : '' }}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Address:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="address">
+                <input type="text" class="form-control" name="address" value="{{ isset($users) ? $users->address : '' }}">
               </div>
             </div>
           </fieldset>
@@ -112,3 +119,7 @@
   </div>
 </div>
 @endsection
+
+@push('scripts')
+<script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>    
+@endpush

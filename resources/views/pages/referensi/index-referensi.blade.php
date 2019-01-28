@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    <table class="table datatable-select-checkbox" id="role-table">
+    <table class="table datatable-select-checkbox table-bordered" id="role-table">
         <thead>
             <tr>
                 <th></th>
@@ -60,7 +60,7 @@ var DatatableSelect = function() {
                 orderable: false,
                 width: 100,
             }],
-            dom: '<"datatable-header"fl><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+            dom: '<"datatable-header"flB><"datatable-scroll-wrap"t><"datatable-footer"ip>',
             language: {
                 search: '<span>Filter:</span> _INPUT_',
                 searchPlaceholder: 'Type to filter...',
@@ -74,15 +74,101 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('referensi.data') !!}',
             columns: [
-                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
-                {data: 'id', render: (id) => `RSP000${id}`},
-                {data: 'reference_group'},
-                {data: 'reference_description'},
-                {data: 'active'},
+                {
+                    data: 'id',
+                    className: 'select-checkbox',
+                    orderable: false,
+                    render: () => ''
+                },
+                {
+                    data: 'id',
+                    render: (id) => `RSP000${id}`
+                },
+                {
+                    data: 'reference_group',
+                    render: (data, type, row) => `<a href="/referensi/${row.id}/edit">${row.reference_group}</a>`
+                },
+                {
+                    data: 'reference_description'
+                },
+                {
+                    data: 'active',
+                    className: 'text-center',
+                    render: (active) => active === 'Active' ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-danger">Deactive</span>'
+                },
             ],
             select: {
                 style: 'multi'
-            }
+            },
+            buttons: [
+                {
+                    extend: 'collection',
+                    text: 'Select Action',
+                    className: 'btn',
+                    buttons: [
+                        {
+                            text: 'Deactive',
+                            className: '_active',
+                            action: (e, dt, type, indexes) => {
+                                const { id } = dt.row({selected: true}).data();
+                                $.ajax({
+                                    url: `/referensi/${id}/action`,
+                                    type: 'PATCH',
+                                    data: {
+                                        id: id,
+                                        active: 'Deactive'
+                                    },
+                                    success: (response) => {
+                                        swal({
+                                            type: 'success',
+                                            text: 'Success'
+                                        }).then(() => {
+                                            window.location.reload();
+                                        });
+                                        console.log(response)
+                                    },
+                                    error: (err) => {
+                                        swal({
+                                            type: 'error',
+                                            text: 'Error'
+                                        })
+                                    }
+                                })
+                            }
+                        },
+                        {
+                            text: 'Active',
+                            className: '_active',
+                            action: (e, dt, type, indexes) => {
+                                const { id } = dt.row({selected: true}).data();
+                                $.ajax({
+                                    url: `/referensi/${id}/action`,
+                                    type: 'PATCH',
+                                    data: {
+                                        id: id,
+                                        active: 'Active'
+                                    },
+                                    success: (response) => {
+                                        swal({
+                                            type: 'success',
+                                            text: 'Success'
+                                        }).then(() => {
+                                            window.location.reload();
+                                        });
+                                        console.log(response)
+                                    },
+                                    error: (err) => {
+                                        swal({
+                                            type: 'error',
+                                            text: 'Error'
+                                        })
+                                    }
+                                })
+                            }
+                        }
+                    ]
+                }
+            ]
         });
         
     };

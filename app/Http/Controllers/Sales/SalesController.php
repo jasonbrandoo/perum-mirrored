@@ -22,6 +22,11 @@ class SalesController extends Controller
         return view('pages.sales.index-sales');
     }
 
+    /**
+     * Display DataTables
+     * 
+     * @return DataTables
+     */
     public function data()
     {
         $sales = Sales::all();
@@ -71,6 +76,23 @@ class SalesController extends Controller
     }
 
     /**
+     * Active / Deactive
+     * 
+     * @return Sales Status
+     */
+    public function action(Request $request, $id)
+    {
+        $sales = Sales::find($id);
+        if ($request->input('active') == 'Deactive') {
+            $sales->active = 'Deactive';
+            $sales->save();
+        } else if ($request->input('active') == 'Active'){
+            $sales->active = 'Active';
+            $sales->save();
+        } 
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\Sales  $sales
@@ -87,9 +109,11 @@ class SalesController extends Controller
      * @param  \App\Sales  $sales
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sales $sales)
+    public function edit(Sales $sales, $id)
     {
         //
+        $sales = Sales::find($id);
+        return view('pages.sales.create-sales', compact('sales'));
     }
 
     /**
@@ -99,9 +123,28 @@ class SalesController extends Controller
      * @param  \App\Sales  $sales
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sales $sales)
+    public function update(StoreSales $request, Sales $sales)
     {
         //
+        $sales::find($request->id)->update([
+            'sales_name' => $request->input('sales_name'),
+            'sales_mobile_number' => $request->input('sales_mobile_number'),
+            'sales_number' => $request->input('sales_number'),
+            'sales_no_ktp' => $request->input('sales_no_ktp'),
+            'sales_address' => $request->input('sales_address'),
+            'sales_city' => $request->input('sales_city'),
+            'sales_province' => $request->input('sales_province'),
+            'sales_zipcode' => $request->input('sales_zipcode'),
+            'sales_position' => $request->input('sales_position'),
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active',
+            'sales_void' => $request->input('sales_void') == null ? 'Not Void' : 'Void',
+            'sales_komisi' => $request->input('sales_komisi'),
+            'sales_target' => $request->input('sales_target'),
+            'sales_spv' => $request->input('sales_spv'),
+            'sales_in' => Carbon::parse($request->input('sales_in'))->format('Y-m-d H:i:s'),
+            'sales_out' => Carbon::parse($request->input('sales_out'))->format('Y-m-d H:i:s')
+        ]);
+        return redirect('/sales')->with('success', 'Successfull Update Sales');
     }
 
     /**

@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
 @section('page-title')
-<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Company</span> - Create New Company</h4>
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Company</span> - {{ isset($company) ? 'Edit Company' : 'Create New Company' }}</h4>
 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 @endsection
 
 @section('breadcrumb')
 <a href="{{ route('company.index') }}" class="breadcrumb-item">Company</a>    
-<a href="{{ route('company.create') }}" class="breadcrumb-item">New Company</a>    
+<a href="" class="breadcrumb-item">{{ isset($company) ? 'Edit Company' : 'New Company' }}</a>
 @endsection
 
 @section('content')
 <div class="card">
     <div class="card-header header-elements-inline">
-      <h5 class="card-title">Create New Company</h5>
+      <h5 class="card-title">{{ isset($company) ? 'Edit Company' : 'Create New Company' }}</h5>
       <div class="header-elements">
         <div class="list-icons">
           <a class="list-icons-item" data-action="collapse"></a>

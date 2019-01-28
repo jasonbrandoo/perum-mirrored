@@ -32,9 +32,11 @@
         </div>
     </div>
 
-    <table class="table datatable-select-checkbox" id="role-table">
+    <table class="table datatable-select-checkbox table-bordered" id="role-table">
         <thead>
             <tr>
+                <th></th>
+                <th>ID</th>
                 <th>Full Name</th>
                 <th>Staff ID</th>
                 <th>Role</th>
@@ -59,7 +61,7 @@ var DatatableSelect = function() {
                 orderable: false,
                 width: 100,
             }],
-            dom: '<"datatable-header"fl><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+            dom: '<"datatable-header"flB><"datatable-scroll-wrap"t><"datatable-footer"ip>',
             language: {
                 search: '<span>Filter:</span> _INPUT_',
                 searchPlaceholder: 'Type to filter...',
@@ -73,14 +75,106 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('users.data') !!}',
             columns: [
-                {data: 'name'},
-                {data: 'staff_id'},
-                {data: 'roles.role_name'},
-                {data: 'active'},
+                {
+                    data: 'id',
+                    className: 'select-checkbox',
+                    orderable: false,
+                    width: '50px',
+                    render: () => ''
+                },
+                {
+                    data: 'id',
+                    width: '50px'
+                },
+                {
+                    data: 'name',
+                    render: (data, type, row) => `<a href="/users/${row.id}/edit">${row.name}</a>`
+                },
+                {
+                    data: 'staff_id'
+                },
+                {
+                    data: 'roles.role_name'
+                    },
+                {
+                    data: 'active',
+                    width: '50px',
+                    className: 'text-center',
+                    render: (active) => active === 'Active' ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-danger">Deactive</span>'
+                },
             ],
             select: {
-                style: 'multi'
-            }
+                style: 'os'
+            },
+            buttons: [
+                {
+                    extend: 'collection',
+                    text: 'Select Action',
+                    className: 'btn',
+                    buttons: [
+                        {
+                            text: 'Deactive',
+                            className: '_active',
+                            action: (e, dt, type, indexes) => {
+                                const { id } = dt.row({selected: true}).data();
+                                $.ajax({
+                                    url: `/users/${id}/action`,
+                                    type: 'PATCH',
+                                    data: {
+                                        id: id,
+                                        active: 'Deactive'
+                                    },
+                                    success: (response) => {
+                                        swal({
+                                            type: 'success',
+                                            text: 'Success'
+                                        }).then(() => {
+                                            window.location.reload();
+                                        });
+                                        console.log(response)
+                                    },
+                                    error: (err) => {
+                                        swal({
+                                            type: 'error',
+                                            text: 'Error'
+                                        })
+                                    }
+                                })
+                            }
+                        },
+                        {
+                            text: 'Active',
+                            className: '_active',
+                            action: (e, dt, type, indexes) => {
+                                const { id } = dt.row({selected: true}).data();
+                                $.ajax({
+                                    url: `/users/${id}/action`,
+                                    type: 'PATCH',
+                                    data: {
+                                        id: id,
+                                        active: 'Active'
+                                    },
+                                    success: (response) => {
+                                        swal({
+                                            type: 'success',
+                                            text: 'Success'
+                                        }).then(() => {
+                                            window.location.reload();
+                                        });
+                                        console.log(response)
+                                    },
+                                    error: (err) => {
+                                        swal({
+                                            type: 'error',
+                                            text: 'Error'
+                                        })
+                                    }
+                                })
+                            }
+                        }
+                    ]
+                }
+            ]
         });
         
     };

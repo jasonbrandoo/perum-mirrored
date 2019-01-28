@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
 @section('page-title')
-<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Sales</span> - Create New Sales</h4>
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Sales</span> - {{ isset($sales) ? 'Update Sales' : 'Create New Sales' }}</h4>
 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 @endsection
 
 @section('breadcrumb')
 <a href="{{ route('sales.index') }}" class="breadcrumb-item">Sales</a>    
-<a href="{{ route('sales.create') }}" class="breadcrumb-item">New Sales</a>    
+<a href="#" class="breadcrumb-item">{{ isset($sales) ? 'Update Sales' : 'New Sales' }}</a>    
 @endsection
 
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">
-    <h5 class="card-title">Create New Sales</h5>
+    <h5 class="card-title">{{ isset($sales) ? 'Update Sales' : 'Create New Sales' }}</h5>
     <div class="header-elements">
       <div class="list-icons">
         <a class="list-icons-item" data-action="collapse"></a>
@@ -32,7 +32,14 @@
             </ul>
         </div>
     @endif
+
+    @if (isset($sales))
+    <form action="{{ route('sales.update') }}" method="POST">
+      @method('PATCH')
+      <input type="hidden" name="id" value="{{ $sales->id }}">
+    @else
     <form action="{{ route('sales.store') }}" method="POST">
+    @endif
       @csrf
       <div class="row">
         <div class="col-md-6">
@@ -40,55 +47,55 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Sales ID:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" value="S000{{$id}}" readonly>
+                <input type="text" class="form-control" value="S000{{ isset($sales) ? $sales->id : $id }}" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nama Sales:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sales_name">
+                <input type="text" class="form-control" name="sales_name" value="{{ isset($sales) ? $sales->sales_name : '' }}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No Hp:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sales_mobile_number">
+                <input type="text" class="form-control" name="sales_mobile_number" value="{{ isset($sales) ? $sales->sales_mobile_number : '' }}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No Telp:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sales_number">
+                <input type="text" class="form-control" name="sales_number" value="{{ isset($sales) ? $sales->sales_number : '' }}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No KTP:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sales_no_ktp">
+                <input type="text" class="form-control" name="sales_no_ktp" value="{{ isset($sales) ? $sales->sales_no_ktp : '' }}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Alamat:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sales_address">
+                <input type="text" class="form-control" name="sales_address" value="{{ isset($sales) ? $sales->sales_address : '' }}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kota:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sales_city">
+                <input type="text" class="form-control" name="sales_city" value="{{ isset($sales) ? $sales->sales_city : '' }}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Provinsi:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sales_province">
+                <input type="text" class="form-control" name="sales_province" value="{{ isset($sales) ? $sales->sales_province : '' }}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Pos:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sales_zipcode">
+                <input type="text" class="form-control" name="sales_zipcode" value="{{ isset($sales) ? $sales->sales_zipcode : '' }}">
               </div>
             </div>
           </fieldset>
