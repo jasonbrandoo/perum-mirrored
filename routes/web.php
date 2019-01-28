@@ -17,7 +17,9 @@
 
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
-
+Route::get('/', function(){
+    return view('home');
+})->middleware('auth');
 Route::get('/home', 'HomeController@index')->middleware('auth');
 
 /**
