@@ -37,7 +37,7 @@ class MouController extends Controller
     public function create()
     {
         //
-        $companies = Company::all();
+        $companies = Company::where('company_type', 'mou')->get();
         $id = (new Mou)->max('id') + 1;
         return view('pages.transaction.mou.create-mou', compact('companies', 'id'));
     }
@@ -61,8 +61,24 @@ class MouController extends Controller
             'mou_end_date' => Carbon::parse($request->input('mou_end_date'))->format('Y-m-d H:i:s'),
             'mou_commision' => $request->input('mou_commision')
         ]);
+        return redirect('transaction/mou')->with('success', 'Successfull create MOU');
+    }
 
-        return redirect('transaction/mou')->with('success', 'Successfull create MOU');        
+    /**
+     * Active / Deactive
+     *
+     * @return Mou Status
+     */
+    public function action(Request $request, $id)
+    {
+        $mou = Mou::find($id);
+        if ($request->input('active') == 'Deactive') {
+            $mou->active = 'Deactive';
+            $mou->save();
+        } elseif ($request->input('active') == 'Active') {
+            $mou->active = 'Active';
+            $mou->save();
+        }
     }
 
     /**
@@ -82,9 +98,12 @@ class MouController extends Controller
      * @param  \App\Mou  $mou
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mou $mou)
+    public function edit(Mou $mou, $id)
     {
         //
+        $mou = Mou::with('companies')->find($id);
+        $companies_edit = Company::where('company_type', 'mou')->get();
+        return view('pages.transaction.mou.create-mou', compact('mou', 'companies_edit'));
     }
 
     /**
@@ -97,6 +116,17 @@ class MouController extends Controller
     public function update(Request $request, Mou $mou)
     {
         //
+        $mou::find($request->id)->update([
+            'mou_company_id' => $request->input('mou_company_id'),
+            'mou_coordinator' => $request->input('mou_coordinator'),
+            'mou_coordinator_position' => $request->input('mou_coordinator_position'),
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active',
+            'mou_date' => Carbon::parse($request->input('mou_date'))->format('Y-m-d H:i:s'),
+            'mou_start_date' => Carbon::parse($request->input('mou_start_date'))->format('Y-m-d H:i:s'),
+            'mou_end_date' => Carbon::parse($request->input('mou_end_date'))->format('Y-m-d H:i:s'),
+            'mou_commision' => $request->input('mou_commision')
+        ]);
+        return redirect('transaction/mou')->with('success', 'Successfull update MOU');
     }
 
     /**

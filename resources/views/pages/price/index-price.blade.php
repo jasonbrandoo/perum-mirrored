@@ -88,7 +88,7 @@ var DatatableSelect = function() {
                 },
                 {
                     data: 'house.rumah_type_name',
-                    render: (data, type, row) => `<a href="/price/${row.house.id}/edit">${row.house.rumah_type_name}</a>`
+                    render: (data, type, row) => `<a href="/price/${row.id}/edit">${row.house.rumah_type_name}</a>`
                 },
                 {
                     data: 'price_start_date'

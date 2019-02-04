@@ -63,9 +63,20 @@
                 <label class="col-lg-3 col-form-label">Type</label>
                 <div class="col-lg-9">
                   <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="company_type">
-                    <option></option>
+                    @if (isset($company))
+                      @if ($company->company_type == 'customer')
+                        <option value="customer">Customer</option>
+                        <option value="mou">MOU</option>
+                      @endif
+                      @if ($company->company_type == 'mou')
+                        <option value="mou">MOU</option>
+                        <option value="customer">Customer</option>
+                      @endif
+                    @else
+                      <option></option>
                       <option value="customer">Customer</option>
                       <option value="mou">MOU</option>
+                    @endif
                   </select>
                 </div>
               </div>
@@ -74,7 +85,7 @@
                 <label class="col-lg-3 col-form-label">Active</label>
                 <div class="col-lg-9">
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="active" value="active">
+                    <input type="checkbox" class="form-check-input" name="active" value="active" checked>
                   </div>
                 </div>
               </div>
@@ -107,7 +118,7 @@
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Kode Pos</label>
                 <div class="col-lg-9">
-                    <input type="text" placeholder="Kode Pos" class="form-control" name="company_zipcode" value="{{ isset($company) ? $company->company_zipcode : '' }}">
+                    <input type="number" placeholder="Kode Pos" class="form-control" name="company_zipcode" value="{{ isset($company) ? $company->company_zipcode : '' }}">
                   </div>
               </div>
 
@@ -121,10 +132,10 @@
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">No Telp</label>
                 <div class="col-lg-6">
-                  <input type="text" placeholder="Telp" class="form-control" name="company_phone" value="{{ isset($company) ? $company->company_phone : '' }}">
+                  <input type="number" placeholder="Telp" class="form-control" name="company_phone" value="{{ isset($company) ? $company->company_phone : '' }}">
                 </div>
                 <div class="col-lg-3">
-                  <input type="text" placeholder="Ext" class="form-control" name="company_ext" value="{{ isset($company) ? $company->company_ext : '' }}">
+                  <input type="number" placeholder="Ext" class="form-control" name="company_ext" value="{{ isset($company) ? $company->company_ext : '' }}">
                 </div>
               </div>
 

@@ -128,9 +128,10 @@ class PriceController extends Controller
     public function edit(Price $price, $id)
     {
         //
-        $buildings = Rumah::all();
+        $buildings_edit = Rumah::all();
+        $house = Price::with('house')->find($id);
         $price = Price::find($id);
-        return view('pages.price.create-price', compact('buildings', 'price'));
+        return view('pages.price.create-price', compact('house', 'price', 'buildings_edit'));
     }
 
     /**

@@ -43,7 +43,6 @@
                 <th>Hook</th>
                 <th>Tipe Rumah</th>
                 <th>Active</th>
-                <th></th>
             </tr>
         </thead>
     </table>
@@ -90,7 +89,7 @@ var DatatableSelect = function() {
                 },
                 {
                     data: 'kavling_type',
-                    render: (data, type, row) => `<a href="/kavling/${row.id}/edit">${row.kavling_type}</a>`
+                    render: (data, type, row) => `<a href="/kavling/${row.id}/edit">${row.kavling_cluster}</a>`
                 },
                 {
                     data: 'kavling_block'

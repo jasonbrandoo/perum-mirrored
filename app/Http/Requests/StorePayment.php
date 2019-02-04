@@ -26,6 +26,7 @@ class StorePayment extends FormRequest
         return [
             //
             'payment_method' => ['required'],
+            'payment_type' => ['required'],
         ];
     }
 }

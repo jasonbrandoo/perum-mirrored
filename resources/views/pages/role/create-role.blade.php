@@ -45,25 +45,25 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Role ID:</label>
+              <label class="col-lg-3 col-form-label">Role ID</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="role_id" value="R000{{ isset($role) ? $role->id : $id }}" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Role Name:</label>
+              <label class="col-lg-3 col-form-label">Role Name</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="role_name" value="{{ isset($role) ? $role->role_name : '' }}">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Description:</label>
+              <label class="col-lg-3 col-form-label">Description</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="role_description" value="{{ isset($role) ? $role->role_description : '' }}">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Active:</label>
+              <label class="col-lg-3 col-form-label">Active</label>
               <div class="col-lg-9">
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" name="active" value="active">
@@ -90,7 +90,7 @@
             </div>
           </fieldset>
           <div class="text-right">
-            <button type="submit" class="btn btn-primary">Submit <i class="icon-paperplane ml-2"></i></button>
+            <button type="submit" class="btn btn-primary">Submit</button>
           </div>
         </div>
       </div>

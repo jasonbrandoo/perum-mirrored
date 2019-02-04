@@ -49,7 +49,7 @@ class StoreSuratPesanan extends FormRequest
             // 
             'sp_price_id' => ['required'],
             'sp_price' => ['required'],
-            'sp_price_list' => ['required'],
+            // 'sp_price_list' => ['required'],
             'sp_total_harga_jual' => ['required'],
             'sp_harga_jual_tanah' => ['required'],
             'sp_ppn_percentage' => ['required'],

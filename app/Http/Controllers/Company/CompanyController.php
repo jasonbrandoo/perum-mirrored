@@ -64,7 +64,7 @@ class CompanyController extends Controller
             'company_zipcode' => $request->input('company_zipcode'),
             'company_state' => $request->input('company_state'),
             'company_phone' => $request->input('company_phone'),
-            'company_fax' => $request->input('company_ext'),
+            'company_ext' => $request->input('company_ext'),
             'company_fax' => $request->input('company_fax'),
             'company_email' => $request->input('company_email'),
             'active' => $request->input('active') == null ? 'Not Active' : 'Active'
@@ -133,7 +133,7 @@ class CompanyController extends Controller
             'company_zipcode' => $request->input('company_zipcode'),
             'company_state' => $request->input('company_state'),
             'company_phone' => $request->input('company_phone'),
-            'company_fax' => $request->input('company_ext'),
+            'company_ext' => $request->input('company_ext'),
             'company_fax' => $request->input('company_fax'),
             'company_email' => $request->input('company_email'),
             'active' => $request->input('active') == null ? 'Not Active' : 'Active'

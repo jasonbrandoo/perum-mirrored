@@ -60,7 +60,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nomor KTP</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_ktp" value="{{ isset($customer) ? $customer->customer_ktp : '' }}" required>
+                <input type="number" class="form-control" name="customer_ktp" value="{{ isset($customer) ? $customer->customer_ktp : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
@@ -102,13 +102,13 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Pos</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_current_zipcode" value="{{ isset($customer) ? $customer->customer_current_zipcode : '' }}" required>
+                <input type="number" class="form-control" name="customer_current_zipcode" value="{{ isset($customer) ? $customer->customer_current_zipcode : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No Telp</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_telp" value="{{ isset($customer) ? $customer->customer_telp : '' }}">
+                <input type="number" class="form-control" name="customer_telp" value="{{ isset($customer) ? $customer->customer_telp : '' }}">
               </div>
             </div>
           </fieldset>
@@ -118,7 +118,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No HP</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_mobile_number" value="{{ isset($customer) ? $customer->customer_mobile_number : '' }}" required>
+                <input type="number" class="form-control" name="customer_mobile_number" value="{{ isset($customer) ? $customer->customer_mobile_number : '' }}" required>
               </div>
             </div>
 
@@ -132,7 +132,12 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Lama Tinggal</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_length_of_stay" value="{{ isset($customer) ? $customer->customer_length_of_stay : '' }}" required>
+                <div class="row">
+                  <div class="col-md-6">
+                    <input type="number" class="form-control" name="customer_length_of_stay" value="{{ isset($customer) ? $customer->customer_length_of_stay : '' }}" required>
+                  </div>
+                  <label class="col-form-label">Tahun</label>
+                </div>
               </div>
             </div>
 
@@ -153,14 +158,23 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Status Perkawinan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_maternal_status" value="{{ isset($customer) ? $customer->customer_maternal_status : '' }}" required>
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="customer_maternal_status" required>
+                  @if (isset($customer))
+                    <option value="{{$customer->customer_maternal_status}}">{{$customer->customer_maternal_status}}</option>
+                  @else
+                    <option></option>
+                    <option value="single">Single</option>
+                    <option value="menikah">Menikah</option>
+                    <option value="janda_duda">Janda / Duda</option>
+                  @endif
+                  </select>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tanggungan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_tanggungan" value="{{ isset($customer) ? $customer->customer_tanggungan : '' }}" required>
+                <input type="number" class="form-control" name="customer_tanggungan" value="{{ isset($customer) ? $customer->customer_tanggungan : '' }}" required>
               </div>
             </div>
 
@@ -208,7 +222,7 @@
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc id="reference_id" name="customer_reference_id" required>
                   @foreach ($references as $reference)
                     <option></option>
-                    <option value="{{$reference->id}}">RSP000{{$reference->id}}</option>
+                    <option value="{{$reference->id}}">RSP000{{$reference->id}} - {{$reference->reference_description}}</option>
                   @endforeach
                 </select>
               </div>
@@ -219,7 +233,7 @@
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc id="sales_executive_id" name="customer_executive_id" required>
                   @foreach ($sales_executives as $se)
                     <option></option>
-                    <option value="{{$se->id}}">{{$se->sales_name}}</option>
+                    <option value="{{$se->id}}">SE000{{$se->id}} - {{$se->sales_name}}</option>
                   @endforeach
                 </select>
               </div>
@@ -230,7 +244,7 @@
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc id="sales_supervisor_id" name="customer_supervisor_id" required>
                   @foreach ($sales_supervisor as $spv)
                     <option></option>
-                    <option value="{{$spv->id}}">{{$spv->sales_name}}</option>
+                    <option value="{{$spv->id}}">SPV000{{$spv->id}} - {{$spv->sales_name}}</option>
                   @endforeach
                 </select>
               </div>
@@ -254,7 +268,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">NIP / NRP</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_nip" value="{{ isset($customer) ? $customer->customer_nip : '' }}" required>
+                <input type="number" class="form-control" name="customer_nip" value="{{ isset($customer) ? $customer->customer_nip : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
@@ -268,7 +282,7 @@
               <div class="col-lg-9">
                 <div class="row">
                   <div class="col-md-6">
-                    <input type="text" class="form-control" name="customer_job_duration" value="{{ isset($customer) ? $customer->customer_job_duration : '' }}" required>
+                    <input type="number" class="form-control" name="customer_job_duration" value="{{ isset($customer) ? $customer->customer_job_duration : '' }}" required>
                   </div>
                   <label class="col-form-label">Tahun</label>
                 </div>
@@ -284,7 +298,7 @@
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc id="company" name="customer_office_id" required>
                   @foreach ($companies as $company)
                     <option></option>
-                    <option value="{{$company->id}}">{{$company->company_name}}</option>
+                    <option value="{{$company->id}}">P000{{$company->id}} - {{$company->company_name}}</option>
                   @endforeach
                 </select>
               </div>
@@ -304,7 +318,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Pos</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_office_zipcode" id="customer_office_zipcode" readonly>
+                <input type="number" class="form-control" name="customer_office_zipcode" id="customer_office_zipcode" readonly>
               </div>
             </div>
             <div class="form-group row">
@@ -338,28 +352,28 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Penghasilan Pemohon</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_income" required>
+                <input type="number" class="form-control" name="customer_income" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Penghasilan Tambahan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_additional_income" required>
+                <input type="number" class="form-control" name="customer_additional_income" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Penghasilan Suami/Istri</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_family_income" required>
+                <input type="number" class="form-control" name="customer_family_income" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Total</label>
               <div class="col-lg-9">
-                  <input type="text" class="form-control" name="customer_total_income" required readonly>
+                  <input type="number" class="form-control" name="customer_total_income" required readonly>
                 </div>
             </div>
           </fieldset>
@@ -369,21 +383,21 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Pengeluaran Rutin</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_routine_expenses" required>
+                <input type="number" class="form-control" name="customer_routine_expenses" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Sisa Penghasilan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_residual_income" required readonly>
+                <input type="number" class="form-control" name="customer_residual_income" required readonly>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kemampuan Angsuran</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_installment_ability" required>
+                <input type="number" class="form-control" name="customer_installment_ability" required>
               </div>
             </div>
           </fieldset>

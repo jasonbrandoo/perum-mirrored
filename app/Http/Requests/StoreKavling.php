@@ -25,7 +25,7 @@ class StoreKavling extends FormRequest
     {
         return [
             //
-            'kavling_type' => ['required', 'string'],
+            'kavling_type_id' => ['required'],
             'kavling_block' => ['required'],
             'kavling_number' => ['required', 'numeric'],
             'kavling_s_d' => ['required'],

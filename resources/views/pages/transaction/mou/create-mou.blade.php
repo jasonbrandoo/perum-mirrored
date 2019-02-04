@@ -32,7 +32,14 @@
         </ul>
       </div>
     @endif
+
+    @if (isset($mou))
+    <form action="{{ route('transaction.mou.update') }}" method="POST">  
+      @method('PATCH')
+      <input type="hidden" name="id" value="{{$mou->id}}">
+    @else
     <form action="{{ route('transaction.mou.store') }}" method="POST">
+    @endif
       @csrf
       <div class="row">
         <div class="col-md-6">
@@ -40,36 +47,48 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nomer Perjanjian:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="mou_id" value="MOU000{{$id}}" readonly>
+                <input type="text" class="form-control" name="mou_id" value="MOU000{{isset($mou) ? $mou->id : $id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Perusahaan / Instansi:</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="mou_company_id">
-                  @foreach ($companies as $company)
-                    <option value="{{$company->id}}">{{$company->id}}, {{$company->company_type}}, {{$company->company_name}}</option>
-                  @endforeach
+                  @if (isset($mou))
+                    <option value="{{$mou->companies->id}}">P000{{$mou->companies->id}} - {{$mou->companies->company_name}}</option>
+                    @foreach ($companies_edit as $company)
+                      @if ($mou->companies->id == $company->id)
+                        <option></option>
+                      @else
+                        <option></option>
+                        <option value="{{$company->id}}">P000{{$company->id}} - {{$company->company_name}}</option>
+                      @endif
+                    @endforeach
+                  @else
+                    @foreach ($companies as $company)
+                      <option value="{{$company->id}}">P000{{$company->id}} - {{$company->company_name}}</option>
+                    @endforeach
+                  @endif
                 </select>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nama Koordinator:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="mou_coordinator">
+                <input type="text" class="form-control" name="mou_coordinator" value="{{isset($mou) ? $mou->mou_coordinator : ''}}" >
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Jabatan:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="mou_coordinator_position">
+                <input type="text" class="form-control" name="mou_coordinator_position" value="{{isset($mou) ? $mou->mou_coordinator_position : ''}}">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Status Perjanjian(MOU):</label>
+              <label class="col-lg-3 col-form-label">Active:</label>
               <div class="col-lg-9">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input" name="active">
+                  <input type="checkbox" class="form-check-input" name="active" checked>
                 </div>
               </div>
             </div>
@@ -85,7 +104,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="mou_date">
+                  <input type="text" class="form-control pickadate-selectors" name="mou_date" value="{{isset($mou) ? $mou->mou_date : ''}}">
                 </div>
               </div>
             </div>
@@ -96,7 +115,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="mou_start_date">
+                  <input type="text" class="form-control pickadate-selectors" name="mou_start_date" value="{{isset($mou) ? $mou->mou_start_date : ''}}">
                 </div>
               </div>
             </div>
@@ -107,14 +126,14 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="mou_end_date">
+                  <input type="text" class="form-control pickadate-selectors" name="mou_end_date" value="{{isset($mou) ? $mou->mou_end_date : ''}}">
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Perhitungan Komisi:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="mou_commision">
+                <input type="text" class="form-control" name="mou_commision" value="{{isset($mou) ? $mou->mou_commision : ''}}">
               </div>
             </div>
           </fieldset>

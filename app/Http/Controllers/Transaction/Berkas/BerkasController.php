@@ -37,7 +37,6 @@ class BerkasController extends Controller
     public function create()
     {
         //
-        $customer = Customer::all();
         $id = (new Berkas)->max('id') + 1;
         $sps = SuratPesanan::all();
         return view('pages.transaction.berkas.create-berkas', compact('sps', 'id', 'customer'));

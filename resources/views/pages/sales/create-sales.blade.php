@@ -45,57 +45,57 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Sales ID:</label>
+              <label class="col-lg-3 col-form-label">Sales ID</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" value="S000{{ isset($sales) ? $sales->id : $id }}" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nama Sales:</label>
+              <label class="col-lg-3 col-form-label">Nama Sales</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="sales_name" value="{{ isset($sales) ? $sales->sales_name : '' }}">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Hp:</label>
+              <label class="col-lg-3 col-form-label">No Hp</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sales_mobile_number" value="{{ isset($sales) ? $sales->sales_mobile_number : '' }}">
+                <input type="number" class="form-control" name="sales_mobile_number" value="{{ isset($sales) ? $sales->sales_mobile_number : '' }}">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Telp:</label>
+              <label class="col-lg-3 col-form-label">No Telp</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sales_number" value="{{ isset($sales) ? $sales->sales_number : '' }}">
+                <input type="number" class="form-control" name="sales_number" value="{{ isset($sales) ? $sales->sales_number : '' }}">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No KTP:</label>
+              <label class="col-lg-3 col-form-label">No KTP</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sales_no_ktp" value="{{ isset($sales) ? $sales->sales_no_ktp : '' }}">
+                <input type="number" class="form-control" name="sales_no_ktp" value="{{ isset($sales) ? $sales->sales_no_ktp : '' }}">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Alamat:</label>
+              <label class="col-lg-3 col-form-label">Alamat</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="sales_address" value="{{ isset($sales) ? $sales->sales_address : '' }}">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kota:</label>
+              <label class="col-lg-3 col-form-label">Kota</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="sales_city" value="{{ isset($sales) ? $sales->sales_city : '' }}">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Provinsi:</label>
+              <label class="col-lg-3 col-form-label">Provinsi</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="sales_province" value="{{ isset($sales) ? $sales->sales_province : '' }}">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kode Pos:</label>
+              <label class="col-lg-3 col-form-label">Kode Pos</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sales_zipcode" value="{{ isset($sales) ? $sales->sales_zipcode : '' }}">
+                <input type="number" class="form-control" name="sales_zipcode" value="{{ isset($sales) ? $sales->sales_zipcode : '' }}">
               </div>
             </div>
           </fieldset>
@@ -103,73 +103,104 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Jabatan:</label>
+              <label class="col-lg-3 col-form-label">Jabatan</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sales_position">
-                  <option></option>
+                  @if (isset($sales))
+                    @if ($sales->sales_position == 'Sales')
+                      <option value="Sales">Sales</option>
+                      <option value="Supervisor">Supervisor</option>
+                    @endif
+                    @if ($sales->sales_position == 'Supervisor')
+                      <option value="Supervisor">Supervisor</option>
+                      <option value="Sales">Sales</option>
+                    @endif
+                  @else
+                    <option></option>
                     <option value="Sales">Sales</option>
                     <option value="Supervisor">Supervisor</option>
+                  @endif
                 </select>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Active:</label>
+              <label class="col-lg-3 col-form-label">Active</label>
               <div class="col-lg-9">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input" name="active" value="active">
+                  <input type="checkbox" class="form-check-input" name="active" value="active" checked>
                 </div>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tidak Komisi:</label>
+              <label class="col-lg-3 col-form-label">Tidak Komisi</label>
               <div class="col-lg-9">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input" name="sales_komisi" value="no commmision">
+                  @if (isset($sales))
+                    @if ($sales->sales_komisi)
+                      <input type="checkbox" class="form-check-input" name="sales_komisi" value="no commmision" checked>                      
+                    @endif
+                  @else
+                    <input type="checkbox" class="form-check-input" name="sales_komisi" value="no commmision">
+                  @endif
                 </div>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Target / Bulan:</label>
+              <label class="col-lg-3 col-form-label">Target / Bulan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sales_target">
+                <input type="text" class="form-control" name="sales_target" value="{{ isset($sales) ? $sales->sales_target : '' }}">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Void:</label>
+              <label class="col-lg-3 col-form-label">Void</label>
               <div class="col-lg-9">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input" name="sales_void">
+                  @if (isset($sales))
+                    @if ($sales->sales_void)
+                      <input type="checkbox" class="form-check-input" name="sales_void" checked>                      
+                    @endif
+                  @else
+                    <input type="checkbox" class="form-check-input" name="sales_void">
+                  @endif
                 </div>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Supervisor:</label>
+              <label class="col-lg-3 col-form-label">Supervisor</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sales_spv">
-                  <option></option>
-                    <option value="#">123-Budi</option>
+                  @if (isset($sales))
+                    <option value="{{$spv_edit->id}}">{{$spv_edit->sales_name}}</option>
+                      @foreach ($supervisor_edit as $spv)
+                        <option value="{{$spv->id}}">{{$spv->sales_name}}</option>                          
+                      @endforeach
+                  @else
+                    @foreach ($supervisor as $sp)
+                      <option value="{{ $sp->id }}">{{$sp->sales_name}}</option>
+                    @endforeach
+                  @endif
                 </select>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal Masuk:</label>
+              <label class="col-lg-3 col-form-label">Tanggal Masuk</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="sales_in">
+                  <input type="text" class="form-control pickadate-selectors" name="sales_in" value="{{ isset($sales) ? $sales->sales_in : '' }}">
                 </div>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal Keluar:</label>
+              <label class="col-lg-3 col-form-label">Tanggal Keluar</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="sales_out">
+                  <input type="text" class="form-control pickadate-selectors" name="sales_out" value="{{ isset($sales) ? $sales->sales_out : '' }}">
                 </div>
               </div>
             </div>
@@ -177,7 +208,7 @@
         </div>
       </div>
       <div class="text-right">
-        <button type="submit" class="btn btn-primary">Submit <i class="icon-paperplane ml-2"></i></button>
+        <button type="submit" class="btn btn-primary">Submit</button>
       </div>
     </form>
   </div>

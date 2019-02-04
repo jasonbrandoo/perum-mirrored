@@ -14,6 +14,7 @@ use App\Model\SuratPesanan;
 use App\Http\Requests\StoreSuratPesanan;
 use Yajra\DataTables\DataTables;
 use Carbon\Carbon;
+use App\Model\Payment;
 
 class SuratPesananController extends Controller
 {
@@ -50,15 +51,22 @@ class SuratPesananController extends Controller
         $mous = Mou::where('active', 'Active')->get();
         $sales = Sales::where('sales_position', 'Sales')->get();
         $spvs = Sales::where('sales_position', 'Supervisor')->get();
+        $payment = Payment::all();
         $kavlings = Kavling::with('price.house')->get();
         $prices = Price::all();
-        return view('pages.transaction.surat.create-surat', compact('customers', 'mous', 'sales', 'spvs', 'kavlings', 'companies', 'prices'));
+        return view('pages.transaction.surat.create-surat', compact('customers', 'mous', 'sales', 'spvs', 'kavlings', 'companies', 'prices', 'payment'));
     }
 
     public function load_customer(Request $request)
     {
         $customer = Customer::find($request->id);
         return response()->json($customer);
+    }
+
+    public function load_mou(Request $request)
+    {
+        $mou = Mou::find($request->id);
+        return response()->json($mou);
     }
 
     public function load_company(Request $request)
@@ -120,7 +128,7 @@ class SuratPesananController extends Controller
             'sp_price_id' => $request->input('sp_price_id'),
             'sp_price' => $request->input('sp_price'),
             'sp_price_tl' => $request->input('sp_price_tl'),
-            'sp_price_list' => $request->input('sp_price_list'),
+            'sp_price_list' => null,
             'sp_total_harga_jual' => $request->input('sp_total_harga_jual'),
             'sp_harga_jual_tanah' => $request->input('sp_harga_jual_tanah'),
             'sp_included_tl' => $request->input('sp_included_tl'),
@@ -170,9 +178,20 @@ class SuratPesananController extends Controller
      * @param  \App\SuratPesanan  $suratPesanan
      * @return \Illuminate\Http\Response
      */
-    public function edit(SuratPesanan $suratPesanan)
+    public function edit(SuratPesanan $suratPesanan, $id)
     {
         //
+        $surat = SuratPesanan::with('company', 'customer', 'sales', 'supervisor', 'kavling.house', 'mou')->find($id);
+        // return $surat;
+        $customers =  Customer::all();
+        $companies = Company::where('company_type', 'mou')->get();
+        $mous = Mou::where('active', 'Active')->get();
+        $sales = Sales::where('sales_position', 'Sales')->get();
+        $spvs = Sales::where('sales_position', 'Supervisor')->get();
+        $payments = Payment::all();
+        $kavlings = Kavling::with('price.house')->get();
+        $prices = Price::all();
+        return view('pages.transaction.surat.create-surat', compact('surat', 'customers', 'mous', 'sales', 'spvs', 'kavlings', 'companies', 'prices', 'payments'));
     }
 
     /**

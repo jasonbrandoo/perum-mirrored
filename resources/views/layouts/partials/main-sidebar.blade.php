@@ -36,7 +36,7 @@
             {{--  --}}
             <li class="nav-item"><a href="{{ route('role.index') }}" class="nav-link"><i class="icon-users2"></i>Role</a></li>
             {{--  --}}
-            <li class="nav-item"><a href="{{ route('rumah.index') }}" class="nav-link"><i class="icon-home5"></i>Rumah</a></li>
+            <li class="nav-item"><a href="{{ route('rumah.index') }}" class="nav-link"><i class="icon-home5"></i>Tipe Rumah</a></li>
             {{--  --}}
             <li class="nav-item"><a href="{{ route('sales.index') }}" class="nav-link"><i class="icon-user-tie"></i>Sales</a></li>
             {{--  --}}
@@ -75,7 +75,7 @@
             {{--  --}}
             <li class="nav-item"><a href="{{ route('transaction.spk.index') }}" class="nav-link">SPK</a></li>
             {{--  --}}
-            <li class="nav-item"><a href="{{ route('transaction.surat-pesanan.index') }}" class="nav-link">Surat</a></li>
+            <li class="nav-item"><a href="{{ route('transaction.surat-pesanan.index') }}" class="nav-link">Surat Pesanan</a></li>
             {{--  --}}
             <li class="nav-item nav-item-submenu">
               <a href="#" class="nav-link">Wawancara</a>

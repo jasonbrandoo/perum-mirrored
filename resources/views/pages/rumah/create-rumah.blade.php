@@ -45,39 +45,39 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">ID Rumah:</label>
+              <label class="col-lg-3 col-form-label">ID Rumah</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="rumah_id" value="R000{{ isset($rumah) ? $rumah->id : $id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Name Tipe Rumah :</label>
+              <label class="col-lg-3 col-form-label">Name Tipe Rumah </label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="rumah_type_name" value="{{ isset($rumah) ? $rumah->rumah_type_name : '' }}">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Luas Tanah:</label>
+              <label class="col-lg-3 col-form-label">Luas Tanah</label>
               <div class="col-lg-3">
                 <input type="text" class="form-control" name="surface_area" value="{{ isset($rumah) ? $rumah->surface_area_m2 : '' }}">
               </div>
             </div>
             <div class="form-group row">
-                <label class="col-lg-3 col-form-label">Luas Bangunan:</label>
+                <label class="col-lg-3 col-form-label">Luas Bangunan</label>
                 <div class="col-lg-3">
                   <input type="text" class="form-control" name="building_area" value="{{ isset($rumah) ? $rumah->building_area_m2 : '' }}">
                 </div>
               </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Active:</label>
+              <label class="col-lg-3 col-form-label">Active</label>
               <div class="col-lg-9">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input" name="active">
+                  <input type="checkbox" class="form-check-input" name="active" checked>
                 </div>
               </div>
             </div>
             <div class="text-right">
-              <button type="submit" class="btn btn-primary">Submit <i class="icon-paperplane ml-2"></i></button>
+              <button type="submit" class="btn btn-primary">Submit</i></button>
             </div>
           </fieldset>
         </div>

@@ -24,8 +24,18 @@ class SuratPesanan extends Model
         return $this->belongsTo('App\Model\Sales', 'sp_se_id');
     }
 
+    public function supervisor()
+    {
+        return $this->belongsTo('App\Model\Sales', 'sp_spv_id');
+    }
+
     public function kavling()
     {
         return $this->belongsTo('App\Model\Kavling', 'sp_kavling_id');
+    }
+
+    public function mou()
+    {
+        return $this->belongsTo('App\Model\Mou', 'sp_mou_id');
     }
 }

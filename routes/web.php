@@ -72,6 +72,7 @@ Route::group([
     Route::post('/store', 'Kavling\KavlingController@store')->name('kavling.store');
     Route::get('/data', 'Kavling\KavlingController@data')->name('kavling.data');
     Route::get('/prices', 'Kavling\KavlingController@prices')->name('kavling.prices');
+    Route::get('/type', 'Kavling\KavlingController@type')->name('kavling.type');
 });
 
 /**
@@ -237,6 +238,8 @@ Route::group([
     Route::prefix('surat-pesanan')->group(function () {
         Route::get('/', 'Transaction\SuratPesanan\SuratPesananController@index')->name('transaction.surat-pesanan.index');
         Route::get('/create', 'Transaction\SuratPesanan\SuratPesananController@create')->name('transaction.surat-pesanan.create');
+        Route::get('/{id}/edit', 'Transaction\SuratPesanan\SuratPesananController@edit')->name('transaction.surat-pesanan.edit');
+        Route::get('/update', 'Transaction\SuratPesanan\SuratPesananController@update')->name('transaction.surat-pesanan.update');
         Route::post('/store', 'Transaction\SuratPesanan\SuratPesananController@store')->name('transaction.surat-pesanan.store');
         Route::get('/data', 'Transaction\SuratPesanan\SuratPesananController@data')->name('transaction.surat-pesanan.data');
         Route::get('/load_customer', 'Transaction\SuratPesanan\SuratPesananController@load_customer')->name('transaction.surat-pesanan.load_customer');
@@ -244,6 +247,7 @@ Route::group([
         Route::get('/load_sales', 'Transaction\SuratPesanan\SuratPesananController@load_sales')->name('transaction.surat-pesanan.load_sales');
         Route::get('/load_kavling', 'Transaction\SuratPesanan\SuratPesananController@load_kavling')->name('transaction.surat-pesanan.load_kavling');
         Route::get('/load_price', 'Transaction\SuratPesanan\SuratPesananController@load_price')->name('transaction.surat-pesanan.load_price');
+        Route::get('/load_mou', 'Transaction\SuratPesanan\SuratPesananController@load_mou')->name('transaction.surat-pesanan.load_mou');
     });
 
     /**
@@ -252,6 +256,9 @@ Route::group([
     Route::prefix('mou')->group(function () {
         Route::get('/', 'Transaction\Mou\MouController@index')->name('transaction.mou.index');
         Route::get('/create', 'Transaction\Mou\MouController@create')->name('transaction.mou.create');
+        Route::get('/{id}/edit', 'Transaction\Mou\MouController@edit')->name('transaction.mou.edit');
+        Route::patch('/update', 'Transaction\Mou\MouController@update')->name('transaction.mou.update');
+        Route::patch('/{id}/action', 'Transaction\Mou\MouController@action')->name('transaction.mou.action');
         Route::post('/store', 'Transaction\Mou\MouController@store')->name('transaction.mou.store');
         Route::get('/data', 'Transaction\Mou\MouController@data')->name('transaction.mou.data');
     });

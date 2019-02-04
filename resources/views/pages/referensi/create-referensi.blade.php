@@ -45,25 +45,25 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kode Referensi:</label>
+              <label class="col-lg-3 col-form-label">Kode Referensi</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" value="RSP000{{ isset($reference) ? $reference->id : $id }}" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Group Referensi:</label>
+              <label class="col-lg-3 col-form-label">Group Referensi</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="reference_group" value="{{ isset($reference) ? $reference->reference_group : ''}}">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Deskripsi:</label>
+              <label class="col-lg-3 col-form-label">Deskripsi</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="reference_description" value="{{ isset($reference) ? $reference->reference_description : ''}}">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Active:</label>
+              <label class="col-lg-3 col-form-label">Active</label>
               <div class="col-lg-9">
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" name="active">
@@ -72,7 +72,7 @@
             </div>
           </fieldset>
           <div class="text-right">
-            <button type="submit" class="btn btn-primary">Submit <i class="icon-paperplane ml-2"></i></button>
+            <button type="submit" class="btn btn-primary">Submit</button>
           </div>
         </div>
       </div>

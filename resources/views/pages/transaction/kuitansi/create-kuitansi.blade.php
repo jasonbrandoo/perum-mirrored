@@ -74,7 +74,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Sudah Terima Dari (Staff ID):</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kwitansi_staff_id">
+                <input type="text" class="form-control" name="kwitansi_staff_id" value="STF000{{Auth::user()->id}}" readonly>
               </div>
             </div>
 

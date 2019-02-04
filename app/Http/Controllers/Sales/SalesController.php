@@ -42,7 +42,8 @@ class SalesController extends Controller
     {
         //
         $id = (new Sales)->max('id') + 1;
-        return view('pages.sales.create-sales', compact('id'));
+        $supervisor = Sales::where('sales_position', 'Supervisor')->get();
+        return view('pages.sales.create-sales', compact('id', 'supervisor'));
     }
 
     /**
@@ -113,7 +114,9 @@ class SalesController extends Controller
     {
         //
         $sales = Sales::find($id);
-        return view('pages.sales.create-sales', compact('sales'));
+        $spv_edit = Sales::where('id', $id)->first();
+        $supervisor_edit = Sales::where('sales_position', 'Supervisor')->get();
+        return view('pages.sales.create-sales', compact('sales', 'spv_edit', 'supervisor_edit'));
     }
 
     /**

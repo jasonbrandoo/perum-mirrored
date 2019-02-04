@@ -113,6 +113,7 @@ class PaymentController extends Controller
         //
         $payment::find($request->id)->update([
             'payment_method' => $request->input('payment_method'),
+            'payment_type' => $request->input('payment_type'),
             'active' => $request->input('active') == null ? 'Not Active' : 'Active'
         ]);
         return redirect('payment')->with('success', 'Successfull Update payment method');

@@ -19,6 +19,16 @@
 <link href="/template/assets/css/colors.min.css" rel="stylesheet" type="text/css">
 <!-- /Global stylesheets -->
 
+<!-- Custom Style -->
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
+<!-- /Custom Style -->
+
 <!-- Core JS files -->
 <script src="/template/global_assets/js/main/jquery.min.js"></script>
 <script src="/template/global_assets/js/main/bootstrap.bundle.min.js"></script>
@@ -58,10 +68,25 @@
 <!-- /Theme JS files -->
 
 <script>
-$.ajaxSetup({
+    $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
+
+$(document).on("wheel", "input[type=number]", function (e) {
+    $(this).blur();
+});
+
+$(document).on('keyup', 'input[type=number]', (event) => {
+    if(event.which >= 37 && event.which <= 40) return;
+    $(this).val(function(index, value) {
+        return value
+        .replace(/\D/g, "")
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        ;
+    });
+})
+
 </script>
 @stack('scripts')

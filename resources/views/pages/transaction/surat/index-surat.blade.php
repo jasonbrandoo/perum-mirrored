@@ -76,13 +76,28 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('transaction.surat-pesanan.data') !!}',
             columns: [
-                {data: 'id'},
-                {data: 'sp_date'},
-                {data: 'sp_prebook'},
-                {data: 'customer.customer_name'},
-                {data: 'sales.sales_name'},
-                {data: 'kavling.kavling_type'},
-                {data: 'active'},
+                {
+                    data: 'id'
+                },
+                {
+                    data: 'sp_date',
+                    render: (date, type, row) => `<a href="surat-pesanan/${row.id}/edit">${row.sp_date}</a>`
+                },
+                {
+                    data: 'sp_prebook'
+                },
+                {
+                    data: 'customer.customer_name'
+                },
+                {
+                    data: 'sales.sales_name'
+                },
+                {
+                    data: 'kavling.kavling_cluster'
+                },
+                {
+                    data: 'active'
+                },
             ],
             select: {
                 style: 'multi'

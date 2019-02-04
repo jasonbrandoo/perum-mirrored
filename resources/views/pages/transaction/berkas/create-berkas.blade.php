@@ -57,18 +57,13 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Diserahkan Oleh:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="berkas_giver" >
-                  @foreach ($customer as $cust)
-                    <option value=""></option>
-                    <option value="{{$cust->id}}">{{$cust->customer_name}}</option>
-                  @endforeach
-                </select>
+                <input type="text" class="form-control" name="berkas_giver">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Penerima:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="berkas_reciever">
+                <input type="text" class="form-control" name="berkas_reciever" value="U000{{Auth::user()->id}}" readonly>
               </div>
             </div>
             <div class="form-group row">

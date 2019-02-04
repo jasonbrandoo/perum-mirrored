@@ -1,15 +1,14 @@
-@extends('layouts.app')
-
+@extends('layouts.app') 
 @section('page-title')
 <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">SP</span> - Create New SP</h4>
 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 @endsection
-
+ 
 @section('breadcrumb')
-<a href="{{ route('transaction.surat-pesanan.index') }}" class="breadcrumb-item">Surat Pesanan</a>    
-<a href="{{ route('transaction.surat-pesanan.create') }}" class="breadcrumb-item">New Surat Pesanan</a>    
+<a href="{{ route('transaction.surat-pesanan.index') }}" class="breadcrumb-item">Surat Pesanan</a>
+<a href="{{ route('transaction.surat-pesanan.create') }}" class="breadcrumb-item">New Surat Pesanan</a>
 @endsection
-
+ 
 @section('content')
 <div class="card">
   <div class="card-header bg-white header-elements-inline">
@@ -23,426 +22,476 @@
     </div>
   </div>
   @if ($errors->any())
-    <div class="alert alert-danger">
-      <ul>
-        @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-  @endif
-  <form class="wizard-form steps-validation" action="{{ route('transaction.surat-pesanan.store') }}" method="POST" data-fouc>
-    @csrf
-    <h6>1</h6>
-    <fieldset>
-      <div class="row justify-content-center">
-        <div class="col-md-8">
-          <fieldset>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kode Pre Book:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_prebook" required>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Active:</label>
-              <div class="col-lg-9">
-                <div class="form-check">
-                  <input type="checkbox" class="form-check-input" name="active" required>
+  <div class="alert alert-danger">
+    <ul>
+      @foreach ($errors->all() as $error)
+      <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
+  @endif @if (isset($surat))
+  <form class="wizard-form steps-validation" action="{{ route('transaction.surat-pesanan.update') }}" method="POST" data-fouc>
+    @method('PATCH')
+    <input type="hidden" name="id" value="{{$surat->id}}"> @else
+    <form class="wizard-form steps-validation" action="{{ route('transaction.surat-pesanan.store') }}" method="POST" data-fouc>
+      @endif @csrf
+      <h6>1</h6>
+      <fieldset>
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <fieldset>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Kode Pre Book:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_prebook" value="{{isset($surat) ? $surat->sp_prebook : ''}}" required>
                 </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Surat Pesanan:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_no" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Active:</label>
+                <div class="col-lg-9">
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="active" checked>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal Surat Pesanan:</label>
-              <div class="col-lg-9">
-                <div class="input-group">
-                  <span class="input-group-prepend">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">No Surat Pesanan:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_no" value="{{isset($surat) ? $surat->sp_no : ''}}" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Tanggal Surat Pesanan:</label>
+                <div class="col-lg-9">
+                  <div class="input-group">
+                    <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
-                  </span>
-                  <input type="text" class="form-control pickadate-selectors" name="sp_date" required>
+                    </span>
+                    <input type="text" class="form-control pickadate-selectors" name="sp_date" value="{{isset($surat) ? $surat->sp_date : ''}}"
+                      required>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No PPJB:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_ppjb" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">No PPJB:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_ppjb" value="{{isset($surat) ? $surat->sp_ppjb : ''}}" required>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal PPJB:</label>
-              <div class="col-lg-9">
-                <div class="input-group">
-                  <span class="input-group-prepend">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Tanggal PPJB:</label>
+                <div class="col-lg-9">
+                  <div class="input-group">
+                    <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
-                  </span>
-                  <input type="text" class="form-control pickadate-selectors" name="sp_ppjb_date" required>
+                    </span>
+                    <input type="text" class="form-control pickadate-selectors" name="sp_ppjb_date" value="{{isset($surat) ? $surat->sp_ppjb_date : ''}}"
+                      required>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Customer ID:</label>
-              <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_customer_id" id="customer_id" required>
-                  @foreach ($customers as $customer)
-                    <option></option>
-                    <option value="{{$customer->id}}">C000{{$customer->id}}</option>
-                  @endforeach
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Customer ID:</label>
+                <div class="col-lg-9">
+                  <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_customer_id" id="customer_id"
+                    required>
+                  @if (isset($surat))
+                    <option value="{{$surat->customer->id}}">C000{{$surat->customer->id}} - {{$surat->customer->customer_name}}</option>
+                  @else
+                    @foreach ($customers as $customer)
+                      <option></option>
+                      <option value="{{$customer->id}}">C000{{$customer->id}} - {{$customer->customer_name}}</option>
+                    @endforeach
+                  @endif
                 </select>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Name:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_customer_name" id="customer_name" readonly>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Name:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_customer_name" id="customer_name" value="{{isset($surat) ? $surat->customer->customer_name : ''}}"
+                    readonly>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Perusahaan ID:</label>
-              <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_company_id" id="company_id" required>
-                  @foreach ($companies as $company)
-                    <option></option>
-                    <option value="{{$company->id}}">PM000{{$company->id}}</option>
-                  @endforeach
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Perusahaan ID:</label>
+                <div class="col-lg-9">
+                  <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_company_id" id="company_id"
+                    required>
+                  @if (isset($surat))
+                    <option value="{{$surat->company->id}}">P000{{$surat->company->id}} - {{$surat->company->company_name}}</option>
+                  @else
+                    @foreach ($companies as $company)
+                      <option></option>
+                      <option value="{{$company->id}}">P000{{$company->id}} - {{$company->company_name}}</option>
+                    @endforeach
+                  @endif
                 </select>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nama Perusahaan:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_company_name" id="company_name" readonly>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Nama Perusahaan:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_company_name" id="company_name" value="{{isset($surat) ? $surat->company->company_name : ''}}"
+                    readonly>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">MOU ID:</label>
-              <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_mou_id" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">MOU ID:</label>
+                <div class="col-lg-9">
+                  <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_mou_id" id="mou_id" required>
+                  @if (isset($surat))
+                    <option value="{{$surat->mou->id}}">MOU000{{$surat->mou->id}} - {{$surat->mou->mou_coordinator}}</option>
+                  @else
+                      
+                  @endif
                   @foreach ($mous as $mou)
                     <option></option>
-                    <option value="{{$mou->id}}">{{$mou->id}}</option>
+                    <option value="{{$mou->id}}">MOU000{{$mou->id}} - {{$mou->mou_coordinator}}</option>
                   @endforeach
                 </select>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Koordinator:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_koordinator" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Koordinator:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_koordinator" id="mou_supervisor" value="{{isset($surat) ? $surat->mou->mou_coordinator : ''}}"
+                    required readonly>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Sales Executives ID:</label>
-              <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_se_id" id="sales_id" required>
-                  @foreach ($sales as $person)
-                    <option></option>
-                    <option value="{{$person->id}}">SE000{{$person->id}}</option>
-                  @endforeach
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Sales Executives ID:</label>
+                <div class="col-lg-9">
+                  <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_se_id" id="sales_id" required>
+                  @if (isset($surat))
+                    <option value="{{$surat->sales->id}}">SE000{{$surat->sales->id}} - {{$surat->sales->sales_name}}</option>
+                  @else
+                    @foreach ($sales as $person)
+                      <option></option>
+                      <option value="{{$person->id}}">SE000{{$person->id}} - {{$person->sales_name}}</option>
+                    @endforeach
+                  @endif
                 </select>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Sales Executives name:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_se_name" id="sales_name" readonly>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Sales Executives name:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_se_name" id="sales_name" value="{{isset($surat) ? $surat->sales->sales_name : ''}}"
+                    readonly>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Supervisor ID:</label>
-              <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_spv_id" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Supervisor ID:</label>
+                <div class="col-lg-9">
+                  <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_spv_id" required>
+                  @if (isset($surat))
+                    <option value="{{$surat->supervisor->id}}">SP000{{$surat->supervisor->id}} - {{$surat->supervisor->sales_name}}</option>
+                  @else
+                      
+                  @endif
                   @foreach ($spvs as $person)
                     <option></option>
-                    <option value="{{$person->id}}">SP000{{$person->id}}</option>
+                    <option value="{{$person->id}}">SP000{{$person->id}} - {{$person->sales_name}}</option>
                   @endforeach
                 </select>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kavling ID:</label>
-              <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_kavling_id" id="kavling_id" required>
-                  @foreach ($kavlings as $kav)
-                    <option></option>
-                    <option value="{{$kav->id}}">KAV000{{$kav->id}}</option>
-                  @endforeach
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Kavling ID:</label>
+                <div class="col-lg-9">
+                  <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_kavling_id" id="kavling_id"
+                    required>
+                  @if (isset($surat))
+                    <option value="{{$surat->kavling->id}}">KAV000{{$surat->kavling->id}} - {{$surat->kavling->kavling_cluster}}</option>
+                  @else
+                    @foreach ($kavlings as $kav)
+                      <option></option>
+                      <option value="{{$kav->id}}">KAV000{{$kav->id}} - {{$kav->kavling_cluster}}</option>
+                    @endforeach
+                  @endif
                 </select>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">House Type:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_house_type" id="house_type" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">House Type:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_house_type" id="house_type" value="{{isset($surat) ? $surat->kavling->house->rumah_type_name : ''}}"
+                    required readonly>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Blok:</label>
-              <div class="col-lg-9">
-                <div class="row">
-                  <div class="col-md-6">
-                    <input type="text" class="form-control" name="sp_house_block" id="house_block" required>
-                  </div>
-                  <label class="col-form-label">No:</label>
-                  <div class="col-md-5">
-                    <input type="text" class="form-control" name="sp_house_no" id="house_no" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Blok:</label>
+                <div class="col-lg-9">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <input type="text" class="form-control" name="sp_house_block" id="house_block" value="{{isset($surat) ? $surat->kavling->kavling_block : ''}}"
+                        required readonly>
+                    </div>
+                    <label class="col-form-label">No:</label>
+                    <div class="col-md-5">
+                      <input type="text" class="form-control" name="sp_house_no" id="house_no" value="{{isset($surat) ? $surat->kavling->kavling_number : ''}}"
+                        required readonly>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Cluster:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_house_cluster" id="house_cluster" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Cluster:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_house_cluster" id="house_cluster" value="{{isset($surat) ? $surat->kavling->kavling_cluster : ''}}"
+                    required readonly>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Luas Bangunan:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_house_building" id="house_building" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Luas Bangunan:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_house_building" id="house_building" value="{{isset($surat) ? $surat->kavling->house->building_area_m2 : ''}}"
+                    required readonly>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Luas Tanah:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_house_surface" id="house_surface" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Luas Tanah:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_house_surface" id="house_surface" value="{{isset($surat) ? $surat->kavling->house->surface_area_m2 : ''}}"
+                    required>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">TL:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_tl">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">TL:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_tl" value="{{isset($surat) ? $surat->sp_tl : ''}}">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">TT:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_tt">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">TT:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_tt" value="{{isset($surat) ? $surat->sp_tt : ''}}">
+                </div>
               </div>
-            </div>
-          </fieldset>
+            </fieldset>
+          </div>
         </div>
-      </div>
-    </fieldset>
+      </fieldset>
 
-    <h6>2</h6>
-    <fieldset>
-      <div class="row justify-content-center">
-        <div class="col-md-8">
-          <fieldset>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kode Harga:</label>
-              <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_price_id" id="price_id" required>
+      <h6>2</h6>
+      <fieldset>
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <fieldset>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Kode Harga:</label>
+                <div class="col-lg-9">
+                  <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_price_id" id="price_id" required>
                   @foreach ($prices as $price)
                     <option></option>
-                    <option value="{{$price->id}}">P000{{$price->id}}</option>
+                    <option value="{{$price->id}}">H000{{$price->id}} - {{$price->price_selling}}</option>
                   @endforeach
                 </select>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Harga:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_price" id="price" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Harga:</label>
+                <div class="col-lg-9">
+                  <input type="number" class="form-control" name="sp_price" id="price" readonly required>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Total Harga TL:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_price_tl">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Total Harga TL:</label>
+                <div class="col-lg-9">
+                  <input type="number" class="form-control" name="sp_price_tl">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
+              <!--<div class="form-group row">
               <label class="col-lg-3 col-form-label">Price List:</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="sp_price_list" required>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Total Harga Jual:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_total_harga_jual" required>
+            </div>-->
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Total Harga Jual:</label>
+                <div class="col-lg-9">
+                  <input type="number" class="form-control" name="sp_total_harga_jual" required>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Harga Jual Tanah:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_harga_jual_tanah" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Harga Jual Tanah:</label>
+                <div class="col-lg-9">
+                  <input type="number" class="form-control" name="sp_harga_jual_tanah" value="0" readonly required>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Included TL:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_included_tl">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Included TL:</label>
+                <div class="col-lg-9">
+                  {{-- <input type="text" class="form-control" name="sp_included_tl"> --}}
+                  <input type="checkbox" name="sp_included_tl">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Potongan Harga Jual (Discount):</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_discount">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Potongan Harga Jual (Discount):</label>
+                <div class="col-lg-9">
+                  <input type="number" class="form-control" name="sp_discount">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Harga Setelah Discount:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_after_discount">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Harga Setelah Discount:</label>
+                <div class="col-lg-9">
+                  <input type="number" class="form-control" name="sp_after_discount">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Persentase Pajak:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_ppn_percentage" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Persentase Pajak (%):</label>
+                <div class="col-lg-9">
+                  <input type="number" class="form-control" name="sp_ppn_percentage" required>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nilai Pajak:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_after_ppn" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Nilai Pajak:</label>
+                <div class="col-lg-9">
+                  <input type="number" class="form-control" name="sp_after_ppn" required>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Harga Tanah dan Bangunan:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_harga_tanah_bangunan">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Harga Tanah dan Bangunan:</label>
+                <div class="col-lg-9">
+                  <input type="number" class="form-control" name="sp_harga_tanah_bangunan">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Cara Pembayaran:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_payment_method" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Cara Pembayaran:</label>
+                <div class="col-lg-9">
+                  <input type="number" class="form-control" name="sp_payment_method" required>
+                  <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_payment_method" required>
+                    @foreach ($payments as $pay)
+                      <option></option>
+                      <option value="{{$pay->id}}">{{$pay->payment_method}}</option>
+                    @endforeach
+                  </select>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Harga jual pengikatan:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_harga_jual_pengikatan" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Harga jual pengikatan:</label>
+                <div class="col-lg-9">
+                  <input type="number" class="form-control" name="sp_harga_jual_pengikatan" required>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Rencana KPR:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_kpr_plan" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Rencana KPR:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_kpr_plan" required>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Harga Jual AJB:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_ajb_price" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Harga Jual AJB:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_ajb_price" required>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Total Surat Pesanan:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_total" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Total Surat Pesanan:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_total" required>
+                </div>
               </div>
-            </div>
-          </fieldset>
+            </fieldset>
+          </div>
         </div>
-      </div>
-    </fieldset>
+      </fieldset>
 
-    <h6>3</h6>
-    <fieldset>
-      <div class="row justify-content-center">
-        <div class="col-md-8">
-          <fieldset>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Jumlah Pembayaran:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_bill" required>
+      <h6>3</h6>
+      <fieldset>
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <fieldset>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Jumlah Pembayaran:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_bill" required>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">DP:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_dp" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">DP:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_dp" required>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Subsidi:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_subsidi">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Subsidi:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_subsidi">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanah Lebih M2:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_tanah_lebih">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Tanah Lebih M2:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_tanah_lebih">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Harga / M2:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_harga_m2">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Harga / M2:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_harga_m2">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Total Harga Tanah Lebih:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_total_harga_tanah_lebih">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Total Harga Tanah Lebih:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_total_harga_tanah_lebih">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">PPN:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_ppn" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">PPN:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_ppn" required>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Sub Total:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_sub_total" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Sub Total:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_sub_total" required>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Jumlah Harus Dibayar:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_total_bill" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Jumlah Harus Dibayar:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_total_bill" required>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Angsuran/Bulan (Internal):</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_per_month_internal" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Angsuran/Bulan (Internal):</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_per_month_internal" required>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nilai Internal:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_internal_bill" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Nilai Internal:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_internal_bill" required>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Angsuran/Bulan (Kreditur):</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_per_month_kreditur" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Angsuran/Bulan (Kreditur):</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_per_month_kreditur" required>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nilai Kreditur:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="sp_kreditur_bill" required>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Nilai Kreditur:</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="sp_kreditur_bill" required>
+                </div>
               </div>
-            </div>
-          </fieldset>
+            </fieldset>
+          </div>
         </div>
-      </div>
-    </fieldset>
+      </fieldset>
 
-  </form>
+    </form>
 </div>
 @endsection
-
-@push('scripts')
+ @push('scripts')
 <script>
-$(document).ready(function(){
+  $(document).ready(function(){
 
   $('#customer_id').on('change', function(e){
     var id = $(this).val();
@@ -473,6 +522,24 @@ $(document).ready(function(){
     success: function (result) {
       console.log(result);
       $('#company_name').val(result.company_name);
+    },
+    error: function (e) {
+      console.log(e);
+    }
+    });
+  });
+
+  $('#mou_id').on('change', function(e){
+    var id = $(this).val();
+    console.log(id);
+    $.ajax({
+    url: '{{route('transaction.surat-pesanan.load_mou')}}',
+    data: {
+      id: id
+    },
+    success: function (result) {
+      console.log(result);
+      $('#mou_supervisor').val(result.mou_coordinator);
     },
     error: function (e) {
       console.log(e);
@@ -511,6 +578,7 @@ $(document).ready(function(){
       $('#house_type').val(result.price.house.rumah_type_name);
       $('#house_block').val(result.kavling_block);
       $('#house_cluster').val(result.kavling_cluster);
+      $('#house_no').val(result.id);
       $('#house_building').val(result.price.house.building_area_m2);
       $('#house_surface').val(result.price.house.surface_area_m2);
     },
@@ -538,6 +606,30 @@ $(document).ready(function(){
     });
   });
 
+  const total = $('input[name=sp_price], input[name=sp_price_tl], input[name=sp_discount], input[name=sp_ppn_percentage]').keyup(() => {
+    const price = parseFloat($('input[name=sp_price]').val()) || 0;
+    const priceTl = parseFloat($('input[name=sp_price_tl').val()) || 0;
+    const discount = parseFloat($('input[name=sp_discount]').val()) || 0;
+    const percentage = $('input[name=sp_ppn_percentage').attr({
+      "max": 100,
+      "min": 1
+    }).val();
+    
+    const hargaJual = $('input[name=sp_total_harga_jual]').val(price+ priceTl);
+    const hargaJualRumah = $('input[name=sp_harga_jual_tanah]');
+    const hargaSetelahDiscount = $('input[name=sp_after_discount]').val(hargaJualRumah.val() - discount);
+    const nilaiPajak = $('input[name=sp_after_ppn]').val(percentage * hargaSetelahDiscount.val());
+    const hargaTanahDanBangunan = $('input[name=sp_harga_tanah_bangunan]').val(hargaJualRumah.val() + nilaiPajak.val());
+    
+    $('input[name=sp_included_tl').click(() => {
+      if ($('input[name=sp_included_tl').prop('checked')) {
+        hargaJualRumah.val(price + priceTl);
+      } else {
+        $('input[name=sp_harga_jual_tanah]').val(0)      
+      }
+    })
+
+  });
 });
 
 var FormWizard = function() {
@@ -703,5 +795,4 @@ document.addEventListener('DOMContentLoaded', function() {
   DateTimePickers.init();
 });
 </script>
-    
 @endpush
