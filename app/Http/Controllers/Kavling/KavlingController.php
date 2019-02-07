@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Yajra\DataTables\DataTables;
 use App\Model\Rumah;
 use Illuminate\Support\Facades\DB;
+use App\Helpers\Comma;
 
 class KavlingController extends Controller
 {
@@ -108,7 +109,7 @@ class KavlingController extends Controller
                 'kavling_surface' => $request->input('kavling_surface'),
                 'kavling_tl_active' => $request->input('kavling_tl_active'),
                 'kavling_tl_old' => $request->input('kavling_tl_old'),
-                'kavling_discount_dp' => $request->input('kavling_discount_dp'),
+                'kavling_discount_dp' => Comma::removeComma($request->input('kavling_discount_dp')),
                 'kavling_sell_status' => $request->input('kavling_sell_status'),
                 'kavling_market_status' => $request->input('kavling_market_status') == null ? 'Not Active' : 'Active',
                 'kavling_build_status' => $request->input('kavling_build_status'),
@@ -196,7 +197,7 @@ class KavlingController extends Controller
             'kavling_surface' => $request->input('kavling_surface'),
             'kavling_tl_active' => $request->input('kavling_tl_active'),
             'kavling_tl_old' => $request->input('kavling_tl_old'),
-            'kavling_discount_dp' => $request->input('kavling_discount_dp'),
+            'kavling_discount_dp' => Comma::removeComma($request->input('kavling_discount_dp')),
             'kavling_sell_status' => $request->input('kavling_sell_status'),
             'kavling_market_status' => $request->input('kavling_market_status') == null ? 'Not Active' : 'Active',
             'kavling_build_status' => $request->input('kavling_build_status'),

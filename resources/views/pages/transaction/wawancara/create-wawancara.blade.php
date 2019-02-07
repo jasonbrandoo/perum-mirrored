@@ -55,12 +55,6 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Harga Jual:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="wawancara_price">
-              </div>
-            </div>
-            <div class="form-group row">
               <label class="col-lg-3 col-form-label">KPR Dimohon:</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="wawancara_kpr">
@@ -109,6 +103,12 @@
               <label class="col-lg-3 col-form-label">Tanggal SP:</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_date">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Harga Jual:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" id="sp_price">
               </div>
             </div>
             <div class="form-group row">
@@ -179,6 +179,7 @@ $(document).ready(function(){
     success: function (result) {
       console.log(result);
       $('#sp_date').val(result.sp_date);
+      $('#sp_price').val(result.sp_price);
       $('#sp_se').val(result.sales.sales_name);
       $('#sp_customer_id').val(result.sp_customer_id);
       $('#sp_customer_name').val(result.customer.customer_name);

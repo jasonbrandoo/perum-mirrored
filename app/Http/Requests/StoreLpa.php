@@ -27,7 +27,6 @@ class StoreLpa extends FormRequest
             //
             'lpa_date' => ['required'],
             'lpa_type' => ['required'],
-            'lpa_kavling_id' => ['required'],
             'lpa_sp_id' => ['required']
         ];
     }

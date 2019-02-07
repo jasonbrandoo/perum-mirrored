@@ -11,6 +11,7 @@ use App\Model\Sales;
 use App\Model\Company;
 use Illuminate\Support\Carbon;
 use Yajra\DataTables\DataTables;
+use App\Helpers\Comma;
 
 class CustomerController extends Controller
 {
@@ -104,13 +105,13 @@ class CustomerController extends Controller
             'customer_job_duration' => $request->input('customer_job_duration'),
             'customer_office_id' => $request->input('customer_office_id'),
             'customer_office_email' => $request->input('customer_office_email'),
-            'customer_income' => $request->input('customer_income'),
-            'customer_additional_income' => $request->input('customer_additional_income'),
-            'customer_family_income' => $request->input('customer_family_income'),
-            'customer_total_income' => $request->input('customer_total_income'),
-            'customer_routine_expenses' => $request->input('customer_routine_expenses'),
-            'customer_residual_income' => $request->input('customer_residual_income'),
-            'customer_installment_ability' => $request->input('customer_installment_ability'),
+            'customer_income' => Comma::removeComma($request->input('customer_income')),
+            'customer_additional_income' => Comma::removeComma($request->input('customer_additional_income')),
+            'customer_family_income' => Comma::removeComma($request->input('customer_family_income')),
+            'customer_total_income' => Comma::removeComma($request->input('customer_total_income')),
+            'customer_routine_expenses' => Comma::removeComma($request->input('customer_routine_expenses')),
+            'customer_residual_income' => Comma::removeComma($request->input('customer_residual_income')),
+            'customer_installment_ability' => Comma::removeComma($request->input('customer_installment_ability')),
         ]);
         return redirect('/customer')->with('success', 'Successfull create customer');
     }
@@ -135,7 +136,7 @@ class CustomerController extends Controller
     public function edit(Customer $customer, $id)
     {
         //
-        $customer = Customer::find($id);
+        $customer = Customer::with('reference', 'sales_executive', 'sales_supervisor', 'company')->find($id);
         $references = Referensi::all();
         $sales_executives = Sales::where('sales_position', 'Sales')->get();
         $sales_supervisor = Sales::where('sales_position', 'Supervisor')->get();
@@ -185,13 +186,13 @@ class CustomerController extends Controller
             'customer_job_duration' => $request->input('customer_job_duration'),
             'customer_office_id' => $request->input('customer_office_id'),
             'customer_office_email' => $request->input('customer_office_email'),
-            'customer_income' => $request->input('customer_income'),
-            'customer_additional_income' => $request->input('customer_additional_income'),
-            'customer_family_income' => $request->input('customer_family_income'),
-            'customer_total_income' => $request->input('customer_total_income'),
-            'customer_routine_expenses' => $request->input('customer_routine_expenses'),
-            'customer_residual_income' => $request->input('customer_residual_income'),
-            'customer_installment_ability' => $request->input('customer_installment_ability'),
+            'customer_income' => Comma::removeComma($request->input('customer_income')),
+            'customer_additional_income' => Comma::removeComma($request->input('customer_additional_income')),
+            'customer_family_income' => Comma::removeComma($request->input('customer_family_income')),
+            'customer_total_income' => Comma::removeComma($request->input('customer_total_income')),
+            'customer_routine_expenses' => Comma::removeComma($request->input('customer_routine_expenses')),
+            'customer_residual_income' => Comma::removeComma($request->input('customer_residual_income')),
+            'customer_installment_ability' => Comma::removeComma($request->input('customer_installment_ability')),
         ]);
         return redirect('/customer')->with('success', 'Successfull update customer');
     }

@@ -13,7 +13,7 @@
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">
-    <h5 class="card-title">Create New Kuitansi</h5>
+    <h5 class="card-title">Create New LPA</h5>
     <div class="header-elements">
       <div class="list-icons">
         <a class="list-icons-item" data-action="collapse"></a>
@@ -69,12 +69,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Kavling:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="lpa_kavling_id" id="kavling_id">
-                  @foreach ($kavling as $kav)
-                    <option value=""></option>
-                    <option value="{{$kav->id}}">KAV000{{$kav->id}}</option>
-                  @endforeach
-                </select>
+                <input type="text" class="form-control" id="kavling_id" readonly>
               </div>
             </div>
             <div class="form-group row">
@@ -117,7 +112,7 @@
               <label class="col-lg-3 col-form-label">Active:</label>
               <div class="col-lg-9">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input" name="active">
+                  <input type="checkbox" class="form-check-input" name="active" checked>
                 </div>
               </div>
             </div>
@@ -196,9 +191,15 @@ $(document).ready(function(){
       console.log(result);
       $('#sp_company').val(result.company.company_name);
       $('#sp_sales').val(result.sales.sales_name);
-      $('#sp_customer_name').val(result.customer.customer_name);
-      $('#sp_customer_id').val(result.customer.id);
       $('#sp_date').val(result.sp_date);
+      $('#sp_customer_name').val(result.customer.customer_name);
+      $('#sp_customer_id').val(`CUST000${result.customer.id}`);
+      $('#kavling_id').val(`KAV000${result.kavling.id}`);
+      $('#kavling_building').val(result.kavling.kavling_building);
+      $('#kavling_surface').val(result.kavling.kavling_surface);
+      $('#kavling_shgb').val(result.kavling.kavling_shgb);
+      $('#kavling_shgb_date').val(result.kavling.kavling_shgb_date);
+      $('#kavling_imb').val(result.kavling.kavling_imb);
 
     },
     error: function (e) {

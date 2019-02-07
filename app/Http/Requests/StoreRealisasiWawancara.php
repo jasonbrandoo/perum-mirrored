@@ -27,10 +27,6 @@ class StoreRealisasiWawancara extends FormRequest
             //
             'rlw_wawancara_id' => ['required'],
             'rlw_date' => ['required'],
-            'rlw_analyst' => ['required'],
-            'rlw_sp_id' => ['required'],
-            'rlw_kreditur_id' => ['required'],
-            'rlw_kreditur_name' => ['required']
         ];
     }
 }

@@ -9,6 +9,7 @@ use App\Model\Rumah;
 use App\Http\Requests\StorePrice;
 use Carbon\Carbon;
 use Yajra\DataTables\DataTables;
+use App\Helpers\Comma;
 
 class PriceController extends Controller
 {
@@ -69,21 +70,21 @@ class PriceController extends Controller
         //
         Price::create([
             'price_house_id' => $request->input('price_house_id'),
-            'price_selling' => $request->input('price_selling'),
-            'price_discount' => $request->input('price_discount'),
-            'price_ppn' => $request->input('price_ppn'),
-            'price_adm' => $request->input('price_adm'),
-            'price_netto' => $request->input('price_netto'),
-            'price_max_kpr' => $request->input('price_max_kpr'),
-            'price_dp' => $request->input('price_dp'),
-            'price_discount_dp' => $request->input('price_discount_dp'),
-            'price_booking' => $request->input('price_booking'),
-            'price_surface_m2' => $request->input('price_surface_m2'),
-            'price_notaris' => $request->input('price_notaris'),
-            'price_5_year' => $request->input('price_5_year'),
-            'price_10_year' => $request->input('price_10_year'),
-            'price_15_year' => $request->input('price_15_year'),
-            'price_20_year' => $request->input('price_20_year'),
+            'price_selling' => Comma::removeComma($request->input('price_selling')),
+            'price_discount' => Comma::removeComma($request->input('price_discount')),
+            'price_ppn' => Comma::removeComma($request->input('price_ppn')),
+            'price_adm' => Comma::removeComma($request->input('price_adm')),
+            'price_netto' => Comma::removeComma($request->input('price_netto')),
+            'price_max_kpr' => Comma::removeComma($request->input('price_max_kpr')),
+            'price_dp' => Comma::removeComma($request->input('price_dp')),
+            'price_discount_dp' => Comma::removeComma($request->input('price_discount_dp')),
+            'price_booking' => Comma::removeComma($request->input('price_booking')),
+            'price_surface_m2' => Comma::removeComma($request->input('price_surface_m2')),
+            'price_notaris' => Comma::removeComma($request->input('price_notaris')),
+            'price_5_year' => Comma::removeComma($request->input('price_5_year')),
+            'price_10_year' => Comma::removeComma($request->input('price_10_year')),
+            'price_15_year' => Comma::removeComma($request->input('price_15_year')),
+            'price_20_year' => Comma::removeComma($request->input('price_20_year')),
             'price_start_date' => Carbon::parse($request->input('price_start_date'))->format('Y-m-d H:i:s'),
             'price_end_date' => Carbon::parse($request->input('price_end_date'))->format('Y-m-d H:i:s'),
             'active' => $request->input('active') == null ? 'Not Active' : 'Active'

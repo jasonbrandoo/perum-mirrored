@@ -55,7 +55,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal:</label>
+              <label class="col-lg-3 col-form-label">Tanggal Realisasi:</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -66,27 +66,21 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Harga Jual:</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" id="wawancara_price">
-              </div>
-            </div>
-            <div class="form-group row">
               <label class="col-lg-3 col-form-label">KPR Dimohon:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="wawancara_kpr">
+                <input type="text" class="form-control" id="rlw_kpr" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Analis:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="rlw_analyst">
+                <input type="text" class="form-control" id="rlw_analyst" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Catatan:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="rlw_note">
+                <input type="text" class="form-control" id="rlw_note" readonly>
               </div>
             </div>
           </fieldset>
@@ -96,60 +90,61 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nomer SP:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="rlw_sp_id" id="sp_id">
-                  @foreach ($sps as $sp)
-                    <option></option>
-                    <option value="{{$sp->id}}">SP000{{$sp->id}}</option>
-                  @endforeach
-                </select>
+                <input type="text" class="form-control" id="sp_id" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tanggal SP:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_date">
+                <input type="text" class="form-control" id="sp_date" readonly>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Harga Jual:</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" id="sp_price" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Sales:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_se">
+                <input type="text" class="form-control" id="sp_se" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Customer ID:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_customer_id">
+                <input type="text" class="form-control" id="sp_customer_id" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Customer Name:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_customer_name">
+                <input type="text" class="form-control" id="sp_customer_name" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kavling:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_kavling">
+                <input type="text" class="form-control" id="sp_kavling" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tipe Rumah:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_rumah">
+                <input type="text" class="form-control" id="sp_rumah" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Kreditur:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_kreditur" name="rlw_kreditur_id">
+                <input type="text" class="form-control" id="sp_kreditur" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nama Kreditur:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_kreditur_name" name="rlw_kreditur_name">
+                <input type="text" class="form-control" id="sp_kreditur_name" readonly>
               </div>
             </div>
           </fieldset>
@@ -167,28 +162,6 @@
 <script>
 $(document).ready(function(){
 
-  $('#sp_id').on('change', function(e){
-    var id = $(this).val();
-    console.log(id);
-    $.ajax({
-    url: '{{route('transaction.wawancara.load_sp')}}',
-    data: {
-      id: id
-    },
-    success: function (result) {
-      console.log(result);
-      $('#sp_date').val(result.sp_date);
-      $('#sp_se').val(result.sales.sales_name);
-      $('#sp_customer_id').val(result.sp_customer_id);
-      $('#sp_customer_name').val(result.customer.customer_name);
-      $('#sp_kavling').val(result.sp_kavling_id);
-      $('#sp_rumah').val(result.kavling.price.house.rumah_type_name);
-    },
-    error: function (e) {
-      console.log(e);
-    }
-    });
-  });
   $('#wawancara_id').on('change', function(e){
     var id = $(this).val();
     console.log(id);
@@ -199,14 +172,43 @@ $(document).ready(function(){
     },
     success: function (result) {
       console.log(result);
-      $('#wawancara_price').val(result.wawancara_price);
-      $('#wawancara_kpr').val(result.wawancara_kpr);
+      $('#rlw_kpr').val(result.wawancara_kpr);
+      $('#rlw_analyst').val(result.wawancara_analyst);
+      $('#rlw_note').val(result.wawancara_note);
+      $('#sp_id').val(result.surat.id);
+      $('#sp_date').val(result.surat.sp_date);
+      $('#sp_price').val(result.surat.sp_price);
+      $('#sp_se').val(result.surat.sales.sales_name);
+      $('#sp_customer_id').val(result.surat.customer.id);
+      $('#sp_customer_name').val(result.surat.customer.customer_name);
+      $('#sp_kavling').val(result.surat.kavling.kavling_cluster);
+      $('#sp_rumah').val(result.surat.kavling.house.rumah_type_name);
+      $('#sp_kreditur').val(result.wawancara_kreditur_id);
+      $('#sp_kreditur_name').val(result.wawancara_kreditur_name);
     },
     error: function (e) {
       console.log(e);
     }
     });
   });
+  // $('#wawancara_id').on('change', function(e){
+  //   var id = $(this).val();
+  //   console.log(id);
+  //   $.ajax({
+  //   url: '{{route('transaction.realisasi.load_wawancara')}}',
+  //   data: {
+  //     id: id
+  //   },
+  //   success: function (result) {
+  //     console.log(result);
+  //     $('#wawancara_price').val(result.wawancara_price);
+  //     $('#wawancara_kpr').val(result.wawancara_kpr);
+  //   },
+  //   error: function (e) {
+  //     console.log(e);
+  //   }
+  //   });
+  // });
 });
 
 var DateTimePickers = function() {

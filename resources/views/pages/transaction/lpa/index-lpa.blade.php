@@ -83,7 +83,7 @@ var DatatableSelect = function() {
                 {data: 'lpa_type'},
                 {data: 'lpa_sp_id'},
                 {data: 'surat.customer.customer_name'},
-                {data: 'surat.kavling.kavling_type'},
+                {data: 'surat.kavling.kavling_cluster'},
                 {data: 'active'},
             ],
             select: {

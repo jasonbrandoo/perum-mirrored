@@ -15,6 +15,7 @@ use App\Http\Requests\StoreSuratPesanan;
 use Yajra\DataTables\DataTables;
 use Carbon\Carbon;
 use App\Model\Payment;
+use App\Helpers\Comma;
 
 class SuratPesananController extends Controller
 {
@@ -51,10 +52,10 @@ class SuratPesananController extends Controller
         $mous = Mou::where('active', 'Active')->get();
         $sales = Sales::where('sales_position', 'Sales')->get();
         $spvs = Sales::where('sales_position', 'Supervisor')->get();
-        $payment = Payment::all();
+        $payments = Payment::all();
         $kavlings = Kavling::with('price.house')->get();
         $prices = Price::all();
-        return view('pages.transaction.surat.create-surat', compact('customers', 'mous', 'sales', 'spvs', 'kavlings', 'companies', 'prices', 'payment'));
+        return view('pages.transaction.surat.create-surat', compact('customers', 'mous', 'sales', 'spvs', 'kavlings', 'companies', 'prices', 'payments'));
     }
 
     public function load_customer(Request $request)
@@ -125,38 +126,39 @@ class SuratPesananController extends Controller
             'sp_tl' => $request->input('sp_tl'),
             'sp_tt' => $request->input('sp_tt'),
             // 
-            'sp_price_id' => $request->input('sp_price_id'),
-            'sp_price' => $request->input('sp_price'),
-            'sp_price_tl' => $request->input('sp_price_tl'),
+            'sp_price_id' => Comma::removeComma($request->input('sp_price_id')),
+            'sp_price' => Comma::removeComma($request->input('sp_price')),
+            'sp_price_tl' => Comma::removeComma($request->input('sp_price_tl')),
             'sp_price_list' => null,
-            'sp_total_harga_jual' => $request->input('sp_total_harga_jual'),
-            'sp_harga_jual_tanah' => $request->input('sp_harga_jual_tanah'),
-            'sp_included_tl' => $request->input('sp_included_tl'),
-            'sp_discount' => $request->input('sp_discount'),
-            'sp_after_discount' => $request->input('sp_after_discount'),
-            'sp_ppn_percentage' => $request->input('sp_ppn_percentage'),
-            'sp_after_ppn' => $request->input('sp_after_ppn'),
-            'sp_harga_tanah_bangunan' => $request->input('sp_harga_tanah_bangunan'),
-            'sp_payment_method' => $request->input('sp_payment_method'),
-            'sp_harga_jual_pengikatan' => $request->input('sp_harga_jual_pengikatan'),
-            'sp_kpr_plan' => $request->input('sp_kpr_plan'),
-            'sp_ajb_price' => $request->input('sp_ajb_price'),
-            'sp_total' => $request->input('sp_total'),
+            'sp_total_harga_jual' => Comma::removeComma($request->input('sp_total_harga_jual')),
+            'sp_harga_jual_tanah' => Comma::removeComma($request->input('sp_harga_jual_tanah')),
+            'sp_included_tl' => Comma::removeComma($request->input('sp_included_tl')),
+            'sp_discount' => Comma::removeComma($request->input('sp_discount')),
+            'sp_after_discount' => Comma::removeComma($request->input('sp_after_discount')),
+            'sp_ppn_percentage' => Comma::removeComma($request->input('sp_ppn_percentage')),
+            'sp_after_ppn' => Comma::removeComma($request->input('sp_after_ppn')),
+            'sp_harga_tanah_bangunan' => Comma::removeComma($request->input('sp_harga_tanah_bangunan')),
+            'sp_payment_method' => Comma::removeComma($request->input('sp_payment_method')),
+            'sp_harga_jual_pengikatan' => Comma::removeComma($request->input('sp_harga_jual_pengikatan')),
+            'sp_kpr_plan' => Comma::removeComma($request->input('sp_kpr_plan')),
+            'sp_kpr_plan_percentage' => Comma::removeComma($request->input('sp_kpr_plan_percentage')),
+            'sp_ajb_price' => Comma::removeComma($request->input('sp_ajb_price')),
+            'sp_total' => Comma::removeComma($request->input('sp_total')),
             // 
-            'sp_bill' => $request->input('sp_bill'),
-            'sp_dp' => $request->input('sp_dp'),
-            'sp_subsidi' => $request->input('sp_subsidi'),
-            'sp_tanah_lebih' => $request->input('sp_tanah_lebih'),
-            'sp_harga_m2' => $request->input('sp_harga_m2'),
-            'sp_total_harga_tanah_lebih' => $request->input('sp_total_harga_tanah_lebih'),
-            'sp_ppn' => $request->input('sp_ppn'),
-            'sp_sub_total' => $request->input('sp_sub_total'),
-            'sp_total_bill' => $request->input('sp_total_bill'),
-            'sp_per_month_internal' => $request->input('sp_per_month_internal'),
-            'sp_internal_bill' => $request->input('sp_internal_bill'),
-            'sp_per_month_kreditur' => $request->input('sp_per_month_kreditur'),
-            'sp_kreditur_bill' => $request->input('sp_kreditur_bill'),
-            'active' => $request->input('active') == null ? 'Not Active' : 'Active'
+            'sp_bill' => Comma::removeComma($request->input('sp_bill')),
+            'sp_dp' => Comma::removeComma($request->input('sp_dp')),
+            'sp_subsidi' => Comma::removeComma($request->input('sp_subsidi')),
+            'sp_tanah_lebih' => Comma::removeComma($request->input('sp_tanah_lebih')),
+            'sp_harga_m2' => Comma::removeComma($request->input('sp_harga_m2')),
+            'sp_total_harga_tanah_lebih' => Comma::removeComma($request->input('sp_total_harga_tanah_lebih')),
+            'sp_ppn' => Comma::removeComma($request->input('sp_ppn')),
+            'sp_sub_total' => Comma::removeComma($request->input('sp_sub_total')),
+            'sp_total_bill' => Comma::removeComma($request->input('sp_total_bill')),
+            'sp_per_month_internal' => Comma::removeComma($request->input('sp_per_month_internal')),
+            'sp_internal_bill' => Comma::removeComma($request->input('sp_internal_bill')),
+            'sp_per_month_kreditur' => Comma::removeComma($request->input('sp_per_month_kreditur')),
+            'sp_kreditur_bill' => Comma::removeComma($request->input('sp_kreditur_bill')),
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active)'
         ]);
         return redirect('transaction/surat-pesanan')->with('success', 'Successfull create Surat Pesanan');
     }
@@ -204,6 +206,7 @@ class SuratPesananController extends Controller
     public function update(Request $request, SuratPesanan $suratPesanan)
     {
         //
+        return $request;
     }
 
     /**

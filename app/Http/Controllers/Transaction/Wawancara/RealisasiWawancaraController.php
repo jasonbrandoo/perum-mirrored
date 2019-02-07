@@ -38,7 +38,7 @@ class RealisasiWawancaraController extends Controller
 
     public function load_wawancara(Request $request)
     {
-        $wawancara = Wawancara::find($request->id);
+        $wawancara = Wawancara::with('surat.customer', 'surat.sales', 'surat.kavling.house')->find($request->id);
         return response()->json($wawancara);
     }
 
@@ -54,11 +54,6 @@ class RealisasiWawancaraController extends Controller
         RealisasiWawancara::create([
             'rlw_wawancara_id' => $request->input('rlw_wawancara_id'),
             'rlw_date' => Carbon::parse($request->input('rlw_date'))->format('Y-m-d H:i:s'),
-            'rlw_analyst' => $request->input('rlw_analyst'),
-            'rlw_note' => $request->input('rlw_note'),
-            'rlw_sp_id' => $request->input('rlw_sp_id'),
-            'rlw_kreditur_id' => $request->input('rlw_kreditur_id'),
-            'rlw_kreditur_name' => $request->input('rlw_kreditur_name')
         ]);
         return redirect('transaction/wawancara')->with('success', 'Successfull create Realisasi Wawancara');
     }

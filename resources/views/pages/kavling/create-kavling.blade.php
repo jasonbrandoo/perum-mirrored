@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('page-title')
-<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Kavling</span> - Create New Kavling</h4>
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Kavling</span> - {{isset($kavling) ? 'Edit Kavling' : 'Create New Kavling'}}</h4>
 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 @endsection
 
 @section('breadcrumb')
 <a href="{{ route('kavling.index') }}" class="breadcrumb-item">Kavling</a>    
-<a href="{{ route('kavling.create') }}" class="breadcrumb-item">New Kavling</a>    
+<a href="{{ route('kavling.create') }}" class="breadcrumb-item">{{isset($kavling) ? 'Edit Kavling' : 'New Kavling'}}</a>    
 @endsection
 
 @section('content')
@@ -167,13 +167,13 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Harga Jual</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" readonly id="kavling_price_selling" name="kavling_price_selling" value="{{ isset($kavling) ? $priceId->price->price_selling : '' }}">
+                <input type="text" class="form-control price" readonly id="kavling_price_selling" name="kavling_price_selling" value="{{ isset($kavling) ? $priceId->price->price_selling : '' }}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Harga TL/M2</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" readonly id="kavling_price_tl_m2" name="kavling_price_tl_m2" value="{{ isset($kavling) ? $priceId->price->price_surface_m2 : '' }}">
+                <input type="text" class="form-control price" readonly id="kavling_price_tl_m2" name="kavling_price_tl_m2" value="{{ isset($kavling) ? $priceId->price->price_surface_m2 : '' }}">
               </div>
             </div>
           </fieldset>
@@ -181,9 +181,9 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Discount Uang Muka</label>
+              <label class="col-lg-3 col-form-label">Discount Uang Muka (%)</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="kavling_discount_dp" value="{{ isset($kavling) ? $kavling->kavling_discount_dp : '' }}">
+                <input type="text" class="form-control price" name="kavling_discount_dp" value="{{ isset($kavling) ? $kavling->kavling_discount_dp : '' }}">
               </div>
             </div>
             <div class="form-group row">

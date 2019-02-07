@@ -293,13 +293,13 @@
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Harga:</label>
                 <div class="col-lg-9">
-                  <input type="number" class="form-control" name="sp_price" id="price" readonly required>
+                  <input type="text" class="form-control price" name="sp_price" id="price" readonly required>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Total Harga TL:</label>
                 <div class="col-lg-9">
-                  <input type="number" class="form-control" name="sp_price_tl">
+                  <input type="text" class="form-control price" name="sp_price_tl">
                 </div>
               </div>
               <!--<div class="form-group row">
@@ -311,13 +311,13 @@
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Total Harga Jual:</label>
                 <div class="col-lg-9">
-                  <input type="number" class="form-control" name="sp_total_harga_jual" required>
+                  <input type="text" class="form-control price" name="sp_total_harga_jual" required>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Harga Jual Tanah:</label>
                 <div class="col-lg-9">
-                  <input type="number" class="form-control" name="sp_harga_jual_tanah" value="0" readonly required>
+                  <input type="text" class="form-control price" name="sp_harga_jual_tanah" value="0" readonly required>
                 </div>
               </div>
               <div class="form-group row">
@@ -330,37 +330,36 @@
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Potongan Harga Jual (Discount):</label>
                 <div class="col-lg-9">
-                  <input type="number" class="form-control" name="sp_discount">
+                  <input type="text" class="form-control price" name="sp_discount">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Harga Setelah Discount:</label>
                 <div class="col-lg-9">
-                  <input type="number" class="form-control" name="sp_after_discount">
+                  <input type="text" class="form-control price" name="sp_after_discount">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Persentase Pajak (%):</label>
                 <div class="col-lg-9">
-                  <input type="number" class="form-control" name="sp_ppn_percentage" required>
+                  <input type="text" class="form-control price" name="sp_ppn_percentage" required>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Nilai Pajak:</label>
                 <div class="col-lg-9">
-                  <input type="number" class="form-control" name="sp_after_ppn" required>
+                  <input type="text" class="form-control price" name="sp_after_ppn" required>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Harga Tanah dan Bangunan:</label>
                 <div class="col-lg-9">
-                  <input type="number" class="form-control" name="sp_harga_tanah_bangunan">
+                  <input type="text" class="form-control price" name="sp_harga_tanah_bangunan">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Cara Pembayaran:</label>
                 <div class="col-lg-9">
-                  <input type="number" class="form-control" name="sp_payment_method" required>
                   <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_payment_method" required>
                     @foreach ($payments as $pay)
                       <option></option>
@@ -372,25 +371,29 @@
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Harga jual pengikatan:</label>
                 <div class="col-lg-9">
-                  <input type="number" class="form-control" name="sp_harga_jual_pengikatan" required>
+                  <input type="text" class="form-control price" name="sp_harga_jual_pengikatan" required>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Rencana KPR:</label>
-                <div class="col-lg-9">
-                  <input type="text" class="form-control" name="sp_kpr_plan" required>
+                <div class="col-lg">
+                  <input type="text" class="form-control price" name="sp_kpr_plan" required>
+                </div>
+                <label class="col-form-label">%:</label>
+                <div class="col-lg">
+                  <input type="text" class="form-control price" name="sp_kpr_plan" required>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Harga Jual AJB:</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" name="sp_ajb_price" required>
+                  <input type="text" class="form-control price" name="sp_ajb_price" required>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Total Surat Pesanan:</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" name="sp_total" required>
+                  <input type="text" class="form-control price" name="sp_total" required>
                 </div>
               </div>
             </fieldset>
@@ -598,7 +601,7 @@
     },
     success: function (result) {
       console.log(result);
-      $('#price').val(result.price_selling);
+      $('#price').val($.number(result.price_selling));
     },
     error: function (e) {
       console.log(e);
@@ -615,15 +618,17 @@
       "min": 1
     }).val();
     
-    const hargaJual = $('input[name=sp_total_harga_jual]').val(price+ priceTl);
+    const hargaJual = $('input[name=sp_total_harga_jual]').val( price + priceTl );
     const hargaJualRumah = $('input[name=sp_harga_jual_tanah]');
-    const hargaSetelahDiscount = $('input[name=sp_after_discount]').val(hargaJualRumah.val() - discount);
-    const nilaiPajak = $('input[name=sp_after_ppn]').val(percentage * hargaSetelahDiscount.val());
+    const hargaSetelahDiscount = $('input[name=sp_after_discount]').val( hargaJualRumah.val() - ((discount * hargaJualRumah.val()) / 100) );
+    const nilaiPajak = $('input[name=sp_after_ppn]').val( ((percentage * hargaSetelahDiscount.val()) / 100) );
     const hargaTanahDanBangunan = $('input[name=sp_harga_tanah_bangunan]').val(hargaJualRumah.val() + nilaiPajak.val());
+    const hargaJualPengikatan = $('input[name=sp_harga_jual_pengikatan]').val( hargaTanahDanBangunan.val() );
+    const hargaAjb = $('input[name=sp_ajb_price]').val( hargaJual.val() * (110 / 100 ));
     
     $('input[name=sp_included_tl').click(() => {
       if ($('input[name=sp_included_tl').prop('checked')) {
-        hargaJualRumah.val(price + priceTl);
+        hargaJualRumah.val($.number(price + priceTl));
       } else {
         $('input[name=sp_harga_jual_tanah]').val(0)      
       }

@@ -114,31 +114,31 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Harga Jual</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="price_selling" value="{{ isset($price) ? $price->price_selling : '' }}" >
+                <input type="text" class="form-control price" name="price_selling" value="{{ isset($price) ? $price->price_selling : '' }}" >
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Discount</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="price_discount" value="{{ isset($price) ? $price->price_discount : '' }}" >
+                <input type="text" class="form-control price" name="price_discount" value="{{ isset($price) ? $price->price_discount : '' }}" >
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">PPN 10%</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="price_ppn" value="{{ isset($price) ? $price->price_ppn : '' }}" >
+                <input type="text" class="form-control price" name="price_ppn" value="{{ isset($price) ? $price->price_ppn : '' }}" >
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Biaya Admin</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="price_adm" value="{{ isset($price) ? $price->price_adm : '' }}" >
+                <input type="text" class="form-control price" name="price_adm" value="{{ isset($price) ? $price->price_adm : '' }}" >
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Netto</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="price_netto" value="{{ isset($price) ? $price->price_netto : '' }}" readonly>
+                <input type="text" class="form-control price" name="price_netto" value="{{ isset($price) ? $price->price_netto : '' }}" readonly>
               </div>
             </div>
             <div class="form-group row">
@@ -156,61 +156,61 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Maksimum KPR</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="price_max_kpr" value="{{ isset($price) ? $price->price_max_kpr : '' }}" >
+                <input type="text" class="form-control price" name="price_max_kpr" value="{{ isset($price) ? $price->price_max_kpr : '' }}" >
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">DP</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="price_dp" value="{{ isset($price) ? $price->price_dp : '' }}" >
+                <input type="text" class="form-control price" name="price_dp" value="{{ isset($price) ? $price->price_dp : '' }}" >
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Diskon DP</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="price_discount_dp" value="{{ isset($price) ? $price->price_discount_dp : '' }}" >
+                <input type="text" class="form-control price" name="price_discount_dp" value="{{ isset($price) ? $price->price_discount_dp : '' }}" >
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Booking fee</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="price_booking" value="{{ isset($price) ? $price->price_booking : '' }}" >
+                <input type="text" class="form-control price" name="price_booking" value="{{ isset($price) ? $price->price_booking : '' }}" >
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Harga TL / m2</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="price_surface_m2" value="{{ isset($price) ? $price->price_surface_m2 : '' }}" >
+                <input type="text" class="form-control price" name="price_surface_m2" value="{{ isset($price) ? $price->price_surface_m2 : '' }}" >
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Notaris + Adm</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="price_notaris" value="{{ isset($price) ? $price->price_notaris : '' }}" >
+                <input type="text" class="form-control price" name="price_notaris" value="{{ isset($price) ? $price->price_notaris : '' }}" >
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Angsuran 5 Thn</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="price_5_year" value="{{ isset($price) ? $price->price_5_year : '' }}" >
+                <input type="text" class="form-control price" name="price_5_year" value="{{ isset($price) ? $price->price_5_year : '' }}" >
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Angsuran 10 Thn</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="price_10_year" value="{{ isset($price) ? $price->price_10_year : '' }}" >
+                <input type="text" class="form-control price" name="price_10_year" value="{{ isset($price) ? $price->price_10_year : '' }}" >
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Angsuran 15 Thn</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="price_15_year" value="{{ isset($price) ? $price->price_15_year : '' }}" >
+                <input type="text" class="form-control price" name="price_15_year" value="{{ isset($price) ? $price->price_15_year : '' }}" >
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Angsuran 20 Thn</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="price_20_year" value="{{ isset($price) ? $price->price_20_year : '' }}" >
+                <input type="text" class="form-control price" name="price_20_year" value="{{ isset($price) ? $price->price_20_year : '' }}" >
               </div>
             </div>
           </fieldset>

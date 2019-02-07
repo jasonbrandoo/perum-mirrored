@@ -59,7 +59,6 @@ class WawancaraController extends Controller
         //
         Wawancara::create([
             'wawancara_date' => Carbon::parse($request->input('wawancara_date'))->format('Y-m-d H:i:s'),
-            'wawancara_price' => $request->input('wawancara_price'),
             'wawancara_kpr' => $request->input('wawancara_kpr'),
             'wawancara_note' => $request->input('wawancara_note'),
             'wawancara_analyst' => $request->input('wawancara_analyst'),

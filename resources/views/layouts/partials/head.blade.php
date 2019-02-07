@@ -36,6 +36,7 @@
 <!-- /Core JS files -->
 
 <!-- Theme JS files -->
+<script src="/template/global_assets/js/plugins/number/jquery.number.min.js"></script>
 <script src="/template/global_assets/js/plugins/ui/moment/moment.min.js"></script>
 <script src="/template/global_assets/js/plugins/notifications/sweet_alert.min.js"></script>
 
@@ -68,7 +69,7 @@
 <!-- /Theme JS files -->
 
 <script>
-    $.ajaxSetup({
+$.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
@@ -78,15 +79,16 @@ $(document).on("wheel", "input[type=number]", function (e) {
     $(this).blur();
 });
 
-$(document).on('keyup', 'input[type=number]', (event) => {
-    if(event.which >= 37 && event.which <= 40) return;
-    $(this).val(function(index, value) {
-        return value
-        .replace(/\D/g, "")
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        ;
+$(function(){	
+    $('.price').number( true );
+    $('.price').keyup( () => {
+        const value = $('.price');
+        value.each((index, element) => {
+            let val = element.value;
+            val = val.replace(/,/g, '');
+            val = parseFloat(val);
+        })
     });
-})
-
+});
 </script>
 @stack('scripts')

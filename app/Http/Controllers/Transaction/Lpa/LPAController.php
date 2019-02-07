@@ -46,7 +46,7 @@ class LPAController extends Controller
 
     public function load_sp(Request $request)
     {
-        $sp = SuratPesanan::with('customer', 'company', 'sales')->find($request->id);
+        $sp = SuratPesanan::with('customer', 'company', 'sales', 'kavling.house')->find($request->id);
         return response()->json($sp);
     }
 
@@ -68,7 +68,6 @@ class LPAController extends Controller
         LPA::create([
             'lpa_date' => Carbon::parse($request->input('lpa_date'))->format('Y-m-d H:i:s'),
             'lpa_type' => $request->input('lpa_type'),
-            'lpa_kavling_id' => $request->input('lpa_kavling_id'),
             'lpa_sp_id' => $request->input('lpa_sp_id'),
             'active' => $request->input('active') == null ? 'Not Active' : 'Active'
         ]);

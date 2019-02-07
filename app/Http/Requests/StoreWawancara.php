@@ -26,7 +26,6 @@ class StoreWawancara extends FormRequest
         return [
             //
             'wawancara_date' => ['required'],
-            'wawancara_price' => ['required'],
             'wawancara_kpr' => ['required'],
             'wawancara_analyst' => ['required'],
             'wawancara_status' => ['required'],

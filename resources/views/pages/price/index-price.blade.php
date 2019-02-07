@@ -97,7 +97,8 @@ var DatatableSelect = function() {
                     data: 'price_end_date'
                 },
                 {
-                    data: 'price_selling'
+                    data: 'price_selling',
+                    render: (data) => $.number(data)
                 },
                 {
                     data: 'active',

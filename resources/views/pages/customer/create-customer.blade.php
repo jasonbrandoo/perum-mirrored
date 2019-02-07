@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('page-title')
-<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Customer</span> - Create New Customer</h4>
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Customer</span> - {{isset($customer) ? 'Edit Customer' : 'Create New Customer'}}</h4>
 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 @endsection
 
 @section('breadcrumb')
 <a href="{{ route('customer.index') }}" class="breadcrumb-item">Customer</a>    
-<a href="{{ route('customer.create') }}" class="breadcrumb-item">New Customer</a>    
+<a href="{{ route('customer.create') }}" class="breadcrumb-item">{{isset($customer) ? 'Edit Customer' : 'Create New Customer'}}</a>    
 @endsection
 
 @section('content')
@@ -220,10 +220,22 @@
               <label class="col-lg-3 col-form-label">Kode Referensi</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc id="reference_id" name="customer_reference_id" required>
-                  @foreach ($references as $reference)
-                    <option></option>
-                    <option value="{{$reference->id}}">RSP000{{$reference->id}} - {{$reference->reference_description}}</option>
-                  @endforeach
+                  @if (isset($customer))
+                    <option value="{{$customer->reference->id}}">RSP000{{$customer->reference->id}} - {{$customer->reference->reference_description}}</option>
+                    @foreach ($references as $reference)
+                      @if ($reference->id == $customer->reference->id)
+                        <option></option>
+                      @else
+                        <option></option>
+                        <option value="{{$reference->id}}">RSP000{{$reference->id}} - {{$reference->reference_description}}</option>
+                      @endif
+                    @endforeach
+                  @else
+                    @foreach ($references as $reference)
+                      <option></option>
+                      <option value="{{$reference->id}}">RSP000{{$reference->id}} - {{$reference->reference_description}}</option>
+                    @endforeach
+                  @endif
                 </select>
               </div>
             </div>
@@ -231,10 +243,22 @@
               <label class="col-lg-3 col-form-label">Sales Executives</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc id="sales_executive_id" name="customer_executive_id" required>
-                  @foreach ($sales_executives as $se)
-                    <option></option>
-                    <option value="{{$se->id}}">SE000{{$se->id}} - {{$se->sales_name}}</option>
-                  @endforeach
+                  @if (isset($customer))
+                    <option value="{{$customer->sales_executive->id}}">SE000{{$customer->sales_executive->id}} - {{$customer->sales_executive->sales_name}}</option>
+                    @foreach ($sales_executives as $se)
+                      @if ($se->id == $customer->sales_executive->id)
+                        <option></option>
+                      @else
+                        <option></option>
+                        <option value="{{$se->id}}">SE000{{$se->id}} - {{$se->sales_name}}</option>
+                      @endif
+                    @endforeach
+                  @else
+                    @foreach ($sales_executives as $se)
+                      <option></option>
+                      <option value="{{$se->id}}">SE000{{$se->id}} - {{$se->sales_name}}</option>
+                    @endforeach
+                  @endif
                 </select>
               </div>
             </div>
@@ -242,10 +266,22 @@
               <label class="col-lg-3 col-form-label">Sales Supervisor</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc id="sales_supervisor_id" name="customer_supervisor_id" required>
-                  @foreach ($sales_supervisor as $spv)
-                    <option></option>
-                    <option value="{{$spv->id}}">SPV000{{$spv->id}} - {{$spv->sales_name}}</option>
-                  @endforeach
+                  @if (isset($customer))
+                    <option value="{{$customer->sales_supervisor->id}}">SPV000{{$customer->sales_supervisor->id}} - {{$customer->sales_supervisor->sales_name}}</option>
+                    @foreach ($sales_supervisor as $spv)
+                      @if ($spv->id == $customer->sales_supervisor->id)
+                          <option></option>
+                      @else
+                        <option></option>
+                        <option value="{{$spv->id}}">SPV000{{$spv->id}} - {{$spv->sales_name}}</option>
+                      @endif
+                    @endforeach
+                  @else
+                    @foreach ($sales_supervisor as $spv)
+                      <option></option>
+                      <option value="{{$spv->id}}">SPV000{{$spv->id}} - {{$spv->sales_name}}</option>
+                    @endforeach
+                  @endif
                 </select>
               </div>
             </div>
@@ -296,47 +332,59 @@
               <label class="col-lg-3 col-form-label">Nama Perusahaan</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc id="company" name="customer_office_id" required>
-                  @foreach ($companies as $company)
-                    <option></option>
-                    <option value="{{$company->id}}">P000{{$company->id}} - {{$company->company_name}}</option>
-                  @endforeach
+                  @if (isset($customer))
+                    <option value="{{$customer->company->id}}">P000{{$customer->company->id}} - {{$customer->company->company_name}}</option>
+                    @foreach ($companies as $company)
+                      @if ($company->id == $customer->company->id)
+                        <option></option>
+                      @else
+                        <option></option>
+                        <option value="{{$company->id}}">P000{{$company->id}} - {{$company->company_name}}</option>    
+                      @endif
+                    @endforeach
+                  @else
+                    @foreach ($companies as $company)
+                      <option></option>
+                      <option value="{{$company->id}}">P000{{$company->id}} - {{$company->company_name}}</option>
+                    @endforeach
+                  @endif
                 </select>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Alamat Perusahaan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_office_address" id="customer_office_address" readonly>
+                <input type="text" class="form-control" name="customer_office_address" id="customer_office_address" value="{{ isset($customer) ? $customer->company->company_address : ''}}" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kota</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_office_city" id="customer_office_city" readonly>
+                <input type="text" class="form-control" name="customer_office_city" id="customer_office_city" value="{{ isset($customer) ? $customer->company->company_city : ''}}" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Pos</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="customer_office_zipcode" id="customer_office_zipcode" readonly>
+                <input type="number" class="form-control" name="customer_office_zipcode" id="customer_office_zipcode" value="{{ isset($customer) ? $customer->company->company_zipcode : ''}}" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Telp</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_office_phone" id="customer_office_phone" readonly>
+                <input type="text" class="form-control" name="customer_office_phone" id="customer_office_phone" value="{{ isset($customer) ? $customer->company->company_phone : ''}}" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Fax</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_office_fax" id="customer_office_fax" readonly>
+                <input type="text" class="form-control" name="customer_office_fax" id="customer_office_fax" value="{{ isset($customer) ? $customer->company->company_fax : ''}}" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Email</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_office_email" required>
+                <input type="text" class="form-control" name="customer_office_email" value="{{ isset($customer) ? $customer->company->company_email : ''}}" required>
               </div>
             </div>
           </fieldset>
@@ -352,28 +400,28 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Penghasilan Pemohon</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="customer_income" required>
+                <input type="text" class="form-control price" name="customer_income" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Penghasilan Tambahan</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="customer_additional_income" required>
+                <input type="text" class="form-control price" name="customer_additional_income" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Penghasilan Suami/Istri</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="customer_family_income" required>
+                <input type="text" class="form-control price" name="customer_family_income" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Total</label>
               <div class="col-lg-9">
-                  <input type="number" class="form-control" name="customer_total_income" required readonly>
+                  <input type="text" class="form-control price" name="customer_total_income" required readonly>
                 </div>
             </div>
           </fieldset>
@@ -383,21 +431,21 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Pengeluaran Rutin</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="customer_routine_expenses" required>
+                <input type="text" class="form-control price" name="customer_routine_expenses" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Sisa Penghasilan</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="customer_residual_income" required readonly>
+                <input type="text" class="form-control price" name="customer_residual_income" required readonly>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kemampuan Angsuran</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="customer_installment_ability" required>
+                <input type="text" class="form-control price" name="customer_installment_ability" required>
               </div>
             </div>
           </fieldset>

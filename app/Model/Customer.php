@@ -18,4 +18,14 @@ class Customer extends Model
     {
         return $this->belongsTo('App\Model\Sales', 'customer_supervisor_id');
     }
+
+    public function reference()
+    {
+        return $this->belongsTo('App\Model\Referensi', 'customer_reference_id');
+    }
+
+    public function company()
+    {
+        return $this->belongsTo('App\Model\Company', 'customer_office_id');
+    }
 }

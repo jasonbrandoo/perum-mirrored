@@ -11,8 +11,7 @@
 @endsection
 
 @section('breadcrumb')
-<a href="{{ route('payment.index') }}" class="breadcrumb-item">Payment</a>    
-<a href="{{ route('payment.create') }}" class="breadcrumb-item">New Payment Method</a>    
+<a href="{{ route('payment.index') }}" class="breadcrumb-item">Payment</a>      
 @endsection
 
 @section('content')
