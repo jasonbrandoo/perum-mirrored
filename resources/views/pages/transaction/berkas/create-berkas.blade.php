@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('page-title')
-<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span> - Create New Berkas</h4>
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span> - {{isset($berkas) ? 'Edit Berkas' : 'Create New Berkas'}}</h4>
 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 @endsection
 
 @section('breadcrumb')
 <a href="{{ route('transaction.berkas.index') }}" class="breadcrumb-item">Berkas</a>
-<a href="{{ route('transaction.berkas.create') }}" class="breadcrumb-item">New Berkas</a>
+<a href="{{ route('transaction.berkas.create') }}" class="breadcrumb-item">{{isset($berkas) ? 'Edit Berkas' : 'New Berkas'}}</a>
 @endsection
 
 @section('content')
@@ -22,17 +22,25 @@
       </div>
     </div>
   </div>
-  @if ($errors->any())
-    <div class="alert alert-danger">
-      <ul>
-        @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-  @endif
+
   <div class="card-body">
-    <form action="{{ route('transaction.berkas.store') }}" method="POST">
+    @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+
+    @if (isset($berkas))
+      <form action="{{ route('transaction.berkas.update') }}" method="POST">
+        @method('PATCH')
+        <input type="hidden" name="id" value="{{$berkas->id}}">
+    @else
+      <form action="{{ route('transaction.berkas.store') }}" method="POST">
+    @endif
       @csrf
       <div class="row">
         <div class="col-md-6">
@@ -40,7 +48,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No Terima Berkas:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" value="TBK000{{$id}}" readonly>
+                <input type="text" class="form-control" value="TBK000{{isset($berkas) ? $berkas->id : $id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
@@ -50,33 +58,50 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="berkas_date">
+                  <input type="text" class="form-control pickadate-selectors" name="berkas_date" value="{{isset($berkas) ? $berkas->berkas_date : ''}}">
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Diserahkan Oleh:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="berkas_giver">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="berkas_giver_id">
+                  @if (isset($berkas))
+                    <option value="{{$berkas->customer->id}}">{{$berkas->customer->customer_name}}</option>
+                    @foreach ($customer_edit as $cust)
+                      @if ($cust->id == $berkas->customer->id)
+                        <option></option>
+                      @else
+                        <option></option>
+                        <option value="{{$cust->id}}">{{$cust->customer_name}}<c/option>    
+                      @endif
+                    @endforeach  
+                  @else
+                    @foreach ($customer as $cust)
+                      <option></option>
+                      <option value="{{$cust->id}}">{{$cust->customer_name}}<c/option>
+                    @endforeach
+                  @endif
+                </select>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Penerima:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="berkas_reciever" value="U000{{Auth::user()->id}}" readonly>
+                <input type="text" class="form-control" name="berkas_reciever_id" value="{{Auth::user()->id}}"  readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Catatan:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="berkas_note">
+                <input type="text" class="form-control" name="berkas_note" value="{{isset($berkas) ? $berkas->berkas_note : ''}}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Active:</label>
               <div class="col-lg-9">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input" name="active">
+                  <input type="checkbox" class="form-check-input" name="active" checked>
                 </div>
               </div>
             </div>
@@ -88,10 +113,22 @@
               <label class="col-lg-3 col-form-label">No Sp:</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="berkas_sp_id" id="sp_id">
-                  @foreach ($sps as $surat)
-                    <option value=""></option>
-                    <option value="{{$surat->id}}">SP000{{$surat->id}}</option>
-                  @endforeach
+                  @if (isset($berkas))
+                    <option value="{{$berkas->surat->id}}">SP000{{$berkas->surat->id}}</option>
+                    @foreach ($surat_edit as $surat)
+                      @if ($surat->id == $berkas->surat->id)
+                        <option></option>
+                      @else
+                        <option value=""></option>
+                        <option value="{{$surat->id}}">SP000{{$surat->id}}</option>
+                      @endif
+                    @endforeach
+                  @else
+                    @foreach ($sps as $surat)
+                      <option value=""></option>
+                      <option value="{{$surat->id}}">SP000{{$surat->id}}</option>
+                    @endforeach
+                  @endif
                 </select>
               </div>
             </div>
@@ -99,42 +136,42 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tanggal Sp:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_date" readonly>
+                <input type="text" class="form-control" id="sp_date" value="{{isset($berkas) ? $berkas->surat->sp_date : ''}}" readonly>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Customer:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_customer" readonly>
+                <input type="text" class="form-control" id="sp_customer" value="{{isset($berkas) ? $berkas->surat->customer->customer_name : ''}}" readonly>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Sales:</label>
               <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_sales" readonly>
+                  <input type="text" class="form-control" id="sp_sales" value="{{isset($berkas) ? $berkas->surat->sales->sales_name : ''}}" readonly>
                 </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tipe Rumah:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_house_type" readonly>
+                <input type="text" class="form-control" id="sp_house_type" value="{{isset($berkas) ? $berkas->surat->kavling->house->rumah_type_name : ''}}" readonly>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kavling:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_kavling" readonly>
+                <input type="text" class="form-control" id="sp_kavling" value="{{isset($berkas) ? $berkas->surat->kavling->kavling_cluster : ''}}" readonly>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Cara Pembayaran:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_payment_method" readonly>
+                <input type="text" class="form-control" id="sp_payment_method" value="{{isset($berkas) ? $berkas->surat->paymentMethod->payment_method : ''}}" readonly>
               </div>
             </div>
           </fieldset>
@@ -161,12 +198,12 @@ $(document).ready(function(){
     },
     success: function (result) {
       console.log(result);
-      $('#sp_date').val(result.kavling.id);
-      $('#sp_customer').val(result.kavling.id);
-      $('#sp_sales').val(result.kavling.id);
+      $('#sp_date').val(result.sp_date);
+      $('#sp_customer').val(result.customer.customer_name);
+      $('#sp_sales').val(result.sales.sales_name);
       $('#sp_house_type').val(result.kavling.price.house.rumah_type_name);
-      $('#sp_kavling').val(result.kavling.id);
-      $('#sp_payment_method').val(result.kavling.kavling_block);
+      $('#sp_kavling').val(result.kavling.kavling_cluster);
+      $('#sp_payment_method').val(result.payment_method.payment_method);
     },
     error: function (e) {
       console.log(e);

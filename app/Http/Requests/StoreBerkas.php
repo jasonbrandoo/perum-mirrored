@@ -26,8 +26,8 @@ class StoreBerkas extends FormRequest
         return [
             //
             'berkas_date' => ['required'],
-            'berkas_giver' => ['required'],
-            'berkas_reciever' => ['required'],
+            'berkas_giver_id' => ['required'],
+            'berkas_reciever_id' => ['required'],
             'berkas_sp_id' => ['required']
         ];
     }

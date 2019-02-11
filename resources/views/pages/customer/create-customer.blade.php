@@ -400,21 +400,21 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Penghasilan Pemohon</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="customer_income" required>
+                <input type="text" class="form-control price" name="customer_income" value="{{ isset($customer) ? $customer->customer_income : ''}}" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Penghasilan Tambahan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="customer_additional_income" required>
+                <input type="text" class="form-control price" name="customer_additional_income" value="{{ isset($customer) ? $customer->customer_additional_income : ''}}" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Penghasilan Suami/Istri</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="customer_family_income" required>
+                <input type="text" class="form-control price" name="customer_family_income" value="{{ isset($customer) ? $customer->customer_family_income : ''}}" required>
               </div>
             </div>
 
@@ -431,7 +431,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Pengeluaran Rutin</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="customer_routine_expenses" required>
+                <input type="text" class="form-control price" name="customer_routine_expenses" value="{{ isset($customer) ? $customer->customer_routine_expenses : ''}}" required>
               </div>
             </div>
 
@@ -445,7 +445,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kemampuan Angsuran</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="customer_installment_ability" required>
+                <input type="text" class="form-control price" name="customer_installment_ability" value="{{ isset($customer) ? $customer->customer_installment_ability : ''}}" required>
               </div>
             </div>
           </fieldset>

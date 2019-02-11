@@ -86,6 +86,23 @@ class KomisiEksternalController extends Controller
     }
 
     /**
+     * Active / Deactive
+     * 
+     * @return Komisi-Eksternal Status
+     */
+    public function action(Request $request, $id)
+    {
+        $eksternal = KomisiEksternal::find($id);
+        if ($request->input('active') == 'Deactive') {
+            $eksternal->active = 'Deactive';
+            $eksternal->save();
+        } else if ($request->input('active') == 'Active'){
+            $eksternal->active = 'Active';
+            $eksternal->save();
+        } 
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\KomisiEksternal  $komisiEksternal
@@ -102,9 +119,10 @@ class KomisiEksternalController extends Controller
      * @param  \App\KomisiEksternal  $komisiEksternal
      * @return \Illuminate\Http\Response
      */
-    public function edit(KomisiEksternal $komisiEksternal)
+    public function edit(KomisiEksternal $komisiEksternal, $id)
     {
         //
+        return KomisiEksternal::find($id);
     }
 
     /**

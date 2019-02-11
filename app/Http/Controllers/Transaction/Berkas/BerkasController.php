@@ -25,7 +25,7 @@ class BerkasController extends Controller
 
     public function data()
     {
-        $sp = Berkas::with('surat.customer')->get();
+        $sp = Berkas::with('surat.customer', 'user')->get();
         return DataTables::of($sp)->toJson();
     }
 
@@ -39,12 +39,13 @@ class BerkasController extends Controller
         //
         $id = (new Berkas)->max('id') + 1;
         $sps = SuratPesanan::all();
+        $customer = Customer::all();
         return view('pages.transaction.berkas.create-berkas', compact('sps', 'id', 'customer'));
     }
 
     public function load_sp(Request $request)
     {
-        $sp = SuratPesanan::with('kavling.price.house')->find($request->id);
+        $sp = SuratPesanan::with('kavling.price.house', 'customer', 'sales', 'paymentMethod')->find($request->id);
         return response()->json($sp);
     }
 
@@ -59,13 +60,30 @@ class BerkasController extends Controller
         //
         Berkas::create([
             'berkas_date' => Carbon::parse($request->input('berkas_date'))->format('Y-m-d H:i:s'),
-            'berkas_giver' => $request->input('berkas_giver'),
-            'berkas_reciever' => $request->input('berkas_reciever'),
+            'berkas_giver_id' => $request->input('berkas_giver_id'),
+            'berkas_reciever_id' => $request->input('berkas_reciever_id'),
             'berkas_note' => $request->input('berkas_note'),
             'berkas_sp_id' => $request->input('berkas_sp_id'),
             'active' => $request->input('active') == null ? 'Not Active' : 'Active'
         ]);
         return redirect('transaction/berkas')->with('success', 'Successfull create Berkas');        
+    }
+
+    /**
+     * Active / Deactive
+     * 
+     * @return Berkas Status
+     */
+    public function action(Request $request, $id)
+    {
+        $berkas = Berkas::find($id);
+        if ($request->input('active') == 'Deactive') {
+            $berkas->active = 'Deactive';
+            $berkas->save();
+        } else if ($request->input('active') == 'Active'){
+            $berkas->active = 'Active';
+            $berkas->save();
+        } 
     }
 
     /**
@@ -85,9 +103,13 @@ class BerkasController extends Controller
      * @param  \App\Berkas  $berkas
      * @return \Illuminate\Http\Response
      */
-    public function edit(Berkas $berkas)
+    public function edit(Berkas $berkas, $id)
     {
         //
+        $berkas = Berkas::with('surat.customer', 'surat.sales', 'surat.kavling.house', 'surat.paymentMethod', 'user', 'customer')->find($id);
+        $customer_edit = Customer::all();
+        $surat_edit = SuratPesanan::all();
+        return view('pages.transaction.berkas.create-berkas', compact('berkas', 'customer_edit', 'surat_edit'));
     }
 
     /**
@@ -100,6 +122,15 @@ class BerkasController extends Controller
     public function update(Request $request, Berkas $berkas)
     {
         //
+        Berkas::find($request->id)->update([
+            'berkas_date' => Carbon::parse($request->input('berkas_date'))->format('Y-m-d H:i:s'),
+            'berkas_giver_id' => $request->input('berkas_giver_id'),
+            'berkas_reciever_id' => $request->input('berkas_reciever_id'),
+            'berkas_note' => $request->input('berkas_note'),
+            'berkas_sp_id' => $request->input('berkas_sp_id'),
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active'
+        ]);
+        return redirect('transaction/berkas')->with('success', 'Successfull update Berkas');
     }
 
     /**

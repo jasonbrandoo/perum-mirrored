@@ -180,6 +180,9 @@ Route::group([
     Route::prefix('komisi-akad')->group(function () {
         Route::get('/', 'Transaction\Komisi\KomisiAkadController@index')->name('transaction.komisi-akad.index');
         Route::get('/create', 'Transaction\Komisi\KomisiAkadController@create')->name('transaction.komisi-akad.create');
+        Route::get('/{id}/edit', 'Transaction\Komisi\KomisiAkadController@edit')->name('transaction.komisi-akad.edit');
+        Route::patch('/{id}/action', 'Transaction\Komisi\KomisiAkadController@action')->name('transaction.komisi-akad.action');
+        Route::patch('/update', 'Transaction\Komisi\KomisiAkadController@update')->name('transaction.komisi-akad.update');
         Route::post('/store', 'Transaction\Komisi\KomisiAkadController@store')->name('transaction.komisi-akad.store');
         Route::get('/data', 'Transaction\Komisi\KomisiAkadController@data')->name('transaction.komisi-akad.data');
         Route::get('/load_sp', 'Transaction\Komisi\KomisiAkadController@load_sp')->name('transaction.komisi-akad.load_sp');
@@ -191,6 +194,9 @@ Route::group([
     Route::prefix('komisi-eksternal')->group(function () {
         Route::get('/', 'Transaction\Komisi\KomisiEksternalController@index')->name('transaction.komisi-eksternal.index');
         Route::get('/create', 'Transaction\Komisi\KomisiEksternalController@create')->name('transaction.komisi-eksternal.create');
+        Route::get('/{id}/edit', 'Transaction\Komisi\KomisiEksternalController@edit')->name('transaction.komisi-eksternal.edit');
+        Route::patch('/{id}/action', 'Transaction\Komisi\KomisiEksternalController@action')->name('transaction.komisi-eksternal.action');
+        Route::patch('/update', 'Transaction\Komisi\KomisiEksternalController@update')->name('transaction.komisi-eksternal.update');
         Route::post('/store', 'Transaction\Komisi\KomisiEksternalController@store')->name('transaction.komisi-eksternal.store');
         Route::get('/data', 'Transaction\Komisi\KomisiEksternalController@data')->name('transaction.komisi-eksternal.data');
         Route::get('/load_sp', 'Transaction\Komisi\KomisiEksternalController@load_sp')->name('transaction.komisi-eksternal.load_sp');
@@ -206,6 +212,9 @@ Route::group([
         Route::get('/', 'Transaction\Berkas\BerkasController@index')->name('transaction.berkas.index');
         Route::get('/create', 'Transaction\Berkas\BerkasController@create')->name('transaction.berkas.create');
         Route::post('/store', 'Transaction\Berkas\BerkasController@store')->name('transaction.berkas.store');
+        Route::get('/{id}/edit', 'Transaction\Berkas\BerkasController@edit')->name('transaction.berkas.edit');
+        Route::patch('/{id}/action', 'Transaction\Berkas\BerkasController@action')->name('transaction.berkas.action');
+        Route::patch('/update', 'Transaction\Berkas\BerkasController@update')->name('transaction.berkas.update');
         Route::get('/data', 'Transaction\Berkas\BerkasController@data')->name('transaction.berkas.data');
         Route::get('/load_sp', 'Transaction\Berkas\BerkasController@load_sp')->name('transaction.berkas.load_sp');
     });

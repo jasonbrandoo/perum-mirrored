@@ -69,7 +69,24 @@ class KomisiAkadController extends Controller
             'akad_company_id' => $request->input('akad_company_id'),
             'active' => $request->input('active') == null ? 'Not Active' : 'Active'
         ]);
-        return redirect('transaction/komisi-akad')->with('success', 'Successfull create Komisi Akad');                
+        return redirect('transaction/komisi-akad')->with('success', 'Successfull create Komisi Akad');
+    }
+
+    /**
+     * Active / Deactive
+     * 
+     * @return Komisi-Akad Status
+     */
+    public function action(Request $request, $id)
+    {
+        $akad = KomisiAkad::find($id);
+        if ($request->input('active') == 'Deactive') {
+            $akad->active = 'Deactive';
+            $akad->save();
+        } else if ($request->input('active') == 'Active'){
+            $akad->active = 'Active';
+            $akad->save();
+        } 
     }
 
     /**
@@ -89,9 +106,13 @@ class KomisiAkadController extends Controller
      * @param  \App\KomisiAkad  $komisiAkad
      * @return \Illuminate\Http\Response
      */
-    public function edit(KomisiAkad $komisiAkad)
+    public function edit(KomisiAkad $komisiAkad, $id)
     {
         //
+        $akad = KomisiAkad::with('surat.customer', 'surat.kavling.house', 'surat.paymentMethod', 'company')->find($id);
+        $surat = SuratPesanan::all();
+        $mou_edit = Company::where('company_type', 'mou')->get();
+        return view('pages.transaction.komisiakad.create-komisi-akad', compact('akad', 'surat', 'mou_edit'));
     }
 
     /**
@@ -101,9 +122,20 @@ class KomisiAkadController extends Controller
      * @param  \App\KomisiAkad  $komisiAkad
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, KomisiAkad $komisiAkad)
+    public function update(StoreKomisiAkad $request, KomisiAkad $komisiAkad)
     {
         //
+        KomisiAkad::find($request->id)->update([
+            'akad_date' => Carbon::parse($request->input('akad_date'))->format('Y-m-d H:i:s'),
+            'akad_sales_commision' => $request->input('akad_sales_commision'),
+            'akad_spv_commision' => $request->input('akad_spv_commision'),
+            'akad_coordinator' => $request->input('akad_coordinator'),
+            'akad_sp_id' => $request->input('akad_sp_id'),
+            'akad_ajb_date' => Carbon::parse($request->input('akad_ajb_date'))->format('Y-m-d H:i:s'),
+            'akad_company_id' => $request->input('akad_company_id'),
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active'
+        ]);
+        return redirect('transaction/komisi-akad')->with('success', 'Successfull Update Komisi Akad');                
     }
 
     /**

@@ -38,4 +38,9 @@ class SuratPesanan extends Model
     {
         return $this->belongsTo('App\Model\Mou', 'sp_mou_id');
     }
+
+    public function paymentMethod()
+    {
+        return $this->belongsTo('App\Model\Payment', 'id');
+    }
 }

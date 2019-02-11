@@ -13,4 +13,14 @@ class Berkas extends Model
     {
         return $this->belongsTo('App\Model\SuratPesanan', 'berkas_sp_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'berkas_reciever_id');
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo('App\Model\Customer', 'berkas_giver_id');
+    }
 }

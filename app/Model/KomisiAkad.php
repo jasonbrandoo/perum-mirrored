@@ -13,4 +13,9 @@ class KomisiAkad extends Model
     {
         return $this->belongsTo('App\Model\SuratPesanan', 'akad_sp_id');
     }
+
+    public function company()
+    {
+        return $this->belongsTo('App\Model\Company', 'akad_company_id');
+    }
 }

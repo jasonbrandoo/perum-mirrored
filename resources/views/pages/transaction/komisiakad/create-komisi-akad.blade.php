@@ -32,7 +32,14 @@
         </ul>
       </div>
     @endif
-    <form action="{{ route('transaction.komisi-akad.store') }}" method="POST">
+
+    @if (isset($akad))
+      <form action="{{ route('transaction.komisi-akad.update') }}" method="POST">
+        @method('PATCH')
+        <input type="hidden" name="id" value="{{$akad->id}}">
+    @else
+      <form action="{{ route('transaction.komisi-akad.store') }}" method="POST">
+    @endif
       @csrf
       <div class="row">
         <div class="col-md-6">
@@ -40,7 +47,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No Request:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" value="KA000{{$id}}" readonly>
+                <input type="text" class="form-control" value="KA000{{isset($akad) ? $akad->id : $id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
@@ -50,33 +57,33 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="akad_date">
+                  <input type="text" class="form-control pickadate-selectors" name="akad_date" value="{{isset($akad) ? $akad->akad_date : ''}}">
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Komisi Sales (%):</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="akad_sales_commision">
+                <input type="text" class="form-control" name="akad_sales_commision" value="{{isset($akad) ? $akad->akad_sales_commision : ''}}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Komisi SPV (%):</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="akad_spv_commision">
+                <input type="text" class="form-control" name="akad_spv_commision" value="{{isset($akad) ? $akad->akad_spv_commision : ''}}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Koordinator:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="akad_coordinator">
+                <input type="text" class="form-control" name="akad_coordinator" value="{{isset($akad) ? $akad->akad_coordinator : ''}}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Active:</label>
               <div class="col-lg-9">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input" name="active">
+                  <input type="checkbox" class="form-check-input" name="active" checked>
                 </div>
               </div>
             </div>
@@ -88,10 +95,22 @@
               <label class="col-lg-3 col-form-label">No Sp:</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="akad_sp_id" id="sp_id">
-                  @foreach ($sps as $surat)
-                    <option value=""></option>
-                    <option value="{{$surat->id}}">SP000{{$surat->id}}</option>
-                  @endforeach
+                  @if (isset($akad))
+                    <option value="{{$akad->surat->id}}">SP000{{$akad->surat->id}}</option>
+                    @foreach ($surat as $sp)
+                      @if ($sp->id == $akad->surat->id)
+                        <option></option>
+                      @else
+                        <option value=""></option>
+                        <option value="{{$sp->id}}">SP000{{$sp->id}}</option>
+                      @endif
+                    @endforeach
+                  @else
+                    @foreach ($sps as $surat)
+                      <option value=""></option>
+                      <option value="{{$surat->id}}">SP000{{$surat->id}}</option>
+                    @endforeach
+                  @endif
                 </select>
               </div>
             </div>
@@ -102,7 +121,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate" id="sp_date">
+                  <input type="text" class="form-control pickadate" id="sp_date" value="{{isset($akad) ? $akad->surat->sp_date : ''}}">
                 </div>
               </div>
             </div>
@@ -113,20 +132,20 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="akad_ajb_date">
+                  <input type="text" class="form-control pickadate-selectors" name="akad_ajb_date" value="{{isset($akad) ? $akad->akad_ajb_date : ''}}">
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Customer:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_customer">
+                <input type="text" class="form-control" id="sp_customer" value="{{isset($akad) ? $akad->surat->customer->customer_name : ''}}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tipe Rumah:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_house_type">
+                <input type="text" class="form-control" id="sp_house_type" value="{{isset($akad) ? $akad->surat->kavling->house->rumah_type_name : ''}}">
               </div>
             </div>
             <div class="form-group row">
@@ -134,11 +153,11 @@
               <div class="col-lg-9">
                 <div class="row">
                   <div class="col-md-6">
-                    <input type="text" class="form-control" id="sp_block">
+                    <input type="text" class="form-control" id="sp_block" value="{{isset($akad) ? $akad->surat->kavling->kavling_block : ''}}">
                   </div>
                   <label class="col-form-label">No:</label>
                   <div class="col-md-5">
-                    <input type="text" class="form-control" id="sp_number">
+                    <input type="text" class="form-control" id="sp_number" value="{{isset($akad) ? $akad->surat->kavling->kavling_number : ''}}">
                   </div>
                 </div>
               </div>
@@ -146,17 +165,29 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Payment Type:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_payment_method">
+                <input type="text" class="form-control" id="sp_payment_method" value="{{isset($akad) ? $akad->surat->paymentMethod->payment_method : ''}}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Perusahaan:</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="akad_company_id">
-                  @foreach ($mou as $m)
-                    <option value=""></option>
-                    <option value="{{$m->id}}">{{$m->company_name}}</option>
-                  @endforeach
+                  @if (isset($akad))
+                    <option value="{{$akad->company->id}}">P000{{$akad->company->id}}</option>
+                    @foreach ($mou_edit as $company)
+                      @if ($company->id == $akad->company->id)
+                        <option></option>
+                      @else
+                        <option></option>
+                        <option value="{{$company->id}}">P000{{$company->id}}</option>
+                      @endif
+                    @endforeach
+                  @else
+                    @foreach ($mou as $m)
+                      <option value=""></option>
+                      <option value="{{$m->id}}">{{$m->company_name}}</option>
+                    @endforeach
+                  @endif
                 </select>
               </div>
             </div>
