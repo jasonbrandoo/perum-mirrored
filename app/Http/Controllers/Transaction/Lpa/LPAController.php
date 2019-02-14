@@ -74,6 +74,23 @@ class LPAController extends Controller
         return redirect('transaction/lpa')->with('success', 'Successfull create LPA');
     }
 
+/**
+     * Active / Deactive
+     * 
+     * @return LPA Status
+     */
+    public function action(Request $request, $id)
+    {
+        $lpa = LPA::find($id);
+        if ($request->input('active') == 'Deactive') {
+            $lpa->active = 'Deactive';
+            $lpa->save();
+        } else if ($request->input('active') == 'Active'){
+            $lpa->active = 'Active';
+            $lpa->save();
+        } 
+    }
+
     /**
      * Display the specified resource.
      *
@@ -91,9 +108,12 @@ class LPAController extends Controller
      * @param  \App\LPA  $lPA
      * @return \Illuminate\Http\Response
      */
-    public function edit(LPA $lPA)
+    public function edit(LPA $lPA, $id)
     {
         //
+        $lpa = LPA::with('surat.company', 'surat.sales', 'surat.kavling.house', 'surat.customer')->find($id);
+        $surat_edit = SuratPesanan::all();
+        return view('pages.transaction.lpa.create-lpa', compact('lpa', 'surat_edit'));
     }
 
     /**
@@ -106,6 +126,13 @@ class LPAController extends Controller
     public function update(Request $request, LPA $lPA)
     {
         //
+        LPA::find($request->id)->update([
+            'lpa_date' => Carbon::parse($request->input('lpa_date'))->format('Y-m-d H:i:s'),
+            'lpa_type' => $request->input('lpa_type'),
+            'lpa_sp_id' => $request->input('lpa_sp_id'),
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active'
+        ]);
+        return redirect('transaction/lpa')->with('success', 'Successfull update LPA');
     }
 
     /**

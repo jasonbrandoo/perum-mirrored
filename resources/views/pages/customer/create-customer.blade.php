@@ -84,7 +84,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Pos</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_zipcode" value="{{ isset($customer) ? $customer->customer_zipcode : '' }}" required>
+                <input type="number" class="form-control" name="customer_zipcode" value="{{ isset($customer) ? $customer->customer_zipcode : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
@@ -181,7 +181,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nomor NPWP</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_npwp" value="{{ isset($customer) ? $customer->customer_npwp : '' }}" required>
+                <input type="number" class="form-control" name="customer_npwp" value="{{ isset($customer) ? $customer->customer_npwp : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
@@ -543,10 +543,6 @@ var FormWizard = function() {
             return form.valid();
         },
         onFinished: function (event, currentIndex) {
-            swal({
-              type: 'success',
-              title: 'Success',
-            });
             event.target.submit();
         }
     });

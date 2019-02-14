@@ -34,11 +34,11 @@
     @endif
 
     @if (isset($akad))
-      <form action="{{ route('transaction.komisi-akad.update') }}" method="POST">
+      <form action="{{ route('transaction.komisi-akad.update') }}" class="form-validate-jquery" method="POST">
         @method('PATCH')
         <input type="hidden" name="id" value="{{$akad->id}}">
     @else
-      <form action="{{ route('transaction.komisi-akad.store') }}" method="POST">
+      <form action="{{ route('transaction.komisi-akad.store') }}" class="form-validate-jquery" method="POST">
     @endif
       @csrf
       <div class="row">
@@ -57,26 +57,26 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="akad_date" value="{{isset($akad) ? $akad->akad_date : ''}}">
+                  <input type="text" class="form-control pickadate-selectors" name="akad_date" value="{{isset($akad) ? $akad->akad_date : ''}}" required>
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Komisi Sales (%):</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="akad_sales_commision" value="{{isset($akad) ? $akad->akad_sales_commision : ''}}">
+                <input type="number" class="form-control" name="akad_sales_commision" value="{{isset($akad) ? $akad->akad_sales_commision : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Komisi SPV (%):</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="akad_spv_commision" value="{{isset($akad) ? $akad->akad_spv_commision : ''}}">
+                <input type="number" class="form-control" name="akad_spv_commision" value="{{isset($akad) ? $akad->akad_spv_commision : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Koordinator:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="akad_coordinator" value="{{isset($akad) ? $akad->akad_coordinator : ''}}">
+                <input type="text" class="form-control" name="akad_coordinator" value="{{isset($akad) ? $akad->akad_coordinator : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
@@ -94,7 +94,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No Sp:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="akad_sp_id" id="sp_id">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="akad_sp_id" id="sp_id" required>
                   @if (isset($akad))
                     <option value="{{$akad->surat->id}}">SP000{{$akad->surat->id}}</option>
                     @foreach ($surat as $sp)
@@ -132,20 +132,20 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="akad_ajb_date" value="{{isset($akad) ? $akad->akad_ajb_date : ''}}">
+                  <input type="text" class="form-control pickadate-selectors" name="akad_ajb_date" value="{{isset($akad) ? $akad->akad_ajb_date : ''}}" required>
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Customer:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_customer" value="{{isset($akad) ? $akad->surat->customer->customer_name : ''}}">
+                <input type="text" class="form-control" id="sp_customer" value="{{isset($akad) ? $akad->surat->customer->customer_name : ''}}" >
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tipe Rumah:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_house_type" value="{{isset($akad) ? $akad->surat->kavling->house->rumah_type_name : ''}}">
+                <input type="text" class="form-control" id="sp_house_type" value="{{isset($akad) ? $akad->surat->kavling->house->rumah_type_name : ''}}" >
               </div>
             </div>
             <div class="form-group row">
@@ -153,11 +153,11 @@
               <div class="col-lg-9">
                 <div class="row">
                   <div class="col-md-6">
-                    <input type="text" class="form-control" id="sp_block" value="{{isset($akad) ? $akad->surat->kavling->kavling_block : ''}}">
+                    <input type="text" class="form-control" id="sp_block" value="{{isset($akad) ? $akad->surat->kavling->kavling_block : ''}}" >
                   </div>
                   <label class="col-form-label">No:</label>
                   <div class="col-md-5">
-                    <input type="text" class="form-control" id="sp_number" value="{{isset($akad) ? $akad->surat->kavling->kavling_number : ''}}">
+                    <input type="text" class="form-control" id="sp_number" value="{{isset($akad) ? $akad->surat->kavling->kavling_number : ''}}" >
                   </div>
                 </div>
               </div>
@@ -165,13 +165,13 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Payment Type:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_payment_method" value="{{isset($akad) ? $akad->surat->paymentMethod->payment_method : ''}}">
+                <input type="text" class="form-control" id="sp_payment_method" value="{{isset($akad) ? $akad->surat->paymentMethod->payment_method : ''}}" >
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Perusahaan:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="akad_company_id">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="akad_company_id" required>
                   @if (isset($akad))
                     <option value="{{$akad->company->id}}">P000{{$akad->company->id}}</option>
                     @foreach ($mou_edit as $company)
@@ -249,6 +249,68 @@ var DateTimePickers = function() {
 
 document.addEventListener('DOMContentLoaded', function() {
   DateTimePickers.init();
+});
+
+var FormValidation = function() {
+  var _componentValidation = function() {
+      if (!$().validate) {
+          console.warn('Warning - validate.min.js is not loaded.');
+          return;
+      }
+
+      // Initialize
+      var validator = $('.form-validate-jquery').validate({
+          ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
+          errorClass: 'validation-invalid-label',
+          successClass: 'validation-valid-label',
+          validClass: 'validation-valid-label',
+          highlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+          unhighlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+
+          // Different components require proper error label placement
+          errorPlacement: function(error, element) {
+
+              // Unstyled checkboxes, radios
+              if (element.parents().hasClass('form-check')) {
+                  error.appendTo( element.parents('.form-check').parent() );
+              }
+
+              // Input with icons and Select2
+              else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
+                  error.appendTo( element.parent() );
+              }
+
+              // Input group, styled file input
+              else if (element.parent().is('.uniform-uploader, .uniform-select') || element.parents().hasClass('input-group')) {
+                  error.appendTo( element.parent().parent() );
+              }
+
+              // Other elements
+              else {
+                  error.insertAfter(element);
+              }
+          }
+      });
+
+      // Reset form
+      $('#reset').on('click', function() {
+          validator.resetForm();
+      });
+  };
+
+  return {
+      init: function() {
+          _componentValidation();
+      }
+  }
+}();
+
+document.addEventListener('DOMContentLoaded', function() {
+  FormValidation.init();
 });
 </script>
 <script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>

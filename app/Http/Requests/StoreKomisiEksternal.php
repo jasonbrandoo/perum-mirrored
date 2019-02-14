@@ -26,7 +26,7 @@ class StoreKomisiEksternal extends FormRequest
         return [
             //
             'eksternal_date' => ['required'],
-            'eksternal_coordiantor' => ['required'],
+            'eksternal_coordinator' => ['required'],
             'eksternal_commision' => ['required'],
             'eksternal_company_id' => ['required'],
             'eksternal_mou_id' => ['required'],

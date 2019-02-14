@@ -38,7 +38,6 @@
                 <th></th>
                 <th>No</th>
                 <th>Method</th>
-                <th>Type</th>
                 <th>Active</th>
             </tr>
         </thead>
@@ -88,9 +87,6 @@ var DatatableSelect = function() {
                 {
                     data: 'payment_method',
                     render: (data, type, row) => `<a href="/payment/${row.id}/edit">${row.payment_method}</a>`
-                },
-                {
-                    data: 'payment_type'
                 },
                 {
                     data: 'active',

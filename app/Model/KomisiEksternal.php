@@ -18,4 +18,9 @@ class KomisiEksternal extends Model
     {
         return $this->belongsTo('App\Model\Mou', 'eksternal_mou_id');
     }
+
+    public function company()
+    {
+        return $this->belongsTo('App\Model\Company', 'eksternal_company_id');
+    }
 }

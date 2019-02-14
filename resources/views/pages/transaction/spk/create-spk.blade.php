@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
 @section('page-title')
-<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span> - Create New SPK</h4>
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span> - {{isset($spk) ? 'Edit Spk' : 'Create New Spk'}}</h4>
 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 @endsection
 
 @section('breadcrumb')
-<a href="{{ route('transaction.legal.index') }}" class="breadcrumb-item">SPK</a>
-<a href="{{ route('transaction.legal.create') }}" class="breadcrumb-item">New SPK</a>
+<a href="{{ route('transaction.spk.index') }}" class="breadcrumb-item">SPK</a>
+<a href="{{ route('transaction.spk.create') }}" class="breadcrumb-item">{{isset($spk) ? 'Edit Spk' : 'Create New Spk'}}</a>
 @endsection
 
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">
-    <h5 class="card-title">Create New SPK</h5>
+    <h5 class="card-title">{{isset($spk) ? 'Edit Spk' : 'Create New Spk'}}</h5>
     <div class="header-elements">
       <div class="list-icons">
         <a class="list-icons-item" data-action="collapse"></a>
@@ -32,7 +32,14 @@
         </ul>
       </div>
     @endif
-    <form action="{{ route('transaction.spk.store')}}" method="POST">
+
+    @if (isset($spk))
+      <form action="{{ route('transaction.spk.update')}}" class="form-validate-jquery" method="POST">
+        <input type="hidden" name="id" value="{{$spk->id}}">
+        @method('PATCH')
+    @else
+      <form action="{{ route('transaction.spk.store')}}" class="form-validate-jquery" method="POST">
+    @endif
       @csrf
       <div class="row">
         <div class="col-md-6">
@@ -40,7 +47,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No SPK:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" value="SPK000{{$id}}" readonly>
+                <input type="text" class="form-control" value="SPK000{{isset($spk) ? $spk->id : $id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
@@ -50,21 +57,21 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="spk_date">
+                  <input type="text" class="form-control pickadate-selectors" name="spk_date" value="{{isset($spk) ? $spk->spk_date : ''}}" required>
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nilai SPK:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="spk_price">
+                <input type="text" class="form-control" name="spk_price" value="{{isset($spk) ? $spk->spk_price : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Active:</label>
               <div class="col-lg-9">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input" name="active">
+                  <input type="checkbox" class="form-check-input" name="active" checked>
                 </div>
               </div>
             </div>
@@ -76,11 +83,22 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nomor SP:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="spk_sp_id" id="sp_id">
-                  @foreach ($sps as $sp)
-                    <option value=""></option>
-                    <option value="{{$sp->id}}">SP000{{$sp->id}}</option>
-                  @endforeach
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="spk_sp_id" id="sp_id" required>
+                  @if (isset($spk))
+                    <option value="{{$spk->surat->id}}">SP000{{$spk->surat->id}}</option>
+                    @foreach ($surat_edit as $surat)
+                      @if ($surat->id == $spk->surat->id)
+                        <option></option>
+                      @else
+                        <option value="{{$surat->id}}}">SP000{{$surat->id}}</option>
+                      @endif
+                    @endforeach
+                  @else
+                    @foreach ($sps as $sp)
+                      <option value=""></option>
+                      <option value="{{$sp->id}}">SP000{{$sp->id}}</option>
+                    @endforeach
+                  @endif
                 </select>
               </div>
             </div>
@@ -91,14 +109,14 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate" id="sp_date" id="sp_date" readonly>
+                  <input type="text" class="form-control pickadate" id="sp_date" name="sp_date" value="{{isset($spk) ? $spk->surat->sp_date : ''}}" required readonly>
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Customer:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_customer" readonly>
+                <input type="text" class="form-control" id="sp_customer" name="sp_customer" value="{{isset($spk) ? $spk->surat->customer->customer_name : ''}}" required readonly>
               </div>
             </div>
             <div class="form-group row">
@@ -106,11 +124,11 @@
               <div class="col-lg-9">
                 <div class="row">
                   <div class="col-md-6">
-                    <input type="text" class="form-control" id="sp_block" readonly>
+                    <input type="text" class="form-control" id="sp_block" name="sp_block" value="{{isset($spk) ? $spk->surat->kavling->kavling_block : ''}}" required readonly>
                   </div>
                   <label class="col-form-label">No:</label>
                   <div class="col-md-5">
-                    <input type="text" class="form-control" id="sp_no" readonly>
+                    <input type="text" class="form-control" id="sp_no" name="sp_no" value="{{isset($spk) ? $spk->surat->kavling->id : ''}}" required readonly>
                   </div>
                 </div>
               </div>
@@ -118,13 +136,13 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Luas Bangunan:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_building" readonly>
+                <input type="text" class="form-control" id="sp_building" name="sp_building" value="{{isset($spk) ? $spk->surat->kavling->house->building_area_m2 : ''}}" required readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Luas Tanah:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_surface" readonly>
+                <input type="text" class="form-control" id="sp_surface" name="sp_surface" value="{{isset($spk) ? $spk->surat->kavling->house->surface_area_m2 : ''}}" required readonly>
               </div>
             </div>
             {{-- <div class="form-group row">
@@ -136,7 +154,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Cluster:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_cluster" readonly>
+                <input type="text" class="form-control" id="sp_cluster" name="sp_cluster" value="{{isset($spk) ? $spk->surat->kavling->kavling_cluster : ''}}" required readonly>
               </div>
             </div>
           </fieldset>
@@ -199,6 +217,68 @@ var DateTimePickers = function() {
 
 document.addEventListener('DOMContentLoaded', function() {
   DateTimePickers.init();
+});
+
+var FormValidation = function() {
+  var _componentValidation = function() {
+      if (!$().validate) {
+          console.warn('Warning - validate.min.js is not loaded.');
+          return;
+      }
+
+      // Initialize
+      var validator = $('.form-validate-jquery').validate({
+          ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
+          errorClass: 'validation-invalid-label',
+          successClass: 'validation-valid-label',
+          validClass: 'validation-valid-label',
+          highlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+          unhighlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+
+          // Different components require proper error label placement
+          errorPlacement: function(error, element) {
+
+              // Unstyled checkboxes, radios
+              if (element.parents().hasClass('form-check')) {
+                  error.appendTo( element.parents('.form-check').parent() );
+              }
+
+              // Input with icons and Select2
+              else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
+                  error.appendTo( element.parent() );
+              }
+
+              // Input group, styled file input
+              else if (element.parent().is('form-control') || element.parents().hasClass('input-group')) {
+                  error.appendTo( element.parent().parent() );
+              }
+
+              // Other elements
+              else {
+                  error.insertAfter(element);
+              }
+          }
+      });
+
+      // Reset form
+      $('#reset').on('click', function() {
+          validator.resetForm();
+      });
+  };
+
+  return {
+      init: function() {
+          _componentValidation();
+      }
+  }
+}();
+
+document.addEventListener('DOMContentLoaded', function() {
+    FormValidation.init();
 });
 </script>
 <script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>

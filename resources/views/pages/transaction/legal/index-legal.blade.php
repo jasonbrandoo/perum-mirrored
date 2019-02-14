@@ -62,7 +62,7 @@ var DatatableSelect = function() {
                 orderable: false,
                 width: 100,
             }],
-            dom: '<"datatable-header"fl><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+            dom: '<"datatable-header"flB><"datatable-scroll-wrap"t><"datatable-footer"ip>',
             language: {
                 search: '<span>Filter:</span> _INPUT_',
                 searchPlaceholder: 'Type to filter...',
@@ -76,17 +76,106 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('transaction.legal.data') !!}',
             columns: [
-                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
-                {data: 'id', render: (id) => `PLK000${id}`},
-                {data: 'legal_date'},
-                {data: 'legal_shgb_parent_date'},
-                {data: 'legal_shgb_fraction_date'},
-                {data: 'surat.id'},
-                {data: 'active'},
+                {
+                    data: 'id',
+                    className: 'select-checkbox',
+                    orderable: false,
+                    render: () => ''
+                },
+                {
+                    data: 'id',
+                    render: (data, type, row) => `<a href="/transaction/legal/${row.id}/edit">KRF000${row.id}</a>`
+                },
+                {
+                    data: 'legal_date'
+                },
+                {
+                    data: 'legal_shgb_parent_date'
+                },
+                {
+                    data: 'legal_shgb_fraction_date'
+                },
+                {
+                    data: 'surat.id'
+                },
+                {
+                    data: 'active',
+                    className: 'text-center',
+                    render: (active) => active === 'Active' ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-danger">Deactive</span>'
+                },
             ],
             select: {
-                style: 'multi'
-            }
+                style: 'os'
+            },
+            buttons: [
+                {
+                    extend: 'collection',
+                    text: 'Select Action',
+                    className: 'btn __active',
+                    buttons: [
+                        {
+                            text: 'Deactive',
+                            className: '_active',
+                            action: (e, dt, type, indexes) => {
+                                const { id } = dt.row({selected: true}).data();
+                                $.ajax({
+                                    url: `/transaction/legal/${id}/action`,
+                                    type: 'PATCH',
+                                    data: {
+                                        id: id,
+                                        active: 'Deactive'
+                                    },
+                                    success: (response) => {
+                                        swal({
+                                            type: 'success',
+                                            text: 'Success'
+                                        }).then(() => {
+                                            window.location.reload();
+                                        });
+                                        console.log(response)
+                                    },
+                                    error: (err) => {
+                                        swal({
+                                            type: 'error',
+                                            text: 'Error'
+                                        })
+                                    }
+                                })
+                            }
+                        },
+                        {
+                            text: 'Active',
+                            className: '_active',
+                            action: (e, dt, type, indexes) => {
+                                const { id } = dt.row({selected: true}).data();
+                                $.ajax({
+                                    url: `/transaction/legal/${id}/action`,
+                                    type: 'PATCH',
+                                    data: {
+                                        id: id,
+                                        active: 'Active'
+                                    },
+                                    success: (response) => {
+                                        swal({
+                                            type: 'success',
+                                            text: 'Success'
+                                        }).then(() => {
+                                            window.location.reload();
+                                        });
+                                        console.log(response)
+                                    },
+                                    error: (err) => {
+                                        swal({
+                                            type: 'error',
+                                            text: 'Error'
+                                        })
+                                    }
+                                })
+                            }
+                        }
+                    ]
+                }
+            ]
         });
         
     };

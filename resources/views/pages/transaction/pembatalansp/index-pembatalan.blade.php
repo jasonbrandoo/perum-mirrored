@@ -77,14 +77,34 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('transaction.pembatalan.data') !!}',
             columns: [
-                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
-                {data: 'id', render: (id) => `PSP000${id}`},
-                {data: 'cancel_sp_id'},
-                {data: 'cancel_reason'},
-                {data: 'cancel_make_by'},
-                {data: 'sp.customer.customer_name'},
-                {data: 'cancel_status'},
-                {data: 'cancel_approve_by'},
+                {
+                    data: 'id',
+                    className: 'select-checkbox',
+                    orderable: false,
+                    render: () => ''
+                },
+                {
+                    data: 'id',
+                    render: (id) => `<a href="pembatalan/${id}/edit">PSP000${id}</a>`
+                },
+                {
+                    data: 'cancel_sp_id'
+                },
+                {
+                    data: 'cancel_reason'
+                },
+                {
+                    data: 'cancel_make_by'
+                },
+                {
+                    data: 'surat.customer.customer_name'
+                },
+                {
+                    data: 'cancel_status'
+                },
+                {
+                    data: 'cancel_approve_by'
+                },
             ],
             select: {
                 style: 'multi'

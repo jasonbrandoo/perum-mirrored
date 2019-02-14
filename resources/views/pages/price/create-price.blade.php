@@ -34,11 +34,11 @@
     @endif
 
     @if (isset($price))
-    <form action="{{ route('price.update') }}" method="POST">
+    <form action="{{ route('price.update') }}" class="form-validate-jquery" method="POST">
       @method('PATCH')
       <input type="hidden" name="id" value="{{$price->id}}">
     @endif
-    <form action="{{ route('price.store') }}" method="POST">
+    <form action="{{ route('price.store') }}" class="form-validate-jquery" method="POST">
       @csrf
       <div class="row">
         <div class="col-md-6">
@@ -56,7 +56,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="price_start_date" value="{{ isset($price) ? $price->price_start_date : '' }}" >
+                  <input type="text" class="form-control pickadate-selectors" name="price_start_date" value="{{ isset($price) ? $price->price_start_date : '' }}" required>
                 </div>
               </div>
             </div>
@@ -67,14 +67,14 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="price_end_date" value="{{ isset($price) ? $price->price_end_date : '' }}" >
+                  <input type="text" class="form-control pickadate-selectors" name="price_end_date" value="{{ isset($price) ? $price->price_end_date : '' }}" required>
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Tipe Rumah</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="price_house_id" id="house-type">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="price_house_id" id="house-type" required>
                   @if (isset($price))
                       <option value="{{$house->house->id}}">R000{{$house->house->id}} {{$house->house->rumah_type_name}}</option>
                     @foreach ($buildings_edit as $home)
@@ -96,49 +96,49 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nama Tipe Rumah</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" readonly id="nama-tipe-rumah" name="price_house_type" value="{{ isset($price) ? $house->house->rumah_type_name : '' }}" >
+                <input type="text" class="form-control" readonly id="nama-tipe-rumah" name="price_house_type" value="{{ isset($price) ? $house->house->rumah_type_name : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Luas Tanah</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" readonly id="luas-tanah" name="price_house_surface" value="{{ isset($price) ? $house->house->surface_area_m2 : '' }}">
+                <input type="text" class="form-control" readonly id="luas-tanah" name="price_house_surface" value="{{ isset($price) ? $house->house->surface_area_m2 : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Luas Bangunan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" readonly id="luas-bangunan" name="price_house_building" value="{{ isset($price) ? $house->house->building_area_m2 : '' }}">
+                <input type="text" class="form-control" readonly id="luas-bangunan" name="price_house_building" value="{{ isset($price) ? $house->house->building_area_m2 : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Harga Jual</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="price_selling" value="{{ isset($price) ? $price->price_selling : '' }}" >
+                <input type="text" class="form-control price" name="price_selling" value="{{ isset($price) ? $price->price_selling : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Discount</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="price_discount" value="{{ isset($price) ? $price->price_discount : '' }}" >
+                <input type="text" class="form-control price" name="price_discount" value="{{ isset($price) ? $price->price_discount : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">PPN 10%</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="price_ppn" value="{{ isset($price) ? $price->price_ppn : '' }}" >
+                <input type="text" class="form-control price" name="price_ppn" value="{{ isset($price) ? $price->price_ppn : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Biaya Admin</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="price_adm" value="{{ isset($price) ? $price->price_adm : '' }}" >
+                <input type="text" class="form-control price" name="price_adm" value="{{ isset($price) ? $price->price_adm : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Netto</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="price_netto" value="{{ isset($price) ? $price->price_netto : '' }}" readonly>
+                <input type="text" class="form-control price" name="price_netto" value="{{ isset($price) ? $price->price_netto : '' }}" readonly required>
               </div>
             </div>
             <div class="form-group row">
@@ -156,61 +156,61 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Maksimum KPR</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="price_max_kpr" value="{{ isset($price) ? $price->price_max_kpr : '' }}" >
+                <input type="text" class="form-control price" name="price_max_kpr" value="{{ isset($price) ? $price->price_max_kpr : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">DP</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="price_dp" value="{{ isset($price) ? $price->price_dp : '' }}" >
+                <input type="text" class="form-control price" name="price_dp" value="{{ isset($price) ? $price->price_dp : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Diskon DP</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="price_discount_dp" value="{{ isset($price) ? $price->price_discount_dp : '' }}" >
+                <input type="text" class="form-control price" name="price_discount_dp" value="{{ isset($price) ? $price->price_discount_dp : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Booking fee</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="price_booking" value="{{ isset($price) ? $price->price_booking : '' }}" >
+                <input type="text" class="form-control price" name="price_booking" value="{{ isset($price) ? $price->price_booking : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Harga TL / m2</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="price_surface_m2" value="{{ isset($price) ? $price->price_surface_m2 : '' }}" >
+                <input type="text" class="form-control price" name="price_surface_m2" value="{{ isset($price) ? $price->price_surface_m2 : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Notaris + Adm</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="price_notaris" value="{{ isset($price) ? $price->price_notaris : '' }}" >
+                <input type="text" class="form-control price" name="price_notaris" value="{{ isset($price) ? $price->price_notaris : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Angsuran 5 Thn</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="price_5_year" value="{{ isset($price) ? $price->price_5_year : '' }}" >
+                <input type="text" class="form-control price" name="price_5_year" value="{{ isset($price) ? $price->price_5_year : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Angsuran 10 Thn</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="price_10_year" value="{{ isset($price) ? $price->price_10_year : '' }}" >
+                <input type="text" class="form-control price" name="price_10_year" value="{{ isset($price) ? $price->price_10_year : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Angsuran 15 Thn</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="price_15_year" value="{{ isset($price) ? $price->price_15_year : '' }}" >
+                <input type="text" class="form-control price" name="price_15_year" value="{{ isset($price) ? $price->price_15_year : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Angsuran 20 Thn</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="price_20_year" value="{{ isset($price) ? $price->price_20_year : '' }}" >
+                <input type="text" class="form-control price" name="price_20_year" value="{{ isset($price) ? $price->price_20_year : '' }}" required>
               </div>
             </div>
           </fieldset>
@@ -277,6 +277,112 @@ var DateTimePickers = function() {
 
 document.addEventListener('DOMContentLoaded', function() {
   DateTimePickers.init();
+});
+
+var FormValidation = function() {
+  var _componentValidation = function() {
+      if (!$().validate) {
+          console.warn('Warning - validate.min.js is not loaded.');
+          return;
+      }
+
+      // Initialize
+      var validator = $('.form-validate-jquery').validate({
+          ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
+          errorClass: 'validation-invalid-label',
+          successClass: 'validation-valid-label',
+          validClass: 'validation-valid-label',
+          highlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+          unhighlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+          rules: {
+            price_selling: {
+              number: true
+            },
+            price_discount: {
+              number: true
+            },
+            price_ppn: {
+              number: true
+            },
+            price_adm: {
+              number: true
+            },
+            price_max_kpr: {
+              number: true
+            },
+            price_dp: {
+              number: true
+            },
+            price_discount: {
+              number: true
+            },
+            price_booking: {
+              number: true
+            },
+            price_surface_m2: {
+              number: true
+            },
+            price_notaris: {
+              number: true
+            },
+            price_5_year: {
+              number: true
+            },
+            price_10_year: {
+              number: true
+            },
+            price_15_year: {
+              number: true
+            },
+            price_20_year: {
+              number: true
+            }
+          },
+
+          // Different components require proper error label placement
+          errorPlacement: function(error, element) {
+
+              // Unstyled checkboxes, radios
+              if (element.parents().hasClass('form-check')) {
+                  error.appendTo( element.parents('.form-check').parent() );
+              }
+
+              // Input with icons and Select2
+              else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
+                  error.appendTo( element.parent() );
+              }
+
+              // Input group, styled file input
+              else if (element.parent().is('.uniform-uploader, .uniform-select') || element.parents().hasClass('input-group')) {
+                  error.appendTo( element.parent().parent() );
+              }
+
+              // Other elements
+              else {
+                  error.insertAfter(element);
+              }
+          }
+      });
+
+      // Reset form
+      $('#reset').on('click', function() {
+          validator.resetForm();
+      });
+  };
+
+  return {
+      init: function() {
+          _componentValidation();
+      }
+  }
+}();
+
+document.addEventListener('DOMContentLoaded', function() {
+    FormValidation.init();
 });
 </script>
 <script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>

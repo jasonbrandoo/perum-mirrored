@@ -70,7 +70,24 @@ class KwitansiController extends Controller
             'kwitansi_transfer_date' => Carbon::parse($request->input('kwitansi_transfer_date'))->format('Y-m-d H:i:s'),
             'active' => $request->input('active') == null ? 'Not Active' : 'Active'
         ]);
-        return redirect('transaction/kwitansi')->with('success', 'Successfull create Kwitansi');        
+        return redirect('transaction/kwitansi')->with('success', 'Successfull create Kwitansi');
+    }
+
+    /**
+     * Active / Deactive
+     * 
+     * @return Kwitansi Status
+     */
+    public function action(Request $request, $id)
+    {
+        $kwitansi = Kwitansi::find($id);
+        if ($request->input('active') == 'Deactive') {
+            $kwitansi->active = 'Deactive';
+            $kwitansi->save();
+        } else if ($request->input('active') == 'Active'){
+            $kwitansi->active = 'Active';
+            $kwitansi->save();
+        } 
     }
 
     /**
@@ -90,10 +107,13 @@ class KwitansiController extends Controller
      * @param  \App\Kwitansi  $kwitansi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kwitansi $kwitansi)
+    public function edit(Kwitansi $kwitansi, $id)
     {
         //MATA BERAT BENER KAMPRET
         //KAYA DI CANTOLIN MONYET
+        $kwitansi = Kwitansi::with('surat.kavling.house')->find($id);
+        $surat_edit = SuratPesanan::all();
+        return view('pages.transaction.kuitansi.create-kuitansi', compact('kwitansi', 'surat_edit'));
     }
 
     /**
@@ -106,6 +126,20 @@ class KwitansiController extends Controller
     public function update(Request $request, Kwitansi $kwitansi)
     {
         //
+        Kwitansi::find($request->id)->update([
+            'kwitansi_date' => Carbon::parse($request->input('kwitansi_date'))->format('Y-m-d H:i:s'),
+            'kwitansi_sp_id' => $request->input('kwitansi_sp_id'),
+            'kwitansi_faktur' => $request->input('kwitansi_faktur'),
+            'kwitandi_staff_id' => $request->input('kwitansi_staff_id'),
+            'kwitansi_staff_name' => $request->input('kwitansi_staff_name'),
+            'kwitansi_terbilang' => $request->input('kwitansi_terbilang'),
+            'kwitansi_for_pay' => $request->input('kwitansi_for_pay'),
+            'kwitansi_jumlah' => $request->input('kwitansi_jumlah'),
+            'kwitansi_payment_method' => $request->input('kwitansi_payment_method'),
+            'kwitansi_transfer_date' => Carbon::parse($request->input('kwitansi_transfer_date'))->format('Y-m-d H:i:s'),
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active'
+        ]);
+        return redirect('transaction/kwitansi')->with('success', 'Successfull update Kwitansi');        
     }
 
     /**

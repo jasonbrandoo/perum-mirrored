@@ -34,11 +34,11 @@
     @endif
 
     @if (isset($role))
-    <form action="{{ route('role.update') }}" method="POST">
+    <form action="{{ route('role.update') }}" class="form-validate-jquery" method="POST">
       @method('PATCH')
       <input type="hidden" name="id" value="{{ $role->id }}">
     @else
-    <form action="{{ route('role.store')}}" method="POST">
+    <form action="{{ route('role.store')}}" class="form-validate-jquery" method="POST">
     @endif
       @csrf
       <div class="row">
@@ -53,20 +53,20 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Role Name</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="role_name" value="{{ isset($role) ? $role->role_name : '' }}">
+                <input type="text" class="form-control" name="role_name" value="{{ isset($role) ? $role->role_name : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Description</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="role_description" value="{{ isset($role) ? $role->role_description : '' }}">
+                <input type="text" class="form-control" name="role_description" value="{{ isset($role) ? $role->role_description : '' }}" >
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Active</label>
               <div class="col-lg-9">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input" name="active" value="active">
+                  <input type="checkbox" class="form-check-input" name="active" value="active" checked>
                 </div>
               </div>
             </div>
@@ -98,3 +98,113 @@
   </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+var FormValidation = function() {
+  var _componentValidation = function() {
+      if (!$().validate) {
+          console.warn('Warning - validate.min.js is not loaded.');
+          return;
+      }
+
+      // Initialize
+      var validator = $('.form-validate-jquery').validate({
+          ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
+          errorClass: 'validation-invalid-label',
+          successClass: 'validation-valid-label',
+          validClass: 'validation-valid-label',
+          highlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+          unhighlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+          rules: {
+            price_selling: {
+              number: true
+            },
+            price_discount: {
+              number: true
+            },
+            price_ppn: {
+              number: true
+            },
+            price_adm: {
+              number: true
+            },
+            price_max_kpr: {
+              number: true
+            },
+            price_dp: {
+              number: true
+            },
+            price_discount: {
+              number: true
+            },
+            price_booking: {
+              number: true
+            },
+            price_surface_m2: {
+              number: true
+            },
+            price_notaris: {
+              number: true
+            },
+            price_5_year: {
+              number: true
+            },
+            price_10_year: {
+              number: true
+            },
+            price_15_year: {
+              number: true
+            },
+            price_20_year: {
+              number: true
+            }
+          },
+
+          // Different components require proper error label placement
+          errorPlacement: function(error, element) {
+
+              // Unstyled checkboxes, radios
+              if (element.parents().hasClass('form-check')) {
+                  error.appendTo( element.parents('.form-check').parent() );
+              }
+
+              // Input with icons and Select2
+              else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
+                  error.appendTo( element.parent() );
+              }
+
+              // Input group, styled file input
+              else if (element.parent().is('.uniform-uploader, .uniform-select') || element.parents().hasClass('input-group')) {
+                  error.appendTo( element.parent().parent() );
+              }
+
+              // Other elements
+              else {
+                  error.insertAfter(element);
+              }
+          }
+      });
+
+      // Reset form
+      $('#reset').on('click', function() {
+          validator.resetForm();
+      });
+  };
+
+  return {
+      init: function() {
+          _componentValidation();
+      }
+  }
+}();
+
+document.addEventListener('DOMContentLoaded', function() {
+  FormValidation.init();
+});
+</script>    
+@endpush

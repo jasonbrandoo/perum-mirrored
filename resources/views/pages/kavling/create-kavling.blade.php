@@ -34,11 +34,11 @@
     @endif
 
     @if (isset($kavling))
-      <form action="{{ route('kavling.update') }}" method="POST">
+      <form action="{{ route('kavling.update') }}" class="form-validate-jquery" method="POST">
         @method('PATCH')
         <input type="hidden" name="id" value="{{$kavling->id}}">
     @else
-      <form action="{{ route('kavling.store') }}" method="POST">
+      <form action="{{ route('kavling.store') }}" class="form-validate-jquery" method="POST">
     @endif
       @csrf
       <div class="row">
@@ -53,7 +53,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tipe Kavling</label>
               <div class="col-lg-9">
-                <select select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="kavling_type_id" id="kavling_type">
+                <select select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="kavling_type_id" id="kavling_type" required>
                   @if (isset($kavling))
                     <option value="{{$houseTypeId->house->id}}">R000{{$houseTypeId->house->id}} - {{$houseTypeId->house->rumah_type_name}}</option>
                     @foreach ($houseType_edit as $house)
@@ -76,35 +76,35 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Luas Bangunan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kavling_building" value="{{ isset($kavling) ? $houseTypeId->house->surface_area_m2 : '' }}" id="kavling_building" readonly>
+                <input type="text" class="form-control" name="kavling_building" value="{{ isset($kavling) ? $houseTypeId->house->surface_area_m2 : '' }}" id="kavling_building" readonly required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Luas Tanah</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kavling_surface" value="{{ isset($kavling) ? $houseTypeId->house->building_area_m2 : '' }}" id="kavling_surface" readonly>
+                <input type="text" class="form-control" name="kavling_surface" value="{{ isset($kavling) ? $houseTypeId->house->building_area_m2 : '' }}" id="kavling_surface" readonly required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Blok</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kavling_block" value="{{ isset($kavling) ? $kavling->kavling_block : '' }}">
+                <input type="number" class="form-control" name="kavling_block" value="{{ isset($kavling) ? $kavling->kavling_block : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No</label>
               <div class="col-lg-2">
-                <input type="text" class="form-control" name="kavling_number" value="{{ isset($kavling) ? $kavling->kavling_number : '' }}">
+                <input type="number" class="form-control" name="kavling_number" value="{{ isset($kavling) ? $kavling->kavling_number : '' }}" required>
               </div>
               <label class="col-lg-1 col-form-label">s/d</label>
               <div class="col-lg-2">
-                <input type="text" class="form-control" name="kavling_s_d" value="{{ isset($kavling) ? $kavling->kavling_s_d : '' }}">
+                <input type="number" class="form-control" name="kavling_s_d" value="{{ isset($kavling) ? $kavling->kavling_s_d : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Cluster</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kavling_cluster" value="{{ isset($kavling) ? $kavling->kavling_cluster : '' }}">
+                <input type="text" class="form-control" name="kavling_cluster" value="{{ isset($kavling) ? $kavling->kavling_cluster : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
@@ -126,25 +126,25 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No. TL</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="kavling_tl" value="{{ isset($kavling) ? $kavling->kavling_tl : '' }}">
+                <input type="number" class="form-control" name="kavling_tl" value="{{ isset($kavling) ? $kavling->kavling_tl : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">TL Aktif</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="kavling_tl_active" value="{{ isset($kavling) ? $kavling->kavling_tl_active : '' }}">
+                <input type="number" class="form-control" name="kavling_tl_active" value="{{ isset($kavling) ? $kavling->kavling_tl_active : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">TL Lama</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="kavling_tl_old" value="{{ isset($kavling) ? $kavling->kavling_tl_old : '' }}">
+                <input type="number" class="form-control" name="kavling_tl_old" value="{{ isset($kavling) ? $kavling->kavling_tl_old : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Harga</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="kavling_price_id" id="kavling_price_code">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="kavling_price_id" id="kavling_price_code" required>
                   @if (isset($kavling))
                     <option value="{{$priceId->price->id}}">H000{{$priceId->price->id}} - {{$priceId->price->price_selling}}</option>
                     @foreach ($prices as $price)
@@ -167,13 +167,13 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Harga Jual</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" readonly id="kavling_price_selling" name="kavling_price_selling" value="{{ isset($kavling) ? $priceId->price->price_selling : '' }}">
+                <input type="text" class="form-control price" readonly id="kavling_price_selling" name="kavling_price_selling" value="{{ isset($kavling) ? $priceId->price->price_selling : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Harga TL/M2</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" readonly id="kavling_price_tl_m2" name="kavling_price_tl_m2" value="{{ isset($kavling) ? $priceId->price->price_surface_m2 : '' }}">
+                <input type="text" class="form-control price" readonly id="kavling_price_tl_m2" name="kavling_price_tl_m2" value="{{ isset($kavling) ? $priceId->price->price_surface_m2 : '' }}" required>
               </div>
             </div>
           </fieldset>
@@ -183,13 +183,13 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Discount Uang Muka (%)</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="kavling_discount_dp" value="{{ isset($kavling) ? $kavling->kavling_discount_dp : '' }}">
+                <input type="text" class="form-control price" name="kavling_discount_dp" value="{{ isset($kavling) ? $kavling->kavling_discount_dp : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Status Penjualan Kavling</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="kavling_sell_status">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="kavling_sell_status" required>
                   @if (isset($kavling))
                     @if ($kavling->kavling_sell_status == 'terjual')
                       <option value="terjual">Sudah Terjual</option>
@@ -218,7 +218,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Status Pembangunan %</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="kavling_build_status">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="kavling_build_status" required>
                   @if (isset($kavling))
                     @if ($kavling->kavling_build_status == 'finish')
                       <option value="finish">Selesai Dibangun</option>
@@ -251,14 +251,14 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="kavling_start_date" value="{{ isset($kavling) ? $kavling->kavling_start_date : '' }}">
+                  <input type="text" class="form-control pickadate-selectors" name="kavling_start_date" value="{{ isset($kavling) ? $kavling->kavling_start_date : '' }}" required>
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Progress Pembangunan (%)</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="kavling_progress" value="{{ isset($kavling) ? $kavling->kavling_progress : '' }}">
+                <input type="number" class="form-control" name="kavling_progress" value="{{ isset($kavling) ? $kavling->kavling_progress : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
@@ -268,14 +268,14 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="kavling_end_date" value="{{ isset($kavling) ? $kavling->kavling_end_date : '' }}">
+                  <input type="text" class="form-control pickadate-selectors" name="kavling_end_date" value="{{ isset($kavling) ? $kavling->kavling_end_date : '' }}" required>
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No. SHGB Induk</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="kavling_shgb" value="{{ isset($kavling) ? $kavling->kavling_shgb : '' }}">
+                <input type="number" class="form-control" name="kavling_shgb" value="{{ isset($kavling) ? $kavling->kavling_shgb : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
@@ -285,14 +285,14 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="kavling_shgb_date" value="{{ isset($kavling) ? $kavling->kavling_shgb_date : '' }}">
+                  <input type="text" class="form-control pickadate-selectors" name="kavling_shgb_date" value="{{ isset($kavling) ? $kavling->kavling_shgb_date : '' }}" required>
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No. IMB Pecahan</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="kavling_imb" value="{{ isset($kavling) ? $kavling->kavling_imb : '' }}">
+                <input type="number" class="form-control" name="kavling_imb" value="{{ isset($kavling) ? $kavling->kavling_imb : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
@@ -302,7 +302,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="kavling_imb_date" value="{{ isset($kavling) ? $kavling->kavling_imb_date : '' }}">
+                  <input type="text" class="form-control pickadate-selectors" name="kavling_imb_date" value="{{ isset($kavling) ? $kavling->kavling_imb_date : '' }}" required>
                 </div>
               </div>
             </div>
@@ -380,6 +380,96 @@ var DateTimePickers = function() {
 
 document.addEventListener('DOMContentLoaded', function() {
   DateTimePickers.init();
+});
+
+var FormValidation = function() {
+  var _componentValidation = function() {
+      if (!$().validate) {
+          console.warn('Warning - validate.min.js is not loaded.');
+          return;
+      }
+
+      // Initialize
+      var validator = $('.form-validate-jquery').validate({
+          ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
+          errorClass: 'validation-invalid-label',
+          successClass: 'validation-valid-label',
+          validClass: 'validation-valid-label',
+          highlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+          unhighlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+          rules: {
+            kavling_block : {
+              number: true
+            },
+            kavling_number : {
+              number: true
+            },
+            kavling_s_d : {
+              number: true
+            },
+            kavling_tl : {
+              number: true
+            },
+            kavling_tl_active : {
+              number: true
+            },
+            kavling_tl_old : {
+              number: true
+            },
+            kavling_discount_dp : {
+              number: true
+            },
+            kavling_shgb : {
+              number: true
+            },
+            kavling_imb : {
+              number: true
+            },
+          },
+          // Different components require proper error label placement
+          errorPlacement: function(error, element) {
+
+              // Unstyled checkboxes, radios
+              if (element.parents().hasClass('form-check')) {
+                  error.appendTo( element.parents('.form-check').parent() );
+              }
+
+              // Input with icons and Select2
+              else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
+                  error.appendTo( element.parent() );
+              }
+
+              // Input group, styled file input
+              else if (element.parent().is('.uniform-uploader, .uniform-select') || element.parents().hasClass('input-group')) {
+                  error.appendTo( element.parent().parent() );
+              }
+
+              // Other elements
+              else {
+                  error.insertAfter(element);
+              }
+          }
+      });
+
+      // Reset form
+      $('#reset').on('click', function() {
+          validator.resetForm();
+      });
+  };
+
+  return {
+      init: function() {
+          _componentValidation();
+      }
+  }
+}();
+
+document.addEventListener('DOMContentLoaded', function() {
+    FormValidation.init();
 });
 </script>
 <script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>

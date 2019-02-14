@@ -61,7 +61,7 @@ var DatatableSelect = function() {
                 orderable: false,
                 width: 100,
             }],
-            dom: '<"datatable-header"fl><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+            dom: '<"datatable-header"flB><"datatable-scroll-wrap"t><"datatable-footer"ip>',
             language: {
                 search: '<span>Filter:</span> _INPUT_',
                 searchPlaceholder: 'Type to filter...',
@@ -75,16 +75,103 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('transaction.spk.data') !!}',
             columns: [
-                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
-                {data: 'id', render: (id) => `SPK000${id}`},
-                {data: 'spk_date'},
-                {data: 'spk_sp_id'},
-                {data: 'surat.customer.customer_name'},
-                {data: 'active'},
+                {
+                    data: 'id',
+                    className: 'select-checkbox',
+                    orderable: false,
+                    render: () => ''
+                },
+                {
+                    data: 'id',
+                    render: (id) => `<a href="spk/${id}/edit">SPK000${id}</a>`
+                },
+                {
+                    data: 'spk_date'
+                },
+                {
+                    data: 'spk_sp_id'
+                },
+                {
+                    data: 'surat.customer.customer_name'
+                },
+                {
+                    data: 'active',
+                    className: 'text-center',
+                    render: (active) => active === 'Active' ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-danger">Deactive</span>'
+                },
             ],
             select: {
-                style: 'multi'
-            }
+                style: 'os'
+            },
+            buttons: [
+                {
+                    extend: 'collection',
+                    text: 'Select Action',
+                    className: 'btn',
+                    buttons: [
+                        {
+                            text: 'Deactive',
+                            className: '_active',
+                            action: (e, dt, type, indexes) => {
+                                const { id } = dt.row({selected: true}).data();
+                                $.ajax({
+                                    url: `spk/${id}/action`,
+                                    type: 'PATCH',
+                                    data: {
+                                        id: id,
+                                        active: 'Deactive'
+                                    },
+                                    success: (response) => {
+                                        swal({
+                                            type: 'success',
+                                            text: 'Success'
+                                        }).then(() => {
+                                            window.location.reload();
+                                        });
+                                        console.log(response)
+                                    },
+                                    error: (err) => {
+                                        swal({
+                                            type: 'error',
+                                            text: 'Error'
+                                        })
+                                    }
+                                })
+                            }
+                        },
+                        {
+                            text: 'Active',
+                            className: '_active',
+                            action: (e, dt, type, indexes) => {
+                                const { id } = dt.row({selected: true}).data();
+                                $.ajax({
+                                    url: `spk/${id}/action`,
+                                    type: 'PATCH',
+                                    data: {
+                                        id: id,
+                                        active: 'Active'
+                                    },
+                                    success: (response) => {
+                                        swal({
+                                            type: 'success',
+                                            text: 'Success'
+                                        }).then(() => {
+                                            window.location.reload();
+                                        });
+                                        console.log(response)
+                                    },
+                                    error: (err) => {
+                                        swal({
+                                            type: 'error',
+                                            text: 'Error'
+                                        })
+                                    }
+                                })
+                            }
+                        }
+                    ]
+                }
+            ]
         });
         
     };

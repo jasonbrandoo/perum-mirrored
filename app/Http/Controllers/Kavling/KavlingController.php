@@ -79,7 +79,7 @@ class KavlingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreKavling $request)
     {
         //
         $kavling_start_date = Carbon::parse($request->input('kavling_start_date'))->format('Y-m-d H:i:s');

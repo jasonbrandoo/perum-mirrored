@@ -22,7 +22,7 @@
 @endif
 <div class="card">
     <div class="card-header header-elements-inline">
-        <h5 class="card-title">Legal List</h5>
+        <h5 class="card-title">LPA List</h5>
         <div class="header-elements">
             <div class="list-icons">
                 <a class="list-icons-item" data-action="collapse"></a>
@@ -63,7 +63,7 @@ var DatatableSelect = function() {
                 orderable: false,
                 width: 100,
             }],
-            dom: '<"datatable-header"fl><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+            dom: '<"datatable-header"flB><"datatable-scroll-wrap"t><"datatable-footer"ip>',
             language: {
                 search: '<span>Filter:</span> _INPUT_',
                 searchPlaceholder: 'Type to filter...',
@@ -77,18 +77,109 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('transaction.lpa.data') !!}',
             columns: [
-                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
-                {data: 'id', render: (id) => `LPA000${id}`},
-                {data: 'lpa_date'},
-                {data: 'lpa_type'},
-                {data: 'lpa_sp_id'},
-                {data: 'surat.customer.customer_name'},
-                {data: 'surat.kavling.kavling_cluster'},
-                {data: 'active'},
+                {
+                    data: 'id',
+                    className: 'select-checkbox',
+                    orderable: false,
+                    render: () => ''
+                },
+                {
+                    data: 'id',
+                    render: (data, type, row) => `<a href="/transaction/lpa/${row.id}/edit">KRF000${row.id}</a>`                    
+                },
+                {
+                    data: 'lpa_date'
+                },
+                {
+                    data: 'lpa_type'
+                },
+                {
+                    data: 'lpa_sp_id'
+                },
+                {
+                    data: 'surat.customer.customer_name'
+                },
+                {
+                    data: 'surat.kavling.kavling_cluster'
+                },
+                {
+                    data: 'active',
+                    className: 'text-center',
+                    render: (active) => active === 'Active' ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-danger">Deactive</span>'
+                },
             ],
             select: {
-                style: 'multi'
-            }
+                style: 'os'
+            },
+            buttons: [
+                {
+                    extend: 'collection',
+                    text: 'Select Action',
+                    className: 'btn __active',
+                    buttons: [
+                        {
+                            text: 'Deactive',
+                            className: '_active',
+                            action: (e, dt, type, indexes) => {
+                                const { id } = dt.row({selected: true}).data();
+                                $.ajax({
+                                    url: `/transaction/lpa/${id}/action`,
+                                    type: 'PATCH',
+                                    data: {
+                                        id: id,
+                                        active: 'Deactive'
+                                    },
+                                    success: (response) => {
+                                        swal({
+                                            type: 'success',
+                                            text: 'Success'
+                                        }).then(() => {
+                                            window.location.reload();
+                                        });
+                                        console.log(response)
+                                    },
+                                    error: (err) => {
+                                        swal({
+                                            type: 'error',
+                                            text: 'Error'
+                                        })
+                                    }
+                                })
+                            }
+                        },
+                        {
+                            text: 'Active',
+                            className: '_active',
+                            action: (e, dt, type, indexes) => {
+                                const { id } = dt.row({selected: true}).data();
+                                $.ajax({
+                                    url: `/transaction/lpa/${id}/action`,
+                                    type: 'PATCH',
+                                    data: {
+                                        id: id,
+                                        active: 'Active'
+                                    },
+                                    success: (response) => {
+                                        swal({
+                                            type: 'success',
+                                            text: 'Success'
+                                        }).then(() => {
+                                            window.location.reload();
+                                        });
+                                        console.log(response)
+                                    },
+                                    error: (err) => {
+                                        swal({
+                                            type: 'error',
+                                            text: 'Error'
+                                        })
+                                    }
+                                })
+                            }
+                        }
+                    ]
+                }
+            ]
         });
         
     };

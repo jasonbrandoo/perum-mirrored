@@ -67,6 +67,23 @@ class SpkController extends Controller
     }
 
     /**
+     * Active / Deactive
+     *
+     * @return SPK Status
+     */
+    public function action(Request $request, $id)
+    {
+        $spk = Spk::find($id);
+        if ($request->input('active') == 'Deactive') {
+            $spk->active = 'Deactive';
+            $spk->save();
+        } elseif ($request->input('active') == 'Active') {
+            $spk->active = 'Active';
+            $spk->save();
+        }
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\Spk  $spk
@@ -83,9 +100,12 @@ class SpkController extends Controller
      * @param  \App\Spk  $spk
      * @return \Illuminate\Http\Response
      */
-    public function edit(Spk $spk)
+    public function edit(Spk $spk, $id)
     {
         //
+        $spk = Spk::with('surat.customer', 'surat.kavling.house')->find($id);
+        $surat_edit = Spk::all();
+        return view('pages.transaction.spk.create-spk', compact('spk', 'surat_edit'));
     }
 
     /**
@@ -98,6 +118,13 @@ class SpkController extends Controller
     public function update(Request $request, Spk $spk)
     {
         //
+        Spk::find($request->id)->update([
+            'spk_date' => Carbon::parse($request->input('spk_date'))->format('Y-m-d H:i:s'),
+            'spk_price' => $request->input('spk_price'),
+            'spk_sp_id' => $request->input('spk_sp_id'),
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active'            
+        ]);
+        return redirect('transaction/spk')->with('success', 'Successful update new SPK');
     }
 
     /**

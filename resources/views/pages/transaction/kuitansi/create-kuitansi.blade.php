@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
 @section('page-title')
-<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span> - Create New Kwitansi</h4>
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span> - {{isset($kwitansi) ? 'Edit Kwitansi' : 'Create New Kwitansi'}}</h4>
 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 @endsection
 
 @section('breadcrumb')
 <a href="{{ route('transaction.kwitansi.index') }}" class="breadcrumb-item">Kwitansi</a>
-<a href="{{ route('transaction.kwitansi.create') }}" class="breadcrumb-item">New Kwitansi</a>
+<a href="{{ route('transaction.kwitansi.create') }}" class="breadcrumb-item">{{isset($kwitansi) ? 'Edit Kwitansi' : 'Create New Kwitansi'}}</a>
 @endsection
 
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">
-    <h5 class="card-title">Create New Kuitansi</h5>
+    <h5 class="card-title">{{isset($kwitansi) ? 'Edit Kwitansi' : 'Create New Kwitansi'}}</h5>
     <div class="header-elements">
       <div class="list-icons">
         <a class="list-icons-item" data-action="collapse"></a>
@@ -22,17 +22,25 @@
       </div>
     </div>
   </div>
-  @if ($errors->any())
-    <div class="alert alert-danger">
-      <ul>
-        @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-  @endif
+
   <div class="card-body">
-    <form action="{{ route('transaction.kwitansi.store') }}" method="POST">
+    @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+
+    @if (isset($kwitansi))
+      <form action="{{ route('transaction.kwitansi.update') }}" class="form-validate-jquery" method="POST">
+        <input type="hidden" name="id" value="{{$kwitansi->id}}">
+        @method('PATCH')
+    @else
+      <form action="{{ route('transaction.kwitansi.store') }}" class="form-validate-jquery" method="POST">
+    @endif
       @csrf
       <div class="row">
         <div class="col-md-6">
@@ -40,7 +48,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No Kuitansi:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" value="KRF000{{$id}}" readonly>
+                <input type="text" class="form-control" value="KRF000{{isset($kwitansi) ? $kwitansi->id : $id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
@@ -50,50 +58,40 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="kwitansi_date">
+                  <input type="text" class="form-control pickadate-selectors" name="kwitansi_date" value="{{isset($kwitansi) ? $kwitansi->kwitansi_date : ''}}" required>
                 </div>
               </div>
             </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Surat Pesanan:</label>
-              <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="kwitansi_sp_id" id="sp_id">
-                  @foreach ($surats as $surat)
-                    <option value=""></option>
-                    <option value="{{$surat->id}}">SP000{{$surat->id}}</option>
-                  @endforeach
-                </select>
-              </div>
-            </div>
+            
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No Faktur Penjualan:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kwitansi_faktur">
+                <input type="text" class="form-control" name="kwitansi_faktur" value="{{isset($kwitansi) ? $kwitansi->kwitansi_faktur : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Sudah Terima Dari (Staff ID):</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kwitansi_staff_id" value="STF000{{Auth::user()->id}}" readonly>
+                <input type="text" class="form-control" name="kwitansi_staff_id" value="{{Auth::user()->id}}" readonly>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nama Staff:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kwitansi_staff_name">
+                <input type="text" class="form-control" name="kwitansi_staff_name" value="{{isset($kwitansi) ? $kwitansi->kwitansi_staff_name : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Terbilang:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kwitansi_terbilang">
+                <input type="text" class="form-control" name="kwitansi_terbilang" value="{{isset($kwitansi) ? $kwitansi->kwitansi_terbilang : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Untuk Pembayaran:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kwitansi_for_pay">
+                <input type="text" class="form-control" name="kwitansi_for_pay" value="{{isset($kwitansi) ? $kwitansi->kwitansi_for_pay : ''}}" required>
               </div>
             </div>
           </fieldset>
@@ -102,15 +100,37 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
+              <label class="col-lg-3 col-form-label">No Surat Pesanan:</label>
+              <div class="col-lg-9">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="kwitansi_sp_id" id="sp_id">
+                  @if (isset($kwitansi))
+                    <option value="{{$kwitansi->surat->id}}">SP000{{$kwitansi->surat->id}}</option>
+                    @foreach ($surat_edit as $surat)
+                      @if ($surat->id == $kwitansi->surat->id)
+                        <option></option>
+                      @else
+                        <option value="{{$surat->id}}">SP000{{$surat->id}}</option>
+                      @endif
+                    @endforeach
+                  @else
+                    @foreach ($surats as $surat)
+                      <option value=""></option>
+                      <option value="{{$surat->id}}">SP000{{$surat->id}}</option>
+                    @endforeach
+                  @endif
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kavling:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_kavling">
+                <input type="text" class="form-control" id="sp_kavling" value="{{isset($kwitansi) ? $kwitansi->surat->sp_house_cluster : ''}}" readonly required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tipe Rumah:</label>
               <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_house_type">
+                  <input type="text" class="form-control" id="sp_house_type" value="{{isset($kwitansi) ? $kwitansi->surat->kavling->house->rumah_type_name : ''}}" readonly required>
                 </div>
             </div>
             <div class="form-group row">
@@ -118,11 +138,11 @@
               <div class="col-lg-9">
                 <div class="row">
                   <div class="col-md-6">
-                    <input type="text" class="form-control" id="sp_block">
+                    <input type="text" class="form-control" id="sp_block" value="{{isset($kwitansi) ? $kwitansi->surat->sp_house_block : ''}}" required>
                   </div>
                   <label class="col-form-label">No:</label>
                   <div class="col-md-5">
-                    <input type="text" class="form-control" id="sp_number">
+                    <input type="text" class="form-control" id="sp_number" value="{{isset($kwitansi) ? $kwitansi->surat->sp_house_no : ''}}" required>
                   </div>
                 </div>
               </div>
@@ -130,26 +150,26 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Jumlah:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kwitansi_jumlah">
+                <input type="text" class="form-control" name="kwitansi_jumlah" value="{{isset($kwitansi) ? $kwitansi->kwitansi_jumlah : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Cara Pembayaran:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kwitansi_payment_method">
+                <input type="text" class="form-control" name="kwitansi_payment_method" value="{{isset($kwitansi) ? $kwitansi->kwitansi_payment_method : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label pickadate-selectors">Tgl Transfer:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control pickadate-selectors" name="kwitansi_transfer_date">
+                <input type="text" class="form-control pickadate-selectors" name="kwitansi_transfer_date" value="{{isset($kwitansi) ? $kwitansi->kwitansi_transfer_date : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Active:</label>
               <div class="col-lg-9">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input" name="active">
+                  <input type="checkbox" class="form-check-input" name="active" checked>
                 </div>
               </div>
             </div>
@@ -209,6 +229,68 @@ var DateTimePickers = function() {
 
 document.addEventListener('DOMContentLoaded', function() {
   DateTimePickers.init();
+});
+
+var FormValidation = function() {
+  var _componentValidation = function() {
+      if (!$().validate) {
+          console.warn('Warning - validate.min.js is not loaded.');
+          return;
+      }
+
+      // Initialize
+      var validator = $('.form-validate-jquery').validate({
+          ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
+          errorClass: 'validation-invalid-label',
+          successClass: 'validation-valid-label',
+          validClass: 'validation-valid-label',
+          highlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+          unhighlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+
+          // Different components require proper error label placement
+          errorPlacement: function(error, element) {
+
+              // Unstyled checkboxes, radios
+              if (element.parents().hasClass('form-check')) {
+                  error.appendTo( element.parents('.form-check').parent() );
+              }
+
+              // Input with icons and Select2
+              else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
+                  error.appendTo( element.parent() );
+              }
+
+              // Input group, styled file input
+              else if (element.parent().is('.uniform-uploader, .uniform-select') || element.parents().hasClass('input-group')) {
+                  error.appendTo( element.parent().parent() );
+              }
+
+              // Other elements
+              else {
+                  error.insertAfter(element);
+              }
+          }
+      });
+
+      // Reset form
+      $('#reset').on('click', function() {
+          validator.resetForm();
+      });
+  };
+
+  return {
+      init: function() {
+          _componentValidation();
+      }
+  }
+}();
+
+document.addEventListener('DOMContentLoaded', function() {
+  FormValidation.init();
 });
 </script>
 <script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>

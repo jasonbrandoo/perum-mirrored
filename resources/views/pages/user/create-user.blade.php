@@ -34,11 +34,11 @@
     @endif
 
     @if (isset($users))
-    <form action="{{ route('users.update')}}" method="POST">
+    <form action="{{ route('users.update')}}" class="form-validate-jquery" method="POST">
       @method('PATCH')
       <input type="hidden" name="id" value="{{$users->id}}">
     @else
-    <form action="{{ route('users.store')}}" method="POST">
+    <form action="{{ route('users.store')}}" class="form-validate-jquery" method="POST">
     @endif
       @csrf
       <div class="row">
@@ -54,7 +54,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Full Name</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="fullname" value="{{ isset($users) ? $users->name : '' }}">
+                <input type="text" class="form-control" name="fullname" value="{{ isset($users) ? $users->name : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
@@ -82,7 +82,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Role</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="role_id">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="role_id" required>
                   @foreach ($roles as $role)
                     <option value="{{$role->id}}">{{$role->role_name}}</option>
                   @endforeach
@@ -93,20 +93,20 @@
               <label class="col-lg-3 col-form-label">Active</label>
               <div class="col-lg-9">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input" name="active" value="active">
+                  <input type="checkbox" class="form-check-input" name="active" value="active" checked>
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Password</label>
               <div class="col-lg-9">
-                <input type="password" class="form-control" name="password">
+                <input type="password" class="form-control" name="password" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Confirm Password</label>
               <div class="col-lg-9">
-                <input type="password" class="form-control" name="password_confirmation">
+                <input type="password" class="form-control" name="password_confirmation" required>
               </div>
             </div>
           </fieldset>
@@ -121,5 +121,68 @@
 @endsection
 
 @push('scripts')
-<script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>    
+<script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>
+<script>
+var FormValidation = function() {
+  var _componentValidation = function() {
+      if (!$().validate) {
+          console.warn('Warning - validate.min.js is not loaded.');
+          return;
+      }
+
+      // Initialize
+      var validator = $('.form-validate-jquery').validate({
+          ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
+          errorClass: 'validation-invalid-label',
+          successClass: 'validation-valid-label',
+          validClass: 'validation-valid-label',
+          highlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+          unhighlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+
+          // Different components require proper error label placement
+          errorPlacement: function(error, element) {
+
+              // Unstyled checkboxes, radios
+              if (element.parents().hasClass('form-check')) {
+                  error.appendTo( element.parents('.form-check').parent() );
+              }
+
+              // Input with icons and Select2
+              else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
+                  error.appendTo( element.parent() );
+              }
+
+              // Input group, styled file input
+              else if (element.parent().is('.uniform-uploader, .uniform-select') || element.parents().hasClass('input-group')) {
+                  error.appendTo( element.parent().parent() );
+              }
+
+              // Other elements
+              else {
+                  error.insertAfter(element);
+              }
+          }
+      });
+
+      // Reset form
+      $('#reset').on('click', function() {
+          validator.resetForm();
+      });
+  };
+
+  return {
+      init: function() {
+          _componentValidation();
+      }
+  }
+}();
+
+document.addEventListener('DOMContentLoaded', function() {
+  FormValidation.init();
+});
+</script>
 @endpush

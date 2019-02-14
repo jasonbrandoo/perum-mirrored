@@ -34,11 +34,11 @@
     @endif
 
     @if (isset($sales))
-    <form action="{{ route('sales.update') }}" method="POST">
+    <form action="{{ route('sales.update') }}" class="form-validate-jquery" method="POST">
       @method('PATCH')
       <input type="hidden" name="id" value="{{ $sales->id }}">
     @else
-    <form action="{{ route('sales.store') }}" method="POST">
+    <form action="{{ route('sales.store') }}" class="form-validate-jquery" method="POST">
     @endif
       @csrf
       <div class="row">
@@ -53,49 +53,49 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nama Sales</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sales_name" value="{{ isset($sales) ? $sales->sales_name : '' }}">
+                <input type="text" class="form-control" name="sales_name" value="{{ isset($sales) ? $sales->sales_name : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No Hp</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="sales_mobile_number" value="{{ isset($sales) ? $sales->sales_mobile_number : '' }}">
+                <input type="number" class="form-control" name="sales_mobile_number" value="{{ isset($sales) ? $sales->sales_mobile_number : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No Telp</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="sales_number" value="{{ isset($sales) ? $sales->sales_number : '' }}">
+                <input type="number" class="form-control" name="sales_number" value="{{ isset($sales) ? $sales->sales_number : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No KTP</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="sales_no_ktp" value="{{ isset($sales) ? $sales->sales_no_ktp : '' }}">
+                <input type="number" class="form-control" name="sales_no_ktp" value="{{ isset($sales) ? $sales->sales_no_ktp : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Alamat</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sales_address" value="{{ isset($sales) ? $sales->sales_address : '' }}">
+                <input type="text" class="form-control" name="sales_address" value="{{ isset($sales) ? $sales->sales_address : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kota</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sales_city" value="{{ isset($sales) ? $sales->sales_city : '' }}">
+                <input type="text" class="form-control" name="sales_city" value="{{ isset($sales) ? $sales->sales_city : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Provinsi</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sales_province" value="{{ isset($sales) ? $sales->sales_province : '' }}">
+                <input type="text" class="form-control" name="sales_province" value="{{ isset($sales) ? $sales->sales_province : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Pos</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="sales_zipcode" value="{{ isset($sales) ? $sales->sales_zipcode : '' }}">
+                <input type="number" class="form-control" name="sales_zipcode" value="{{ isset($sales) ? $sales->sales_zipcode : '' }}" required>
               </div>
             </div>
           </fieldset>
@@ -105,7 +105,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Jabatan</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sales_position">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sales_position" required>
                   @if (isset($sales))
                     @if ($sales->sales_position == 'Sales')
                       <option value="Sales">Sales</option>
@@ -148,7 +148,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Target / Bulan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="sales_target" value="{{ isset($sales) ? $sales->sales_target : '' }}">
+                <input type="text" class="form-control" name="sales_target" value="{{ isset($sales) ? $sales->sales_target : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
@@ -168,7 +168,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Supervisor</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sales_spv">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sales_spv" required>
                   @if (isset($sales))
                     <option value="{{$spv_edit->id}}">{{$spv_edit->sales_name}}</option>
                       @foreach ($supervisor_edit as $spv)
@@ -189,7 +189,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="sales_in" value="{{ isset($sales) ? $sales->sales_in : '' }}">
+                  <input type="text" class="form-control pickadate-selectors" name="sales_in" value="{{ isset($sales) ? $sales->sales_in : '' }}" required>
                 </div>
               </div>
             </div>
@@ -238,6 +238,68 @@ var DateTimePickers = function() {
 
 document.addEventListener('DOMContentLoaded', function() {
   DateTimePickers.init();
+});
+
+var FormValidation = function() {
+  var _componentValidation = function() {
+      if (!$().validate) {
+          console.warn('Warning - validate.min.js is not loaded.');
+          return;
+      }
+
+      // Initialize
+      var validator = $('.form-validate-jquery').validate({
+          ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
+          errorClass: 'validation-invalid-label',
+          successClass: 'validation-valid-label',
+          validClass: 'validation-valid-label',
+          highlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+          unhighlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+
+          // Different components require proper error label placement
+          errorPlacement: function(error, element) {
+
+              // Unstyled checkboxes, radios
+              if (element.parents().hasClass('form-check')) {
+                  error.appendTo( element.parents('.form-check').parent() );
+              }
+
+              // Input with icons and Select2
+              else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
+                  error.appendTo( element.parent() );
+              }
+
+              // Input group, styled file input
+              else if (element.parent().is('.uniform-uploader, .uniform-select') || element.parents().hasClass('input-group')) {
+                  error.appendTo( element.parent().parent() );
+              }
+
+              // Other elements
+              else {
+                  error.insertAfter(element);
+              }
+          }
+      });
+
+      // Reset form
+      $('#reset').on('click', function() {
+          validator.resetForm();
+      });
+  };
+
+  return {
+      init: function() {
+          _componentValidation();
+      }
+  }
+}();
+
+document.addEventListener('DOMContentLoaded', function() {
+  FormValidation.init();
 });
 </script>
 <script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>

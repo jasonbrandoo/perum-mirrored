@@ -26,12 +26,11 @@ class StoreAjb extends FormRequest
         return [
             //
             'ajb_date' => ['required'],
-            'ajb_price_1' => ['required', 'numeric'],
-            'ajb_price_2' => ['required', 'numeric'],
-            'ajb_lt' => ['required', 'numeric'],
-            'ajb_tl' => ['required', 'numeric'],
+            'ajb_price_1' => ['required'],
+            'ajb_price_2' => ['required'],
+            'ajb_lt' => ['required'],
+            'ajb_tl' => ['required'],
             'ajb_notaris' => ['required'],
-            'ajb_description' => ['required'],
             'ajb_sp_id' => ['required'],
             'ajb_shgb' => ['required'],
             'ajb_shgb_date' => ['required'],

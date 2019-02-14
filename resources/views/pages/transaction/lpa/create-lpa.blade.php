@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
 @section('page-title')
-<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span> - Create New LPA</h4>
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span> - {{isset($lpa) ? 'Edit LPA' : 'Create New LPA'}}</h4>
 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 @endsection
 
 @section('breadcrumb')
-<a href="{{ route('transaction.legal.index') }}" class="breadcrumb-item">LPA</a>
-<a href="{{ route('transaction.legal.create') }}" class="breadcrumb-item">New LPA</a>
+<a href="{{ route('transaction.lpa.index') }}" class="breadcrumb-item">LPA</a>
+<a href="{{ route('transaction.lpa.create') }}" class="breadcrumb-item">{{isset($lpa) ? 'Edit LPA' : 'Create New LPA'}}</a>
 @endsection
 
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">
-    <h5 class="card-title">Create New LPA</h5>
+    <h5 class="card-title">{{isset($lpa) ? 'Edit LPA' : 'Create New LPA'}}</h5>
     <div class="header-elements">
       <div class="list-icons">
         <a class="list-icons-item" data-action="collapse"></a>
@@ -32,7 +32,14 @@
         </ul>
       </div>
     @endif
-    <form action="{{ route('transaction.lpa.store') }}" method="POST">
+
+    @if (isset($lpa))
+      <form action="{{ route('transaction.lpa.update') }}" class="form-validate-jquery" method="POST">
+        <input type="hidden" name="id" value="{{$lpa->id}}">
+        @method('PATCH')
+    @else
+      <form action="{{ route('transaction.lpa.store') }}" class="form-validate-jquery" method="POST">
+    @endif
       @csrf
       <div class="row">
         <div class="col-md-6">
@@ -40,7 +47,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No LPA:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" value="LPA000{{$id}}" readonly>
+                <input type="text" class="form-control" value="LPA000{{isset($lpa) ? $lpa->id : $id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
@@ -50,18 +57,25 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="lpa_date">
+                <input type="text" class="form-control pickadate-selectors" name="lpa_date" value="{{isset($lpa) ? $lpa->lpa_date : ''}}" required>
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Type:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="lpa_type">
-                  <option></option>
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="lpa_type" required>
+                  @if (isset($lpa))
+                    <option value="{{$lpa->lpa_type}}">{{$lpa->lpa_type}}</option>
+                    <option value="Bangunan">Bangunan</option>
+                    <option value="Listrik">Listrik</option>
+                    <option value="Bestek">Bestek</option>
+                  @else
+                    <option></option>
                     <option value="bangunan">Bangunan</option>
                     <option value="listrik">Listrik</option>
                     <option value="bestek">Bestek</option>
+                  @endif
                 </select>
               </div>
             </div>
@@ -69,19 +83,19 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Kavling:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="kavling_id" readonly>
+                <input type="text" class="form-control" id="kavling_id" value="{{isset($lpa) ? $lpa->surat->sp_house_cluster : ''}}" required readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Luas Bangunan:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="kavling_building" readonly>
+                <input type="text" class="form-control" id="kavling_building" value="{{isset($lpa) ? $lpa->surat->kavling->house->building_area_m2 : ''}}" required readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Luas Tanah:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="kavling_surface" readonly>
+                <input type="text" class="form-control" id="kavling_surface" readonly value="{{isset($lpa) ? $lpa->surat->kavling->house->surface_area_m2 : ''}}" required readonly>
               </div>
             </div>
             {{-- <div class="form-group row">
@@ -93,19 +107,19 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nomor SHGB:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="kavling_shgb" readonly>
+                <input type="text" class="form-control" id="kavling_shgb" value="{{isset($lpa) ? $lpa->surat->kavling->kavling_shgb : ''}}" required readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tgl SHGB:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="kavling_shgb_date" readonly>
+                <input type="text" class="form-control" id="kavling_shgb_date" value="{{isset($lpa) ? $lpa->surat->kavling->kavling_shgb_date : ''}}" required readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nomor IMB:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="kavling_imb" readonly>
+                <input type="text" class="form-control" id="kavling_imb" value="{{isset($lpa) ? $lpa->surat->kavling->kavling_imb : ''}}" required readonly>
               </div>
             </div>
             <div class="form-group row">
@@ -124,11 +138,22 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No Sp:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="lpa_sp_id" id="sp_id">
-                  @foreach ($sps as $sp)
-                    <option value=""></option>
-                    <option value="{{$sp->id}}">SP000{{$sp->id}}</option>
-                  @endforeach
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="lpa_sp_id" id="sp_id" required>
+                  @if (isset($lpa))
+                    <option value="{{$lpa->surat->id}}">SP000{{$lpa->surat->id}}</option>
+                    @foreach ($surat_edit as $surat)
+                      @if ($surat->id == $lpa->surat->id)
+                        <option></option>
+                      @else
+                        <option value="{{$surat->id}}">SP000{{$surat->id}}</option>
+                      @endif
+                    @endforeach
+                  @else
+                    @foreach ($sps as $sp)
+                      <option value=""></option>
+                      <option value="{{$sp->id}}">SP000{{$sp->id}}</option>
+                    @endforeach
+                  @endif
                 </select>
               </div>
             </div>
@@ -136,33 +161,33 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tanggal Sp:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_date" readonly>
+                <input type="text" class="form-control" id="sp_date" value="{{isset($lpa) ? $lpa->surat->sp_date : ''}}" required readonly>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Customer ID:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_customer_id" readonly>
+                <input type="text" class="form-control" id="sp_customer_id" value="{{isset($lpa) ? $lpa->surat->customer->id : ''}}" required readonly>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Customer Name:</label>
               <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_customer_name" readonly>
+                  <input type="text" class="form-control" id="sp_customer_name" value="{{isset($lpa) ? $lpa->surat->customer->customer_name : ''}}" required readonly>
                 </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Perusahaan:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_company" readonly>
+                <input type="text" class="form-control" id="sp_company" value="{{isset($lpa) ? $lpa->surat->company->company_name : ''}}" required readonly>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Sales:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_sales" readonly>
+                <input type="text" class="form-control" id="sp_sales" value="{{isset($lpa) ? $lpa->surat->sales->sales_name : ''}}" required readonly>
               </div>
             </div>
           </fieldset>
@@ -251,6 +276,68 @@ var DateTimePickers = function() {
 
 document.addEventListener('DOMContentLoaded', function() {
   DateTimePickers.init();
+});
+
+var FormValidation = function() {
+  var _componentValidation = function() {
+      if (!$().validate) {
+          console.warn('Warning - validate.min.js is not loaded.');
+          return;
+      }
+
+      // Initialize
+      var validator = $('.form-validate-jquery').validate({
+          ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
+          errorClass: 'validation-invalid-label',
+          successClass: 'validation-valid-label',
+          validClass: 'validation-valid-label',
+          highlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+          unhighlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+
+          // Different components require proper error label placement
+          errorPlacement: function(error, element) {
+
+              // Unstyled checkboxes, radios
+              if (element.parents().hasClass('form-check')) {
+                  error.appendTo( element.parents('.form-check').parent() );
+              }
+
+              // Input with icons and Select2
+              else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
+                  error.appendTo( element.parent() );
+              }
+
+              // Input group, styled file input
+              else if (element.parent().is('.uniform-uploader, .uniform-select') || element.parents().hasClass('input-group')) {
+                  error.appendTo( element.parent().parent() );
+              }
+
+              // Other elements
+              else {
+                  error.insertAfter(element);
+              }
+          }
+      });
+
+      // Reset form
+      $('#reset').on('click', function() {
+          validator.resetForm();
+      });
+  };
+
+  return {
+      init: function() {
+          _componentValidation();
+      }
+  }
+}();
+
+document.addEventListener('DOMContentLoaded', function() {
+  FormValidation.init();
 });
 </script>
 <script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>

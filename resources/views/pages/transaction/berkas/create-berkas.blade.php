@@ -35,11 +35,11 @@
     @endif
 
     @if (isset($berkas))
-      <form action="{{ route('transaction.berkas.update') }}" method="POST">
+      <form action="{{ route('transaction.berkas.update') }}" class="form-validate-jquery" method="POST">
         @method('PATCH')
         <input type="hidden" name="id" value="{{$berkas->id}}">
     @else
-      <form action="{{ route('transaction.berkas.store') }}" method="POST">
+      <form action="{{ route('transaction.berkas.store') }}" class="form-validate-jquery" method="POST">
     @endif
       @csrf
       <div class="row">
@@ -58,14 +58,14 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="berkas_date" value="{{isset($berkas) ? $berkas->berkas_date : ''}}">
+                  <input type="text" class="form-control pickadate-selectors" name="berkas_date" value="{{isset($berkas) ? $berkas->berkas_date : ''}}" required>
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Diserahkan Oleh:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="berkas_giver_id">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="berkas_giver_id" required>
                   @if (isset($berkas))
                     <option value="{{$berkas->customer->id}}">{{$berkas->customer->customer_name}}</option>
                     @foreach ($customer_edit as $cust)
@@ -86,9 +86,9 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Penerima:</label>
+              <label class="col-lg-3 col-form-label">ID Penerima:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="berkas_reciever_id" value="{{Auth::user()->id}}"  readonly>
+                <input type="text" class="form-control" name="berkas_reciever_id" value="{{Auth::user()->id}}" readonly required>
               </div>
             </div>
             <div class="form-group row">
@@ -112,7 +112,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No Sp:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="berkas_sp_id" id="sp_id">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="berkas_sp_id" id="sp_id" required>
                   @if (isset($berkas))
                     <option value="{{$berkas->surat->id}}">SP000{{$berkas->surat->id}}</option>
                     @foreach ($surat_edit as $surat)
@@ -232,6 +232,68 @@ var DateTimePickers = function() {
 
 document.addEventListener('DOMContentLoaded', function() {
   DateTimePickers.init();
+});
+
+var FormValidation = function() {
+  var _componentValidation = function() {
+      if (!$().validate) {
+          console.warn('Warning - validate.min.js is not loaded.');
+          return;
+      }
+
+      // Initialize
+      var validator = $('.form-validate-jquery').validate({
+          ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
+          errorClass: 'validation-invalid-label',
+          successClass: 'validation-valid-label',
+          validClass: 'validation-valid-label',
+          highlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+          unhighlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+
+          // Different components require proper error label placement
+          errorPlacement: function(error, element) {
+
+              // Unstyled checkboxes, radios
+              if (element.parents().hasClass('form-check')) {
+                  error.appendTo( element.parents('.form-check').parent() );
+              }
+
+              // Input with icons and Select2
+              else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
+                  error.appendTo( element.parent() );
+              }
+
+              // Input group, styled file input
+              else if (element.parent().is('.uniform-uploader, .uniform-select') || element.parents().hasClass('input-group')) {
+                  error.appendTo( element.parent().parent() );
+              }
+
+              // Other elements
+              else {
+                  error.insertAfter(element);
+              }
+          }
+      });
+
+      // Reset form
+      $('#reset').on('click', function() {
+          validator.resetForm();
+      });
+  };
+
+  return {
+      init: function() {
+          _componentValidation();
+      }
+  }
+}();
+
+document.addEventListener('DOMContentLoaded', function() {
+  FormValidation.init();
 });
 </script>
 <script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>

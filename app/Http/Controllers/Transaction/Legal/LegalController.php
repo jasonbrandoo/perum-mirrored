@@ -78,6 +78,23 @@ class LegalController extends Controller
     }
 
     /**
+     * Active / Deactive
+     * 
+     * @return Legal Status
+     */
+    public function action(Request $request, $id)
+    {
+        $legal = Legal::find($id);
+        if ($request->input('active') == 'Deactive') {
+            $legal->active = 'Deactive';
+            $legal->save();
+        } else if ($request->input('active') == 'Active'){
+            $legal->active = 'Active';
+            $legal->save();
+        } 
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\Legal  $legal
@@ -94,9 +111,12 @@ class LegalController extends Controller
      * @param  \App\Legal  $legal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Legal $legal)
+    public function edit(Legal $legal, $id)
     {
         //
+        $legal = Legal::with('surat.company', 'surat.sales', 'surat.kavling')->find($id);
+        $surat_edit = SuratPesanan::all();
+        return view('pages.transaction.legal.create-legal', compact('legal', 'surat_edit'));
     }
 
     /**
@@ -109,6 +129,24 @@ class LegalController extends Controller
     public function update(Request $request, Legal $legal)
     {
         //
+        Legal::find($request->id)->update([
+            'legal_date' => Carbon::parse($request->input('legal_date'))->format('Y-m-d H:i:s'),
+            'legal_shgb_parent' => $request->input('legal_shgb_parent'),
+            'legal_shgb_parent_date' => Carbon::parse($request->input('legal_shgb_parent_date'))->format('Y-m-d H:i:s'),
+            'legal_shgb_fraction' => $request->input('legal_shgb_fraction'),
+            'legal_shgb_fraction_date' => Carbon::parse($request->input('legal_shgb_fraction_date'))->format('Y-m-d H:i:s'),
+            'legal_name' => $request->input('legal_name'),
+            'legal_name_date' => Carbon::parse($request->input('legal_name_date'))->format('Y-m-d H:i:s'),
+            'legal_shm' => $request->input('legal_shm'),
+            'legal_shm_date' => Carbon::parse($request->input('legal_shm_date'))->format('Y-m-d H:i:s'),
+            'legal_imb' => $request->input('legal_imb'),
+            'legal_imb_date' => Carbon::parse($request->input('legal_imb_date'))->format('Y-m-d H:i:s'),
+            'legal_nop_pbb' => $request->input('legal_nop_pbb'),
+            'legal_nop_pbb_date' => Carbon::parse($request->input('legal_nop_pbb_date'))->format('Y-m-d H:i:s'),
+            'legal_sp_id' => $request->input('legal_sp_id'),
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active'
+        ]);
+        return redirect('transaction/legal')->with('success', 'Successfull update Legal');
     }
 
     /**

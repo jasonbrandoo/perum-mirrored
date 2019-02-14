@@ -157,6 +157,9 @@ Route::group([
     Route::prefix('legal')->group(function () {
         Route::get('/', 'Transaction\Legal\LegalController@index')->name('transaction.legal.index');
         Route::get('/create', 'Transaction\Legal\LegalController@create')->name('transaction.legal.create');
+        Route::get('/{id}/edit', 'Transaction\Legal\LegalController@edit')->name('transaction.legal.edit');
+        Route::patch('/{id}/action', 'Transaction\Legal\LegalController@action')->name('transaction.legal.action');
+        Route::patch('/update', 'Transaction\Legal\LegalController@update')->name('transaction.legal.update');
         Route::post('/store', 'Transaction\Legal\LegalController@store')->name('transaction.legal.store');
         Route::get('/data', 'Transaction\Legal\LegalController@data')->name('transaction.legal.data');
         Route::get('/load_sp', 'Transaction\Legal\LegalController@load_sp')->name('transaction.legal.load_sp');
@@ -168,6 +171,9 @@ Route::group([
     Route::prefix('lpa')->group(function () {
         Route::get('/', 'Transaction\Lpa\LPAController@index')->name('transaction.lpa.index');
         Route::get('/create', 'Transaction\Lpa\LPAController@create')->name('transaction.lpa.create');
+        Route::get('/{id}/edit', 'Transaction\Lpa\LPAController@edit')->name('transaction.lpa.edit');
+        Route::patch('/{id}/action', 'Transaction\Lpa\LPAController@action')->name('transaction.lpa.action');
+        Route::patch('/update', 'Transaction\Lpa\LPAController@update')->name('transaction.lpa.update');
         Route::post('/store', 'Transaction\Lpa\LPAController@store')->name('transaction.lpa.store');
         Route::get('/data', 'Transaction\Lpa\LPAController@data')->name('transaction.lpa.data');
         Route::get('/load_sp', 'Transaction\Lpa\LPAController@load_sp')->name('transaction.lpa.load_sp');
@@ -225,6 +231,9 @@ Route::group([
     Route::prefix('kwitansi')->group(function () {
         Route::get('/', 'Transaction\Kwitansi\KwitansiController@index')->name('transaction.kwitansi.index');
         Route::get('/create', 'Transaction\Kwitansi\KwitansiController@create')->name('transaction.kwitansi.create');
+        Route::get('/{id}/edit', 'Transaction\Kwitansi\KwitansiController@edit')->name('transaction.kwitansi.edit');
+        Route::patch('/{id}/action', 'Transaction\Kwitansi\KwitansiController@action')->name('transaction.kwitansi.action');
+        Route::patch('/update', 'Transaction\Kwitansi\KwitansiController@update')->name('transaction.kwitansi.update');
         Route::post('/store', 'Transaction\Kwitansi\KwitansiController@store')->name('transaction.kwitansi.store');
         Route::get('/data', 'Transaction\Kwitansi\KwitansiController@data')->name('transaction.kwitansi.data');
         Route::get('/load_sp', 'Transaction\Kwitansi\KwitansiController@load_sp')->name('transaction.kwitansi.load_sp');
@@ -236,6 +245,8 @@ Route::group([
     Route::prefix('pembatalan')->group(function () {
         Route::get('/', 'Transaction\Pembatalan\PembatalanController@index')->name('transaction.pembatalan.index');
         Route::get('/create', 'Transaction\Pembatalan\PembatalanController@create')->name('transaction.pembatalan.create');
+        Route::get('/{id}/edit', 'Transaction\Pembatalan\PembatalanController@edit')->name('transaction.pembatalan.edit');
+        Route::patch('/update', 'Transaction\Pembatalan\PembatalanController@update')->name('transaction.pembatalan.update');
         Route::post('/store', 'Transaction\Pembatalan\PembatalanController@store')->name('transaction.pembatalan.store');
         Route::get('/data', 'Transaction\Pembatalan\PembatalanController@data')->name('transaction.pembatalan.data');
         Route::get('/load_sp', 'Transaction\Pembatalan\PembatalanController@load_sp')->name('transaction.pembatalan.load_sp');
@@ -248,6 +259,7 @@ Route::group([
         Route::get('/', 'Transaction\SuratPesanan\SuratPesananController@index')->name('transaction.surat-pesanan.index');
         Route::get('/create', 'Transaction\SuratPesanan\SuratPesananController@create')->name('transaction.surat-pesanan.create');
         Route::get('/{id}/edit', 'Transaction\SuratPesanan\SuratPesananController@edit')->name('transaction.surat-pesanan.edit');
+        Route::patch('/{id}/action', 'Transaction\SuratPesanan\SuratPesananController@action')->name('transaction.surat-pesanan.action');
         Route::patch('/update', 'Transaction\SuratPesanan\SuratPesananController@update')->name('transaction.surat-pesanan.update');
         Route::post('/store', 'Transaction\SuratPesanan\SuratPesananController@store')->name('transaction.surat-pesanan.store');
         Route::get('/data', 'Transaction\SuratPesanan\SuratPesananController@data')->name('transaction.surat-pesanan.data');
@@ -278,6 +290,9 @@ Route::group([
     Route::prefix('spk')->group(function () {
         Route::get('/', 'Transaction\Spk\SpkController@index')->name('transaction.spk.index');
         Route::get('/create', 'Transaction\Spk\SpkController@create')->name('transaction.spk.create');
+        Route::get('/{id}/edit', 'Transaction\Spk\SpkController@edit')->name('transaction.spk.edit');
+        Route::patch('/{id}/action', 'Transaction\Spk\SpkController@action')->name('transaction.spk.action');
+        Route::patch('/update', 'Transaction\Spk\SpkController@update')->name('transaction.spk.update');
         Route::post('/store', 'Transaction\Spk\SpkController@store')->name('transaction.spk.store');
         Route::get('/data', 'Transaction\Spk\SpkController@data')->name('transaction.spk.data');
         Route::get('/load_sp', 'Transaction\Spk\SpkController@load_sp')->name('transaction.spk.load_sp');

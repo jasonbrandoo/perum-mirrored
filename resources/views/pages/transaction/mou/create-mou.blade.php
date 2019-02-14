@@ -34,11 +34,11 @@
     @endif
 
     @if (isset($mou))
-    <form action="{{ route('transaction.mou.update') }}" method="POST">  
+    <form action="{{ route('transaction.mou.update') }}" class="form-validate-jquery" method="POST">  
       @method('PATCH')
       <input type="hidden" name="id" value="{{$mou->id}}">
     @else
-    <form action="{{ route('transaction.mou.store') }}" method="POST">
+    <form action="{{ route('transaction.mou.store') }}" class="form-validate-jquery" method="POST">
     @endif
       @csrf
       <div class="row">
@@ -53,7 +53,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Perusahaan / Instansi:</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="mou_company_id">
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="mou_company_id" required>
                   @if (isset($mou))
                     <option value="{{$mou->companies->id}}">P000{{$mou->companies->id}} - {{$mou->companies->company_name}}</option>
                     @foreach ($companies_edit as $company)
@@ -75,13 +75,13 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Nama Koordinator:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="mou_coordinator" value="{{isset($mou) ? $mou->mou_coordinator : ''}}" >
+                <input type="text" class="form-control" name="mou_coordinator" value="{{isset($mou) ? $mou->mou_coordinator : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Jabatan:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="mou_coordinator_position" value="{{isset($mou) ? $mou->mou_coordinator_position : ''}}">
+                <input type="text" class="form-control" name="mou_coordinator_position" value="{{isset($mou) ? $mou->mou_coordinator_position : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
@@ -104,7 +104,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="mou_date" value="{{isset($mou) ? $mou->mou_date : ''}}">
+                  <input type="text" class="form-control pickadate-selectors" name="mou_date" value="{{isset($mou) ? $mou->mou_date : ''}}" required>
                 </div>
               </div>
             </div>
@@ -115,7 +115,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="mou_start_date" value="{{isset($mou) ? $mou->mou_start_date : ''}}">
+                  <input type="text" class="form-control pickadate-selectors" name="mou_start_date" value="{{isset($mou) ? $mou->mou_start_date : ''}}" required>
                 </div>
               </div>
             </div>
@@ -126,14 +126,14 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="mou_end_date" value="{{isset($mou) ? $mou->mou_end_date : ''}}">
+                  <input type="text" class="form-control pickadate-selectors" name="mou_end_date" value="{{isset($mou) ? $mou->mou_end_date : ''}}" required>
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Perhitungan Komisi:</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="mou_commision" value="{{isset($mou) ? $mou->mou_commision : ''}}">
+                <input type="text" class="form-control" name="mou_commision" value="{{isset($mou) ? $mou->mou_commision : ''}}" required>
               </div>
             </div>
           </fieldset>
@@ -149,7 +149,6 @@
 
 @push('scripts')
 <script>
-
 var DateTimePickers = function() {
     // Pickadate picker
     var _componentPickadate = function() {
@@ -198,12 +197,70 @@ var DateTimePickers = function() {
     }
 }();
 
+document.addEventListener('DOMContentLoaded', function() {
+  DateTimePickers.init();
+});
 
-// Initialize module
-// ------------------------------
+var FormValidation = function() {
+  var _componentValidation = function() {
+      if (!$().validate) {
+          console.warn('Warning - validate.min.js is not loaded.');
+          return;
+      }
+
+      // Initialize
+      var validator = $('.form-validate-jquery').validate({
+          ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
+          errorClass: 'validation-invalid-label',
+          successClass: 'validation-valid-label',
+          validClass: 'validation-valid-label',
+          highlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+          unhighlight: function(element, errorClass) {
+              $(element).removeClass(errorClass);
+          },
+
+          // Different components require proper error label placement
+          errorPlacement: function(error, element) {
+
+              // Unstyled checkboxes, radios
+              if (element.parents().hasClass('form-check')) {
+                  error.appendTo( element.parents('.form-check').parent() );
+              }
+
+              // Input with icons and Select2
+              else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
+                  error.appendTo( element.parent() );
+              }
+
+              // Input group, styled file input
+              else if (element.parent().is('.uniform-uploader, .uniform-select') || element.parents().hasClass('input-group')) {
+                  error.appendTo( element.parent().parent() );
+              }
+
+              // Other elements
+              else {
+                  error.insertAfter(element);
+              }
+          }
+      });
+
+      // Reset form
+      $('#reset').on('click', function() {
+          validator.resetForm();
+      });
+  };
+
+  return {
+      init: function() {
+          _componentValidation();
+      }
+  }
+}();
 
 document.addEventListener('DOMContentLoaded', function() {
-    DateTimePickers.init();
+    FormValidation.init();
 });
 
 </script>

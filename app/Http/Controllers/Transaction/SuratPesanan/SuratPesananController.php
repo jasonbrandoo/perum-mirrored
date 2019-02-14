@@ -158,9 +158,26 @@ class SuratPesananController extends Controller
             'sp_internal_bill' => Comma::removeComma($request->input('sp_internal_bill')),
             'sp_per_month_kreditur' => Comma::removeComma($request->input('sp_per_month_kreditur')),
             'sp_kreditur_bill' => Comma::removeComma($request->input('sp_kreditur_bill')),
-            'active' => $request->input('active') == null ? 'Not Active' : 'Active)'
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active'
         ]);
         return redirect('transaction/surat-pesanan')->with('success', 'Successfull create Surat Pesanan');
+    }
+
+    /**
+     * Active / Deactive
+     *
+     * @return SP Status
+     */
+    public function action(Request $request, $id)
+    {
+        $sp = SuratPesanan::find($id);
+        if ($request->input('active') == 'Deactive') {
+            $sp->active = 'Deactive';
+            $sp->save();
+        } elseif ($request->input('active') == 'Active') {
+            $sp->active = 'Active';
+            $sp->save();
+        }
     }
 
     /**

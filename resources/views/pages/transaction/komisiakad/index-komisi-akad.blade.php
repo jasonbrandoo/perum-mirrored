@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    <table class="table datatable-select-checkbox" id="role-table">
+    <table class="table datatable-select-checkbox table-bordered" id="role-table">
         <thead>
             <tr>
                 <th></th>
