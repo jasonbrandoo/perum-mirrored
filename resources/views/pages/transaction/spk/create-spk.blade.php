@@ -45,13 +45,13 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No SPK:</label>
+              <label class="col-lg-3 col-form-label">No SPK</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" value="SPK000{{isset($spk) ? $spk->id : $id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal SPK:</label>
+              <label class="col-lg-3 col-form-label">Tanggal SPK</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -62,13 +62,13 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nilai SPK:</label>
+              <label class="col-lg-3 col-form-label">Nilai SPK</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="spk_price" value="{{isset($spk) ? $spk->spk_price : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Active:</label>
+              <label class="col-lg-3 col-form-label">Active</label>
               <div class="col-lg-9">
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" name="active" checked>
@@ -81,7 +81,7 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nomor SP:</label>
+              <label class="col-lg-3 col-form-label">Nomor SP</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="spk_sp_id" id="sp_id" required>
                   @if (isset($spk))
@@ -103,7 +103,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal:</label>
+              <label class="col-lg-3 col-form-label">Tanggal</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -114,19 +114,19 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Customer:</label>
+              <label class="col-lg-3 col-form-label">Customer</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_customer" name="sp_customer" value="{{isset($spk) ? $spk->surat->customer->customer_name : ''}}" required readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Blok:</label>
+              <label class="col-lg-3 col-form-label">Blok</label>
               <div class="col-lg-9">
                 <div class="row">
                   <div class="col-md-6">
                     <input type="text" class="form-control" id="sp_block" name="sp_block" value="{{isset($spk) ? $spk->surat->kavling->kavling_block : ''}}" required readonly>
                   </div>
-                  <label class="col-form-label">No:</label>
+                  <label class="col-form-label">No</label>
                   <div class="col-md-5">
                     <input type="text" class="form-control" id="sp_no" name="sp_no" value="{{isset($spk) ? $spk->surat->kavling->id : ''}}" required readonly>
                   </div>
@@ -134,25 +134,25 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Luas Bangunan:</label>
+              <label class="col-lg-3 col-form-label">Luas Bangunan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_building" name="sp_building" value="{{isset($spk) ? $spk->surat->kavling->house->building_area_m2 : ''}}" required readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Luas Tanah:</label>
+              <label class="col-lg-3 col-form-label">Luas Tanah</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_surface" name="sp_surface" value="{{isset($spk) ? $spk->surat->kavling->house->surface_area_m2 : ''}}" required readonly>
               </div>
             </div>
             {{-- <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanah Lebih:</label>
+              <label class="col-lg-3 col-form-label">Tanah Lebih</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" >
               </div>
             </div> --}}
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Cluster:</label>
+              <label class="col-lg-3 col-form-label">Cluster</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_cluster" name="sp_cluster" value="{{isset($spk) ? $spk->surat->kavling->kavling_cluster : ''}}" required readonly>
               </div>

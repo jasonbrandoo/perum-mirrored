@@ -46,13 +46,13 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Terima Berkas:</label>
+              <label class="col-lg-3 col-form-label">No Terima Berkas</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" value="TBK000{{isset($berkas) ? $berkas->id : $id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal:</label>
+              <label class="col-lg-3 col-form-label">Tanggal</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -63,7 +63,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Diserahkan Oleh:</label>
+              <label class="col-lg-3 col-form-label">Diserahkan Oleh</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="berkas_giver_id" required>
                   @if (isset($berkas))
@@ -86,19 +86,19 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">ID Penerima:</label>
+              <label class="col-lg-3 col-form-label">ID Penerima</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="berkas_reciever_id" value="{{Auth::user()->id}}" readonly required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Catatan:</label>
+              <label class="col-lg-3 col-form-label">Catatan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="berkas_note" value="{{isset($berkas) ? $berkas->berkas_note : ''}}">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Active:</label>
+              <label class="col-lg-3 col-form-label">Active</label>
               <div class="col-lg-9">
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" name="active" checked>
@@ -110,7 +110,7 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Sp:</label>
+              <label class="col-lg-3 col-form-label">No Sp</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="berkas_sp_id" id="sp_id" required>
                   @if (isset($berkas))
@@ -134,42 +134,42 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal Sp:</label>
+              <label class="col-lg-3 col-form-label">Tanggal Sp</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_date" value="{{isset($berkas) ? $berkas->surat->sp_date : ''}}" readonly>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Customer:</label>
+              <label class="col-lg-3 col-form-label">Customer</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_customer" value="{{isset($berkas) ? $berkas->surat->customer->customer_name : ''}}" readonly>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Sales:</label>
+              <label class="col-lg-3 col-form-label">Sales</label>
               <div class="col-lg-9">
                   <input type="text" class="form-control" id="sp_sales" value="{{isset($berkas) ? $berkas->surat->sales->sales_name : ''}}" readonly>
                 </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tipe Rumah:</label>
+              <label class="col-lg-3 col-form-label">Tipe Rumah</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_house_type" value="{{isset($berkas) ? $berkas->surat->kavling->house->rumah_type_name : ''}}" readonly>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kavling:</label>
+              <label class="col-lg-3 col-form-label">Kavling</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_kavling" value="{{isset($berkas) ? $berkas->surat->kavling->kavling_cluster : ''}}" readonly>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Cara Pembayaran:</label>
+              <label class="col-lg-3 col-form-label">Cara Pembayaran</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_payment_method" value="{{isset($berkas) ? $berkas->surat->paymentMethod->payment_method : ''}}" readonly>
               </div>

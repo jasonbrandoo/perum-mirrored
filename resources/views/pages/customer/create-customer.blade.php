@@ -193,7 +193,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Jenis Kelamin</label>
               <div class="col-lg-9">
-                <select data-placeholder="Jenis Kelamin" class="form-control form-control-select2" data-fouc id="reference_id" name="customer_gender" required>
+                <select data-placeholder="Jenis Kelamin" class="form-control form-control-select2" data-fouc name="customer_gender" required>
                   @if (isset($customer))
                     <option value="{{$customer->customer_gender}}">Laki-Laki</option>                      
                   @else
@@ -354,37 +354,37 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Alamat Perusahaan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_office_address" id="customer_office_address" value="{{ isset($customer) ? $customer->company->company_address : ''}}" readonly>
+                <input type="text" class="form-control" name="customer_office_address" id="customer_office_address" value="{{ isset($customer) ? $customer->company->company_address : ''}}" readonly required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kota</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_office_city" id="customer_office_city" value="{{ isset($customer) ? $customer->company->company_city : ''}}" readonly>
+                <input type="text" class="form-control" name="customer_office_city" id="customer_office_city" value="{{ isset($customer) ? $customer->company->company_city : ''}}" readonly required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Pos</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="customer_office_zipcode" id="customer_office_zipcode" value="{{ isset($customer) ? $customer->company->company_zipcode : ''}}" readonly>
+                <input type="number" class="form-control" name="customer_office_zipcode" id="customer_office_zipcode" value="{{ isset($customer) ? $customer->company->company_zipcode : ''}}" readonly required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Telp</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_office_phone" id="customer_office_phone" value="{{ isset($customer) ? $customer->company->company_phone : ''}}" readonly>
+                <input type="text" class="form-control" name="customer_office_phone" id="customer_office_phone" value="{{ isset($customer) ? $customer->company->company_phone : ''}}" readonly required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Fax</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_office_fax" id="customer_office_fax" value="{{ isset($customer) ? $customer->company->company_fax : ''}}" readonly>
+                <input type="text" class="form-control" name="customer_office_fax" id="customer_office_fax" value="{{ isset($customer) ? $customer->company->company_fax : ''}}" readonly required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Email</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_office_email" value="{{ isset($customer) ? $customer->company->company_email : ''}}" required>
+                <input type="text" class="form-control" name="customer_office_email" value="{{ isset($customer) ? $customer->company->company_email : ''}}" required required>
               </div>
             </div>
           </fieldset>
@@ -580,11 +580,6 @@ var FormWizard = function() {
                 error.insertAfter(element);
             }
         },
-        rules: {
-            email: {
-                email: true
-            }
-        }
     });
   };
 

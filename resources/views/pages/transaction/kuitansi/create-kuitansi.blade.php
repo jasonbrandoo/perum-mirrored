@@ -46,13 +46,13 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Kuitansi:</label>
+              <label class="col-lg-3 col-form-label">No Kuitansi</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" value="KRF000{{isset($kwitansi) ? $kwitansi->id : $id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal:</label>
+              <label class="col-lg-3 col-form-label">Tanggal</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -64,32 +64,32 @@
             </div>
             
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Faktur Penjualan:</label>
+              <label class="col-lg-3 col-form-label">No Faktur Penjualan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="kwitansi_faktur" value="{{isset($kwitansi) ? $kwitansi->kwitansi_faktur : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Sudah Terima Dari (Staff ID):</label>
+              <label class="col-lg-3 col-form-label">Sudah Terima Dari (Staff ID)</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="kwitansi_staff_id" value="{{Auth::user()->id}}" readonly>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nama Staff:</label>
+              <label class="col-lg-3 col-form-label">Nama Staff</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="kwitansi_staff_name" value="{{isset($kwitansi) ? $kwitansi->kwitansi_staff_name : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Terbilang:</label>
+              <label class="col-lg-3 col-form-label">Terbilang</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="kwitansi_terbilang" value="{{isset($kwitansi) ? $kwitansi->kwitansi_terbilang : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Untuk Pembayaran:</label>
+              <label class="col-lg-3 col-form-label">Untuk Pembayaran</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="kwitansi_for_pay" value="{{isset($kwitansi) ? $kwitansi->kwitansi_for_pay : ''}}" required>
               </div>
@@ -100,7 +100,7 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Surat Pesanan:</label>
+              <label class="col-lg-3 col-form-label">No Surat Pesanan</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="kwitansi_sp_id" id="sp_id">
                   @if (isset($kwitansi))
@@ -122,51 +122,56 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kavling:</label>
+              <label class="col-lg-3 col-form-label">Kavling</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_kavling" value="{{isset($kwitansi) ? $kwitansi->surat->sp_house_cluster : ''}}" readonly required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tipe Rumah:</label>
+              <label class="col-lg-3 col-form-label">Tipe Rumah</label>
               <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_house_type" value="{{isset($kwitansi) ? $kwitansi->surat->kavling->house->rumah_type_name : ''}}" readonly required>
+                  <input type="text" class="form-control" id="sp_house_type" name="sp_house_type" value="{{isset($kwitansi) ? $kwitansi->surat->kavling->house->rumah_type_name : ''}}" readonly required>
                 </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Blok:</label>
+              <label class="col-lg-3 col-form-label">Blok</label>
               <div class="col-lg-9">
                 <div class="row">
                   <div class="col-md-6">
-                    <input type="text" class="form-control" id="sp_block" value="{{isset($kwitansi) ? $kwitansi->surat->sp_house_block : ''}}" required>
+                    <input type="text" class="form-control" id="sp_block" name="sp_block" value="{{isset($kwitansi) ? $kwitansi->surat->sp_house_block : ''}}" readonly required>
                   </div>
-                  <label class="col-form-label">No:</label>
+                  <label class="col-form-label">No</label>
                   <div class="col-md-5">
-                    <input type="text" class="form-control" id="sp_number" value="{{isset($kwitansi) ? $kwitansi->surat->sp_house_no : ''}}" required>
+                    <input type="text" class="form-control" id="sp_number" name="sp_number" value="{{isset($kwitansi) ? $kwitansi->surat->sp_house_no : ''}}" readonly required>
                   </div>
                 </div>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Jumlah:</label>
+              <label class="col-lg-3 col-form-label">Jumlah</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kwitansi_jumlah" value="{{isset($kwitansi) ? $kwitansi->kwitansi_jumlah : ''}}" required>
+                <input type="text" class="form-control price" name="kwitansi_jumlah" value="{{isset($kwitansi) ? $kwitansi->kwitansi_jumlah : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Cara Pembayaran:</label>
+              <label class="col-lg-3 col-form-label">Cara Pembayaran</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="kwitansi_payment_method" value="{{isset($kwitansi) ? $kwitansi->kwitansi_payment_method : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label pickadate-selectors">Tgl Transfer:</label>
+              <label class="col-lg-3 col-form-label pickadate-selectors">Tgl Transfer</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control pickadate-selectors" name="kwitansi_transfer_date" value="{{isset($kwitansi) ? $kwitansi->kwitansi_transfer_date : ''}}" required>
+                <div class="input-group">
+                  <span class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-calendar2"></i></span>
+                  </span>
+                  <input type="text" class="form-control pickadate-selectors" name="kwitansi_transfer_date" value="{{isset($kwitansi) ? $kwitansi->kwitansi_transfer_date : ''}}" required>
+                </div>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Active:</label>
+              <label class="col-lg-3 col-form-label">Active</label>
               <div class="col-lg-9">
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" name="active" checked>
@@ -197,10 +202,10 @@ $(document).ready(function(){
     },
     success: function (result) {
       console.log(result);
-      $('#sp_kavling').val(result.kavling.id);
+      $('#sp_kavling').val(result.kavling.kavling_cluster);
       $('#sp_block').val(result.kavling.kavling_block);
-      $('#sp_number').val(result.sp_house_no);
-      $('#sp_house_type').val(result.kavling.price.house.rumah_type_name);
+      $('#sp_number').val(result.kavling.id);
+      $('#sp_house_type').val(result.kavling.house.rumah_type_name);
     },
     error: function (e) {
       console.log(e);

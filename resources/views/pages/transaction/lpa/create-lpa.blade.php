@@ -45,13 +45,13 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No LPA:</label>
+              <label class="col-lg-3 col-form-label">No LPA</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" value="LPA000{{isset($lpa) ? $lpa->id : $id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal Lpa:</label>
+              <label class="col-lg-3 col-form-label">Tanggal Lpa</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -62,7 +62,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Type:</label>
+              <label class="col-lg-3 col-form-label">Type</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="lpa_type" required>
                   @if (isset($lpa))
@@ -81,49 +81,49 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kode Kavling:</label>
+              <label class="col-lg-3 col-form-label">Kode Kavling</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="kavling_id" value="{{isset($lpa) ? $lpa->surat->sp_house_cluster : ''}}" required readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Luas Bangunan:</label>
+              <label class="col-lg-3 col-form-label">Luas Bangunan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="kavling_building" value="{{isset($lpa) ? $lpa->surat->kavling->house->building_area_m2 : ''}}" required readonly>
+                <input type="text" class="form-control" id="kavling_building" name="kavling_building" value="{{isset($lpa) ? $lpa->surat->kavling->house->building_area_m2 : ''}}" required readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Luas Tanah:</label>
+              <label class="col-lg-3 col-form-label">Luas Tanah</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="kavling_surface" readonly value="{{isset($lpa) ? $lpa->surat->kavling->house->surface_area_m2 : ''}}" required readonly>
+                <input type="text" class="form-control" id="kavling_surface" name="kalving_surface" readonly value="{{isset($lpa) ? $lpa->surat->kavling->house->surface_area_m2 : ''}}" required readonly>
               </div>
             </div>
             {{-- <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanah Lebih:</label>
+              <label class="col-lg-3 col-form-label">Tanah Lebih</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="kavling_tanah_lebih">
               </div>
             </div> --}}
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nomor SHGB:</label>
+              <label class="col-lg-3 col-form-label">Nomor SHGB</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="kavling_shgb" value="{{isset($lpa) ? $lpa->surat->kavling->kavling_shgb : ''}}" required readonly>
+                <input type="text" class="form-control" id="kavling_shgb" name="kavling_shgb" value="{{isset($lpa) ? $lpa->surat->kavling->kavling_shgb : ''}}" required readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tgl SHGB:</label>
+              <label class="col-lg-3 col-form-label">Tgl SHGB</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="kavling_shgb_date" value="{{isset($lpa) ? $lpa->surat->kavling->kavling_shgb_date : ''}}" required readonly>
+                <input type="text" class="form-control" id="kavling_shgb_date" name="kavling_shgb_date" value="{{isset($lpa) ? $lpa->surat->kavling->kavling_shgb_date : ''}}" required readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nomor IMB:</label>
+              <label class="col-lg-3 col-form-label">Nomor IMB</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="kavling_imb" value="{{isset($lpa) ? $lpa->surat->kavling->kavling_imb : ''}}" required readonly>
+                <input type="text" class="form-control" id="kavling_imb" name="kavling_imb" value="{{isset($lpa) ? $lpa->surat->kavling->kavling_imb : ''}}" required readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Active:</label>
+              <label class="col-lg-3 col-form-label">Active</label>
               <div class="col-lg-9">
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" name="active" checked>
@@ -136,7 +136,7 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Sp:</label>
+              <label class="col-lg-3 col-form-label">No Sp</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="lpa_sp_id" id="sp_id" required>
                   @if (isset($lpa))
@@ -159,35 +159,35 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal Sp:</label>
+              <label class="col-lg-3 col-form-label">Tanggal Sp</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_date" value="{{isset($lpa) ? $lpa->surat->sp_date : ''}}" required readonly>
+                <input type="text" class="form-control" id="sp_date" name="sp_date" value="{{isset($lpa) ? $lpa->surat->sp_date : ''}}" required readonly>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Customer ID:</label>
+              <label class="col-lg-3 col-form-label">Customer ID</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_customer_id" value="{{isset($lpa) ? $lpa->surat->customer->id : ''}}" required readonly>
+                <input type="text" class="form-control" id="sp_customer_id" name="sp_customer_id" value="{{isset($lpa) ? $lpa->surat->customer->id : ''}}" required readonly>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Customer Name:</label>
+              <label class="col-lg-3 col-form-label">Customer Name</label>
               <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_customer_name" value="{{isset($lpa) ? $lpa->surat->customer->customer_name : ''}}" required readonly>
+                  <input type="text" class="form-control" id="sp_customer_name" name="sp_customer_name" value="{{isset($lpa) ? $lpa->surat->customer->customer_name : ''}}" required readonly>
                 </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Perusahaan:</label>
+              <label class="col-lg-3 col-form-label">Perusahaan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_company" value="{{isset($lpa) ? $lpa->surat->company->company_name : ''}}" required readonly>
+                <input type="text" class="form-control" id="sp_company" name="sp_company" value="{{isset($lpa) ? $lpa->surat->company->company_name : ''}}" required readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Sales:</label>
+              <label class="col-lg-3 col-form-label">Sales</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_sales" value="{{isset($lpa) ? $lpa->surat->sales->sales_name : ''}}" required readonly>
+                <input type="text" class="form-control" id="sp_sales" name="sp_sales" value="{{isset($lpa) ? $lpa->surat->sales->sales_name : ''}}" required readonly>
               </div>
             </div>
           </fieldset>

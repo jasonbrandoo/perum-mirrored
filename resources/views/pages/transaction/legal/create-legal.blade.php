@@ -45,14 +45,14 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Permohonan:</label>
+              <label class="col-lg-3 col-form-label">Permohonan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" value="PLK000{{isset($legal) ? $legal->id : $id}}" readonly>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal Permohonan:</label>
+              <label class="col-lg-3 col-form-label">Tanggal Permohonan</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -64,13 +64,13 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No SHGB Induk:</label>
+              <label class="col-lg-3 col-form-label">No SHGB Induk</label>
               <div class="col-lg-9">
                 <div class="row">
                   <div class="col-md-5">
                     <input type="text" class="form-control" name="legal_shgb_parent" value="{{isset($legal) ? $legal->legal_shgb_parent : ''}}" required>
                   </div>
-                  <label class="col-form-label">Tanggal:</label>
+                  <label class="col-form-label">Tanggal</label>
                   <div class="col-md">
                     <div class="input-group">
                       <span class="input-group-prepend">
@@ -84,13 +84,13 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No SHGB Pecahan:</label>
+              <label class="col-lg-3 col-form-label">No SHGB Pecahan</label>
               <div class="col-lg-9">
                 <div class="row">
                   <div class="col-md-5">
                     <input type="text" class="form-control" name="legal_shgb_fraction" value="{{isset($legal) ? $legal->legal_shgb_fraction : ''}}" required>
                   </div>
-                  <label class="col-form-label">Tanggal:</label>
+                  <label class="col-form-label">Tanggal</label>
                   <div class="col-md">
                     <div class="input-group">
                       <span class="input-group-prepend">
@@ -104,13 +104,13 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Balik Nama:</label>
+              <label class="col-lg-3 col-form-label">No Balik Nama</label>
               <div class="col-lg-9">
                 <div class="row">
                   <div class="col-md-5">
                     <input type="text" class="form-control" name="legal_name" value="{{isset($legal) ? $legal->legal_name: ''}}" required>
                   </div>
-                  <label class="col-form-label">Tanggal:</label>
+                  <label class="col-form-label">Tanggal</label>
                   <div class="col-md">
                     <div class="input-group">
                       <span class="input-group-prepend">
@@ -124,13 +124,13 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No SHM:</label>
+              <label class="col-lg-3 col-form-label">No SHM</label>
               <div class="col-lg-9">
                 <div class="row">
                   <div class="col-md-5">
                     <input type="text" class="form-control" name="legal_shm" value="{{isset($legal) ? $legal->legal_shm : ''}}" required>
                   </div>
-                  <label class="col-form-label">Tanggal:</label>
+                  <label class="col-form-label">Tanggal</label>
                   <div class="col-md">
                     <div class="input-group">
                       <span class="input-group-prepend">
@@ -144,13 +144,13 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No IMB:</label>
+              <label class="col-lg-3 col-form-label">No IMB</label>
               <div class="col-lg-9">
                 <div class="row">
                   <div class="col-md-5">
                     <input type="text" class="form-control" name="legal_imb" value="{{isset($legal) ? $legal->legal_imb : ''}}" required>
                   </div>
-                  <label class="col-form-label">Tanggal:</label>
+                  <label class="col-form-label">Tanggal</label>
                   <div class="col-md">
                     <div class="input-group">
                       <span class="input-group-prepend">
@@ -164,13 +164,13 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">NOP PBB:</label>
+              <label class="col-lg-3 col-form-label">NOP PBB</label>
               <div class="col-lg-9">
                 <div class="row">
                   <div class="col-md-5">
                     <input type="text" class="form-control" name="legal_nop_pbb" value="{{isset($legal) ? $legal->legal_nop_pbb : ''}}" required>
                   </div>
-                  <label class="col-form-label">Tanggal:</label>
+                  <label class="col-form-label">Tanggal</label>
                   <div class="col-md">
                     <div class="input-group">
                       <span class="input-group-prepend">
@@ -183,7 +183,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Active:</label>
+              <label class="col-lg-3 col-form-label">Active</label>
               <div class="col-lg-9">
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" name="active" checked>
@@ -196,7 +196,7 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Sp:</label>
+              <label class="col-lg-3 col-form-label">No Sp</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="legal_sp_id" id="sp_id">
                   @if (isset($legal))
@@ -218,21 +218,21 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Perusahaan:</label>
+              <label class="col-lg-3 col-form-label">Perusahaan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_company" value="{{isset($legal) ? $legal->surat->company->company_name : ''}}" readonly required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Sales:</label>
+              <label class="col-lg-3 col-form-label">Sales</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_sales" value="{{isset($legal) ? $legal->surat->sales->sales_name : ''}}" readonly required>
+                <input type="text" class="form-control" id="sp_sales" name="sp_sales" value="{{isset($legal) ? $legal->surat->sales->sales_name : ''}}" readonly required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kavling:</label>
+              <label class="col-lg-3 col-form-label">Kavling</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_kavling" value="{{isset($legal) ? $legal->surat->sp_house_cluster : ''}}" readonly required>
+                <input type="text" class="form-control" id="sp_kavling" name="sp_kavling" value="{{isset($legal) ? $legal->surat->sp_house_cluster : ''}}" readonly required>
               </div>
             </div>
           </fieldset>

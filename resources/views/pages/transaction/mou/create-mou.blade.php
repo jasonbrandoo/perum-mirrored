@@ -45,13 +45,13 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nomer Perjanjian:</label>
+              <label class="col-lg-3 col-form-label">Nomer Perjanjian</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="mou_id" value="MOU000{{isset($mou) ? $mou->id : $id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kode Perusahaan / Instansi:</label>
+              <label class="col-lg-3 col-form-label">Kode Perusahaan / Instansi</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="mou_company_id" required>
                   @if (isset($mou))
@@ -73,19 +73,19 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nama Koordinator:</label>
+              <label class="col-lg-3 col-form-label">Nama Koordinator</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="mou_coordinator" value="{{isset($mou) ? $mou->mou_coordinator : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Jabatan:</label>
+              <label class="col-lg-3 col-form-label">Jabatan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="mou_coordinator_position" value="{{isset($mou) ? $mou->mou_coordinator_position : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Active:</label>
+              <label class="col-lg-3 col-form-label">Active</label>
               <div class="col-lg-9">
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" name="active" checked>
@@ -98,7 +98,7 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal MOU:</label>
+              <label class="col-lg-3 col-form-label">Tanggal MOU</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -109,7 +109,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal Mulai:</label>
+              <label class="col-lg-3 col-form-label">Tanggal Mulai</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -120,7 +120,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal Berakhir:</label>
+              <label class="col-lg-3 col-form-label">Tanggal Berakhir</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -131,7 +131,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Perhitungan Komisi:</label>
+              <label class="col-lg-3 col-form-label">Perhitungan Komisi</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="mou_commision" value="{{isset($mou) ? $mou->mou_commision : ''}}" required>
               </div>

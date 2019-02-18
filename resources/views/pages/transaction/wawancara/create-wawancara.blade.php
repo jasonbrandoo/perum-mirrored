@@ -38,13 +38,13 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Wawancara:</label>
+              <label class="col-lg-3 col-form-label">No Wawancara</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" value="RW000{{$id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal:</label>
+              <label class="col-lg-3 col-form-label">Tanggal</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -55,25 +55,25 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">KPR Dimohon:</label>
+              <label class="col-lg-3 col-form-label">KPR Dimohon</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="wawancara_kpr">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Analis:</label>
+              <label class="col-lg-3 col-form-label">Analis</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="wawancara_analyst">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Catatan:</label>
+              <label class="col-lg-3 col-form-label">Catatan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="wawancara_note">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Status:</label>
+              <label class="col-lg-3 col-form-label">Status</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="wawancara_status">
                   <option></option>
@@ -89,7 +89,7 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nomer SP:</label>
+              <label class="col-lg-3 col-form-label">Nomer SP</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="wawancara_sp_id" id="sp_id">
                   @foreach ($sps as $sp)
@@ -100,55 +100,55 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal SP:</label>
+              <label class="col-lg-3 col-form-label">Tanggal SP</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_date">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Harga Jual:</label>
+              <label class="col-lg-3 col-form-label">Harga Jual</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_price">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Sales:</label>
+              <label class="col-lg-3 col-form-label">Sales</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_se">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Customer ID:</label>
+              <label class="col-lg-3 col-form-label">Customer ID</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_customer_id">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Customer Name:</label>
+              <label class="col-lg-3 col-form-label">Customer Name</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_customer_name">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kavling:</label>
+              <label class="col-lg-3 col-form-label">Kavling</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_kavling">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tipe Rumah:</label>
+              <label class="col-lg-3 col-form-label">Tipe Rumah</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_rumah">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kode Kreditur:</label>
+              <label class="col-lg-3 col-form-label">Kode Kreditur</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_kreditur" name="wawancara_kreditur_id">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nama Kreditur:</label>
+              <label class="col-lg-3 col-form-label">Nama Kreditur</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_kreditur_name" name="wawancara_kreditur_name">
               </div>

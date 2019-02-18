@@ -28,13 +28,13 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Permohonan:</label>
+              <label class="col-lg-3 col-form-label">No Permohonan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" value="PAK000{{$id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal:</label>
+              <label class="col-lg-3 col-form-label">Tanggal</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -46,41 +46,41 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Harga AJB 1:</label>
+              <label class="col-lg-3 col-form-label">Harga AJB 1</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control price" name="ajb_price_1" required>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Harga AJB 2:</label>
+              <label class="col-lg-3 col-form-label">Harga AJB 2</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control price" name="ajb_price_2" required>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">LT AJB 1(M2):</label>
+              <label class="col-lg-3 col-form-label">LT AJB 1(M2)</label>
               <div class="col-lg-9">
                 <input type="number" class="form-control" name="ajb_lt" required>
               </div>
             </div>
             
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">TL AJB 2(M2):</label>
+              <label class="col-lg-3 col-form-label">TL AJB 2(M2)</label>
               <div class="col-lg-9">
                 <input type="number" class="form-control" name="ajb_tl" required>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Notaris / PPAT:</label>
+              <label class="col-lg-3 col-form-label">Notaris / PPAT</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="ajb_notaris" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Keterangan:</label>
+              <label class="col-lg-3 col-form-label">Keterangan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="ajb_description">
               </div>
@@ -91,7 +91,7 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Sp:</label>
+              <label class="col-lg-3 col-form-label">No Sp</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="ajb_sp_id" id="sp_id" required>
                   @foreach ($sps as $sp)
@@ -102,63 +102,63 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Harga Jual Sp:</label>
+              <label class="col-lg-3 col-form-label">Harga Jual Sp</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control price" id="sp_price" readonly required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal Sp:</label>
+              <label class="col-lg-3 col-form-label">Tanggal Sp</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_date" readonly required>
+                <input type="text" class="form-control" id="sp_date" name="sp_date" readonly required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">KPR Disetujui:</label>
+              <label class="col-lg-3 col-form-label">KPR Disetujui</label>
               <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_kpr" readonly required>
+                  <input type="text" class="form-control" id="sp_kpr" name="sp_kpr" readonly required>
                 </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Blok:</label>
+              <label class="col-lg-3 col-form-label">Blok</label>
               <div class="col-lg-9">
                 <div class="row">
                   <div class="col-md-6">
-                    <input type="text" class="form-control" id="sp_block" readonly required>
+                    <input type="text" class="form-control" id="sp_block" name="sp_block" readonly required>
                   </div>
-                  <label class="col-form-label">No:</label>
+                  <label class="col-form-label">No</label>
                   <div class="col-md-5">
-                    <input type="text" class="form-control" id="sp_number" readonly required>
+                    <input type="text" class="form-control" id="sp_number" name="sp_number" readonly required>
                   </div>
                 </div>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Luas Bangunan:</label>
+              <label class="col-lg-3 col-form-label">Luas Bangunan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_building" readonly required>
+                <input type="text" class="form-control" id="sp_building" name="sp_building" readonly required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Luas Tanah:</label>
+              <label class="col-lg-3 col-form-label">Luas Tanah</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_surface" readonly required>
+                <input type="text" class="form-control" id="sp_surface" name="sp_surface" readonly required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">TL:</label>
+              <label class="col-lg-3 col-form-label">TL</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_tl" readonly required>
+                <input type="text" class="form-control" id="sp_tl" name="sp_tl" readonly required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No SHGB:</label>
+              <label class="col-lg-3 col-form-label">No SHGB</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_shgb" name="ajb_shgb" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal SHGB:</label>
+              <label class="col-lg-3 col-form-label">Tanggal SHGB</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -170,14 +170,14 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No IMB Pecahan:</label>
+              <label class="col-lg-3 col-form-label">No IMB Pecahan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_imb" name="ajb_imb" required>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal IMB:</label>
+              <label class="col-lg-3 col-form-label">Tanggal IMB</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -189,28 +189,28 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kode Sales:</label>
+              <label class="col-lg-3 col-form-label">Kode Sales</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_sales_id" readonly required>
+                <input type="text" class="form-control" id="sp_sales_id" name="sp_sales_id" readonly required>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nama Sales:</label>
+              <label class="col-lg-3 col-form-label">Nama Sales</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_sales_name" readonly required>
+                <input type="text" class="form-control" id="sp_sales_name" name="sp_sales_name" readonly required>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No SP3K:</label>
+              <label class="col-lg-3 col-form-label">No SP3K</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_sp3k" name="ajb_sp3k" required>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal SP3K:</label>
+              <label class="col-lg-3 col-form-label">Tanggal SP3K</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">

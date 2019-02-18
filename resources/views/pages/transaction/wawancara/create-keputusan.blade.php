@@ -38,7 +38,7 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Wawancara:</label>
+              <label class="col-lg-3 col-form-label">No Wawancara</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="result_realization_id" id="rlw_id">
                   @foreach ($rlw as $realisasi)
@@ -49,7 +49,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal:</label>
+              <label class="col-lg-3 col-form-label">Tanggal</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -62,7 +62,7 @@
             
             
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Hasil:</label>
+              <label class="col-lg-3 col-form-label">Hasil</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="result_status">
                   <option></option>
@@ -72,7 +72,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Banding:</label>
+              <label class="col-lg-3 col-form-label">Banding</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="result_banding">
                   <option></option>
@@ -82,19 +82,19 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Alasan:</label>
+              <label class="col-lg-3 col-form-label">Alasan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="result_reason"> 
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Keputusan Diterima/Ditolak:</label>
+              <label class="col-lg-3 col-form-label">No Keputusan Diterima/Ditolak</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" value="KP000{{$id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal Keputusan Diterima/Ditolak:</label>
+              <label class="col-lg-3 col-form-label">Tanggal Keputusan Diterima/Ditolak</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -105,7 +105,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal Expired:</label>
+              <label class="col-lg-3 col-form-label">Tanggal Expired</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -120,7 +120,7 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Sp:</label>
+              <label class="col-lg-3 col-form-label">No Sp</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="result_sp_id" id="sp_id">
                   @foreach ($sps as $sp)
@@ -132,52 +132,52 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal Sp:</label>
+              <label class="col-lg-3 col-form-label">Tanggal Sp</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_date" readonly>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Customer ID:</label>
+              <label class="col-lg-3 col-form-label">Customer ID</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_customer" readonly>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Customer Name:</label>
+              <label class="col-lg-3 col-form-label">Customer Name</label>
               <div class="col-lg-9">
                   <input type="text" class="form-control" id="sp_customer_name" readonly>
                 </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Sales:</label>
+              <label class="col-lg-3 col-form-label">Sales</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_sales" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tipe Rumah:</label>
+              <label class="col-lg-3 col-form-label">Tipe Rumah</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_house_type" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kavling:</label>
+              <label class="col-lg-3 col-form-label">Kavling</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_kavling" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Harga Jual SP:</label>
+              <label class="col-lg-3 col-form-label">Harga Jual SP</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_price" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">KPR Dimohon:</label>
+              <label class="col-lg-3 col-form-label">KPR Dimohon</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_kpr" readonly>
               </div>
@@ -192,64 +192,64 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">KPR Disetujui:</label>
+              <label class="col-lg-3 col-form-label">KPR Disetujui</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="result_kpr_approve">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tambah Uang Muka:</label>
+              <label class="col-lg-3 col-form-label">Tambah Uang Muka</label>
               <div class="col-lg-9">
                 <input type="number" class="form-control" name="result_dp_plus">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Jangka Waktu - Bunga(%):</label>
+              <label class="col-lg-3 col-form-label">Jangka Waktu - Bunga(%)</label>
               <div class="col-lg-9">
                 <input type="number" class="form-control" name="result_waktu_bunga">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Angsuran Per Bulan:</label>
+              <label class="col-lg-3 col-form-label">Angsuran Per Bulan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="result_angsuran_bulan">
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Rek:</label>
+              <label class="col-lg-3 col-form-label">No Rek</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="result_account">
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Angsuran Bulan Pertama:</label>
+              <label class="col-lg-3 col-form-label">Angsuran Bulan Pertama</label>
               <div class="col-lg-9">
                   <input type="text" class="form-control" name="result_angsuran_first_month">
                 </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Provisi Bank:</label>
+              <label class="col-lg-3 col-form-label">Provisi Bank</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="result_provisi">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Bi Notaris:</label>
+              <label class="col-lg-3 col-form-label">Bi Notaris</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="result_bi_notaris">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Bi APHT:</label>
+              <label class="col-lg-3 col-form-label">Bi APHT</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="result_bi_apht">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Bi Penilai / Appraiser:</label>
+              <label class="col-lg-3 col-form-label">Bi Penilai / Appraiser</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="result_appraiser">
               </div>
@@ -259,43 +259,43 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Premi Asuransi Kebakaran:</label>
+              <label class="col-lg-3 col-form-label">Premi Asuransi Kebakaran</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="result_premi_kebakaran">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Premi Asuransi Jiwa:</label>
+              <label class="col-lg-3 col-form-label">Premi Asuransi Jiwa</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="result_premi_jiwa">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Saldo Tabungan Diblokir:</label>
+              <label class="col-lg-3 col-form-label">Saldo Tabungan Diblokir</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="result_tabungan_diblokir">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Bi Administrasi:</label>
+              <label class="col-lg-3 col-form-label">Bi Administrasi</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="result_bi_administrasi">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Sub Total:</label>
+              <label class="col-lg-3 col-form-label">Sub Total</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="result_sub_total">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Grand Total:</label>
+              <label class="col-lg-3 col-form-label">Grand Total</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="result_grand_total">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Catatan Penting:</label>
+              <label class="col-lg-3 col-form-label">Catatan Penting</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="result_note">
               </div>

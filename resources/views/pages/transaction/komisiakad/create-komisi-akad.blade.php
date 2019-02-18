@@ -45,13 +45,13 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Request:</label>
+              <label class="col-lg-3 col-form-label">No Request</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" value="KA000{{isset($akad) ? $akad->id : $id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal:</label>
+              <label class="col-lg-3 col-form-label">Tanggal</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -62,25 +62,25 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Komisi Sales (%):</label>
+              <label class="col-lg-3 col-form-label">Komisi Sales (%)</label>
               <div class="col-lg-9">
                 <input type="number" class="form-control" name="akad_sales_commision" value="{{isset($akad) ? $akad->akad_sales_commision : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Komisi SPV (%):</label>
+              <label class="col-lg-3 col-form-label">Komisi SPV (%)</label>
               <div class="col-lg-9">
                 <input type="number" class="form-control" name="akad_spv_commision" value="{{isset($akad) ? $akad->akad_spv_commision : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Koordinator:</label>
+              <label class="col-lg-3 col-form-label">Koordinator</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="akad_coordinator" value="{{isset($akad) ? $akad->akad_coordinator : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Active:</label>
+              <label class="col-lg-3 col-form-label">Active</label>
               <div class="col-lg-9">
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" name="active" checked>
@@ -92,7 +92,7 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Sp:</label>
+              <label class="col-lg-3 col-form-label">No Sp</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="akad_sp_id" id="sp_id" required>
                   @if (isset($akad))
@@ -115,18 +115,18 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal SP:</label>
+              <label class="col-lg-3 col-form-label">Tanggal SP</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate" id="sp_date" value="{{isset($akad) ? $akad->surat->sp_date : ''}}">
+                  <input type="text" class="form-control pickadate" id="sp_date" value="{{isset($akad) ? $akad->surat->sp_date : ''}}" required readonly>
                 </div>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal AJB:</label>
+              <label class="col-lg-3 col-form-label">Tanggal AJB</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -137,39 +137,39 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Customer:</label>
+              <label class="col-lg-3 col-form-label">Customer</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_customer" value="{{isset($akad) ? $akad->surat->customer->customer_name : ''}}" >
+                <input type="text" class="form-control" id="sp_customer" name="sp_customer" value="{{isset($akad) ? $akad->surat->customer->customer_name : ''}}" required readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tipe Rumah:</label>
+              <label class="col-lg-3 col-form-label">Tipe Rumah</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_house_type" value="{{isset($akad) ? $akad->surat->kavling->house->rumah_type_name : ''}}" >
+                <input type="text" class="form-control" id="sp_house_type" name="sp_house_type" value="{{isset($akad) ? $akad->surat->kavling->house->rumah_type_name : ''}}" required readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Blok:</label>
+              <label class="col-lg-3 col-form-label">Blok</label>
               <div class="col-lg-9">
                 <div class="row">
                   <div class="col-md-6">
-                    <input type="text" class="form-control" id="sp_block" value="{{isset($akad) ? $akad->surat->kavling->kavling_block : ''}}" >
+                    <input type="text" class="form-control" id="sp_block" name="sp_block" value="{{isset($akad) ? $akad->surat->kavling->kavling_block : ''}}" required readonly>
                   </div>
-                  <label class="col-form-label">No:</label>
+                  <label class="col-form-label">No</label>
                   <div class="col-md-5">
-                    <input type="text" class="form-control" id="sp_number" value="{{isset($akad) ? $akad->surat->kavling->kavling_number : ''}}" >
+                    <input type="text" class="form-control" id="sp_number" name="sp_number" value="{{isset($akad) ? $akad->surat->kavling->kavling_number : ''}}" required readonly>
                   </div>
                 </div>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Payment Type:</label>
+              <label class="col-lg-3 col-form-label">Payment Type</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_payment_method" value="{{isset($akad) ? $akad->surat->paymentMethod->payment_method : ''}}" >
+                <input type="text" class="form-control" id="sp_payment_method" name="sp_payment_method" value="{{isset($akad) ? $akad->surat->paymentMethod->payment_method : ''}}" readonly required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Perusahaan:</label>
+              <label class="col-lg-3 col-form-label">Perusahaan</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="akad_company_id" required>
                   @if (isset($akad))
@@ -219,8 +219,8 @@ $(document).ready(function(){
       $('#sp_customer').val(result.customer.customer_name);
       $('#sp_house_type').val(result.kavling.price.house.rumah_type_name);
       $('#sp_block').val(result.kavling.kavling_block);
-      $('#sp_number').val(result.sp_no);
-      $('#sp_payment_method').val(result.sp_payment_method);
+      $('#sp_number').val(result.kavling.id);
+      $('#sp_payment_method').val(result.payment_method.payment_method);
     },
     error: function (e) {
       console.log(e);

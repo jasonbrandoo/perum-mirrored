@@ -44,7 +44,7 @@ class KwitansiController extends Controller
 
     public function load_sp(Request $request)
     {
-        $sp = SuratPesanan::with('kavling.price.house')->find($request->id);
+        $sp = SuratPesanan::with('kavling.house')->find($request->id);
         return response()->json($sp);
     }
 

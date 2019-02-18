@@ -46,13 +46,13 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Pembatalan:</label>
+              <label class="col-lg-3 col-form-label">No Pembatalan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" value="PSP000{{isset($pembatalan) ? $pembatalan->id : $id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal:</label>
+              <label class="col-lg-3 col-form-label">Tanggal</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -63,19 +63,19 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kelompok Pembatalan:</label>
+              <label class="col-lg-3 col-form-label">Kelompok Pembatalan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="cancel_group" value="{{isset($pembatalan) ? $pembatalan->cancel_group : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Alasan:</label>
+              <label class="col-lg-3 col-form-label">Alasan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="cancel_reason" value="{{isset($pembatalan) ? $pembatalan->cancel_reason : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Perincian Refund:</label>
+              <label class="col-lg-3 col-form-label">Perincian Refund</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="cancel_refund" value="{{isset($pembatalan) ? $pembatalan->cancel_refund : ''}}" required>
               </div>
@@ -83,7 +83,7 @@
             
             
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Status:</label>
+              <label class="col-lg-3 col-form-label">Status</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="cancel_status" required>
                   @if (isset($pembatalan))
@@ -98,7 +98,7 @@
             </div>
             
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tambahan:</label>
+              <label class="col-lg-3 col-form-label">Tambahan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="cancel_tambahan" value="{{isset($pembatalan) ? $pembatalan->cancel_tambahan : ''}}" required>
               </div>
@@ -108,7 +108,7 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Sp:</label>
+              <label class="col-lg-3 col-form-label">No Sp</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="cancel_sp_id" id="sp_id" required>
                   @if (isset($pembatalan))
@@ -130,7 +130,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal SP:</label>
+              <label class="col-lg-3 col-form-label">Tanggal SP</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -141,25 +141,25 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Konsumen:</label>
+              <label class="col-lg-3 col-form-label">Konsumen</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_consumen" name="sp_consumen" value="{{isset($pembatalan) ? $pembatalan->surat->customer->customer_name : ''}}" readonly required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kavling:</label>
+              <label class="col-lg-3 col-form-label">Kavling</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_kavling" name="sp_kavling" value="{{isset($pembatalan) ? $pembatalan->surat->kavling->kavling_cluster : ''}}" readonly required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Blok:</label>
+              <label class="col-lg-3 col-form-label">Blok</label>
               <div class="col-lg-9">
                 <div class="row">
                   <div class="col-md-6">
                     <input type="text" class="form-control" id="sp_block" name="sp_block" value="{{isset($pembatalan) ? $pembatalan->surat->sp_house_block : ''}}" readonly required>
                   </div>
-                  <label class="col-form-label">No:</label>
+                  <label class="col-form-label">No</label>
                   <div class="col-md-5">
                     <input type="text" class="form-control" id="sp_number" name="sp_number" value="{{isset($pembatalan) ? $pembatalan->surat->sp_house_no : ''}}" readonly required>
                   </div>
@@ -167,49 +167,49 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Luas Bangunan:</label>
+              <label class="col-lg-3 col-form-label">Luas Bangunan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_building" name="sp_building" value="{{isset($pembatalan) ? $pembatalan->surat->kavling->house->building_area_m2 : ''}}" readonly required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Luas Tanah:</label>
+              <label class="col-lg-3 col-form-label">Luas Tanah</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_surface" name="sp_surface" value="{{isset($pembatalan) ? $pembatalan->surat->kavling->house->surface_area_m2 : ''}}" readonly required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tipe Rumah:</label>
+              <label class="col-lg-3 col-form-label">Tipe Rumah</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_house_type" name="sp_house_type" value="{{isset($pembatalan) ? $pembatalan->surat->kavling->house->rumah_type_name : ''}}" readonly required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Cluster:</label>
+              <label class="col-lg-3 col-form-label">Cluster</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_cluster" name="sp_cluster" value="{{isset($pembatalan) ? $pembatalan->surat->sp_house_cluster : ''}}" readonly required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nama Sales Executive:</label>
+              <label class="col-lg-3 col-form-label">Nama Sales Executive</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_se" name="sp_se" value="{{isset($pembatalan) ? $pembatalan->surat->supervisor->sales_name : ''}}" readonly required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Perincian Pembayaran Konsume:</label>
+              <label class="col-lg-3 col-form-label">Perincian Pembayaran Konsume</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="cancel_consumen_bill" name="cancel_consumenbill" value="{{isset($pembatalan) ? $pembatalan->cancel_consumen_bill : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Jumlah:</label>
+              <label class="col-lg-3 col-form-label">Jumlah</label>
               <div class="col-lg-9">    
                 <input type="text" class="form-control" name="cancel_total_bill" name="cancel_total_bill" value="{{isset($pembatalan) ? $pembatalan->cancel_total_bill : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Dibuat Oleh:</label>
+              <label class="col-lg-3 col-form-label">Dibuat Oleh</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="cancel_make_by" required>
                   @if (isset($pembatalan))
@@ -231,7 +231,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Disetujui oleh:</label>
+              <label class="col-lg-3 col-form-label">Disetujui oleh</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="cancel_approve_by" required>
                   @if (isset($pembatalan))

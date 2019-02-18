@@ -38,13 +38,13 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Wawancara:</label>
+              <label class="col-lg-3 col-form-label">No Wawancara</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" value="RLW000{{$id}}" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Rencana Wawancara:</label>
+              <label class="col-lg-3 col-form-label">No Rencana Wawancara</label>
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="rlw_wawancara_id" id="wawancara_id">
                   @foreach ($wawancaras as $wawancara)
@@ -55,7 +55,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal Realisasi:</label>
+              <label class="col-lg-3 col-form-label">Tanggal Realisasi</label>
               <div class="col-lg-9">
                 <div class="input-group">
                   <span class="input-group-prepend">
@@ -66,19 +66,19 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">KPR Dimohon:</label>
+              <label class="col-lg-3 col-form-label">KPR Dimohon</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="rlw_kpr" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Analis:</label>
+              <label class="col-lg-3 col-form-label">Analis</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="rlw_analyst" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Catatan:</label>
+              <label class="col-lg-3 col-form-label">Catatan</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="rlw_note" readonly>
               </div>
@@ -88,61 +88,61 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nomer SP:</label>
+              <label class="col-lg-3 col-form-label">Nomer SP</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_id" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal SP:</label>
+              <label class="col-lg-3 col-form-label">Tanggal SP</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_date" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Harga Jual:</label>
+              <label class="col-lg-3 col-form-label">Harga Jual</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_price" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Sales:</label>
+              <label class="col-lg-3 col-form-label">Sales</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_se" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Customer ID:</label>
+              <label class="col-lg-3 col-form-label">Customer ID</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_customer_id" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Customer Name:</label>
+              <label class="col-lg-3 col-form-label">Customer Name</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_customer_name" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kavling:</label>
+              <label class="col-lg-3 col-form-label">Kavling</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_kavling" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tipe Rumah:</label>
+              <label class="col-lg-3 col-form-label">Tipe Rumah</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_rumah" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kode Kreditur:</label>
+              <label class="col-lg-3 col-form-label">Kode Kreditur</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_kreditur" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nama Kreditur:</label>
+              <label class="col-lg-3 col-form-label">Nama Kreditur</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" id="sp_kreditur_name" readonly>
               </div>

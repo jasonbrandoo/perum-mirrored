@@ -48,7 +48,7 @@ class KomisiEksternalController extends Controller
 
     public function load_sp(Request $request)
     {
-        $sp = SuratPesanan::with('kavling.price.house', 'customer')->find($request->id);
+        $sp = SuratPesanan::with('kavling.price.house', 'customer', 'paymentMethod')->find($request->id);
         return response()->json($sp);
     }
 
