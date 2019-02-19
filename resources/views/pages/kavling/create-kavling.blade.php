@@ -91,16 +91,25 @@
                 <input type="number" class="form-control" name="kavling_block" value="{{ isset($kavling) ? $kavling->kavling_block : '' }}" required>
               </div>
             </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No</label>
-              <div class="col-lg-2">
-                <input type="number" class="form-control" name="kavling_number" value="{{ isset($kavling) ? $kavling->kavling_number : '' }}" required>
+            @if (isset($kavling))
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">No</label>
+                <div class="col-lg-2">
+                  <input type="number" class="form-control" name="kavling_number" value="{{ isset($kavling) ? $kavling->kavling_number : '' }}" readonly required>
+                </div>
               </div>
-              <label class="col-lg-1 col-form-label">s/d</label>
-              <div class="col-lg-2">
-                <input type="number" class="form-control" name="kavling_s_d" value="{{ isset($kavling) ? $kavling->kavling_s_d : '' }}" required>
+            @else
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">No</label>
+                <div class="col-lg-2">
+                  <input type="number" class="form-control" name="kavling_number" value="{{ isset($kavling) ? $kavling->kavling_number : '' }}" required>
+                </div>
+                <label class="col-lg-1 col-form-label">s/d</label>
+                <div class="col-lg-2">
+                  <input type="number" class="form-control" name="kavling_s_d" value="{{ isset($kavling) ? $kavling->kavling_s_d : '' }}" required>
+                </div>
               </div>
-            </div>
+            @endif
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Cluster</label>
               <div class="col-lg-9">

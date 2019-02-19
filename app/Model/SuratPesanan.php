@@ -9,6 +9,8 @@ class SuratPesanan extends Model
     //
     protected $guarded = [];
 
+    protected $dates = ['sp_date', 'sp_ppjb_date', 'created_at', 'update_at'];
+
     public function company()
     {
         return $this->belongsTo('App\Model\Company', 'sp_company_id');
@@ -42,5 +44,10 @@ class SuratPesanan extends Model
     public function paymentMethod()
     {
         return $this->belongsTo('App\Model\Payment', 'id');
+    }
+
+    public function price()
+    {
+        return $this->belongsTo('App\Model\Price', 'sp_price_id');
     }
 }

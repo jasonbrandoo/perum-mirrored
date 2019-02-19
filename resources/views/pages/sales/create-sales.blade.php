@@ -170,9 +170,13 @@
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sales_spv" required>
                   @if (isset($sales))
-                    <option value="{{$spv_edit->id}}">{{$spv_edit->sales_name}}</option>
+                    <option value="{{$spv_edit->spv->id}}">{{$spv_edit->spv->sales_name}}</option>
                       @foreach ($supervisor_edit as $spv)
-                        <option value="{{$spv->id}}">{{$spv->sales_name}}</option>                          
+                        @if ($spv->id == $spv_edit->spv->id)
+                          <option></option>
+                        @else
+                          <option value="{{$spv->id}}">{{$spv->sales_name}}</option>
+                        @endif
                       @endforeach
                   @else
                     @foreach ($supervisor as $sp)

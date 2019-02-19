@@ -65,24 +65,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Diserahkan Oleh</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="berkas_giver_id" required>
-                  @if (isset($berkas))
-                    <option value="{{$berkas->customer->id}}">{{$berkas->customer->customer_name}}</option>
-                    @foreach ($customer_edit as $cust)
-                      @if ($cust->id == $berkas->customer->id)
-                        <option></option>
-                      @else
-                        <option></option>
-                        <option value="{{$cust->id}}">{{$cust->customer_name}}<c/option>    
-                      @endif
-                    @endforeach  
-                  @else
-                    @foreach ($customer as $cust)
-                      <option></option>
-                      <option value="{{$cust->id}}">{{$cust->customer_name}}<c/option>
-                    @endforeach
-                  @endif
-                </select>
+                <input type="text" class="form-control" name="berkas_giver_id" required>
               </div>
             </div>
             <div class="form-group row">

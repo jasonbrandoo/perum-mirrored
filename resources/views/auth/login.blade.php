@@ -69,6 +69,7 @@
   $(document).ready(function(){
       $('#submit-button').click(function(e){
         e.preventDefault();
+        $(this).text('Please wait ...').prop('disabled', true)
         $.ajax({
             url: '{{ route('login') }}',
             data: $('form').serialize(),
@@ -88,6 +89,8 @@
                     text: err.responseJSON.message,
                     confirmButtonClass: 'btn btn-primary',
                 });
+                console.log($(this));
+                $('#submit-button').text('Login').prop('disabled', false)
             }
         });
       });

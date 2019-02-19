@@ -88,7 +88,7 @@ var DatatableSelect = function() {
                 },
                 {
                     data: 'sp_date',
-                    render: (date, type, row) => `<a href="surat-pesanan/${row.id}/edit">${row.sp_date}</a>`
+                    render: (data, type, row) => `<a href="surat-pesanan/${row.id}/edit">${moment(row.sp_date).format('D MMMM YYYY')}</a>`
                 },
                 {
                     data: 'sp_prebook'

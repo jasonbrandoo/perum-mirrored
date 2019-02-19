@@ -421,7 +421,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Total</label>
               <div class="col-lg-9">
-                  <input type="text" class="form-control price" name="customer_total_income" required readonly>
+                <input type="text" class="form-control price" name="customer_total_income" value="{{ isset($customer) ? $customer->customer_total_income : ''}}" required readonly>
                 </div>
             </div>
           </fieldset>
@@ -438,7 +438,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Sisa Penghasilan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control price" name="customer_residual_income" required readonly>
+                <input type="text" class="form-control price" name="customer_residual_income" value="{{ isset($customer) ? $customer->customer_residual_income : ''}}" required readonly>
               </div>
             </div>
 

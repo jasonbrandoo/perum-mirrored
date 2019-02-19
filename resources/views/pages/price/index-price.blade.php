@@ -91,10 +91,12 @@ var DatatableSelect = function() {
                     render: (data, type, row) => `<a href="/price/${row.id}/edit">${row.house.rumah_type_name}</a>`
                 },
                 {
-                    data: 'price_start_date'
+                    data: 'price_start_date',
+                    render: (data) => moment(data).format('D MMMM YYYY')
                 },
                 {
-                    data: 'price_end_date'
+                    data: 'price_end_date',
+                    render: (data) => moment(data).format('D MMMM YYYY')
                 },
                 {
                     data: 'price_selling',

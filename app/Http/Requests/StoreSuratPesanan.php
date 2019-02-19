@@ -61,7 +61,7 @@ class StoreSuratPesanan extends FormRequest
             'sp_ajb_price' => ['required'],
             'sp_total' => ['required'],
             // 
-            'sp_bill' => ['required'],
+            // 'sp_bill' => ['required'],
             'sp_dp' => ['required'],
             'sp_ppn' => ['required'],
             'sp_sub_total' => ['required'],

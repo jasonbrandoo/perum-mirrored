@@ -114,7 +114,7 @@ class SalesController extends Controller
     {
         //
         $sales = Sales::find($id);
-        $spv_edit = Sales::where('id', $id)->first();
+        $spv_edit = Sales::with('spv')->first();
         $supervisor_edit = Sales::where('sales_position', 'Supervisor')->get();
         return view('pages.sales.create-sales', compact('sales', 'spv_edit', 'supervisor_edit'));
     }

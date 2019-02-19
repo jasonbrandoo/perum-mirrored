@@ -30,6 +30,7 @@
 <!-- /Custom Style -->
 
 <!-- Core JS files -->
+<script src="/js/moment.js"></script>
 <script src="/template/global_assets/js/main/jquery.min.js"></script>
 <script src="/template/global_assets/js/main/bootstrap.bundle.min.js"></script>
 <script src="/template/global_assets/js/plugins/loaders/blockui.min.js"></script>
@@ -88,6 +89,14 @@ $(function(){
             val = val.replace(/,/g, '');
             val = parseFloat(val);
         })
+    });
+});
+
+$(function(){	
+    swal.setDefaults({
+        buttonsStyling: false,
+        confirmButtonClass: 'btn btn-primary',
+        cancelButtonClass: 'btn btn-light'
     });
 });
 </script>
