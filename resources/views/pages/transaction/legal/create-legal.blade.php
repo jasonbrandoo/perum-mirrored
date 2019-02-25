@@ -58,7 +58,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="legal_date" value="{{isset($legal) ? $legal->legal_date : ''}}" required>
+                  <input type="text" class="form-control pickadate-selectors" name="legal_date" value="{{isset($legal) ? $legal->legal_date->toDateString() : ''}}" required>
                 </div>
               </div>
             </div>
@@ -76,7 +76,7 @@
                       <span class="input-group-prepend">
                         <span class="input-group-text"><i class="icon-calendar2"></i></span>
                       </span>
-                      <input type="text" class="form-control pickadate-selectors" name="legal_shgb_parent_date" value="{{isset($legal) ? $legal->legal_shgb_parent_date : ''}}" required>
+                      <input type="text" class="form-control pickadate-selectors" name="legal_shgb_parent_date" value="{{isset($legal) ? $legal->legal_shgb_parent_date->toDateString() : ''}}" required>
                     </div>
                   </div>
                 </div>
@@ -96,7 +96,7 @@
                       <span class="input-group-prepend">
                         <span class="input-group-text"><i class="icon-calendar2"></i></span>
                       </span>
-                      <input type="text" class="form-control pickadate-selectors" name="legal_shgb_fraction_date" value="{{isset($legal) ? $legal->legal_shgb_fraction_date : ''}}" required>
+                      <input type="text" class="form-control pickadate-selectors" name="legal_shgb_fraction_date" value="{{isset($legal) ? $legal->legal_shgb_fraction_date->toDateString() : ''}}" required>
                     </div>
                   </div>
                 </div>
@@ -116,7 +116,7 @@
                       <span class="input-group-prepend">
                         <span class="input-group-text"><i class="icon-calendar2"></i></span>
                       </span>
-                      <input type="text" class="form-control pickadate-selectors" name="legal_name_date" value="{{isset($legal) ? $legal->legal_name_date : ''}}" required>
+                      <input type="text" class="form-control pickadate-selectors" name="legal_name_date" value="{{isset($legal) ? $legal->legal_name_date->toDateString() : ''}}" required>
                     </div>
                   </div>
                 </div>
@@ -136,7 +136,7 @@
                       <span class="input-group-prepend">
                         <span class="input-group-text"><i class="icon-calendar2"></i></span>
                       </span>
-                      <input type="text" class="form-control pickadate-selectors" name="legal_shm_date" value="{{isset($legal) ? $legal->legal_shm_date : ''}}" required>
+                      <input type="text" class="form-control pickadate-selectors" name="legal_shm_date" value="{{isset($legal) ? $legal->legal_shm_date->toDateString() : ''}}" required>
                     </div>
                   </div>
                 </div>
@@ -156,7 +156,7 @@
                       <span class="input-group-prepend">
                         <span class="input-group-text"><i class="icon-calendar2"></i></span>
                       </span>
-                      <input type="text" class="form-control pickadate-selectors" name="legal_imb_date" value="{{isset($legal) ? $legal->legal_imb_date : ''}}" required>
+                      <input type="text" class="form-control pickadate-selectors" name="legal_imb_date" value="{{isset($legal) ? $legal->legal_imb_date->toDateString() : ''}}" required>
                     </div>
                   </div>
                 </div>
@@ -176,7 +176,7 @@
                       <span class="input-group-prepend">
                         <span class="input-group-text"><i class="icon-calendar2"></i></span>
                       </span>
-                      <input type="text" class="form-control pickadate-selectors" name="legal_nop_pbb_date" value="{{isset($legal) ? $legal->legal_nop_pbb_date : ''}}" required>
+                      <input type="text" class="form-control pickadate-selectors" name="legal_nop_pbb_date" value="{{isset($legal) ? $legal->legal_nop_pbb_date->toDateString() : ''}}" required>
                     </div>
                   </div>
                 </div>

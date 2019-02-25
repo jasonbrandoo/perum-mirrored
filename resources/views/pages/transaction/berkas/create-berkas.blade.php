@@ -58,14 +58,14 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="berkas_date" value="{{isset($berkas) ? $berkas->berkas_date : ''}}" required>
+                  <input type="text" class="form-control pickadate-selectors" name="berkas_date" value="{{isset($berkas) ? $berkas->berkas_date->toDateString() : ''}}" required>
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Diserahkan Oleh</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="berkas_giver_id" required>
+                <input type="text" class="form-control" name="berkas_giver" required>
               </div>
             </div>
             <div class="form-group row">
@@ -119,7 +119,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tanggal Sp</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_date" value="{{isset($berkas) ? $berkas->surat->sp_date : ''}}" readonly>
+                <input type="text" class="form-control" id="sp_date" value="{{isset($berkas) ? $berkas->surat->sp_date->toDateString() : ''}}" readonly>
               </div>
             </div>
 

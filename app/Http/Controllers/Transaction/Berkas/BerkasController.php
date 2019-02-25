@@ -60,7 +60,7 @@ class BerkasController extends Controller
         //
         Berkas::create([
             'berkas_date' => Carbon::parse($request->input('berkas_date'))->format('Y-m-d H:i:s'),
-            'berkas_giver_id' => $request->input('berkas_giver_id'),
+            'berkas_giver' => $request->input('berkas_giver'),
             'berkas_reciever_id' => $request->input('berkas_reciever_id'),
             'berkas_note' => $request->input('berkas_note'),
             'berkas_sp_id' => $request->input('berkas_sp_id'),
@@ -124,7 +124,7 @@ class BerkasController extends Controller
         //
         Berkas::find($request->id)->update([
             'berkas_date' => Carbon::parse($request->input('berkas_date'))->format('Y-m-d H:i:s'),
-            'berkas_giver_id' => $request->input('berkas_giver_id'),
+            'berkas_giver' => $request->input('berkas_giver'),
             'berkas_reciever_id' => $request->input('berkas_reciever_id'),
             'berkas_note' => $request->input('berkas_note'),
             'berkas_sp_id' => $request->input('berkas_sp_id'),

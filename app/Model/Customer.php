@@ -9,6 +9,8 @@ class Customer extends Model
     //
     protected $guarded = [];
 
+    protected $dates = ['customer_birthdate'];
+
     public function sales_executive()
     {
         return $this->belongsTo('App\Model\Sales', 'customer_executive_id');

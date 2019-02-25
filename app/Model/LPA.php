@@ -11,6 +11,8 @@ class LPA extends Model
 
     protected $table = 'l_p_as';
 
+    protected $dates = ['lpa_date'];
+
     public function surat()
     {
         return $this->belongsTo('App\Model\SuratPesanan', 'lpa_sp_id');

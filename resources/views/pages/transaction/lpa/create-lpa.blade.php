@@ -57,7 +57,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                <input type="text" class="form-control pickadate-selectors" name="lpa_date" value="{{isset($lpa) ? $lpa->lpa_date : ''}}" required>
+                <input type="text" class="form-control pickadate-selectors" name="lpa_date" value="{{isset($lpa) ? $lpa->lpa_date->toDateString(): ''}}" required>
                 </div>
               </div>
             </div>
@@ -113,7 +113,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tgl SHGB</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="kavling_shgb_date" name="kavling_shgb_date" value="{{isset($lpa) ? $lpa->surat->kavling->kavling_shgb_date : ''}}" required readonly>
+                <input type="text" class="form-control" id="kavling_shgb_date" name="kavling_shgb_date" value="{{isset($lpa) ? $lpa->surat->kavling->kavling_shgb_date->toDateString() : ''}}" required readonly>
               </div>
             </div>
             <div class="form-group row">
@@ -161,7 +161,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tanggal Sp</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_date" name="sp_date" value="{{isset($lpa) ? $lpa->surat->sp_date : ''}}" required readonly>
+                <input type="text" class="form-control" id="sp_date" name="sp_date" value="{{isset($lpa) ? $lpa->surat->sp_date->toDateString() : ''}}" required readonly>
               </div>
             </div>
 

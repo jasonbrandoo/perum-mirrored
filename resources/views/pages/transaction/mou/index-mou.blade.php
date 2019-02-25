@@ -86,7 +86,8 @@ var DatatableSelect = function() {
                     render: (id) => `<a href="mou/${id}/edit">MOU000${id}</a>`
                 },
                 {
-                    data: 'mou_date'
+                    data: 'mou_date',
+                    render: (data) => moment(data).format('D MMMM YYYY')
                 },
                 {
                     data: 'mou_coordinator'

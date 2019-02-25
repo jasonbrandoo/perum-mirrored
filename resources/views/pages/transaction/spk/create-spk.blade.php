@@ -57,7 +57,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="spk_date" value="{{isset($spk) ? $spk->spk_date : ''}}" required>
+                  <input type="text" class="form-control pickadate-selectors" name="spk_date" value="{{isset($spk) ? $spk->spk_date->toDateString() : ''}}" required>
                 </div>
               </div>
             </div>
@@ -109,7 +109,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate" id="sp_date" name="sp_date" value="{{isset($spk) ? $spk->surat->sp_date : ''}}" required readonly>
+                  <input type="text" class="form-control pickadate" id="sp_date" name="sp_date" value="{{isset($spk) ? $spk->surat->sp_date->toDateString() : ''}}" required readonly>
                 </div>
               </div>
             </div>

@@ -87,16 +87,19 @@ var DatatableSelect = function() {
                     render: (data, type, row) => `<a href="/transaction/komisi-akad/${row.id}/edit">TBK000${row.id}</a>`
                 },
                 {
-                    data: 'akad_date'
+                    data: 'akad_date',
+                    render: (data) => moment(data).format('D MMMM YYYY')
                 },
                 {
                     data: 'akad_sp_id'
                 },
                 {
-                    data: 'surat.sp_date'
+                    data: 'surat.sp_date',
+                    render: (data) => moment(data).format('D MMMM YYYY')
                 },
                 {
-                    data: 'akad_ajb_date'
+                    data: 'akad_ajb_date',
+                    render: (data) => moment(data).format('D MMMM YYYY')
                 },
                 {
                     data: 'active',

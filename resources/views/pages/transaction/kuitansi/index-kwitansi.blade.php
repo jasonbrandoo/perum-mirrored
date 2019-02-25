@@ -88,7 +88,8 @@ var DatatableSelect = function() {
                     render: (data, type, row) => `<a href="/transaction/kwitansi/${row.id}/edit">KRF000${row.id}</a>`                    
                 },
                 {
-                    data: 'kwitansi_date'
+                    data: 'kwitansi_date',
+                    render: (data) => moment(data).format('D MMMM YYYY')
                 },
                 {
                     data: 'kwitansi_sp_id'

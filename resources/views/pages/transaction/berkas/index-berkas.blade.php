@@ -87,7 +87,8 @@ var DatatableSelect = function() {
                     render: (data, type, row) => `<a href="/transaction/berkas/${row.id}/edit">TBK000${row.id}</a>`
                 },
                 {
-                    data: 'berkas_date'
+                    data: 'berkas_date',
+                    render: (data) => moment(data).format('D MMMM YYYY')
                 },
                 {
                     data: 'berkas_reciever_id',

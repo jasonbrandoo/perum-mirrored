@@ -104,7 +104,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="mou_date" value="{{isset($mou) ? $mou->mou_date : ''}}" required>
+                  <input type="text" class="form-control pickadate-selectors" name="mou_date" value="{{isset($mou) ? $mou->mou_date->toDateString() : ''}}" required>
                 </div>
               </div>
             </div>
@@ -115,7 +115,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="mou_start_date" value="{{isset($mou) ? $mou->mou_start_date : ''}}" required>
+                  <input type="text" class="form-control pickadate-selectors" name="mou_start_date" value="{{isset($mou) ? $mou->mou_start_date->toDateString() : ''}}" required>
                 </div>
               </div>
             </div>
@@ -126,7 +126,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="mou_end_date" value="{{isset($mou) ? $mou->mou_end_date : ''}}" required>
+                  <input type="text" class="form-control pickadate-selectors" name="mou_end_date" value="{{isset($mou) ? $mou->mou_end_date->toDateString() : ''}}" required>
                 </div>
               </div>
             </div>

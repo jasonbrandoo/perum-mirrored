@@ -9,6 +9,8 @@ class Pembatalan extends Model
     //
     protected $guarded = [];
 
+    protected $dates = ['cancel_date'];
+
     public function surat()
     {
         return $this->belongsTo('App\Model\SuratPesanan', 'cancel_sp_id');

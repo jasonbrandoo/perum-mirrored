@@ -9,6 +9,8 @@ class KomisiEksternal extends Model
     //
     protected $guarded = [];
 
+    protected $dates = ['eksternal_date', 'eksternal_ajb_date'];
+
     public function surat()
     {
         return $this->belongsTo('App\Model\SuratPesanan', 'eksternal_sp_id');

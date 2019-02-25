@@ -94,13 +94,13 @@ class KavlingController extends Controller
         $multiple = $request->input('kavling_s_d');
 
         $data = [];
-
+        $houseNumber = (new Kavling)->max('kavling_number');
         for ($i=$number; $i <= $multiple; $i++) {
            array_push($data, [
                 'kavling_price_id' => $request->input('kavling_price_id'),
                 'kavling_type_id' => $request->input('kavling_type_id'),
                 'kavling_block' => $request->input('kavling_block'),
-                'kavling_number' => $request->input('kavling_number'),
+                'kavling_number' => $i,
                 'kavling_s_d' => $request->input('kavling_s_d'),
                 'kavling_cluster' => $request->input('kavling_cluster'),
                 'kavling_hook' => $request->input('kavling_hook') == null ? 'Not Active' : 'Active',

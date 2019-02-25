@@ -88,7 +88,8 @@ var DatatableSelect = function() {
                     render: (data, type, row) => `<a href="/transaction/lpa/${row.id}/edit">KRF000${row.id}</a>`                    
                 },
                 {
-                    data: 'lpa_date'
+                    data: 'lpa_date',
+                    render: (data) => moment(data).format('D MMMM YYYY')
                 },
                 {
                     data: 'lpa_type'

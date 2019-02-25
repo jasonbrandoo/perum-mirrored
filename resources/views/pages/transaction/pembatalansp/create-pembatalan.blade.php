@@ -58,7 +58,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="cancel_date" value="{{isset($pembatalan) ? $pembatalan->cancel_date : ''}}" required>
+                  <input type="text" class="form-control pickadate-selectors" name="cancel_date" value="{{isset($pembatalan) ? $pembatalan->cancel_date->toDateString() : ''}}" required>
                 </div>
               </div>
             </div>
@@ -77,7 +77,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Perincian Refund</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="cancel_refund" value="{{isset($pembatalan) ? $pembatalan->cancel_refund : ''}}" required>
+                <input type="text" class="form-control" name="cancel_refund" value="{{isset($pembatalan) ? $pembatalan->cancel_refund : ''}}">
               </div>
             </div>
             
@@ -100,7 +100,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tambahan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="cancel_tambahan" value="{{isset($pembatalan) ? $pembatalan->cancel_tambahan : ''}}" required>
+                <input type="text" class="form-control" name="cancel_tambahan" value="{{isset($pembatalan) ? $pembatalan->cancel_tambahan : ''}}" >
               </div>
             </div>
           </fieldset>
@@ -136,7 +136,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control" id="sp_date" name="sp_date" value="{{isset($pembatalan) ? $pembatalan->surat->sp_date : ''}}" readonly required>
+                  <input type="text" class="form-control" id="sp_date" name="sp_date" value="{{isset($pembatalan) ? $pembatalan->surat->sp_date->toDateString() : ''}}" readonly required>
                 </div>
               </div>
             </div>

@@ -86,7 +86,8 @@ var DatatableSelect = function() {
                     render: (id) => `<a href="spk/${id}/edit">SPK000${id}</a>`
                 },
                 {
-                    data: 'spk_date'
+                    data: 'spk_date',
+                    render: (data) => moment(data).format('D MMMM YYYY')
                 },
                 {
                     data: 'spk_sp_id'

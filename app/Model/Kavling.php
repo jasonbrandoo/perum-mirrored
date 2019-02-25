@@ -9,7 +9,7 @@ class Kavling extends Model
     //
     protected $guarded = [];
 
-    // protected $dates = ['created_at', 'updated_at'];
+    protected $dates = ['kavling_start_date', 'kavling_end_date', 'kavling_shgb_date', 'kavling_imb_date', 'created_at', 'updated_at'];
 
     // protected $dateFormat = 'Y-m-d H:i';
 

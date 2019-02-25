@@ -77,14 +77,32 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('transaction.wawancara.data') !!}',
             columns: [
-                {data: 'id', className: 'select-checkbox', orderable: false, render: () => ''},
-                {data: 'id', render: (id) => `RW000${id}`},
-                {data: 'wawancara_date'},
-                {data: 'wawancara_sp_id'},
-                {data: 'surat.customer.customer_name'},
-                {data: 'wawancara_analyst'},
-                {data: 'realisasi.rlw_date'},
-                {data: 'wawancara_status'},
+                {
+                    data: 'id', className: 'select-checkbox', orderable: false, render: () => ''
+                },
+                {
+                    data: 'id', render: (id) => `RW000${id}`
+                },
+                {
+                    data: 'wawancara_date',
+                    render: (data) => moment(data).format('D MMMM YYYY')
+                },
+                {
+                    data: 'wawancara_sp_id'
+                },
+                {
+                    data: 'surat.customer.customer_name'
+                },
+                {
+                    data: 'wawancara_analyst'
+                },
+                {
+                    data: 'realisasi.rlw_date',
+                    render: (data) => moment(data).format('D MMMM YYYY')
+                },
+                {
+                    data: 'wawancara_status'
+                },
             ],
             select: {
                 style: 'multi'

@@ -151,7 +151,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tgl Lahir</label>
               <div class="col-lg-9">
-                  <input type="text" class="form-control pickadate-selectors" name="customer_birthdate" value="{{ isset($customer) ? $customer->customer_birthdate : '' }}" required>
+                  <input type="text" class="form-control pickadate-selectors" name="customer_birthdate" value="{{ isset($customer) ? $customer->customer_birthdate->toDateString() : '' }}" required>
                 </div>
             </div>
 

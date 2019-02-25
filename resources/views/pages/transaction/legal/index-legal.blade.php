@@ -87,13 +87,16 @@ var DatatableSelect = function() {
                     render: (data, type, row) => `<a href="/transaction/legal/${row.id}/edit">KRF000${row.id}</a>`
                 },
                 {
-                    data: 'legal_date'
+                    data: 'legal_date',
+                    render: (data) => moment(data).format('D MMMM YYYY')
                 },
                 {
-                    data: 'legal_shgb_parent_date'
+                    data: 'legal_shgb_parent_date',
+                    render: (data) => moment(data).format('D MMMM YYYY')
                 },
                 {
-                    data: 'legal_shgb_fraction_date'
+                    data: 'legal_shgb_fraction_date',
+                    render: (data) => moment(data).format('D MMMM YYYY')
                 },
                 {
                     data: 'surat.id'

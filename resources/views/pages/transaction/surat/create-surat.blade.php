@@ -33,9 +33,9 @@
   <form class="wizard-form steps-validation" action="{{ route('transaction.surat-pesanan.update') }}" method="POST" data-fouc>
     @method('PATCH')
     <input type="hidden" name="id" value="{{$surat->id}}"> @else
-    <form class="wizard-form steps-validation" action="{{ route('transaction.surat-pesanan.store') }}" method="POST" data-fouc>
+    <form class="wizard-form steps-validation" id="form_wizard" action="{{ route('transaction.surat-pesanan.store') }}" method="POST" data-fouc>
       @endif @csrf
-      <h6>1</h6>
+      <h6>Step 1</h6>
       <fieldset>
         <div class="row justify-content-center">
           <div class="col-md-8">
@@ -273,7 +273,7 @@
         </div>
       </fieldset>
 
-      <h6>2</h6>
+      <h6>Step 2</h6>
       <fieldset>
         <div class="row justify-content-center">
           <div class="col-md-8">
@@ -281,6 +281,7 @@
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Kode Harga</label>
                 <div class="col-lg-9">
+                  {{-- <input type="text" class="form-control" name="sp_price_id" id="price_id" value="{{isset($surat) ? $surat->price->id : ''}}" readonly required> --}}
                   <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_price_id" id="price_id" required>
                     @if (isset($surat))
                       <option value="{{$surat->price->id}}">H000{{$surat->price->id}} - {{$surat->price->price_selling}}</option>
@@ -297,7 +298,7 @@
                         <option value="{{$price->id}}">H000{{$price->id}} - {{$price->price_selling}}</option>
                       @endforeach
                     @endif
-                </select>
+                  </select>
                 </div>
               </div>
               <div class="form-group row">
@@ -406,7 +407,7 @@
         </div>
       </fieldset>
 
-      <h6>3</h6>
+      <h6>Step 3</h6>
       <fieldset>
         <div class="row justify-content-center">
           <div class="col-md-8">
@@ -516,6 +517,22 @@
         </div>
       </fieldset>
 
+      <h6>Step 4</h6>
+      <fieldset>
+        <table class="table table-bordered" id="result">
+          <thead>
+            <tr>
+              <th>Sq</th>
+              <th>Description</th>
+              <th>Piutang</th>
+              <th>Tanggal</th>
+            </tr>
+          </thead>
+        </table>
+        <input type="hidden" name="piutang" id="piutang">
+        <input type="hidden" name="internal" id="internal">
+      </fieldset>
+
     </form>
 </div>
 @endsection
@@ -611,6 +628,9 @@
       $('#house_no').val(result.id);
       $('#house_building').val(result.price.house.building_area_m2);
       $('#house_surface').val(result.price.house.surface_area_m2);
+      $('#price_id').val($('#price_id option:first').val(result.price.id))
+      $('#price').val($.number(result.price.price_selling));
+      $('input[name=sp_total_harga_jual]').val(result.price.price_selling);
     },
     error: function (e) {
       console.log(e);
@@ -618,27 +638,28 @@
     });
   });
 
-  $('#price_id').on('change', function(e){
-    var id = $(this).val();
-    // console.log(id);
-    $.ajax({
-    url: '{{route('transaction.surat-pesanan.load_price')}}',
-    data: {
-      id: id
-    },
-    success: function (result) {
-      // console.log(result);
-      $('#price').val($.number(result.price_selling));
-      $('input[name=sp_total_harga_jual]').val(result.price_selling);
-    },
-    error: function (e) {
-      console.log(e);
-    }
-    });
-  });
+  // $('#price_id').on('change', function(e){
+  //   var id = $(this).val();
+  //   // console.log(id);
+  //   $.ajax({
+  //   url: '{{route('transaction.surat-pesanan.load_price')}}',
+  //   data: {
+  //     id: id
+  //   },
+  //   success: function (result) {
+  //     // console.log(result);
+  //     $('#price').val($.number(result.price_selling));
+  //     $('input[name=sp_total_harga_jual]').val(result.price_selling);
+  //   },
+  //   error: function (e) {
+  //     console.log(e);
+  //   }
+  //   });
+  // });
 
 
-
+  const price = parseFloat($('input[name=sp_price]').val()) || 0;
+  console.log(price)
   $('input[name=sp_price_tl]').keyup(() => {
     const tl = parseFloat($('input[name=sp_price_tl]').val()) || 0;
     const price = parseFloat($('input[name=sp_price]').val()) || 0;
@@ -690,17 +711,50 @@
     $('input[name=sp_sub_total]').val(hargaTanahLebih + dp + ppn);
   })
 
-  $('input[name=sp_booking_fee]').keyup(() => {
+  $('input[name=sp_booking_fee]').change(() => {
     const subTotal = parseFloat($('input[name=sp_sub_total]').val()) || 0;
     const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
     $('input[name=sp_total_bill]').val(subTotal + booking);
   })
 
-  $('input[name=sp_per_month_internal], input[name=sp_per_month_kreditur]').keyup(() => {
+  $('input[name=sp_per_month_internal]').focusout(() => {
+    /* Constant variable */
     const totalBill = parseFloat($('input[name=sp_total_bill]').val()) || 0;
     const internal = parseFloat($('input[name=sp_per_month_internal]').val()) || 0;
+    const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
+    const subTotal = parseFloat($('input[name=sp_sub_total]').val()) || 0;
+    const dt = $('#result').DataTable({
+      dom: '<"datatable-header"><"datatable-scroll-wrap"><"datatable-footer"ip>',
+      paging: false
+    });
+    const seq = 1
+
+    /* jQuery */
+    $('input[name=sp_internal_bill]').val(Math.round(totalBill / internal));
+
+    /* Initiate Datatables */
+    dt.row.add([
+      seq,
+      'Booking Fee',
+      $.number(booking),
+      moment().format('D MMMM YYYY')
+    ]).draw()
+
+    /* Iterate Cililan */
+    console.log(internal)
+    for (let index = 1; index <= internal; index++) {
+      dt.row.add([
+        index+1,
+        `Cicilan ${index}`,
+        $.number(booking/internal),
+        moment().format('D MMMM YYYY')
+      ]).draw()
+    }
+  })
+
+  $('input[name=sp_per_month_kreditur]').keyup(() => {
+    const totalBill = parseFloat($('input[name=sp_total_bill]').val()) || 0;
     const kreditur = parseFloat($('input[name=sp_per_month_kreditur]').val()) || 0;
-    $('input[name=sp_internal_bill]').val(totalBill / internal);
     $('input[name=sp_kreditur_bill]').val(totalBill / kreditur);
   })
 
@@ -710,32 +764,35 @@
     $('input[name=sp_total]').val(kpr+total);
   })
 
-  // const total = $('input[name=sp_price], input[name=sp_price_tl], input[name=sp_discount], input[name=sp_ppn_percentage]').change(() => {
-  //   const price = parseFloat($('input[name=sp_price]').val()) || 0;
-  //   const priceTl = parseFloat($('input[name=sp_price_tl').val()) || 0;
-  //   const discount = parseFloat($('input[name=sp_discount]').val()) || 0;
-  //   const percentage = $('input[name=sp_ppn_percentage').attr({
-  //     "max": 100,
-  //     "min": 1
-  //   }).val();
-    
-  //   const hargaJual = $('input[name=sp_total_harga_jual]').val( price );
-  //   const hargaJualRumah = $('input[name=sp_harga_jual_tanah]');
-  //   const hargaSetelahDiscount = $('input[name=sp_after_discount]').val( hargaJualRumah.val() - ((discount * hargaJualRumah.val()) / 100) );
-  //   const nilaiPajak = $('input[name=sp_after_ppn]').val( ((percentage * hargaSetelahDiscount.val()) / 100) );
-  //   const hargaTanahDanBangunan = $('input[name=sp_harga_tanah_bangunan]').val(hargaJualRumah.val() + nilaiPajak.val());
-  //   const hargaJualPengikatan = $('input[name=sp_harga_jual_pengikatan]').val( hargaTanahDanBangunan.val() );
-  //   const hargaAjb = $('input[name=sp_ajb_price]').val( hargaJual.val() * (110 / 100 ));
-    
-  //   $('input[name=sp_included_tl').click(() => {
-  //     if ($('input[name=sp_included_tl').prop('checked')) {
-  //       hargaJualRumah.val($.number(price + priceTl));
-  //     } else {
-  //       $('input[name=sp_harga_jual_tanah]').val(0)      
-  //     }
-  //   })
-
-  // });
+  const internal = parseFloat($('input[name=sp_per_month_internal]').val()) || 0;
+  const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
+  const subTotal = parseFloat($('input[name=sp_sub_total]').val()) || 0;
+  const piutang = Math.round(booking/internal);
+  console.log(internal);
+  $('#internal').val(internal);
+  $('#piutang').val(piutang);
+  // $('#form_wizard').submit((e) => {
+  //   for (let index = 0; index <= internal; index++) {
+  //     const desc = `Description ${index}`;
+  //     const piutang = Math.round(booking/internal); 
+  //     $.ajax({
+  //       url: '{{route('transaction.surat-pesanan.storeCicilan')}}',
+  //       method: 'POST',
+  //       data: {
+  //         description: desc,
+  //         piutang: piutang
+  //       },
+  //       success: (result) => {
+  //         console.log(result)
+  //         swal('Success')
+  //       },
+  //       error: (err) => {
+  //         console.log(err)
+  //         swal('Eror')
+  //       }
+  //     })
+  //   }
+  // })
 });
 
 var FormWizard = function() {

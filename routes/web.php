@@ -262,6 +262,7 @@ Route::group([
         Route::patch('/{id}/action', 'Transaction\SuratPesanan\SuratPesananController@action')->name('transaction.surat-pesanan.action');
         Route::patch('/update', 'Transaction\SuratPesanan\SuratPesananController@update')->name('transaction.surat-pesanan.update');
         Route::post('/store', 'Transaction\SuratPesanan\SuratPesananController@store')->name('transaction.surat-pesanan.store');
+        Route::post('/storeCicilan', 'Transaction\SuratPesanan\SuratPesananController@storeCicilan')->name('transaction.surat-pesanan.storeCicilan');
         Route::get('/data', 'Transaction\SuratPesanan\SuratPesananController@data')->name('transaction.surat-pesanan.data');
         Route::get('/load_customer', 'Transaction\SuratPesanan\SuratPesananController@load_customer')->name('transaction.surat-pesanan.load_customer');
         Route::get('/load_company', 'Transaction\SuratPesanan\SuratPesananController@load_company')->name('transaction.surat-pesanan.load_company');

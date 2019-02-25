@@ -9,6 +9,8 @@ class Berkas extends Model
     //
     protected $guarded = [];
 
+    protected $dates = ['berkas_date'];
+
     public function surat()
     {
         return $this->belongsTo('App\Model\SuratPesanan', 'berkas_sp_id');

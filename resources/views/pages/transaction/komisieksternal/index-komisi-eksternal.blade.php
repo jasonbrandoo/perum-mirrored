@@ -90,19 +90,22 @@ var DatatableSelect = function() {
                     render: (data, type, row) => `<a href="/transaction/komisi-eksternal/${row.id}/edit">KE000${row.id}</a>`
                 },
                 {
-                    data: 'eksternal_date'
+                    data: 'eksternal_date',
+                    render: (date) => moment(date).format('D MMMM YYYY')
                 },
                 {
                     data: 'mou.id'
                 },
                 {
-                    data: 'eksternal_sp_id'
+                    data: 'eksternal_sp_id',
                 },
                 {
-                    data: 'surat.sp_date'
+                    data: 'surat.sp_date',
+                    render: (data) => moment(data).format('D MMMM YYYY')
                 },
                 {
-                    data: 'eksternal_ajb_date'
+                    data: 'eksternal_ajb_date',
+                    render: (data) => moment(data).format('D MMMM YYYY')
                 },
                 {
                     data: 'active',

@@ -16,6 +16,7 @@ use Yajra\DataTables\DataTables;
 use Carbon\Carbon;
 use App\Model\Payment;
 use App\Helpers\Comma;
+use App\Cicilan;
 
 class SuratPesananController extends Controller
 {
@@ -103,7 +104,6 @@ class SuratPesananController extends Controller
     public function store(StoreSuratPesanan $request)
     {
         //
-        // return $request;
         SuratPesanan::create([
             'sp_prebook' => $request->input('sp_prebook'),
             'sp_no' => $request->input('sp_no'),
@@ -161,6 +161,21 @@ class SuratPesananController extends Controller
             'sp_kreditur_bill' => Comma::removeComma($request->input('sp_kreditur_bill')),
             'active' => $request->input('active') == null ? 'Not Active' : 'Active'
         ]);
+
+        $data = [];
+        $cicilan = Comma::removeComma($request->sp_per_month_internal);
+        $booking_fee = Comma::removeComma($request->sp_booking_fee);
+        $customer_id = $request->sp_customer_id;
+        $piutang = round($booking_fee / $cicilan);
+        for ($i=1; $i <= $cicilan; $i++) { 
+            array_push($data, [
+                'customer_id' => $customer_id,
+                'description' => 'cicilan '.$i,
+                'piutang' => $piutang
+            ]);
+        }
+        
+        Cicilan::insert($data);
         return redirect('transaction/surat-pesanan')->with('success', 'Successfull create Surat Pesanan');
     }
 

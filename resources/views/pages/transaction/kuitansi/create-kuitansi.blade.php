@@ -58,7 +58,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="kwitansi_date" value="{{isset($kwitansi) ? $kwitansi->kwitansi_date : ''}}" required>
+                  <input type="text" class="form-control pickadate-selectors" name="kwitansi_date" value="{{isset($kwitansi) ? $kwitansi->kwitansi_date->toDateString() : ''}}" required>
                 </div>
               </div>
             </div>
@@ -166,7 +166,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="kwitansi_transfer_date" value="{{isset($kwitansi) ? $kwitansi->kwitansi_transfer_date : ''}}" required>
+                  <input type="text" class="form-control pickadate-selectors" name="kwitansi_transfer_date" value="{{isset($kwitansi) ? $kwitansi->kwitansi_transfer_date->toDateString() : ''}}" required>
                 </div>
               </div>
             </div>

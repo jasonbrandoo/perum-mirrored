@@ -170,9 +170,9 @@
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sales_spv" required>
                   @if (isset($sales))
-                    <option value="{{$spv_edit->spv->id}}">{{$spv_edit->spv->sales_name}}</option>
+                    <option value="{{$sales->spv->id}}">{{$sales->spv->sales_name}}</option>
                       @foreach ($supervisor_edit as $spv)
-                        @if ($spv->id == $spv_edit->spv->id)
+                        @if ($spv->id == $sales->spv->id)
                           <option></option>
                         @else
                           <option value="{{$spv->id}}">{{$spv->sales_name}}</option>
@@ -193,7 +193,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="sales_in" value="{{ isset($sales) ? $sales->sales_in : '' }}" required>
+                  <input type="text" class="form-control pickadate-selectors" name="sales_in" value="{{ isset($sales) ? $sales->sales_in->toDateString() : '' }}" required>
                 </div>
               </div>
             </div>
@@ -204,7 +204,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="sales_out" value="{{ isset($sales) ? $sales->sales_out : '' }}">
+                  <input type="text" class="form-control pickadate-selectors" name="sales_out" value="{{ isset($sales) ? $sales->sales_out->toDateString() : '' }}">
                 </div>
               </div>
             </div>

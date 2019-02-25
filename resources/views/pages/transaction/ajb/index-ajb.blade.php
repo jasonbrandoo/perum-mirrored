@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    <table class="table datatable-select-checkbox" id="role-table">
+    <table class="table datatable-select-checkbox table-bordered" id="role-table">
         <thead>
             <tr>
                 <th>No</th>
@@ -73,10 +73,19 @@ var DatatableSelect = function() {
             serverSide: true,
             ajax: '{!! route('transaction.ajb.data') !!}',
             columns: [
-                {data: 'id'},
-                {data: 'ajb_date'},
-                {data: 'ajb_notaris'},
-                {data: 'ajb_sp_id'},
+                {
+                    data: 'id'
+                },
+                {
+                    data: 'ajb_date',
+                    render: (data) => moment(data).format('D MMMM YYYY')
+                },
+                {
+                    data: 'ajb_notaris'
+                },
+                {
+                    data: 'ajb_sp_id'
+                },
             ],
             select: {
                 style: 'multi'

@@ -57,7 +57,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="eksternal_date" value="{{isset($eksternal) ? $eksternal->eksternal_date : ''}}" required>
+                  <input type="text" class="form-control pickadate-selectors" name="eksternal_date" value="{{isset($eksternal) ? $eksternal->eksternal_date->toDateString() : ''}}" required>
                 </div>
               </div>
             </div>
@@ -186,7 +186,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control" id="sp_date" name="sp_date" value="{{isset($eksternal) ? $eksternal->surat->sp_date : ''}}" required readonly>
+                  <input type="text" class="form-control" id="sp_date" name="sp_date" value="{{isset($eksternal) ? $eksternal->surat->sp_date->toDateString() : ''}}" required readonly>
                 </div>
               </div>
             </div>
@@ -197,7 +197,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="eksternal_ajb_date" value="{{isset($eksternal) ? $eksternal->eksternal_ajb_date : ''}}" required>
+                  <input type="text" class="form-control pickadate-selectors" name="eksternal_ajb_date" value="{{isset($eksternal) ? $eksternal->eksternal_ajb_date->toDateString() : ''}}" required>
                 </div>
               </div>
             </div>
