@@ -158,6 +158,12 @@ class SuratPesananController extends Controller
         return response()->json($price);
     }
 
+    public function cicilan($id)
+    {
+        $cicilan = Cicilan::with('surat')->where('cicilan_sp_id', $id);
+        return DataTables::of($cicilan)->make();
+    }
+
     /**
      * Store a newly created resource in storage.
      *

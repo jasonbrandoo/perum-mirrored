@@ -32,18 +32,20 @@
     </div>
     @endif
 
-    <ul class="nav nav-tabs nav-tabs-bottom">
-      <li class="nav-item"><a href="#surat-pesanan" class="nav-link active" data-toggle="tab">Surat Pesanan</a></li>
-      <li class="nav-item"><a href="#komisi-akad" class="nav-link" data-toggle="tab">Komisi Akad</a></li>
-      <li class="nav-item"><a href="#komisi-eksternal" class="nav-link" data-toggle="tab">Komisi Eksternal</a></li>
-      <li class="nav-item"><a href="#kuitansi" class="nav-link" data-toggle="tab">Kuitansi</a></li>
-      <li class="nav-item"><a href="#berkas" class="nav-link" data-toggle="tab">Berkas</a></li>
-      <li class="nav-item"><a href="#wawancara" class="nav-link" data-toggle="tab">Wawancara</a></li>
-      <li class="nav-item"><a href="#lpa" class="nav-link" data-toggle="tab">LPA</a></li>
-      <li class="nav-item"><a href="#ajb" class="nav-link" data-toggle="tab">AJB</a></li>
-      <li class="nav-item"><a href="#legal" class="nav-link" data-toggle="tab">Legal</a></li>
-      <li class="nav-item"><a href="#spk" class="nav-link" data-toggle="tab">SPK</a></li>
-    </ul>
+    @if (isset($surat))
+      <ul class="nav nav-tabs nav-tabs-bottom">
+        <li class="nav-item"><a href="#surat-pesanan" class="nav-link active" data-toggle="tab">Surat Pesanan</a></li>
+        <li class="nav-item"><a href="#komisi-akad" class="nav-link" data-toggle="tab">Komisi Akad</a></li>
+        <li class="nav-item"><a href="#komisi-eksternal" class="nav-link" data-toggle="tab">Komisi Eksternal</a></li>
+        <li class="nav-item"><a href="#kuitansi" class="nav-link" data-toggle="tab">Kuitansi</a></li>
+        <li class="nav-item"><a href="#berkas" class="nav-link" data-toggle="tab">Berkas</a></li>
+        <li class="nav-item"><a href="#wawancara" class="nav-link" data-toggle="tab">Wawancara</a></li>
+        <li class="nav-item"><a href="#lpa" class="nav-link" data-toggle="tab">LPA</a></li>
+        <li class="nav-item"><a href="#ajb" class="nav-link" data-toggle="tab">AJB</a></li>
+        <li class="nav-item"><a href="#legal" class="nav-link" data-toggle="tab">Legal</a></li>
+        <li class="nav-item"><a href="#spk" class="nav-link" data-toggle="tab">SPK</a></li>
+      </ul>
+    @endif
 
     <div class="tab-content">
       <div class="tab-pane fade show active" id="surat-pesanan">
@@ -1991,6 +1993,100 @@
                     }
                 ]
             });
+
+            $('#result').DataTable({
+                dom: '<"datatable-header"><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+                processing: true,
+                serverSide: true,
+                ajax: '{!! route('transaction.surat-pesanan.cicilan', $surat->id) !!}',
+                columns: [
+                    {
+                        data: 'id',
+                    },
+                    {
+                        data: 'description',
+                    },
+                    {
+                        data: 'piutang',
+                    },
+                    {
+                        data: 'created_at',
+                        render: (data) => moment().format('D MMMM YYYY')
+                    },
+                ],
+                select: {
+                    style: 'os'
+                },
+                buttons: [
+                    {
+                        extend: 'collection',
+                        text: 'Select Action',
+                        className: 'btn __active',
+                        buttons: [
+                            {
+                                text: 'Deactive',
+                                className: '_active',
+                                action: (e, dt, type, indexes) => {
+                                    const { id } = dt.row({selected: true}).data();
+                                    $.ajax({
+                                        url: `/transaction/legal/${id}/action`,
+                                        type: 'PATCH',
+                                        data: {
+                                            id: id,
+                                            active: 'Deactive'
+                                        },
+                                        success: (response) => {
+                                            swal({
+                                                type: 'success',
+                                                text: 'Success'
+                                            }).then(() => {
+                                                window.location.reload();
+                                            });
+                                            console.log(response)
+                                        },
+                                        error: (err) => {
+                                            swal({
+                                                type: 'error',
+                                                text: 'Error'
+                                            })
+                                        }
+                                    })
+                                }
+                            },
+                            {
+                                text: 'Active',
+                                className: '_active',
+                                action: (e, dt, type, indexes) => {
+                                    const { id } = dt.row({selected: true}).data();
+                                    $.ajax({
+                                        url: `/transaction/legal/${id}/action`,
+                                        type: 'PATCH',
+                                        data: {
+                                            id: id,
+                                            active: 'Active'
+                                        },
+                                        success: (response) => {
+                                            swal({
+                                                type: 'success',
+                                                text: 'Success'
+                                            }).then(() => {
+                                                window.location.reload();
+                                            });
+                                            console.log(response)
+                                        },
+                                        error: (err) => {
+                                            swal({
+                                                type: 'error',
+                                                text: 'Error'
+                                            })
+                                        }
+                                    })
+                                }
+                            }
+                        ]
+                    }
+                ]
+            })
         };
 
         var _componentSelect2 = function() {

@@ -280,6 +280,7 @@ Route::group([
         Route::get('/ajb/{id}', 'Transaction\SuratPesanan\SuratPesananController@ajb')->name('transaction.surat-pesanan.ajb');
         Route::get('/legal/{id}', 'Transaction\SuratPesanan\SuratPesananController@legal')->name('transaction.surat-pesanan.legal');
         Route::get('/spk/{id}', 'Transaction\SuratPesanan\SuratPesananController@spk')->name('transaction.surat-pesanan.spk');
+        Route::get('/cicilan/{id}', 'Transaction\SuratPesanan\SuratPesananController@cicilan')->name('transaction.surat-pesanan.cicilan');
     });
 
     /**

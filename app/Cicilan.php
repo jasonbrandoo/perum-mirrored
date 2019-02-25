@@ -10,4 +10,9 @@ class Cicilan extends Model
     protected $guarded = [];
 
     protected $table = 'cicilan';
+
+    public function surat()
+    {
+        return $this->belongsTo('App\Model\SuratPesanan', 'cicilan_sp_id');
+    }
 }
