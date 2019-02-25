@@ -558,6 +558,7 @@
               </div>
             </fieldset>
 
+            @if (isset($surat))
             <h6>Step 4</h6>
             <fieldset>
               <table class="table table-bordered mb-5" id="result">
@@ -573,6 +574,7 @@
               <input type="hidden" name="piutang" id="piutang">
               <input type="hidden" name="internal" id="internal">
             </fieldset>
+            @endif
 
           </form>
       </div>
