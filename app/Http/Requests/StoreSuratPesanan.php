@@ -57,7 +57,7 @@ class StoreSuratPesanan extends FormRequest
             'sp_harga_tanah_bangunan' => ['required'],
             'sp_payment_method' => ['required'],
             'sp_harga_jual_pengikatan' => ['required'],
-            'sp_kpr_plan' => ['required'],
+            // 'sp_kpr_plan' => ['required'],
             'sp_ajb_price' => ['required'],
             'sp_total' => ['required'],
             // 

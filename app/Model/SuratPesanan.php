@@ -43,7 +43,7 @@ class SuratPesanan extends Model
 
     public function paymentMethod()
     {
-        return $this->belongsTo('App\Model\Payment', 'id');
+        return $this->belongsTo('App\Model\Payment', 'sp_payment_method');
     }
 
     public function price()

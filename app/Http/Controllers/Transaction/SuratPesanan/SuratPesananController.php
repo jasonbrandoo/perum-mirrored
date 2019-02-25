@@ -17,6 +17,15 @@ use Carbon\Carbon;
 use App\Model\Payment;
 use App\Helpers\Comma;
 use App\Cicilan;
+use App\Model\KomisiAkad;
+use App\Model\KomisiEksternal;
+use App\Model\Kwitansi;
+use App\Model\Berkas;
+use App\Model\Wawancara;
+use App\Model\LPA;
+use App\Model\Ajb;
+use App\Model\Legal;
+use App\Model\Spk;
 
 class SuratPesananController extends Controller
 {
@@ -38,6 +47,60 @@ class SuratPesananController extends Controller
     {
         $sp = SuratPesanan::with('customer', 'sales', 'kavling')->get();
         return DataTables::of($sp)->toJson();
+    }
+
+    public function akad($id)
+    {
+        $akad = KomisiAkad::with('surat')->where('akad_sp_id', $id);
+        return DataTables::of($akad)->make();
+    }
+
+    public function eksternal($id)
+    {
+        $eksternal = KomisiEksternal::with('surat', 'mou')->where('eksternal_sp_id', $id);
+        return DataTables::of($eksternal)->make();
+    }
+
+    public function kuitansi($id)
+    {
+        $kuitnasi = Kwitansi::with('surat.customer')->where('kwitansi_sp_id', $id);
+        return DataTables::of($kuitnasi)->make();
+    }
+
+    public function berkas($id)
+    {
+        $berkas = Berkas::with('surat.customer', 'user')->where('berkas_sp_id', $id);
+        return DataTables::of($berkas)->make();
+    }
+
+    public function wawancara($id)
+    {
+        $wawancara = Wawancara::with('surat.customer', 'realisasi')->where('wawancara_sp_id', $id);
+        return DataTables::of($wawancara)->make();
+    }
+
+    public function lpa($id)
+    {
+        $lpa = LPA::with('surat.customer', 'surat.kavling')->where('lpa_sp_id', $id);
+        return DataTables::of($lpa)->make();
+    }
+
+    public function ajb($id)
+    {
+        $ajb = Ajb::with('surat')->where('ajb_sp_id', $id);
+        return DataTables::of($ajb)->make();
+    }
+
+    public function legal($id)
+    {
+        $legal = Legal::with('surat')->where('legal_sp_id', $id);
+        return DataTables::of($legal)->make();
+    }
+
+    public function spk($id)
+    {
+        $spk = Spk::with('surat.customer')->where('spk_sp_id', $id);
+        return DataTables::of($spk)->make();
     }
 
     /**
@@ -217,7 +280,6 @@ class SuratPesananController extends Controller
     {
         //
         $surat = SuratPesanan::with('company', 'customer', 'sales', 'supervisor', 'kavling.house', 'mou', 'price', 'paymentMethod')->find($id);
-        // return $surat;
         $customers =  Customer::all();
         $companies = Company::where('company_type', 'mou')->get();
         $mous = Mou::where('active', 'Active')->get();

@@ -73,6 +73,7 @@ class SpkController extends Controller
      */
     public function action(Request $request, $id)
     {
+        return $id;
         $spk = Spk::find($id);
         if ($request->input('active') == 'Deactive') {
             $spk->active = 'Deactive';

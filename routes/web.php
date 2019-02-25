@@ -270,6 +270,16 @@ Route::group([
         Route::get('/load_kavling', 'Transaction\SuratPesanan\SuratPesananController@load_kavling')->name('transaction.surat-pesanan.load_kavling');
         Route::get('/load_price', 'Transaction\SuratPesanan\SuratPesananController@load_price')->name('transaction.surat-pesanan.load_price');
         Route::get('/load_mou', 'Transaction\SuratPesanan\SuratPesananController@load_mou')->name('transaction.surat-pesanan.load_mou');
+        /* LOAD DATATABLE EACH TRANSACTION BY ID */
+        Route::get('/akad/{id}', 'Transaction\SuratPesanan\SuratPesananController@akad')->name('transaction.surat-pesanan.akad');
+        Route::get('/eksternal/{id}', 'Transaction\SuratPesanan\SuratPesananController@eksternal')->name('transaction.surat-pesanan.eksternal');
+        Route::get('/kuitansi/{id}', 'Transaction\SuratPesanan\SuratPesananController@kuitansi')->name('transaction.surat-pesanan.kuitansi');
+        Route::get('/berkas/{id}', 'Transaction\SuratPesanan\SuratPesananController@berkas')->name('transaction.surat-pesanan.berkas');
+        Route::get('/wawancara/{id}', 'Transaction\SuratPesanan\SuratPesananController@wawancara')->name('transaction.surat-pesanan.wawancara');
+        Route::get('/lpa/{id}', 'Transaction\SuratPesanan\SuratPesananController@lpa')->name('transaction.surat-pesanan.lpa');
+        Route::get('/ajb/{id}', 'Transaction\SuratPesanan\SuratPesananController@ajb')->name('transaction.surat-pesanan.ajb');
+        Route::get('/legal/{id}', 'Transaction\SuratPesanan\SuratPesananController@legal')->name('transaction.surat-pesanan.legal');
+        Route::get('/spk/{id}', 'Transaction\SuratPesanan\SuratPesananController@spk')->name('transaction.surat-pesanan.spk');
     });
 
     /**
