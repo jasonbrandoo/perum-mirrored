@@ -238,6 +238,7 @@ class SuratPesananController extends Controller
         $piutang = round($booking_fee / $cicilan);
         for ($i=1; $i <= $cicilan; $i++) { 
             array_push($data, [
+                'cicilan_sp_id' => (new SuratPesanan)->max('id'),
                 'customer_id' => $customer_id,
                 'description' => 'cicilan '.$i,
                 'piutang' => $piutang
