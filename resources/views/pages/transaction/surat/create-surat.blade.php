@@ -1610,6 +1610,7 @@
             });
 
             $('#wawancara-table').DataTable({
+                dom: '<"datatable-header"><"datatable-scroll-wrap"t><"datatable-footer"ip>',
                 processing: true,
                 serverSide: true,
                 ajax: '{!! route('transaction.surat-pesanan.wawancara', $surat->id) !!}',
@@ -1758,6 +1759,7 @@
             });
 
             $('#ajb-table').DataTable({
+                dom: '<"datatable-header"><"datatable-scroll-wrap"t><"datatable-footer"ip>',
                 processing: true,
                 serverSide: true,
                 ajax: '{!! route('transaction.surat-pesanan.ajb', $surat->id) !!}',
@@ -2019,40 +2021,6 @@
                 select: {
                     style: 'os'
                 },
-                buttons: [
-                    {
-                        text: 'Tambah Cicilan',
-                        className: 'btn btn-primary _add__',
-                        // action: (e, dt, type, indexes) => {
-                        //   const id = 1;
-                        //   const description = 'Cicilan';
-                        //   const piutang = 10000;
-                        //   const created_at = new Date();
-                        //   return dt.row.add({
-                        //     data: id,
-                        //     data: description,
-                        //     data: piutang,
-                        //     data: created_at,
-                        //   });
-                        //   // console.log(asdd.data())
-                        // }
-                    }
-                ]
-            })
-
-            $('._add__').click(()=>{
-              const dt = $('#result').DataTable();
-              console.log(dt.data())
-              const id = 1;
-              const description = 'Cicilan';
-              const piutang = 10000;
-              const created_at = new Date();
-              return dt.row.add({
-                id,
-                description,
-                piutang,
-                created_at,
-              });
             })
         };
 

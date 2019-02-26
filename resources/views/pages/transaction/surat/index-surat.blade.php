@@ -32,13 +32,13 @@
         </div>
     </div>
 
-    <table class="table datatable-select-checkbox" id="role-table">
+    <table class="table datatable-select-checkbox table-bordered" id="role-table">
         <thead>
             <tr>
                 <th></th>
-                <th>ID</th>
-                <th>Tgl Surat Pesanan</th>
+                <th>No</th>
                 <th>Kode Pre Book</th>
+                <th>Tgl Surat Pesanan</th>
                 <th>Customer</th>
                 <th>Sales</th>
                 <th>Kavling</th>
@@ -88,11 +88,12 @@ var DatatableSelect = function() {
                     data: 'id'
                 },
                 {
-                    data: 'sp_date',
-                    render: (data, type, row) => `<a href="surat-pesanan/${row.id}/edit">${moment(row.sp_date).format('D MMMM YYYY')}</a>`
+                    data: 'sp_prebook',
+                    render: (data, type, row) => `<a href="surat-pesanan/${row.id}/edit">${row.sp_prebook}</a>`
                 },
                 {
-                    data: 'sp_prebook'
+                    data: 'sp_date',
+                    render: (data, type, row) => moment(row.sp_date).format('D MMMM YYYY')
                 },
                 {
                     data: 'customer.customer_name'
