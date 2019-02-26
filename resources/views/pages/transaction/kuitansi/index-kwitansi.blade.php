@@ -101,7 +101,7 @@ var DatatableSelect = function() {
                     data: 'surat.customer.customer_name'
                 },
                 {
-                    data: 'kwitansi_payment_method'
+                    data: 'payment.payment_method'
                 },
                 {
                     data: 'active',

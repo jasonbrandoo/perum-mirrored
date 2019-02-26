@@ -15,4 +15,9 @@ class Kwitansi extends Model
     {
         return $this->belongsTo('App\Model\SuratPesanan', 'kwitansi_sp_id');
     }
+
+    public function payment()
+    {
+        return $this->belongsTo('App\Model\Payment', 'kwitansi_payment_method_id');
+    }
 }

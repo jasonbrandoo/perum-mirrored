@@ -26,14 +26,14 @@ class StoreKwitansi extends FormRequest
         return [
             //
             'kwitansi_date' => ['required'],
-            'kwitansi_sp_id' => ['required', 'numeric'],
+            'kwitansi_sp_id' => ['required'],
             'kwitansi_faktur' => ['required'],
-            'kwitansi_staff_id' => ['required'],
+            'kwitansi_reciever' => ['required'],
             'kwitansi_staff_name' => ['required'],
             'kwitansi_terbilang' => ['required'],
             'kwitansi_for_pay' => ['required'],
-            'kwitansi_jumlah' => ['required', 'numeric'],
-            'kwitansi_payment_method' => ['required'],
+            'kwitansi_jumlah' => ['required'],
+            'kwitansi_payment_method_id' => ['required'],
             'kwitansi_transfer_date' => ['required']
         ];
     }

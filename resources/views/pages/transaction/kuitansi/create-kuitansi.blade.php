@@ -3,7 +3,7 @@
 @section('page-title')
 <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span> - {{isset($kwitansi) ? 'Edit Kwitansi' : 'Create New Kwitansi'}}</h4>
 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
-@endsection
+@endsection 
 
 @section('breadcrumb')
 <a href="{{ route('transaction.kwitansi.index') }}" class="breadcrumb-item">Kwitansi</a>
@@ -70,9 +70,9 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Sudah Terima Dari (Staff ID)</label>
+              <label class="col-lg-3 col-form-label">Sudah Terima Dari</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kwitansi_staff_id" value="{{Auth::user()->id}}" readonly>
+                <input type="text" class="form-control" name="kwitansi_reciever">
               </div>
             </div>
 
@@ -156,7 +156,24 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Cara Pembayaran</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="kwitansi_payment_method" value="{{isset($kwitansi) ? $kwitansi->kwitansi_payment_method : ''}}" required>
+                {{-- <input type="text" class="form-control" name="kwitansi_payment_method" value="{{isset($kwitansi) ? $kwitansi->kwitansi_payment_method : ''}}" required> --}}
+                <select data-placeholder="Type" name="kwitansi_payment_method_id" class="form-control form-control-select2" required>
+                  @if (isset($kwitansi))
+                    <option value="{{$kwitansi->payment->id}}">{{$kwitansi->payment->payment_method}}</option>
+                    @foreach ($payment_edit as $payment)
+                      @if ($payment->id == $kwitansi->payment->id)
+                        <option></option>
+                      @else
+                        <option value="{{$payment->id}}">{{$payment->payment_method}}</option>
+                      @endif
+                    @endforeach
+                  @else
+                    @foreach ($payments as $payment)
+                      <option value=""></option>
+                      <option value="{{$payment->id}}">{{$payment->payment_method}}</option>
+                    @endforeach
+                  @endif
+                </select>
               </div>
             </div>
             <div class="form-group row">

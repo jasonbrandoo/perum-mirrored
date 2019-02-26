@@ -9,6 +9,8 @@ use App\Model\SuratPesanan;
 use App\Http\Requests\StoreKwitansi;
 use Carbon\Carbon;
 use Yajra\DataTables\DataTables;
+use App\Model\Payment;
+use App\Helpers\Comma;
 
 class KwitansiController extends Controller
 {
@@ -25,7 +27,7 @@ class KwitansiController extends Controller
 
     public function data()
     {
-        $kwitansi = Kwitansi::with('surat.customer')->get();
+        $kwitansi = Kwitansi::with('surat.customer', 'payment')->get();
         return DataTables::of($kwitansi)->toJson();
     }
 
@@ -39,7 +41,8 @@ class KwitansiController extends Controller
         //
         $id = (new Kwitansi)->max('id') + 1;
         $surats = SuratPesanan::all();
-        return view('pages.transaction.kuitansi.create-kuitansi', compact('surats', 'id'));
+        $payments = Payment::all();
+        return view('pages.transaction.kuitansi.create-kuitansi', compact('surats', 'id', 'payments'));
     }
 
     public function load_sp(Request $request)
@@ -61,12 +64,12 @@ class KwitansiController extends Controller
             'kwitansi_date' => Carbon::parse($request->input('kwitansi_date'))->format('Y-m-d H:i:s'),
             'kwitansi_sp_id' => $request->input('kwitansi_sp_id'),
             'kwitansi_faktur' => $request->input('kwitansi_faktur'),
-            'kwitandi_staff_id' => $request->input('kwitansi_staff_id'),
+            'kwitansi_reciever' => $request->input('kwitansi_reciever'),
             'kwitansi_staff_name' => $request->input('kwitansi_staff_name'),
             'kwitansi_terbilang' => $request->input('kwitansi_terbilang'),
             'kwitansi_for_pay' => $request->input('kwitansi_for_pay'),
-            'kwitansi_jumlah' => $request->input('kwitansi_jumlah'),
-            'kwitansi_payment_method' => $request->input('kwitansi_payment_method'),
+            'kwitansi_jumlah' => Comma::removeComma($request->input('kwitansi_jumlah')),
+            'kwitansi_payment_method_id' => $request->input('kwitansi_payment_method_id'),
             'kwitansi_transfer_date' => Carbon::parse($request->input('kwitansi_transfer_date'))->format('Y-m-d H:i:s'),
             'active' => $request->input('active') == null ? 'Not Active' : 'Active'
         ]);
@@ -111,9 +114,10 @@ class KwitansiController extends Controller
     {
         //MATA BERAT BENER KAMPRET
         //KAYA DI CANTOLIN MONYET
-        $kwitansi = Kwitansi::with('surat.kavling.house')->find($id);
+        $kwitansi = Kwitansi::with('surat.kavling.house', 'payment')->find($id);
+        $payment_edit = Payment::all();
         $surat_edit = SuratPesanan::all();
-        return view('pages.transaction.kuitansi.create-kuitansi', compact('kwitansi', 'surat_edit'));
+        return view('pages.transaction.kuitansi.create-kuitansi', compact('kwitansi', 'surat_edit', 'payment_edit'));
     }
 
     /**
@@ -130,7 +134,7 @@ class KwitansiController extends Controller
             'kwitansi_date' => Carbon::parse($request->input('kwitansi_date'))->format('Y-m-d H:i:s'),
             'kwitansi_sp_id' => $request->input('kwitansi_sp_id'),
             'kwitansi_faktur' => $request->input('kwitansi_faktur'),
-            'kwitandi_staff_id' => $request->input('kwitansi_staff_id'),
+            'kwitandi_reciever' => $request->input('kwitansi_reciever'),
             'kwitansi_staff_name' => $request->input('kwitansi_staff_name'),
             'kwitansi_terbilang' => $request->input('kwitansi_terbilang'),
             'kwitansi_for_pay' => $request->input('kwitansi_for_pay'),

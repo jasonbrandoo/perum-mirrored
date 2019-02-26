@@ -63,7 +63,7 @@ class SuratPesananController extends Controller
 
     public function kuitansi($id)
     {
-        $kuitnasi = Kwitansi::with('surat.customer')->where('kwitansi_sp_id', $id);
+        $kuitnasi = Kwitansi::with('surat.customer', 'payment')->where('kwitansi_sp_id', $id);
         return DataTables::of($kuitnasi)->make();
     }
 
@@ -365,6 +365,24 @@ class SuratPesananController extends Controller
             'sp_kreditur_bill' => Comma::removeComma($request->input('sp_kreditur_bill')),
             'active' => $request->input('active') == null ? 'Not Active' : 'Active'
         ]);
+
+        $data = [];
+        $cicilan = Comma::removeComma($request->sp_per_month_internal);
+        $booking_fee = Comma::removeComma($request->sp_booking_fee);
+        $customer_id = $request->sp_customer_id;
+        $piutang = round($booking_fee / $cicilan);
+        for ($i=1; $i <= $cicilan; $i++) { 
+            array_push($data, [
+                'cicilan_sp_id' => $request->id,
+                'customer_id' => $customer_id,
+                'description' => 'cicilan '.$i,
+                'piutang' => $piutang
+            ]);
+        }
+        
+        Cicilan::whereIn('cicilan_sp_id', [$request->id])->delete();
+        Cicilan::insert($data);
+
         return redirect('transaction/surat-pesanan')->with('success', 'Successfull update Surat Pesanan');
     }
 

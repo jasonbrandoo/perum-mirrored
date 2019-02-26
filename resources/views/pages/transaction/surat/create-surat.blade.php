@@ -907,33 +907,33 @@
         const internal = parseFloat($('input[name=sp_per_month_internal]').val()) || 0;
         const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
         const subTotal = parseFloat($('input[name=sp_sub_total]').val()) || 0;
-        const dt = $('#result').DataTable({
-          dom: '<"datatable-header"><"datatable-scroll-wrap"><"datatable-footer">',
-          paging: false
-        });
-        const seq = 1
+        // const dt = $('#result').DataTable({
+        //   dom: '<"datatable-header"><"datatable-scroll-wrap"><"datatable-footer">',
+        //   paging: false
+        // });
+        // const seq = 1
 
         /* jQuery */
         $('input[name=sp_internal_bill]').val(Math.round(totalBill / internal));
 
         /* Initiate Datatables */
-        dt.row.add([
-          seq,
-          'Booking Fee',
-          $.number(booking),
-          moment().format('D MMMM YYYY')
-        ]).draw()
+        // dt.row.add([
+        //   seq,
+        //   'Booking Fee',
+        //   $.number(booking),
+        //   moment().format('D MMMM YYYY')
+        // ]).draw()
 
         /* Iterate Cililan */
-        console.log(internal)
-        for (let index = 1; index <= internal; index++) {
-          dt.row.add([
-            index+1,
-            `Cicilan ${index}`,
-            $.number(booking/internal),
-            moment().format('D MMMM YYYY')
-          ]).draw()
-        }
+        // console.log(internal)
+        // for (let index = 1; index <= internal; index++) {
+        //   dt.row.add([
+        //     index+1,
+        //     `Cicilan ${index}`,
+        //     $.number(booking/internal),
+        //     moment().format('D MMMM YYYY')
+        //   ]).draw()
+        // }
       })
 
       $('input[name=sp_per_month_kreditur]').keyup(() => {
@@ -1418,7 +1418,7 @@
                       data: 'surat.customer.customer_name'
                   },
                   {
-                      data: 'kwitansi_payment_method'
+                      data: 'payment.payment_method'
                   },
                   {
                       data: 'active',
@@ -1997,7 +1997,7 @@
             });
 
             $('#result').DataTable({
-                dom: '<"datatable-header"><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+                dom: '<"datatable-header"B><"datatable-scroll-wrap"t><"datatable-footer"ip>',
                 processing: true,
                 serverSide: true,
                 ajax: '{!! route('transaction.surat-pesanan.cicilan', $surat->id) !!}',
@@ -2021,73 +2021,38 @@
                 },
                 buttons: [
                     {
-                        extend: 'collection',
-                        text: 'Select Action',
-                        className: 'btn __active',
-                        buttons: [
-                            {
-                                text: 'Deactive',
-                                className: '_active',
-                                action: (e, dt, type, indexes) => {
-                                    const { id } = dt.row({selected: true}).data();
-                                    $.ajax({
-                                        url: `/transaction/legal/${id}/action`,
-                                        type: 'PATCH',
-                                        data: {
-                                            id: id,
-                                            active: 'Deactive'
-                                        },
-                                        success: (response) => {
-                                            swal({
-                                                type: 'success',
-                                                text: 'Success'
-                                            }).then(() => {
-                                                window.location.reload();
-                                            });
-                                            console.log(response)
-                                        },
-                                        error: (err) => {
-                                            swal({
-                                                type: 'error',
-                                                text: 'Error'
-                                            })
-                                        }
-                                    })
-                                }
-                            },
-                            {
-                                text: 'Active',
-                                className: '_active',
-                                action: (e, dt, type, indexes) => {
-                                    const { id } = dt.row({selected: true}).data();
-                                    $.ajax({
-                                        url: `/transaction/legal/${id}/action`,
-                                        type: 'PATCH',
-                                        data: {
-                                            id: id,
-                                            active: 'Active'
-                                        },
-                                        success: (response) => {
-                                            swal({
-                                                type: 'success',
-                                                text: 'Success'
-                                            }).then(() => {
-                                                window.location.reload();
-                                            });
-                                            console.log(response)
-                                        },
-                                        error: (err) => {
-                                            swal({
-                                                type: 'error',
-                                                text: 'Error'
-                                            })
-                                        }
-                                    })
-                                }
-                            }
-                        ]
+                        text: 'Tambah Cicilan',
+                        className: 'btn btn-primary _add__',
+                        // action: (e, dt, type, indexes) => {
+                        //   const id = 1;
+                        //   const description = 'Cicilan';
+                        //   const piutang = 10000;
+                        //   const created_at = new Date();
+                        //   return dt.row.add({
+                        //     data: id,
+                        //     data: description,
+                        //     data: piutang,
+                        //     data: created_at,
+                        //   });
+                        //   // console.log(asdd.data())
+                        // }
                     }
                 ]
+            })
+
+            $('._add__').click(()=>{
+              const dt = $('#result').DataTable();
+              console.log(dt.data())
+              const id = 1;
+              const description = 'Cicilan';
+              const piutang = 10000;
+              const created_at = new Date();
+              return dt.row.add({
+                id,
+                description,
+                piutang,
+                created_at,
+              });
             })
         };
 
