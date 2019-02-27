@@ -16,7 +16,7 @@ use Yajra\DataTables\DataTables;
 use Carbon\Carbon;
 use App\Model\Payment;
 use App\Helpers\Comma;
-use App\Cicilan;
+use App\Model\Cicilan;
 use App\Model\KomisiAkad;
 use App\Model\KomisiEksternal;
 use App\Model\Kwitansi;

@@ -1999,7 +1999,7 @@
             });
 
             $('#result').DataTable({
-                dom: '<"datatable-header"B><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+                dom: '<"datatable-header"><"datatable-scroll-wrap"t><"datatable-footer"ip>',
                 processing: true,
                 serverSide: true,
                 ajax: '{!! route('transaction.surat-pesanan.cicilan', $surat->id) !!}',
