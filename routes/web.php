@@ -1,5 +1,7 @@
 <?php
 
+use Spatie\Permission\Models\Role;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -297,6 +299,23 @@ Route::group([
     });
 
     /**
+     * Report
+     */
+    Route::prefix('report')->group(function () {
+        Route::get('/penjualan', 'Transaction\Report\ReportController@penjualan')->name('transaction.report.penjualan');
+        Route::get('/load_penjualan', 'Transaction\Report\ReportController@load_penjualan')->name('transaction.report.load_penjualan');
+        Route::get('/pembatalan', 'Transaction\Report\ReportController@pembatalan')->name('transaction.report.pembatalan');
+        Route::get('/load_pembatalan', 'Transaction\Report\ReportController@load_pembatalan')->name('transaction.report.load_pembatalan');
+        /*  */
+        Route::get('/create', 'Transaction\Report\ReportController@create')->name('transaction.mou.create');
+        Route::get('/{id}/edit', 'Transaction\Report\ReportController@edit')->name('transaction.mou.edit');
+        Route::patch('/update', 'Transaction\Report\ReportController@update')->name('transaction.mou.update');
+        Route::patch('/{id}/action', 'Transaction\Report\ReportController@action')->name('transaction.mou.action');
+        Route::post('/store', 'Transaction\Report\ReportController@store')->name('transaction.mou.store');
+        Route::get('/data', 'Transaction\Report\ReportController@data')->name('transaction.mou.data');
+    });
+
+    /**
      * SPK
      */
     Route::prefix('spk')->group(function () {
@@ -355,6 +374,7 @@ Route::group([
     Route::get('/', 'Role\RoleController@index')->name('role.index');
     Route::get('/create', 'Role\RoleController@create')->name('role.create');
     Route::get('/{id}/edit', 'Role\RoleController@edit')->name('role.edit');
+    Route::get('/{id}/show', 'Role\RoleController@show')->name('role.show');
     Route::patch('/{id}/action', 'Role\RoleController@action')->name('role.action');
     Route::patch('/update', 'Role\RoleController@update')->name('role.update');
     Route::post('/store', 'Role\RoleController@store')->name('role.store');
@@ -410,7 +430,7 @@ Route::group([
 });
 
 /* TEST ROUTE */
-
+/* 
 Route::prefix('test')->group(function () {
     Route::get('/create-company', function () {
         return view('pages.company.create-company');
@@ -482,3 +502,4 @@ Route::prefix('test')->group(function () {
         return view('pages.company.data-company');
     });
 });
+ */

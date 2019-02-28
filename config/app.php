@@ -175,8 +175,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
-        Yajra\DataTables\DataTablesServiceProvider::class
-
+        Yajra\DataTables\DataTablesServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class
     ],
 
     /*
@@ -226,7 +226,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Entrust'   => Zizaco\Entrust\EntrustFacade::class
+        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
+        'Spatie' => Spatie\Permission\PermissionServiceProvider::class
     ],
 
 ];

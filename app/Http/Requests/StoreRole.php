@@ -26,7 +26,6 @@ class StoreRole extends FormRequest
         return [
             //
             'role_name' => 'required',
-            'role_function' => 'required'
         ];
     }
 

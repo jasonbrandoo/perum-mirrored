@@ -38,7 +38,7 @@ class UsersController extends Controller
     public function create()
     {
         //
-        $roles = Role::where('active', 'active')->get();
+        $roles = Role::get();
         $id = (new User)->max('id') + 1;
         return view('pages.user.create-user', compact('roles', 'id'));
     }

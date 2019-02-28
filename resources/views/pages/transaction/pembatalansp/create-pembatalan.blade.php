@@ -77,7 +77,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Perincian Refund</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="cancel_refund" value="{{isset($pembatalan) ? $pembatalan->cancel_refund : ''}}">
+                <input type="text" class="form-control price" name="cancel_refund" value="{{isset($pembatalan) ? $pembatalan->cancel_refund : ''}}">
               </div>
             </div>
             
@@ -199,13 +199,13 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Perincian Pembayaran Konsume</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="cancel_consumen_bill" name="cancel_consumenbill" value="{{isset($pembatalan) ? $pembatalan->cancel_consumen_bill : ''}}" required>
+                <input type="text" class="form-control price" name="cancel_consumen_bill" name="cancel_consumenbill" value="{{isset($pembatalan) ? $pembatalan->cancel_consumen_bill : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Jumlah</label>
               <div class="col-lg-9">    
-                <input type="text" class="form-control" name="cancel_total_bill" name="cancel_total_bill" value="{{isset($pembatalan) ? $pembatalan->cancel_total_bill : ''}}" required>
+                <input type="text" class="form-control price" name="cancel_total_bill" name="cancel_total_bill" value="{{isset($pembatalan) ? $pembatalan->cancel_total_bill : ''}}" required>
               </div>
             </div>
             <div class="form-group row">
@@ -335,7 +335,17 @@ var FormValidation = function() {
           unhighlight: function(element, errorClass) {
               $(element).removeClass(errorClass);
           },
-
+          rules: {
+            cancel_consumen_bill: {
+              number: true
+            },
+            cancel_total_bill: {
+              number: true
+            },
+            cancel_refund: {
+              number: true
+            }
+          },
           // Different components require proper error label placement
           errorPlacement: function(error, element) {
 

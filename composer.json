@@ -10,11 +10,12 @@
     "require": {
         "php": "^7.1.3",
         "doctrine/dbal": "^2.9",
-        "zizaco/entrust": "5.2.x-dev",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
-        "yajra/laravel-datatables-oracle": "~8.0"
+        "spatie/laravel-permission": "^2.34",
+        "yajra/laravel-datatables-oracle": "~8.0",
+        "zizaco/entrust": "5.2.x-dev"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

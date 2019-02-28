@@ -10,6 +10,7 @@ use App\Model\SuratPesanan;
 use Illuminate\Support\Carbon;
 use Yajra\DataTables\DataTables;
 use App\User;
+use App\Helpers\Comma;
 
 class PembatalanController extends Controller
 {
@@ -116,12 +117,12 @@ class PembatalanController extends Controller
             'cancel_date' => Carbon::parse($request->input('cancel_date'))->format('Y-m-d H:i:s'),
             'cancel_group' => $request->input('cancel_group'),
             'cancel_reason' => $request->input('cancel_reason'),
-            'cancel_refund' => $request->input('cancel_refund'),
+            'cancel_refund' => Comma::removeComma($request->input('cancel_refund')),
             'cancel_tambahan' => $request->input('cancel_tambahan'),
             'cancel_status' => $request->input('cancel_status'),
             'cancel_sp_id' => $request->input('cancel_sp_id'),
-            'cancel_consumen_bill' => $request->input('cancel_consumen_bill'),
-            'cancel_total_bill' => $request->input('cancel_total_bill'),
+            'cancel_consumen_bill' => Comma::removeComma($request->input('cancel_consumen_bill')),
+            'cancel_total_bill' => Comma::removeComma($request->input('cancel_total_bill')),
             'cancel_make_by' => $request->input('cancel_make_by'),
             'cancel_approve_by' => $request->input('cancel_approve_by')
         ]);

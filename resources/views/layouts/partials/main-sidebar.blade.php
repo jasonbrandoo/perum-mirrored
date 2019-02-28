@@ -73,6 +73,14 @@
             {{--  --}}
             <li class="nav-item"><a href="{{ route('transaction.pembatalan.index') }}" class="nav-link">Pembatalan SP</a></li>
             {{--  --}}
+            <li class="nav-item nav-item-submenu">
+              <a href="#" class="nav-link">Report</a>
+              <ul class="nav nav-group-sub">
+                <li class="nav-item"><a href="{{ route('transaction.report.penjualan') }}" class="nav-link">Penjualan</a></li>
+                <li class="nav-item"><a href="{{ route('transaction.report.pembatalan') }}" class="nav-link">Pembatalan</a></li>
+              </ul>
+            </li>
+            {{--  --}}
             <li class="nav-item"><a href="{{ route('transaction.spk.index') }}" class="nav-link">SPK</a></li>
             {{--  --}}
             <li class="nav-item"><a href="{{ route('transaction.surat-pesanan.index') }}" class="nav-link">Surat Pesanan</a></li>

@@ -1,53 +1,118 @@
-@extends('layouts.app')
-
+@extends('layouts.app') 
 @section('page-title')
 <div class="mr-auto">
-    <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Role</span> - Role List</h4>
-    <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+  <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Role</span> - Role List</h4>
+  <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 </div>
 <div>
-  <a href="{{ route ('role.create') }}" class="btn btn-lg btn-primary"><i class="icon-plus-circle2 mr-2"></i>Add</a>
+  <button class="btn btn-lg btn-primary" data-toggle="modal" data-target="#add_role"><i class="icon-plus-circle2 mr-2"></i>Add</button>
+</div>
+
+<div id="add_role" class="modal fade" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h6 class="modal-title">Add Role</h6>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <form method="POST" action="" id="role_form">
+          @csrf
+          <div class="form-group row justify-content-center">
+            <div class="col-8">
+                <label class="col-form-label">Role Name</label>
+                <input type="text" class="form-control" name="role_name" placeholder="Role Name" required>
+            </div>
+          </div>
+          <div class="form-group row justify-content-center mb-4">
+            <div class="col-8">
+              <label class="col-form-label">Description</label>
+                <input type="text" class="form-control" name="role_description" placeholder="Description" required>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+        <button type="submit" id="submit_role" class="btn bg-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection
-
+ 
 @section('breadcrumb')
 <a href="{{ route('role.index') }}" class="breadcrumb-item">Role</a>
 @endsection
-
-@section('content')
-@if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
+ 
+@section('content') @if (session('success'))
+<div class="alert alert-success">
+  {{ session('success') }}
+</div>
 @endif
 <div class="card">
-    <div class="card-header header-elements-inline">
-        <h5 class="card-title">Role List</h5>
-        <div class="header-elements">
-            <div class="list-icons">
-                <a class="list-icons-item" data-action="collapse"></a>
-                <a class="list-icons-item" data-action="reload"></a>
-                <a class="list-icons-item" data-action="remove"></a>
-            </div>
-        </div>
+  <div class="card-header header-elements-inline">
+    <h5 class="card-title">Role List</h5>
+    <div class="header-elements">
+      <div class="list-icons">
+        <a class="list-icons-item" data-action="collapse"></a>
+        <a class="list-icons-item" data-action="reload"></a>
+        <a class="list-icons-item" data-action="remove"></a>
+      </div>
     </div>
+  </div>
 
-    <table class="table datatable-select-checkbox table-bordered" id="role-table">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Role ID</th>
-                <th>Role Name</th>
-                <th>Description</th>
-                <th>Active</th>
-            </tr>
-        </thead>
-    </table>
+  <table class="table datatable-select-checkbox table-bordered" id="role-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Role ID</th>
+        <th>Role Name</th>
+        <th>Active</th>
+        <th><i class="icon-gear"></i></th>
+      </tr>
+    </thead>
+  </table>
 </div>
 @endsection
-@push('scripts')
+ @push('scripts')
 <script>
-var DatatableSelect = function() {
+  $(() => {
+    $('#submit_role').click(() => {
+      const data = $('#role_form').serialize();
+      $.ajax({
+        url: '{{ route('role.store') }}',
+        method: 'POST',
+        data: data,
+        success: (result) => {
+          swal({
+            type: 'success',
+            text: 'Succesfull add new role'
+          }).then(() => {
+            window.location.href = '/role'
+          })
+        },
+        error: (err) => {
+          console.log(err)
+          if (!$('input[name=role_name]').val()) {
+            swal({
+              type: 'error',
+              text: 'Please fill the role name field'
+            });
+          } else {
+            swal({
+            type: 'error',
+            text: err
+            })
+          }
+          
+        }
+      })
+    })
+  })
+  var DatatableSelect = function() {
     var _componentDatatableSelect = function() {
         if (!$().DataTable) {
             console.warn('Warning - datatables.min.js is not loaded.');
@@ -83,14 +148,11 @@ var DatatableSelect = function() {
                 },
                 {
                     data: 'id',
+                    width: '200px',
                     render: (id) => `R000${id}`
                 },
                 {
-                    data: 'role_name',
-                    render: (data, type, row) => `<a href="/role/${row.id}/edit">${row.role_name}</a>`
-                },
-                {
-                    data: 'role_description'
+                    data: 'name',
                 },
                 {
                     data: 'active',
@@ -98,6 +160,12 @@ var DatatableSelect = function() {
                     className: 'text-center',
                     render: (active) => active === 'Active' ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-danger">Deactive</span>'
                 },
+                {
+                    data: 'id',
+                    width: '50px',
+                    orderable: false,
+                    render: (id) => `<a href="/role/${id}/show" class="icon-key"></a>`
+                }
             ],
             select: {
                 style: 'os'
@@ -199,6 +267,9 @@ var DatatableSelect = function() {
 document.addEventListener('DOMContentLoaded', function() {
 DatatableSelect.init();
 });
+
 </script>
-    
+
+
+
 @endpush

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Role;
 
-use App\Model\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRole;
 use Yajra\DataTables\Facades\DataTables;
+use Spatie\Permission\Models\Role as SpatieRole;
+use App\User;
+use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -23,7 +25,7 @@ class RoleController extends Controller
 
     public function data()
     {
-        $roles = Role::all();
+        $roles = SpatieRole::all();
         return DataTables::of($roles)->toJson();
     }
 
@@ -48,12 +50,14 @@ class RoleController extends Controller
     public function store(StoreRole $request)
     {
         //
-        Role::create([
-            'role_name' => $request->input('role_name'),
-            'role_description' => $request->input('role_description'),
-            'role_function' => $request->input('role_function'),
-            'active' => $request->input('active') == null ? 'Not Active' : 'Active'
+        $permissions = Permission::all();
+        $role = SpatieRole::create([
+            'name' => $request->input('role_name'),
+            // 'role_description' => $request->input('role_description'),
+            // 'role_function' => $request->input('role_function'),
+            // 'active' => $request->input('active') == null ? 'Not Active' : 'Active'
         ]);
+        $role->givePermissionTo($permissions);
         return redirect('role')->with('success', 'Successfull create role');
     }
 
@@ -80,9 +84,17 @@ class RoleController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show($id)
     {
         //
+        $permissions = Permission::all()->pluck('name');
+        $role = SpatieRole::findById($id)->hasPermissionTo($permissions);
+        // $role->hasAnyPermission()
+        // $user = User::find(auth()->id());
+        // $user->hasRole($per);
+        return var_dump($role);
+        return $permissions->hasAnyPermission($per);
+        return view('pages.role.role-permission', compact('permissions'));
     }
 
     /**
