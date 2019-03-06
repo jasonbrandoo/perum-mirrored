@@ -15,4 +15,9 @@ class Sales extends Model
     {
         return $this->belongsTo('App\Model\Sales', 'sales_spv');
     }
+    
+    public function surat()
+    {
+        return $this->hasMany('App\Model\SuratPesanan', 'sp_se_id');
+    }
 }

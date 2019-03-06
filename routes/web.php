@@ -1,7 +1,4 @@
 <?php
-
-use Spatie\Permission\Models\Role;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -302,17 +299,30 @@ Route::group([
      * Report
      */
     Route::prefix('report')->group(function () {
+        /* Penjualan */
         Route::get('/penjualan', 'Transaction\Report\ReportController@penjualan')->name('transaction.report.penjualan');
-        Route::get('/load_penjualan', 'Transaction\Report\ReportController@load_penjualan')->name('transaction.report.load_penjualan');
+        Route::post('/load_penjualan', 'Transaction\Report\ReportController@load_penjualan')->name('transaction.report.load_penjualan');
+        /* Sales */
+        Route::get('/penjualan-sales', 'Transaction\Report\ReportController@sales')->name('transaction.report.sales');
+        Route::post('/load_sales', 'Transaction\Report\ReportController@load_sales')->name('transaction.report.load_sales');
+        /* Pembatalan */
         Route::get('/pembatalan', 'Transaction\Report\ReportController@pembatalan')->name('transaction.report.pembatalan');
-        Route::get('/load_pembatalan', 'Transaction\Report\ReportController@load_pembatalan')->name('transaction.report.load_pembatalan');
-        /*  */
-        Route::get('/create', 'Transaction\Report\ReportController@create')->name('transaction.mou.create');
-        Route::get('/{id}/edit', 'Transaction\Report\ReportController@edit')->name('transaction.mou.edit');
-        Route::patch('/update', 'Transaction\Report\ReportController@update')->name('transaction.mou.update');
-        Route::patch('/{id}/action', 'Transaction\Report\ReportController@action')->name('transaction.mou.action');
-        Route::post('/store', 'Transaction\Report\ReportController@store')->name('transaction.mou.store');
-        Route::get('/data', 'Transaction\Report\ReportController@data')->name('transaction.mou.data');
+        Route::post('/load_pembatalan', 'Transaction\Report\ReportController@load_pembatalan')->name('transaction.report.load_pembatalan');
+        /* Penerimaan dan pembayaran */
+        Route::get('/penerimaan', 'Transaction\Report\ReportController@penerimaan')->name('transaction.report.penerimaan');
+        Route::post('/load_penerimaan', 'Transaction\Report\ReportController@load_penerimaan')->name('transaction.report.load_penerimaan');
+        /* Piutang (detail) */
+        Route::get('/piutang-detail', 'Transaction\Report\ReportController@piutang_detail')->name('transaction.report.piutang_detail');
+        Route::get('/load_piutang-detail', 'Transaction\Report\ReportController@load_piutang_detail')->name('transaction.report.load_piutang_detail');
+        /* Piutang (summary) */
+        Route::get('/piutang-summary', 'Transaction\Report\ReportController@piutang_summary')->name('transaction.report.piutang_summary');
+        Route::post('/load_piutang-summary', 'Transaction\Report\ReportController@load_piutang_summary')->name('transaction.report.load_piutang_summary');
+        /* Kavling belum terjual */
+        Route::get('/kavling-unsold', 'Transaction\Report\ReportController@kavling_unsold')->name('transaction.report.kavling_unsold');
+        Route::post('/load_kavling-unsold', 'Transaction\Report\ReportController@load_kavling_unsold')->name('transaction.report.load_kavling_unsold');
+        /**Kavling status */
+        Route::get('/kavling-status', 'Transaction\Report\ReportController@kavling_status')->name('transaction.report.kavling_status');
+        Route::post('/load_kavling-status', 'Transaction\Report\ReportController@load_kavling_status')->name('transaction.report.load_kavling_status');
     });
 
     /**

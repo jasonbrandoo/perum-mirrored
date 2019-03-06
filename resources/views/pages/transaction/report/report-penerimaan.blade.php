@@ -1,14 +1,14 @@
 @extends('layouts.app') 
 @section('page-title')
 <div class="mr-auto">
-  <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Report</span> - Report Penjualan</h4>
+  <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Report</span> - Report Penerimaan dan Pembayaran</h4>
   <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 </div>
 @endsection
  
 @section('breadcrumb')
 <a href="#" class="breadcrumb-item">Report</a>
-<a href="{{ route('transaction.report.penjualan') }}" class="breadcrumb-item">Penjualan</a>
+<a href="{{ route('transaction.report.penerimaan') }}" class="breadcrumb-item">Penerimaan dan Pembayaran</a>
 @endsection
  
 @section('content')
@@ -19,7 +19,7 @@
 @endif
 <div class="card">
   <div class="card-header header-elements-inline">
-    <h5 class="card-title">Report Penjualan</h5>
+    <h5 class="card-title">Report Penerimaan dan Pembayaran</h5>
     <div class="header-elements">
       <div class="list-icons">
         <a class="list-icons-item" data-action="collapse"></a>
@@ -29,28 +29,20 @@
     </div>
   </div>
   <div class="card-body">
-    <table class="table datatable-select-checkbox table-bordered" id="penjualan-table">
+    <table class="table datatable-select-checkbox table-bordered" id="penerimaan-table">
       <thead>
         <tr>
-          <th>NO</th>
-          <th>No SP</th>
-          <th>TGL SP</th>
+          <th>NO SP</th>
           <th>NAMA KONSUMEN</th>
           <th>BLOK</th>
-          <th>NO RUMAH</th>
-          <th>TIPE</th>
-          <th>HARGA JUAL</th>
-          <th>PPN</th>
-          <th>TOTAL HARGA JUAL</th>
-          <th>KPR DIMOHON</th>
-          <th>UANG MUKA</th>
-          <th>TL(M2)</th>
-          <th>PENINGKATAN MUTU</th>
-          <th>BIAYA STRATEGIS</th>
-          <th>TOTAL</th>
-          <th>PERUSAHAAN</th>
-          <th>NO HP KONSUMEN</th>
-          <th>SALES</th>
+          <th>NO KAVLING</th>
+          <th>LB</th>
+          <th>LT</th>
+          <th>NO KWT</th>
+          <th>TGL KWT</th>
+          <th>TGL TRF</th>
+          <th>JUMLAH BAYAR</th>
+          <th>URAIAN</th>
         </tr>
       </thead>
     </table>
@@ -106,7 +98,7 @@
                 orderable: false,
                 width: 100,
             }],
-            dom: '<"datatable-header"lBf><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+            dom: '<"datatable-header"flB><"datatable-scroll-wrap"t><"datatable-footer"ip>',
             language: {
                 search: '<span>Search:</span> _INPUT_',
                 searchPlaceholder: 'Type to search...',
@@ -115,13 +107,13 @@
             }
         });
 
-        const table = $('#penjualan-table').DataTable({
-            order: [[1, 'desc']],
+        const table = $('#penerimaan-table').DataTable({
+            order: [[0, 'desc']],
             processing: true,
             serverSide: true,
             ajax: {
-                url: '{!! route('transaction.report.load_penjualan') !!}',
-                type: 'POST',
+                url: '{!! route('transaction.report.load_penerimaan') !!}',
+                method: 'POST',
                 data: (data) => {
                     data.start_date = $('input[name=start_date]').val();
                     data.end_date = $('input[name=end_date]').val();
@@ -129,72 +121,41 @@
             },
             columns: [
                 {
+                    data: 'surat.id',
+                },
+                {
+                    data: 'surat.customer.customer_name',
+                },
+                {
+                    data: 'surat.kavling.kavling_block',
+                },
+                {
+                    data: 'surat.kavling.kavling_number'
+                },
+                {
+                    data: 'surat.sp_house_building'
+                },
+                {
+                    data: 'surat.sp_house_surface',
+                },
+                {
                     data: 'id',
+                    render: (data) => `KRF${data}`
                 },
                 {
-                    data: 'id'
-                },
-                {
-                    data: 'sp_date',
+                    data: 'kwitansi_date',
                     render: (data) => moment(data).format('D MMMM YYYY')
                 },
                 {
-                    data: 'customer.customer_name',
-                    render: (data, type, row) => moment(row.sp_date).format('D MMMM YYYY')
+                    data: 'kwitansi_transfer_date',
+                    render: (data) => moment(data).format('D MMMM YYYY')
                 },
                 {
-                    data: 'kavling.kavling_block'
-                },
-                {
-                    data: 'kavling.kavling_number'
-                },
-                {
-                    data: 'kavling.kavling_cluster'
-                },
-                {
-                    data: 'sp_price',
+                    data: 'kwitansi_jumlah',
                     render: (data) => $.number(data)
                 },
                 {
-                    data: 'sp_ppn',
-                    render: (data) => $.number(data)
-                },
-                {
-                    data: 'sp_total_harga_jual',
-                    render: (data) => $.number(data)
-                },
-                {
-                    data: 'sp_kpr_plan',
-                    render: (data) => $.number(data)
-                },
-                {
-                    data: 'sp_dp',
-                    render: (data) => $.number(data)
-                },
-                {
-                    data: 'sp_tl',
-                    render: (data) => $.number(data)
-                },
-                {
-                    data: 'sp_tl',
-                    render: (data) => ''
-                },
-                {
-                    data: 'sp_tl',
-                    render: (data) => ''
-                },
-                {
-                    data: 'sp_tl',
-                    render: (data) => ''
-                },
-                {
-                    data: 'company.company_name'
-                },
-                {
-                    data: 'customer.customer_mobile_number'
-                },
-                {
-                    data: 'sales.sales_name'
+                    data: 'kwitansi_for_pay',
                 }
             ],
             buttons: [
@@ -209,7 +170,7 @@
                 }
             ]
         });
-    
+        
         $('.__import').addClass('mr-3');
         $('.__filter').click(() => {
             $('#__filter').modal('show')
@@ -244,30 +205,10 @@
 }();
 
 document.addEventListener('DOMContentLoaded', function() {
-    DatatableSelect.init();
+DatatableSelect.init();
 });
 
-var DateTimePickers = function() {
-  var _componentPickadate = function() {
-    if (!$().pickadate) {
-      console.warn('Warning - picker.js and/or picker.date.js is not loaded.');
-      return;
-    }
-    $('.pickadate-selectors').pickadate({
-      selectYears: true,
-      selectMonths: true
-    });
-  };
-
-  return {
-    init: function() {
-      _componentPickadate();
-    }
-  }
-}();
-
-document.addEventListener('DOMContentLoaded', function() {
-  DateTimePickers.init();
-});
 </script>
+
+
 @endpush

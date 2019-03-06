@@ -22,4 +22,9 @@ class Kavling extends Model
     {
         return $this->belongsTo('App\Model\Rumah', 'kavling_type_id');
     }
+
+    public function surat()
+    {
+        return $this->hasOne('App\Model\SuratPesanan', 'sp_kavling_id');
+    }
 }

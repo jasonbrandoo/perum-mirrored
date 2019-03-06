@@ -1,14 +1,14 @@
 @extends('layouts.app') 
 @section('page-title')
 <div class="mr-auto">
-  <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Report</span> - Report Penjualan</h4>
+  <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Report</span> - Piutang Detail</h4>
   <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 </div>
 @endsection
  
 @section('breadcrumb')
 <a href="#" class="breadcrumb-item">Report</a>
-<a href="{{ route('transaction.report.penjualan') }}" class="breadcrumb-item">Penjualan</a>
+<a href="{{ route('transaction.report.penjualan') }}" class="breadcrumb-item">Piutang Detail</a>
 @endsection
  
 @section('content')
@@ -19,7 +19,7 @@
 @endif
 <div class="card">
   <div class="card-header header-elements-inline">
-    <h5 class="card-title">Report Penjualan</h5>
+    <h5 class="card-title">Report Piutang</h5>
     <div class="header-elements">
       <div class="list-icons">
         <a class="list-icons-item" data-action="collapse"></a>

@@ -64,6 +64,7 @@
 <script src="/template/global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
 <script src="/template/global_assets/js/plugins/tables/datatables/extensions/select.min.js"></script>
 <script src="/template/global_assets/js/plugins/tables/datatables/extensions/buttons.min.js"></script>
+<script src="/template/global_assets/js/plugins/tables/datatables/extensions/jszip/jszip.min.js"></script>
 <!--/DataTables-->
 
 <script src="/template/assets/js/app.js"></script>

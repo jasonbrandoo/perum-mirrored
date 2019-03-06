@@ -77,7 +77,13 @@
               <a href="#" class="nav-link">Report</a>
               <ul class="nav nav-group-sub">
                 <li class="nav-item"><a href="{{ route('transaction.report.penjualan') }}" class="nav-link">Penjualan</a></li>
+                <li class="nav-item"><a href="{{ route('transaction.report.sales') }}" class="nav-link">Penjualan per sales</a></li>
                 <li class="nav-item"><a href="{{ route('transaction.report.pembatalan') }}" class="nav-link">Pembatalan</a></li>
+                <li class="nav-item"><a href="{{ route('transaction.report.penerimaan') }}" class="nav-link">Penerimaan atau pembayaran</a></li>
+                <li class="nav-item"><a href="{{ route('transaction.report.piutang_detail') }}" class="nav-link">Piutang (detail)</a></li>
+                <li class="nav-item"><a href="{{ route('transaction.report.piutang_summary') }}" class="nav-link">Piutang (summary)</a></li>
+                <li class="nav-item"><a href="{{ route('transaction.report.kavling_unsold') }}" class="nav-link">Kavling belum terjual</a></li>
+                <li class="nav-item"><a href="{{ route('transaction.report.kavling_status') }}" class="nav-link">Status kavling</a></li>
               </ul>
             </li>
             {{--  --}}

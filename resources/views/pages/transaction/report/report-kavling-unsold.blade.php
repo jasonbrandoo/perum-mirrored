@@ -1,14 +1,14 @@
 @extends('layouts.app') 
 @section('page-title')
 <div class="mr-auto">
-  <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Report</span> - Report Pembatalan</h4>
+  <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Report</span> - Report Kavling Belum Terjual</h4>
   <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 </div>
 @endsection
  
 @section('breadcrumb')
 <a href="#" class="breadcrumb-item">Report</a>
-<a href="{{ route('transaction.report.pembatalan') }}" class="breadcrumb-item">Pembatalan</a>
+<a href="{{ route('transaction.report.penerimaan') }}" class="breadcrumb-item">Kavling Belum Terjual</a>
 @endsection
  
 @section('content')
@@ -19,7 +19,7 @@
 @endif
 <div class="card">
   <div class="card-header header-elements-inline">
-    <h5 class="card-title">Report Pembatalan</h5>
+    <h5 class="card-title">Report Kavling Belum Terjual</h5>
     <div class="header-elements">
       <div class="list-icons">
         <a class="list-icons-item" data-action="collapse"></a>
@@ -29,21 +29,18 @@
     </div>
   </div>
   <div class="card-body">
-    <table class="table datatable-select-checkbox table-bordered" id="pembatalan-table">
+    <table class="table datatable-select-checkbox table-bordered" id="penerimaan-table">
       <thead>
         <tr>
-          <th>NO</th>
-          <th>TGL BTL</th>
-          <th>NO SP</th>
           <th>BLOK</th>
-          <th>NO RUMAH</th>
-          <th>NAMA KONSUMEN</th>
-          <th>SALES</th>
-          <th>PERUSAHAAN</th>
+          <th>NO</th>
+          <th>CLUSTER</th>
+          <th>TIPE</th>
+          <th>LB</th>
+          <th>LT</th>
           <th>HARGA JUAL</th>
-          <th>BAYAR</th>
-          <th>REFUND</th>
-          <th>ALASAN PEMBATALAN</th>
+          <th>BGN</th>
+          <th>STATUS</th>
         </tr>
       </thead>
     </table>
@@ -63,14 +60,14 @@
           @csrf
           <div class="form-group row justify-content-center">
             <div class="col-8">
-              <label class="col-form-label">Start Date</label>
-              <input type="text" class="form-control pickadate-selectors" name="start_date" placeholder="Start Date" required>
+                <label class="col-form-label">Start Date</label>
+                <input type="text" class="form-control pickadate-selectors" name="start_date" placeholder="Start Date" required>
             </div>
           </div>
           <div class="form-group row justify-content-center mb-4">
             <div class="col-8">
               <label class="col-form-label">End Date</label>
-              <input type="text" class="form-control pickadate-selectors" name="end_date" placeholder="End Date" required>
+                <input type="text" class="form-control pickadate-selectors" name="end_date" placeholder="End Date" required>
             </div>
           </div>
         </form>
@@ -84,7 +81,7 @@
   </div>
 </div>
 @endsection
-@push('scripts')
+ @push('scripts')
 <script>
 var DatatableSelect = function() {
   var _componentDatatableSelect = function() {
@@ -108,13 +105,13 @@ var DatatableSelect = function() {
           }
       });
 
-      const table = $('#pembatalan-table').DataTable({
+      const table = $('#penerimaan-table').DataTable({
           order: [[0, 'desc']],
           processing: true,
           serverSide: true,
           ajax: {
-              url: '{!! route('transaction.report.load_pembatalan') !!}',
-              type: 'POST',
+              url: '{!! route('transaction.report.load_kavling_unsold') !!}',
+              method: 'POST',
               data: (data) => {
                   data.start_date = $('input[name=start_date]').val();
                   data.end_date = $('input[name=end_date]').val();
@@ -122,51 +119,36 @@ var DatatableSelect = function() {
           },
           columns: [
               {
-                  data: 'id',
+                  data: 'kavling_block'
               },
               {
-                  data: 'cancel_date',
-                  render: (data) => moment(data).format('D MMMM YYYY')
+                  data: 'kavling_number'
               },
               {
-                  data: 'cancel_sp_id',
+                  data: 'kavling_cluster'
               },
               {
-                  data: 'surat.kavling.kavling_block'
+                  data: 'house.rumah_type_name'
               },
               {
-                  data: 'surat.sp_house_no'
+                  data: 'house.building_area_m2'
               },
               {
-                  data: 'surat.customer.customer_name'
+                  data: 'house.surface_area_m2'
               },
               {
-                  data: 'surat.sales.sales_name',
-              },
-              {
-                  data: 'surat.company.company_name',
-              },
-              {
-                  data: 'surat.sp_price',
+                  data: 'price.price_selling',
                   render: (data) => $.number(data)
               },
               {
-                  data: 'cancel_consumen_bill',
-                  render: (data) => $.number(data)
+                  data: 'kavling_progress'
               },
               {
-                  data: 'cancel_consumen_bill',
-                  render: (data) => $.number(data)
+                  data: 'kavling_sell_status',
+                  render: (data) => 'Belum Terjual'
               },
-              {
-                  data: 'cancel_reason',
-              }
           ],
           buttons: [
-              {
-                  text: 'Filter',
-                  className: 'btn btn-primary __filter'
-              },
               {
                   text: 'Import',
                   className: 'btn btn-success __import',
@@ -174,7 +156,7 @@ var DatatableSelect = function() {
               }
           ]
       });
-
+      
       $('.__import').addClass('mr-3');
       $('.__filter').click(() => {
           $('#__filter').modal('show')
@@ -209,7 +191,7 @@ var DatatableSelect = function() {
 }();
 
 document.addEventListener('DOMContentLoaded', function() {
-    DatatableSelect.init();
+  DatatableSelect.init();
 });
 
 var DateTimePickers = function() {
@@ -234,5 +216,8 @@ var DateTimePickers = function() {
 document.addEventListener('DOMContentLoaded', function() {
   DateTimePickers.init();
 });
+
 </script>
+
+
 @endpush
