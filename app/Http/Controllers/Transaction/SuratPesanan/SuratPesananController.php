@@ -26,6 +26,7 @@ use App\Model\LPA;
 use App\Model\Ajb;
 use App\Model\Legal;
 use App\Model\Spk;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 
 class SuratPesananController extends Controller
 {
@@ -194,7 +195,7 @@ class SuratPesananController extends Controller
             'sp_house_surface' => $request->input('sp_house_surface'),
             'sp_tl' => $request->input('sp_tl'),
             'sp_tt' => $request->input('sp_tt'),
-            // 
+            //
             'sp_price_id' => Comma::removeComma($request->input('sp_price_id')),
             'sp_price' => Comma::removeComma($request->input('sp_price')),
             'sp_price_tl' => Comma::removeComma($request->input('sp_price_tl')),
@@ -213,7 +214,7 @@ class SuratPesananController extends Controller
             'sp_kpr_plan_percentage' => Comma::removeComma($request->input('sp_kpr_plan_percentage')),
             'sp_ajb_price' => Comma::removeComma($request->input('sp_ajb_price')),
             'sp_total' => Comma::removeComma($request->input('sp_total')),
-            // 
+            //
             'sp_bill' => Comma::removeComma($request->input('sp_bill')),
             'sp_dp' => Comma::removeComma($request->input('sp_dp')),
             'sp_subsidi' => $request->input('active') == null ? 'Not Active' : 'Active',
@@ -236,7 +237,7 @@ class SuratPesananController extends Controller
         $booking_fee = Comma::removeComma($request->sp_booking_fee);
         $customer_id = $request->sp_customer_id;
         $piutang = round($booking_fee / $cicilan);
-        for ($i=1; $i <= $cicilan; $i++) { 
+        for ($i=1; $i <= $cicilan; $i++) {
             array_push($data, [
                 'cicilan_sp_id' => (new SuratPesanan)->max('id'),
                 'customer_id' => $customer_id,
@@ -329,7 +330,7 @@ class SuratPesananController extends Controller
             'sp_house_surface' => $request->input('sp_house_surface'),
             'sp_tl' => $request->input('sp_tl'),
             'sp_tt' => $request->input('sp_tt'),
-            // 
+            //
             'sp_price_id' => Comma::removeComma($request->input('sp_price_id')),
             'sp_price' => Comma::removeComma($request->input('sp_price')),
             'sp_price_tl' => Comma::removeComma($request->input('sp_price_tl')),
@@ -348,7 +349,7 @@ class SuratPesananController extends Controller
             'sp_kpr_plan_percentage' => Comma::removeComma($request->input('sp_kpr_plan_percentage')),
             'sp_ajb_price' => Comma::removeComma($request->input('sp_ajb_price')),
             'sp_total' => Comma::removeComma($request->input('sp_total')),
-            // 
+            //
             'sp_bill' => Comma::removeComma($request->input('sp_bill')),
             'sp_dp' => Comma::removeComma($request->input('sp_dp')),
             'sp_subsidi' => $request->input('active') == null ? 'Not Active' : 'Active',
@@ -371,7 +372,7 @@ class SuratPesananController extends Controller
         $booking_fee = Comma::removeComma($request->sp_booking_fee);
         $customer_id = $request->sp_customer_id;
         $piutang = round($booking_fee / $cicilan);
-        for ($i=1; $i <= $cicilan; $i++) { 
+        for ($i=1; $i <= $cicilan; $i++) {
             array_push($data, [
                 'cicilan_sp_id' => $request->id,
                 'customer_id' => $customer_id,
@@ -395,5 +396,21 @@ class SuratPesananController extends Controller
     public function destroy(SuratPesanan $suratPesanan)
     {
         //
+    }
+
+    /**
+     * Generate PDF
+     *
+     */
+    public function generatePdf($id)
+    {
+        // return view('pages.transaction.surat.pdf-surat');
+        $surat = SuratPesanan::with('company', 'customer.company', 'sales', 'supervisor', 'kavling.house', 'mou', 'price', 'paymentMethod')->find($id);
+        $cicilan = Cicilan::with('surat')->where('cicilan_sp_id', $id)->get();
+        $data = [
+            'surat' => $surat,
+            'cicilan' => $cicilan
+        ];
+        return PDF::loadView('pages.transaction.surat.pdf-surat', $data)->inline();
     }
 }

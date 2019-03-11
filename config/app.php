@@ -176,7 +176,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
-        Spatie\Permission\PermissionServiceProvider::class
+        Spatie\Permission\PermissionServiceProvider::class,
+        // Barryvdh\DomPDF\ServiceProvider::class,
+        Barryvdh\Snappy\ServiceProvider::class
     ],
 
     /*
@@ -227,7 +229,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
-        'Spatie' => Spatie\Permission\PermissionServiceProvider::class
+        'Spatie' => Spatie\Permission\PermissionServiceProvider::class,
+        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class
     ],
 
 ];

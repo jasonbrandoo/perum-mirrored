@@ -32,25 +32,15 @@
     <table class="table datatable-select-checkbox table-bordered" id="penjualan-table">
       <thead>
         <tr>
-          <th>NO</th>
-          <th>No SP</th>
-          <th>TGL SP</th>
+          <th>NO SP</th>
           <th>NAMA KONSUMEN</th>
           <th>BLOK</th>
-          <th>NO RUMAH</th>
-          <th>TIPE</th>
-          <th>HARGA JUAL</th>
-          <th>PPN</th>
-          <th>TOTAL HARGA JUAL</th>
-          <th>KPR DIMOHON</th>
-          <th>UANG MUKA</th>
-          <th>TL(M2)</th>
-          <th>PENINGKATAN MUTU</th>
-          <th>BIAYA STRATEGIS</th>
-          <th>TOTAL</th>
-          <th>PERUSAHAAN</th>
-          <th>NO HP KONSUMEN</th>
-          <th>SALES</th>
+          <th>NO</th>
+          <th>NAMA SALES</th>
+          <th>NO</th>
+          <th>URAIAN</th>
+          <th>JUMLAH  AWAL PIUTANG</th>
+          <th>JATUH TEMPO PIUTANG</th>
         </tr>
       </thead>
     </table>
@@ -120,7 +110,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: '{!! route('transaction.report.load_penjualan') !!}',
+                url: '{!! route('transaction.report.load_piutang_detail') !!}',
                 type: 'POST',
                 data: (data) => {
                     data.start_date = $('input[name=start_date]').val();

@@ -85,11 +85,11 @@ var DatatableSelect = function() {
                     render: () => ''
                 },
                 {
-                    data: 'id'
+                    data: 'id',
+                    render: (data, type, row) => `<a href="surat-pesanan/${row.id}/edit">SP000${row.id}</a>`
                 },
                 {
-                    data: 'sp_prebook',
-                    render: (data, type, row) => `<a href="surat-pesanan/${row.id}/edit">${row.sp_prebook}</a>`
+                    data: 'sp_prebook'
                 },
                 {
                     data: 'sp_date',
