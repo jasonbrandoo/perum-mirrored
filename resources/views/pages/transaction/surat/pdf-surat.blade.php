@@ -49,7 +49,6 @@
 
     .__flex {
       /* width: 100%; */
-      /* background-color: tomato; */
     }
 
     .__marketing {
