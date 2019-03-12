@@ -7,7 +7,8 @@
 
 <title>{{ config('app.name', 'Laravel') }}</title>
 
-<link rel="shortcut icon" href="/icon/favicon.png" type="image/x-icon">
+{{--
+<link rel="shortcut icon" href="/icon/favicon.png" type="image/x-icon"> --}}
 
 <!-- Global stylesheets -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -71,7 +72,7 @@
 <!-- /Theme JS files -->
 
 <script>
-$.ajaxSetup({
+    $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
@@ -100,5 +101,6 @@ $(function(){
         cancelButtonClass: 'btn btn-light'
     });
 });
+
 </script>
 @stack('scripts')
