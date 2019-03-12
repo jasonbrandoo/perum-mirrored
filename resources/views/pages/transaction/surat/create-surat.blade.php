@@ -7,14 +7,15 @@
 </div>
 <div>
   <a href="{{isset($surat) ? route('transaction.surat-pesanan.pdf', $surat->id) : ''}}" class="btn btn-lg btn-success"><i class="icon-printer mr-2"></i>Print</a>
+  <a href="{{isset($surat) ? route('transaction.surat-pesanan.kuitansi_pdf', $surat->id) : ''}}" class="btn btn-lg btn-success"><i class="icon-printer mr-2"></i>Print Kuitansi</a>
 </div>
 @endsection
-
+ 
 @section('breadcrumb')
 <a href="{{ route('transaction.surat-pesanan.index') }}" class="breadcrumb-item">Surat Pesanan</a>
 <a href="{{ route('transaction.surat-pesanan.create') }}" class="breadcrumb-item">{{isset($surat) ? 'Edit surat pesanan' : 'Create new surat pesanan'}}</a>
 @endsection
-
+ 
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">
@@ -1145,6 +1146,7 @@
     document.addEventListener('DOMContentLoaded', function() {
       DateTimePickers.init();
     });
+
 </script>
 @if (isset($surat))
 <script>
@@ -2052,6 +2054,7 @@
       document.addEventListener('DOMContentLoaded', function() {
         DatatableSelect.init();
       });
+
 </script>
 @endif 
 @endpush

@@ -13,6 +13,7 @@ use App\Http\Requests\StoreRealization;
 use App\Http\Requests\StoreDisbursement;
 use Yajra\DataTables\DataTables;
 use Carbon\Carbon;
+use App\Helpers\Comma;
 
 class AjbController extends Controller
 {
@@ -70,8 +71,8 @@ class AjbController extends Controller
         //
         Ajb::create([
             'ajb_date' => Carbon::parse($request->input('ajb_date'))->format('Y-m-d H:i:s'),
-            'ajb_price_1' => $request->input('ajb_price_1'),
-            'ajb_price_2' => $request->input('ajb_price_2'),
+            'ajb_price_1' => Comma::removeComma($request->input('ajb_price_1')),
+            'ajb_price_2' => Comma::removeComma($request->input('ajb_price_2')),
             'ajb_lt' => $request->input('ajb_lt'),
             'ajb_tl' => $request->input('ajb_tl'),
             'ajb_notaris' => $request->input('ajb_notaris'),

@@ -413,4 +413,16 @@ class SuratPesananController extends Controller
         ];
         return PDF::loadView('pages.transaction.surat.pdf-surat', $data)->inline();
     }
+
+    public function generateKuitansi($id)
+    {
+        // return view('pages.transaction.surat.pdf-kuitansi');
+        $surat = SuratPesanan::with('company', 'customer.company', 'sales', 'supervisor', 'kavling.house', 'mou', 'price', 'paymentMethod')->find($id);
+        $kuitansi = Kwitansi::with('surat.kavling.house')->where('kwitansi_sp_id', $id)->first();
+        $data = [
+            'kuitansi' => $kuitansi,
+        ];
+        // return $data;
+        return PDF::loadView('pages.transaction.surat.pdf-kuitansi', $data)->inline();
+    }
 }
