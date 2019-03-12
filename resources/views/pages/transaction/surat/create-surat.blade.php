@@ -5,10 +5,12 @@
     : 'Create new surat pesanan'}}</h4>
   <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 </div>
+@if (isset($surat))
 <div>
   <a href="{{isset($surat) ? route('transaction.surat-pesanan.pdf', $surat->id) : ''}}" class="btn btn-lg btn-success"><i class="icon-printer mr-2"></i>Print</a>
   <a href="{{isset($surat) ? route('transaction.surat-pesanan.kuitansi_pdf', $surat->id) : ''}}" class="btn btn-lg btn-success"><i class="icon-printer mr-2"></i>Print Kuitansi</a>
 </div>
+@endif
 @endsection
  
 @section('breadcrumb')
