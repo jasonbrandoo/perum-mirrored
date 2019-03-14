@@ -1,8 +1,8 @@
 <div class="navbar navbar-expand-md navbar-dark navbar-static">
   <div class="navbar-brand">
     <a href="/" class="d-inline-block">
-    <img src="#" alt="">
     {{-- <img src="/img/sarigriya.png" alt=""> --}}
+    <img src="#" alt="">
   </a>
     <a href="/" class="text-white">
       <h1 class="d-inline ml-2 font-weight-bold">{{$setting_name}}</h1>
