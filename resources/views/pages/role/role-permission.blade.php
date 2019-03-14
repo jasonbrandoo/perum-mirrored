@@ -32,7 +32,6 @@
     <table class="table datatable-select-checkbox table-bordered" id="role-table">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Name</th>
           <th>Create</th>
           <th>Read</th>
@@ -40,26 +39,87 @@
           <th>Delete</th>
         </tr>
       </thead>
-      @foreach ($permissions as $permission)
+      {{-- @foreach ($permissions as $permission) --}}
       <tbody>
         <tr>
-          <td>{{$permission->id}}</td>
-          <td>{{$permission->name}}</td>
-          <td class="text-center" style="width: 50px"><input type="checkbox" name="create" {{$permission->create == 0 ? '' : 'checked'}}></td>
-          <td class="text-center" style="width: 50px"><input type="checkbox" name="create" {{$permission->read == 0 ? '' : 'checked'}}></td>
-          <td class="text-center" style="width: 50px"><input type="checkbox" name="create" {{$permission->update == 0 ? '' : 'checked'}}></td>
-          <td class="text-center" style="width: 50px"><input type="checkbox" name="create" {{$permission->delete == 0 ? '' : 'checked'}}></td>
+          @if ($length == 0)
+          <td>{{$roles->name}}</td>
+          <td class="text-center" style="width: 50px"><input type="checkbox" name="create"></td>
+          <td class="text-center" style="width: 50px"><input type="checkbox" name="read"></td>
+          <td class="text-center" style="width: 50px"><input type="checkbox" name="update"></td>
+          <td class="text-center" style="width: 50px"><input type="checkbox" name="delete"></td>
+          @else
+          <td>{{$roles->name}}</td>
+          <td class="text-center" style="width: 50px"><input type="checkbox" name="create" {{array_key_exists( 'create', $permission) ? 'checked' : ''}}></td>
+          <td class="text-center" style="width: 50px"><input type="checkbox" name="read" {{array_key_exists( 'read', $permission) ? 'checked' : ''}}></td>
+          <td class="text-center" style="width: 50px"><input type="checkbox" name="update" {{array_key_exists( 'update', $permission) ? 'checked' : ''}}></td>
+          <td class="text-center" style="width: 50px"><input type="checkbox" name="delete" {{array_key_exists( 'delete', $permission) ? 'checked' : ''}}></td>
+          @endif
         </tr>
       </tbody>
-      @endforeach
+      {{-- @endforeach --}}
     </table>
     <div class="row justify-content-end">
-      {{-- <div class="col"> --}}
-        <button type="submit" class="btn btn-primary col-4 mt-3">Save</button>
-      {{-- </div> --}}
+      {{--
+      <div class="col"> --}} {{-- <input type="hidden" name="id" value="{{$roles->id}}"> --}}
+        <button type="submit" id="save" class="btn btn-primary col-4 mt-3">Save</button> {{-- </div> --}}
     </div>
   </div>
 </div>
 @endsection
- @push('scripts') 
+ @push('scripts')
+<script>
+  $(() => {
+   $('#save').click((e) => {
+     e.preventDefault();
+    //  const id = $('input[name=id]').val();
+     const c = $('input[name=create]').prop('checked') ? 'create' : '';
+     const r = $('input[name=read]').prop('checked') ? 'read' : '';
+     const u = $('input[name=update]').prop('checked') ? 'update' : '';
+     const d = $('input[name=delete]').prop('checked') ? 'delete' : '';
+     $.ajax({
+       url: '{!! route('role.permission', $roles->id) !!}',
+       method: 'PATCH',
+       data: {
+         create: c,
+         read: r,
+         update: u,
+         delete: d
+       },
+       success: (result) => {
+         console.log(result);
+         swal({
+           type: 'success',
+           text: 'Success'
+         });
+       },
+       error: (err) => {
+         console.log(err);
+         swal({
+           type: 'error',
+           text: 'Error'
+         })
+       }
+     })
+   })
+ })
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @endpush

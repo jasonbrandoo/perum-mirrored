@@ -10,6 +10,8 @@ use App\User;
 use App\Http\Requests\StoreUsers;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role as SpatieRole;
+use Spatie\Permission\Models\Permission;
 
 class UsersController extends Controller
 {
@@ -67,7 +69,7 @@ class UsersController extends Controller
 
     /**
      * Active / Deactive
-     * 
+     *
      * @return Users Status
      */
     public function action(Request $request, $id)
@@ -76,10 +78,10 @@ class UsersController extends Controller
         if ($request->input('active') == 'Deactive') {
             $users->active = 'Deactive';
             $users->save();
-        } else if ($request->input('active') == 'Active'){
+        } elseif ($request->input('active') == 'Active') {
             $users->active = 'Active';
             $users->save();
-        } 
+        }
     }
 
     /**
@@ -102,7 +104,7 @@ class UsersController extends Controller
     public function edit(Users $users, $id)
     {
         //
-        $roles = Role::where('active', 'active')->get();
+        $roles = SpatieRole::all();
         $users = Users::find($id);
         return view('pages.user.create-user', compact('roles', 'users'));
     }
@@ -117,9 +119,10 @@ class UsersController extends Controller
     public function update(StoreUsers $request, User $users)
     {
         //
-        $users::find($request->id)->update([
-            'role_id' => $request->input('role_id'),
-            'staff_id' => $request->input('staff_id'),
+        $roles_permission = SpatieRole::findByName($request->input('role_id'))->permissions;
+        // return $roles_permission;
+        $users = $users::find($request->id);
+        $users->update([
             'name' => $request->input('fullname'),
             'phone_number' => $request->input('phone_number'),
             'email' => $request->input('email'),
@@ -127,6 +130,10 @@ class UsersController extends Controller
             'active' => $request->input('active') == null ? 'Not Active' : 'Active',
             'password' => Hash::make($request->input('password'))
         ]);
+
+        $permission = SpatieRole::findByName($request->input('role_id'));
+        $users->givePermissionTo($roles_permission);
+        $users->assignRole($request->input('role_id'));
         return redirect('/users')->with('success', 'Successfull Update user');
     }
 

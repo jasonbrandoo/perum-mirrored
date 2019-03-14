@@ -388,6 +388,7 @@ Route::group([
     Route::get('/{id}/edit', 'Role\RoleController@edit')->name('role.edit');
     Route::get('/{id}/show', 'Role\RoleController@show')->name('role.show');
     Route::patch('/{id}/action', 'Role\RoleController@action')->name('role.action');
+    Route::patch('/{id}/permission', 'Role\RoleController@setPermission')->name('role.permission');
     Route::patch('/update', 'Role\RoleController@update')->name('role.update');
     Route::post('/store', 'Role\RoleController@store')->name('role.store');
     Route::get('/data', 'Role\RoleController@data')->name('role.data');

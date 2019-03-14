@@ -9,6 +9,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Spatie\Permission\Models\Role as SpatieRole;
 use App\User;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
@@ -50,20 +51,20 @@ class RoleController extends Controller
     public function store(StoreRole $request)
     {
         //
-        $permissions = Permission::all();
+        // $permissions = Permission::all();
         $role = SpatieRole::create([
             'name' => $request->input('role_name'),
             // 'role_description' => $request->input('role_description'),
             // 'role_function' => $request->input('role_function'),
             // 'active' => $request->input('active') == null ? 'Not Active' : 'Active'
         ]);
-        $role->givePermissionTo($permissions);
+        // $role->givePermissionTo($permissions);
         return redirect('role')->with('success', 'Successfull create role');
     }
 
     /**
      * Active / Deactive
-     * 
+     *
      * @return Role Status
      */
     public function action(Request $request, $id)
@@ -72,10 +73,10 @@ class RoleController extends Controller
         if ($request->input('active') == 'Deactive') {
             $role->active = 'Deactive';
             $role->save();
-        } else if ($request->input('active') == 'Active'){
+        } elseif ($request->input('active') == 'Active') {
             $role->active = 'Active';
             $role->save();
-        } 
+        }
     }
 
     /**
@@ -87,14 +88,77 @@ class RoleController extends Controller
     public function show($id)
     {
         //
-        $permissions = Permission::all()->pluck('name');
-        $role = SpatieRole::findById($id)->hasPermissionTo($permissions);
+        $user = Auth::user()->permissions;
+        $roles = SpatieRole::find($id);
+        $permissions = $roles->permissions;
+        $length = count($permissions);
+        $permission = [];
+        foreach ($permissions as $key => $value) {
+            $permission[$value->name] = $value;
+        }
+        // return array_key_exists('delete', $permission) ? 'ok' : 'nooo';
         // $role->hasAnyPermission()
         // $user = User::find(auth()->id());
         // $user->hasRole($per);
-        return var_dump($role);
-        return $permissions->hasAnyPermission($per);
-        return view('pages.role.role-permission', compact('permissions'));
+        if ($length == 0) {
+            return view('pages.role.role-permission', compact('roles', 'permission', 'length'));
+        } else {
+            return view('pages.role.role-permission', compact('roles', 'permission', 'length'));
+        }
+    }
+
+    /**
+     * Set Role Permission
+     *
+     */
+    public function setPermission(Request $request, $id)
+    {
+        // $user = Auth::user();
+        $roles = SpatieRole::find($id);
+        // $user->assignRole($roles->name);
+        
+        if ($request->input('create') == null) {
+            // $user->revokePermissionTo('create');
+            $roles->revokePermissionTo('create');
+        } else {
+            // $user->givePermissionTo('create');
+            $roles->givePermissionTo('create');
+        }
+
+        if ($request->input('read') == null) {
+            // $user->revokePermissionTo('read');
+            $roles->revokePermissionTo('read');
+        } else {
+            // $user->givePermissionTo('read');
+            $roles->givePermissionTo('read');
+        }
+
+        if ($request->input('update') == null) {
+            // $user->revokePermissionTo('update');
+            $roles->revokePermissionTo('update');
+        } else {
+            // $user->givePermissionTo('update');
+            $roles->givePermissionTo('update');
+        }
+
+        if ($request->input('delete') == null) {
+            // $user->revokePermissionTo('delete');
+            $roles->revokePermissionTo('delete');
+        } else {
+            // $user->givePermissionTo('delete');
+            $roles->givePermissionTo('delete');
+        }
+        
+        
+        
+        
+        // $create = $request->input('create') == null ? $user->revokePermissionTo('create') : $user->givePermissionTo('create');
+        // $read = $request->input('read') == null ? $user->revokePermissionTo('read') : $user->givePermissionTo('read');
+        // $update = $request->input('update') == null ? $user->revokePermissionTo('update') : $user->givePermissionTo('update');
+        // $delete = $request->input('delete') == null ? $user->revokePermissionTo('delete') : $user->givePermissionTo('delete');
+
+        // $roles->givePermissionTo([$create, $read, $update, $delete]);
+        return $roles;
     }
 
     /**

@@ -1,24 +1,22 @@
-@extends('layouts.app')
-
+@extends('layouts.app') 
 @section('page-title')
 <div class="mr-auto">
     <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Users</span> - User List</h4>
     <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 </div>
 <div>
-  <a href="{{ route ('users.create') }}" class="btn btn-lg btn-primary"><i class="icon-plus-circle2 mr-2"></i>Add</a>
+    <a href="{{ route ('users.create') }}" class="btn btn-lg btn-primary"><i class="icon-plus-circle2 mr-2"></i>Add</a>
 </div>
 @endsection
-
+ 
 @section('breadcrumb')
 <a href="{{ route('users.index') }}" class="breadcrumb-item">Users</a>
 @endsection
-
-@section('content')
-@if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
+ 
+@section('content') @if (session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
 @endif
 <div class="card">
     <div class="card-header header-elements-inline">
@@ -38,7 +36,6 @@
                 <th></th>
                 <th>ID</th>
                 <th>Full Name</th>
-                <th>Staff ID</th>
                 <th>Role</th>
                 <th>Active</th>
             </tr>
@@ -46,9 +43,9 @@
     </table>
 </div>
 @endsection
-@push('scripts')
+ @push('scripts')
 <script>
-var DatatableSelect = function() {
+    var DatatableSelect = function() {
     var _componentDatatableSelect = function() {
         if (!$().DataTable) {
             console.warn('Warning - datatables.min.js is not loaded.');
@@ -91,11 +88,11 @@ var DatatableSelect = function() {
                     render: (data, type, row) => `<a href="/users/${row.id}/edit">${row.name}</a>`
                 },
                 {
-                    data: 'staff_id'
+                    data: 'roles',
+                    render: (data, type, row) => {
+                        return data.length == 0 ? 'Not Assign To Any Role' : data[0].name
+                    }
                 },
-                {
-                    data: 'roles.role_name'
-                    },
                 {
                     data: 'active',
                     width: '50px',
@@ -203,6 +200,35 @@ var DatatableSelect = function() {
 document.addEventListener('DOMContentLoaded', function() {
 DatatableSelect.init();
 });
+
 </script>
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @endpush
