@@ -70,14 +70,14 @@
           @csrf
           <div class="form-group row justify-content-center">
             <div class="col-8">
-                <label class="col-form-label">Start Date</label>
-                <input type="text" class="form-control pickadate-selectors" name="start_date" placeholder="Start Date" required>
+              <label class="col-form-label">Start Date</label>
+              <input type="text" class="form-control pickadate-selectors" name="start_date" placeholder="Start Date" required>
             </div>
           </div>
           <div class="form-group row justify-content-center mb-4">
             <div class="col-8">
               <label class="col-form-label">End Date</label>
-                <input type="text" class="form-control pickadate-selectors" name="end_date" placeholder="End Date" required>
+              <input type="text" class="form-control pickadate-selectors" name="end_date" placeholder="End Date" required>
             </div>
           </div>
         </form>
@@ -140,7 +140,6 @@
                 },
                 {
                     data: 'customer.customer_name',
-                    render: (data, type, row) => moment(row.sp_date).format('D MMMM YYYY')
                 },
                 {
                     data: 'kavling.kavling_block'
@@ -269,5 +268,7 @@ var DateTimePickers = function() {
 document.addEventListener('DOMContentLoaded', function() {
   DateTimePickers.init();
 });
+
 </script>
+
 @endpush

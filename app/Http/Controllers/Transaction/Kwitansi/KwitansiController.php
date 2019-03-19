@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Yajra\DataTables\DataTables;
 use App\Model\Payment;
 use App\Helpers\Comma;
+use Barryvdh\Snappy\Facades\SnappyPdf;
 
 class KwitansiController extends Controller
 {
@@ -155,5 +156,18 @@ class KwitansiController extends Controller
     public function destroy(Kwitansi $kwitansi)
     {
         //
+    }
+
+    /**
+     * Generate PDF for Kuitansi
+     * 
+     */
+    public function generatePdf($id)
+    {
+        $kuitansi = Kwitansi::where('id', $id)->first();
+        $data = [
+            'kuitansi' => $kuitansi
+        ];
+        return SnappyPdf::loadView('pages.transaction.kuitansi.pdf-kwitansi', $data)->inline();
     }
 }

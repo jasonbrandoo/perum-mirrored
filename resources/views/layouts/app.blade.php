@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
 
     <!-- Head -->
@@ -7,6 +8,7 @@
     <!-- /Head -->
 
 </head>
+
 <body>
 
     <!--MainNavbar-->
@@ -17,18 +19,18 @@
     <div class="page-content">
 
         <!--MainSideBar-->
-        @include('layouts.partials.main-sidebar')
+    @include('layouts.partials.main-sidebar')
         <!--/MainSideBar-->
 
         <!--MainContent-->
         <div class="content-wrapper">
-            
+
             <!--PageHeader-->
             <div class="page-header page-header-light">
-                @include('layouts.partials.page-header')
+    @include('layouts.partials.page-header')
             </div>
             <!--/PageHeader-->
-            
+
             <!--MainContent-->
             <div class="content">
                 @yield('content')
@@ -42,4 +44,5 @@
     <!--/PageContent-->
 
 </body>
+
 </html>

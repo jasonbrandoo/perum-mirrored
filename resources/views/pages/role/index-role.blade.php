@@ -21,14 +21,14 @@
           @csrf
           <div class="form-group row justify-content-center">
             <div class="col-8">
-                <label class="col-form-label">Role Name</label>
-                <input type="text" class="form-control" name="role_name" placeholder="Role Name" required>
+              <label class="col-form-label">Role Name</label>
+              <input type="text" class="form-control" name="role_name" placeholder="Role Name" required>
             </div>
           </div>
           <div class="form-group row justify-content-center mb-4">
             <div class="col-8">
               <label class="col-form-label">Description</label>
-                <input type="text" class="form-control" name="role_description" placeholder="Description" required>
+              <input type="text" class="form-control" name="role_description" placeholder="Description" required>
             </div>
           </div>
         </form>
@@ -70,7 +70,7 @@
         <th></th>
         <th>Role ID</th>
         <th>Role Name</th>
-        <th>Active</th>
+        <th>Access Page</th>
         <th><i class="icon-gear"></i></th>
       </tr>
     </thead>
@@ -155,10 +155,9 @@
                     data: 'name',
                 },
                 {
-                    data: 'active',
+                    data: 'id',
                     width: '50px',
-                    className: 'text-center',
-                    render: (active) => active === 'Active' ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-danger">Deactive</span>'
+                    render: (id) => `<a href="/role/${id}/page" class="icon-direction"></a>`
                 },
                 {
                     data: 'id',
@@ -269,6 +268,7 @@ DatatableSelect.init();
 });
 
 </script>
+
 
 
 

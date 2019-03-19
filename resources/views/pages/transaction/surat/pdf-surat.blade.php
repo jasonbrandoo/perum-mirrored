@@ -252,19 +252,19 @@
         <p>TANGERANG, 2019</p>
         <p>PT SARI MULTIGRIYA SENTOSA</p>
         <br><br><br>
-        <p><u>MARDI LIM</u></p>
+        <p><u>{{$surat->supervisor->sales_name}}</u></p>
         <p>Marketing Manager</p>
       </div>
       <div class="__sales">
         <p>Dibuat</p>
         <br><br><br>
-        <p><u>MARIATUL QIBTIYAH</u></p>
+        <p><u>{{$surat->sales->sales_name}}</u></p>
         <p>Sales Executive</p>
       </div>
       <div class="__pemesan">
         <p>Menyetujui</p>
         <br><br><br>
-        <p><u>NURSHITA</u></p>
+        <p><u>{{$surat->customer->customer_name}}</u></p>
         <p>Pemesan</p>
       </div>
     </div>

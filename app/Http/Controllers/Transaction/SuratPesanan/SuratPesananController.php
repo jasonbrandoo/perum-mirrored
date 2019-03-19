@@ -418,7 +418,7 @@ class SuratPesananController extends Controller
     {
         // return view('pages.transaction.surat.pdf-kuitansi');
         $surat = SuratPesanan::with('company', 'customer.company', 'sales', 'supervisor', 'kavling.house', 'mou', 'price', 'paymentMethod')->find($id);
-        $kuitansi = Kwitansi::with('surat.kavling.house')->where('kwitansi_sp_id', $id)->first();
+        $kuitansi = Kwitansi::with('surat.kavling.house')->where('kwitansi_sp_id', $id)->orderBy('created_at', 'desc')->first();
         $data = [
             'kuitansi' => $kuitansi,
         ];

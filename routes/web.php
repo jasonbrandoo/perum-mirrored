@@ -24,7 +24,6 @@ Route::get('/home', 'HomeController@index')->middleware('auth');
 /**
  * Company Route
  */
-
 Route::group([
     'prefix' => 'company',
     'middleware' => 'auth',
@@ -41,7 +40,6 @@ Route::group([
 /**
  * Customer Route
  */
-
 Route::group([
     'prefix' => 'customer',
     'middleware' => 'auth',
@@ -58,7 +56,6 @@ Route::group([
 /**
  * Kavling Route
  */
-
 Route::group([
     'prefix' => 'kavling',
     'middleware' => 'auth',
@@ -77,7 +74,6 @@ Route::group([
 /**
  * Payment Method Route
  */
-
 Route::group([
     'prefix' => 'payment',
     'middleware' => 'auth',
@@ -94,7 +90,6 @@ Route::group([
 /**
  * Payment Method Route
  */
-
 Route::group([
     'prefix' => 'price',
     'middleware' => 'auth',
@@ -112,7 +107,6 @@ Route::group([
 /**
  * Payment Method Route
  */
-
 Route::group([
     'prefix' => 'referensi',
     'middleware' => 'auth',
@@ -141,6 +135,8 @@ Route::group([
     Route::prefix('ajb')->group(function () {
         Route::get('/', 'Transaction\Ajb\AjbController@index')->name('transaction.ajb.index');
         Route::get('/create', 'Transaction\Ajb\AjbController@create')->name('transaction.ajb.create');
+        Route::get('/{id}/edit', 'Transaction\Ajb\AjbController@edit')->name('transaction.ajb.edit');
+        Route::patch('/{id}/update', 'Transaction\Ajb\AjbController@update')->name('transaction.ajb.update');
         Route::get('/realization', 'Transaction\Ajb\AjbController@realization')->name('transaction.ajb.realization');
         Route::get('/disbursement', 'Transaction\Ajb\AjbController@disbursement')->name('transaction.ajb.disbursement');
         Route::post('/store', 'Transaction\Ajb\AjbController@store')->name('transaction.ajb.store');
@@ -236,6 +232,8 @@ Route::group([
         Route::post('/store', 'Transaction\Kwitansi\KwitansiController@store')->name('transaction.kwitansi.store');
         Route::get('/data', 'Transaction\Kwitansi\KwitansiController@data')->name('transaction.kwitansi.data');
         Route::get('/load_sp', 'Transaction\Kwitansi\KwitansiController@load_sp')->name('transaction.kwitansi.load_sp');
+        Route::get('/load_sp', 'Transaction\Kwitansi\KwitansiController@load_sp')->name('transaction.kwitansi.load_sp');
+        Route::get('/print/{id}', 'Transaction\Kwitansi\KwitansiController@generatePdf')->name('transaction.kwitansi.generatePdf');
     });
 
     /**
@@ -387,10 +385,12 @@ Route::group([
     Route::get('/create', 'Role\RoleController@create')->name('role.create');
     Route::get('/{id}/edit', 'Role\RoleController@edit')->name('role.edit');
     Route::get('/{id}/show', 'Role\RoleController@show')->name('role.show');
+    Route::get('/{id}/page', 'Role\RoleController@page')->name('role.page');
     Route::patch('/{id}/action', 'Role\RoleController@action')->name('role.action');
     Route::patch('/{id}/permission', 'Role\RoleController@setPermission')->name('role.permission');
     Route::patch('/update', 'Role\RoleController@update')->name('role.update');
     Route::post('/store', 'Role\RoleController@store')->name('role.store');
+    Route::post('/{id}/page', 'Role\RoleController@updatePage')->name('role.update_page');
     Route::get('/data', 'Role\RoleController@data')->name('role.data');
 });
 
@@ -424,6 +424,17 @@ Route::group([
     Route::patch('/update', 'Sales\SalesController@update')->name('sales.update');
     Route::post('/store', 'Sales\SalesController@store')->name('sales.store');
     Route::get('/data', 'Sales\SalesController@data')->name('sales.data');
+});
+
+/**
+ * Settign Route
+ */
+Route::group([
+    'prefix' => 'setting',
+    'middleware' => 'auth',
+], function () {
+    Route::get('/', 'Setting\SettingController@index')->name('setting.index');
+    Route::post('/', 'Setting\SettingController@store')->name('setting.store');
 });
 
 /**
