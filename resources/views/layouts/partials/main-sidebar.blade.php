@@ -40,6 +40,8 @@
             {{-- --}}
             <li class="nav-item"><a href="{{ route('sales.index') }}" class="nav-link"><i class="icon-user-tie"></i>Sales</a></li>
             {{-- --}}
+            <li class="nav-item"><a href="{{ route('setting.index') }}" class="nav-link"><i class="icon-gear"></i>Setting</a></li>
+            {{-- --}}
             <li class="nav-item"><a href="{{ route('users.index') }}" class="nav-link"><i class="icon-user"></i>User</a></li>
           </ul>
         </li>

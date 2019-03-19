@@ -118,7 +118,7 @@ class AjbController extends Controller
             'disbursement_realization_id' => $request->input('disbursement_realization_id'),
             'disbursement_realization_date' => Carbon::parse($request->input('disbursement_realization_date'))->format('Y-m-d H:i:s')
         ]);
-        return redirect('transaction/ajb')->with('success', 'Success');        
+        return redirect('transaction/ajb')->with('success', 'Success');
     }
 
     /**
@@ -138,9 +138,12 @@ class AjbController extends Controller
      * @param  \App\Ajb  $ajb
      * @return \Illuminate\Http\Response
      */
-    public function edit(Ajb $ajb)
+    public function edit(Ajb $ajb, $id)
     {
         //
+        $ajb = AJB::with('surat.kavling.house', 'surat.sales')->find($id);
+        $sps_edit = SuratPesanan::all();
+        return view('pages.transaction.ajb.create-ajb', compact('ajb', 'sps_edit'));
     }
 
     /**
@@ -150,9 +153,27 @@ class AjbController extends Controller
      * @param  \App\Ajb  $ajb
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ajb $ajb)
+    public function update(Request $request, Ajb $ajb, $id)
     {
         //
+        // return $request;
+        Ajb::find($id)->update([
+            'ajb_date' => Carbon::parse($request->input('ajb_date'))->format('Y-m-d H:i:s'),
+            'ajb_price_1' => Comma::removeComma($request->input('ajb_price_1')),
+            'ajb_price_2' => Comma::removeComma($request->input('ajb_price_2')),
+            'ajb_lt' => $request->input('ajb_lt'),
+            'ajb_tl' => $request->input('ajb_tl'),
+            'ajb_notaris' => $request->input('ajb_notaris'),
+            'ajb_description' => $request->input('ajb_description'),
+            'ajb_sp_id' => $request->input('ajb_sp_id'),
+            'ajb_shgb' => $request->input('ajb_shgb'),
+            'ajb_shgb_date' => Carbon::parse($request->input('ajb_shgb_date'))->format('Y-m-d H:i:s'),
+            'ajb_imb' => $request->input('ajb_imb'),
+            'ajb_imb_date' => Carbon::parse($request->input('ajb_imb_date'))->format('Y-m-d H:i:s'),
+            'ajb_sp3k' => $request->input('ajb_sp3k'),
+            'ajb_sp3k_date' => Carbon::parse($request->input('ajb_sp3k_date'))->format('Y-m-d H:i:s'),
+        ]);
+        return redirect('ajb')->with('success', 'Successfull udate ajb');
     }
 
     /**

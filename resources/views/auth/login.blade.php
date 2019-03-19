@@ -48,7 +48,8 @@
                 </button>
               </div>
             </div>
-            {{-- <div class="form-group-row">
+            {{--
+            <div class="form-group-row">
               <div class="col text-center">
                 @if (Route::has('password.request'))
                 <a class="btn btn-link" href="{{ route('password.request') }}">
@@ -63,8 +64,7 @@
   </div>
 </div>
 @endsection
-
-@push('scripts')
+ @push('scripts')
 <script>
   $(document).ready(function(){
       $('#submit-button').click(function(e){
@@ -97,4 +97,5 @@
     });
 
 </script>
+
 @endpush

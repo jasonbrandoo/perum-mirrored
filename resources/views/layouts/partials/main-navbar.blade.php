@@ -5,7 +5,7 @@
     <img src="#" alt="">
   </a>
     <a href="/" class="text-white">
-      <h1 class="d-inline ml-2 font-weight-bold">Application</h1>
+      <h1 class="d-inline ml-2 font-weight-bold">{{$setting_name}}</h1>
     </a>
   </div>
 

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Users;
 use App\Users;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\Role;
 use App\User;
 use App\Http\Requests\StoreUsers;
 use Yajra\DataTables\DataTables;
@@ -40,7 +39,7 @@ class UsersController extends Controller
     public function create()
     {
         //
-        $roles = Role::get();
+        $roles = SpatieRole::all();
         $id = (new User)->max('id') + 1;
         return view('pages.user.create-user', compact('roles', 'id'));
     }
@@ -54,9 +53,7 @@ class UsersController extends Controller
     public function store(StoreUsers $request)
     {
         //
-        User::create([
-            'role_id' => $request->input('role_id'),
-            'staff_id' => $request->input('staff_id'),
+        $users = User::create([
             'name' => $request->input('fullname'),
             'phone_number' => $request->input('phone_number'),
             'email' => $request->input('email'),
@@ -64,6 +61,10 @@ class UsersController extends Controller
             'active' => $request->input('active') == null ? 'Not Active' : 'Active',
             'password' => $request->input('password')
         ]);
+
+        $roles_permission = SpatieRole::findByName($request->input('role_id'))->permissions;
+        $users->assignRole($request->input('role_id'));
+        $users->givePermissionTo($roles_permission);
         return redirect('users')->with('success', 'Successfull create user');
     }
 
