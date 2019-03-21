@@ -87,9 +87,12 @@ class WawancaraController extends Controller
      * @param  \App\Wawancara  $wawancara
      * @return \Illuminate\Http\Response
      */
-    public function edit(Wawancara $wawancara)
+    public function edit(Wawancara $wawancara, $id)
     {
         //
+        $wawancara = Wawancara::with('surat.sales', 'surat.customer', 'surat.kavling.house')->find($id);
+        $surat = SuratPesanan::all();
+        return view('pages.transaction.wawancara.create-wawancara', compact('wawancara', 'surat'));
     }
 
     /**
@@ -99,9 +102,20 @@ class WawancaraController extends Controller
      * @param  \App\Wawancara  $wawancara
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Wawancara $wawancara)
+    public function update(Request $request, Wawancara $wawancara, $id)
     {
         //
+        Wawancara::find($id)->update([
+            'wawancara_date' => Carbon::parse($request->input('wawancara_date'))->format('Y-m-d H:i:s'),
+            'wawancara_kpr' => $request->input('wawancara_kpr'),
+            'wawancara_note' => $request->input('wawancara_note'),
+            'wawancara_analyst' => $request->input('wawancara_analyst'),
+            'wawancara_status' => $request->input('wawancara_status'),
+            'wawancara_sp_id' => $request->input('wawancara_sp_id'),
+            'wawancara_kreditur_id' => $request->input('wawancara_kreditur_id'),
+            'wawancara_kreditur_name' => $request->input('wawancara_kreditur_name')
+        ]);
+        return redirect('transaction/wawancara')->with('success', 'Successfull update wawancara');
     }
 
     /**

@@ -1,15 +1,16 @@
-@extends('layouts.app')
-
+@extends('layouts.app') 
 @section('page-title')
-<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span></span>SP</span> - Create New Wawancara</h4>
+<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span></span>SP</span> - Create New
+  Wawancara
+</h4>
 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 @endsection
-
+ 
 @section('breadcrumb')
-<a href="{{ route('transaction.wawancara.index') }}" class="breadcrumb-item">Wawancara</a>    
-<a href="{{ route('transaction.wawancara.create') }}" class="breadcrumb-item">New Wawancara</a>    
+<a href="{{ route('transaction.wawancara.index') }}" class="breadcrumb-item">Wawancara</a>
+<a href="{{ route('transaction.wawancara.create') }}" class="breadcrumb-item">New Wawancara</a>
 @endsection
-{{--  --}}
+ {{-- --}} 
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">
@@ -23,150 +24,165 @@
     </div>
   </div>
   @if ($errors->any())
-    <div class="alert alert-danger">
-      <ul>
-        @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
+  <div class="alert alert-danger">
+    <ul>
+      @foreach ($errors->all() as $error)
+      <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
   @endif
   <div class="card-body">
-    <form action="{{ route('transaction.wawancara.store') }}" method="POST">
-      @csrf
-      <div class="row">
-        <div class="col-md-6">
-          <fieldset>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">No Wawancara</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" value="RW000{{$id}}" readonly>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal</label>
-              <div class="col-lg-9">
-                <div class="input-group">
-                  <span class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-calendar2"></i></span>
-                  </span>
-                  <input type="text" class="form-control pickadate-selectors" name="wawancara_date">
+
+    @if (isset($wawancara))
+    <form action="{{ route('transaction.wawancara.update', $wawancara->id )}}" method="post">
+      @method('PATCH') @else
+      <form action="{{ route('transaction.wawancara.store') }}" method="POST">
+        @endif @csrf
+        <div class="row">
+          <div class="col-md-6">
+            <fieldset>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">No Wawancara</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" value="RW000{{isset($wawancara) ? $wawancara->id : $id}}" readonly>
                 </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">KPR Dimohon</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="wawancara_kpr">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Tanggal</label>
+                <div class="col-lg-9">
+                  <div class="input-group">
+                    <span class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-calendar2"></i></span>
+                    </span>
+                    <input type="text" class="form-control pickadate-selectors" value="{{isset($wawancara) ? $wawancara->wawancara_date : ''}}"
+                      name="wawancara_date">
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Analis</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="wawancara_analyst">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">KPR Dimohon</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="wawancara_kpr" value="{{isset($wawancara) ? $wawancara->wawancara_kpr : ''}}">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Catatan</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" name="wawancara_note">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Analis</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="wawancara_analyst" value="{{isset($wawancara) ? $wawancara->wawancara_analyst : ''}}">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Status</label>
-              <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="wawancara_status">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Catatan</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" name="wawancara_note" value="{{isset($wawancara) ? $wawancara->wawancara_note : ''}}">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Status</label>
+                <div class="col-lg-9">
+                  <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="wawancara_status">
                   <option></option>
                     <option value="created">Created</option>
                     <option value="waiting">Waiting Result</option>
                     <option value="diterima">Diterima</option>
                     <option value="ditolak">Ditolak</option>
                 </select>
+                </div>
               </div>
-            </div>
-          </fieldset>
-        </div>
-        <div class="col-md-6">
-          <fieldset>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nomer SP</label>
-              <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="wawancara_sp_id" id="sp_id">
-                  @foreach ($sps as $sp)
-                    <option></option>
-                    <option value="{{$sp->id}}">SP000{{$sp->id}}</option>
-                  @endforeach
+            </fieldset>
+          </div>
+          <div class="col-md-6">
+            <fieldset>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Nomer SP</label>
+                <div class="col-lg-9">
+                  <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="wawancara_sp_id" id="sp_id">
+                    @if (isset($wawancara))
+                      <option value="{{$wawancara->surat->id}}">SP000{{$wawancara->surat->id}}</option>
+                      @foreach ($surat as $item)
+                        @if ($item->id == $wawancara->surat->id)
+                          <option></option>
+                        @else
+                          <option value="{{$item->id}}">SP000{{$item->id}}</option>
+                        @endif
+                      @endforeach
+                    @else
+                      @foreach ($sps as $sp)
+                        <option></option>
+                        <option value="{{$sp->id}}">SP000{{$sp->id}}</option>
+                      @endforeach
+                    @endif
                 </select>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tanggal SP</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_date">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Tanggal SP</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" id="sp_date" value="{{isset($wawancara) ? $wawancara->surat->sp_date : ''}}">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Harga Jual</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_price">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Harga Jual</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" id="sp_price" value="{{isset($wawancara) ? $wawancara->surat->sp_price : ''}}">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Sales</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_se">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Sales</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" id="sp_se" value="{{isset($wawancara) ? $wawancara->surat->sales->sales_name : ''}}">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Customer ID</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_customer_id">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Customer ID</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" id="sp_customer_id" value="{{isset($wawancara) ? $wawancara->surat->customer->id : ''}}">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Customer Name</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_customer_name">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Customer Name</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" id="sp_customer_name" value="{{isset($wawancara) ? $wawancara->surat->customer->customer_name : ''}}">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kavling</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_kavling">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Kavling</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" id="sp_kavling" value="{{isset($wawancara) ? $wawancara->surat->kavling->kavling_cluster : ''}}">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Tipe Rumah</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_rumah">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Tipe Rumah</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" id="sp_rumah" value="{{isset($wawancara) ? $wawancara->surat->kavling->house->rumah_type_name : ''}}">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Kode Kreditur</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_kreditur" name="wawancara_kreditur_id">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Kode Kreditur</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" id="sp_kreditur" name="wawancara_kreditur_id" value="{{isset($wawancara) ? $wawancara->wawancara_kreditur_id : ''}}">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Nama Kreditur</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" id="sp_kreditur_name" name="wawancara_kreditur_name">
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Nama Kreditur</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" id="sp_kreditur_name" name="wawancara_kreditur_name" value="{{isset($wawancara) ? $wawancara->wawancara_kreditur_name : ''}}">
+                </div>
               </div>
-            </div>
-          </fieldset>
+            </fieldset>
+          </div>
         </div>
-      </div>
-      <div class="text-right">
-        <button type="submit" class="btn btn-primary">Submit <i class="icon-paperplane ml-2"></i></button>
-      </div>
-    </form>
+        <div class="text-right">
+          <button type="submit" class="btn btn-primary">Submit <i class="icon-paperplane ml-2"></i></button>
+        </div>
+      </form>
   </div>
 </div>
 @endsection
-
-@push('scripts')
+ @push('scripts')
 <script>
-$(document).ready(function(){
+  $(document).ready(function(){
 
   $('#sp_id').on('change', function(e){
     var id = $(this).val();
@@ -214,6 +230,14 @@ var DateTimePickers = function() {
 document.addEventListener('DOMContentLoaded', function() {
   DateTimePickers.init();
 });
+
 </script>
 <script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>
+
+
+
+
+
+
+
 @endpush

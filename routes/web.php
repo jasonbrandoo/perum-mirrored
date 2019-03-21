@@ -345,6 +345,8 @@ Route::group([
     Route::prefix('wawancara')->group(function () {
         Route::get('/', 'Transaction\Wawancara\WawancaraController@index')->name('transaction.wawancara.index');
         Route::get('/create', 'Transaction\Wawancara\WawancaraController@create')->name('transaction.wawancara.create');
+        Route::get('/{id}/edit', 'Transaction\Wawancara\WawancaraController@edit')->name('transaction.wawancara.edit');
+        Route::patch('/{id}/update', 'Transaction\Wawancara\WawancaraController@update')->name('transaction.wawancara.update');
         Route::post('/store', 'Transaction\Wawancara\WawancaraController@store')->name('transaction.wawancara.store');
         Route::get('/data', 'Transaction\Wawancara\WawancaraController@data')->name('transaction.wawancara.data');
         Route::get('/load_sp', 'Transaction\Wawancara\WawancaraController@load_sp')->name('transaction.wawancara.load_sp');
