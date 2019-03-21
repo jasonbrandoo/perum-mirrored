@@ -225,7 +225,7 @@
         cara sebagai berikut
       </i>
         <ol>
-          <li><i>Dibayarkan/distorkan langsung ke Petugas Kasir <strong>PT. SARI MULTIGRIYA SENTOSA</strong>di Kantor Proyek Perumahan Rajeg Gardenia dengan saudara/i yang sudah di tunjuk yaitu: <strong>Transfer</strong></i></li>
+          <li><i>Dibayarkan/distorkan langsung ke Petugas Kasir <strong>PT. SARI MULTGRIYA SENTOSA</strong>di Kantor Proyek Perumahan Rajeg Gardenia dengan saudara/i yang sudah di tunjuk yaitu: <strong>Transfer</strong></i></li>
           <li><i>Atau ditransfer ke rekening Bank BCA Cabang Taman Kota - Jakarta Nomor <strong>756.024.6808</strong> atas nama <strong>PT. SARI MULTIGRIYA SENTOSA</strong></i></li>
         </ol>
         <i><strong>B. &nbsp; &nbsp;</strong>Pemesan dengan alasan dan pertimbangan apapun <strong>TIDAK DIPERKENANKAN/DILARANG :</strong></i>
