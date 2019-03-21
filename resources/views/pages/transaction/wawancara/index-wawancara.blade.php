@@ -1,24 +1,23 @@
-@extends('layouts.app')
-
+@extends('layouts.app') 
 @section('page-title')
 <div class="mr-auto">
     <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Transaction</span> - Wawancara List</h4>
     <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 </div>
 <div>
-  <a href="{{ route ('transaction.wawancara.create') }}" class="btn btn-lg btn-primary"><i class="icon-plus-circle2 mr-2"></i>Add</a>
+    <a href="{{ route ('transaction.wawancara.create') }}" class="btn btn-lg btn-primary"><i class="icon-plus-circle2 mr-2"></i>Add</a>
 </div>
 @endsection
-
+ 
 @section('breadcrumb')
-<a href="{{ route('transaction.wawancara.index') }}" class="breadcrumb-item">Wawancara</a>    
+<a href="{{ route('transaction.wawancara.index') }}" class="breadcrumb-item">Wawancara</a>
 @endsection
-
+ 
 @section('content')
 @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
 @endif
 <div class="card">
     <div class="card-header header-elements-inline">
@@ -48,9 +47,9 @@
     </table>
 </div>
 @endsection
-@push('scripts')
+ @push('scripts')
 <script>
-var DatatableSelect = function() {
+    var DatatableSelect = function() {
     var _componentDatatableSelect = function() {
         if (!$().DataTable) {
             console.warn('Warning - datatables.min.js is not loaded.');
@@ -81,7 +80,8 @@ var DatatableSelect = function() {
                     data: 'id', className: 'select-checkbox', orderable: false, render: () => ''
                 },
                 {
-                    data: 'id', render: (id) => `RW000${id}`
+                    data: 'id', render: (id) => `RW000${id}`,
+                    render: (id) => `<a href="wawancara/${id}/edit">RW000${id}</a>`
                 },
                 {
                     data: 'wawancara_date',
@@ -135,6 +135,10 @@ var DatatableSelect = function() {
 document.addEventListener('DOMContentLoaded', function() {
 DatatableSelect.init();
 });
+
 </script>
-    
+
+
+
+
 @endpush
