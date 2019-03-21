@@ -95,7 +95,7 @@
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">No</label>
                 <div class="col-lg-2">
-                  <input type="text" class="form-control" name="kavling_number" value="{{ isset($kavling) ? $kavling->kavling_number : '' }}" readonly required>
+                  <input type="text" class="form-control" name="kavling_number" value="{{ isset($kavling) ? $kavling->kavling_number : '' }}" required>
                 </div>
               </div>
             @else

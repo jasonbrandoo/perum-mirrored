@@ -73,6 +73,7 @@ var DatatableSelect = function() {
         });
 
         $('#role-table').DataTable({
+            order: [[1, 'desc']],
             processing: true,
             serverSide: true,
             ajax: '{!! route('kavling.data') !!}',

@@ -1,18 +1,27 @@
 @extends('layouts.app') 
 @section('page-title')
-<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">SP</span> - Create New SP</h4>
-<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+<div class="mr-auto">
+  <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">SP</span> - {{isset($surat) ? 'Edit surat pesanan'
+    : 'Create new surat pesanan'}}</h4>
+  <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+</div>
+@if (isset($surat))
+<div>
+  <a href="{{isset($surat) ? route('transaction.surat-pesanan.pdf', $surat->id) : ''}}" class="btn btn-lg btn-success"><i class="icon-printer mr-2"></i>Print</a>
+  <a href="{{isset($surat) ? route('transaction.surat-pesanan.kuitansi_pdf', $surat->id) : ''}}" class="btn btn-lg btn-success"><i class="icon-printer mr-2"></i>Print Kuitansi</a>
+</div>
+@endif
 @endsection
  
 @section('breadcrumb')
 <a href="{{ route('transaction.surat-pesanan.index') }}" class="breadcrumb-item">Surat Pesanan</a>
-<a href="{{ route('transaction.surat-pesanan.create') }}" class="breadcrumb-item">New Surat Pesanan</a>
+<a href="{{ route('transaction.surat-pesanan.create') }}" class="breadcrumb-item">{{isset($surat) ? 'Edit surat pesanan' : 'Create new surat pesanan'}}</a>
 @endsection
  
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">
-    <h6 class="card-title">Create New Surat</h6>
+    <h6 class="card-title">{{isset($surat) ? 'Edit surat pesanan' : 'Create new surat pesanan'}}</h6>
     <div class="header-elements">
       <div class="list-icons">
         <a class="list-icons-item" data-action="collapse"></a>
@@ -30,21 +39,19 @@
         @endforeach
       </ul>
     </div>
-    @endif
-
-    @if (isset($surat))
-      <ul class="nav nav-tabs nav-tabs-bottom">
-        <li class="nav-item"><a href="#surat-pesanan" class="nav-link active" data-toggle="tab">Surat Pesanan</a></li>
-        <li class="nav-item"><a href="#komisi-akad" class="nav-link" data-toggle="tab">Komisi Akad</a></li>
-        <li class="nav-item"><a href="#komisi-eksternal" class="nav-link" data-toggle="tab">Komisi Eksternal</a></li>
-        <li class="nav-item"><a href="#kuitansi" class="nav-link" data-toggle="tab">Kuitansi</a></li>
-        <li class="nav-item"><a href="#berkas" class="nav-link" data-toggle="tab">Berkas</a></li>
-        <li class="nav-item"><a href="#wawancara" class="nav-link" data-toggle="tab">Wawancara</a></li>
-        <li class="nav-item"><a href="#lpa" class="nav-link" data-toggle="tab">LPA</a></li>
-        <li class="nav-item"><a href="#ajb" class="nav-link" data-toggle="tab">AJB</a></li>
-        <li class="nav-item"><a href="#legal" class="nav-link" data-toggle="tab">Legal</a></li>
-        <li class="nav-item"><a href="#spk" class="nav-link" data-toggle="tab">SPK</a></li>
-      </ul>
+    @endif @if (isset($surat))
+    <ul class="nav nav-tabs nav-tabs-bottom">
+      <li class="nav-item"><a href="#surat-pesanan" class="nav-link active" data-toggle="tab">Surat Pesanan</a></li>
+      <li class="nav-item"><a href="#komisi-akad" class="nav-link" data-toggle="tab">Komisi Akad</a></li>
+      <li class="nav-item"><a href="#komisi-eksternal" class="nav-link" data-toggle="tab">Komisi Eksternal</a></li>
+      <li class="nav-item"><a href="#kuitansi" class="nav-link" data-toggle="tab">Kuitansi</a></li>
+      <li class="nav-item"><a href="#berkas" class="nav-link" data-toggle="tab">Berkas</a></li>
+      <li class="nav-item"><a href="#wawancara" class="nav-link" data-toggle="tab">Wawancara</a></li>
+      <li class="nav-item"><a href="#lpa" class="nav-link" data-toggle="tab">LPA</a></li>
+      <li class="nav-item"><a href="#ajb" class="nav-link" data-toggle="tab">AJB</a></li>
+      <li class="nav-item"><a href="#legal" class="nav-link" data-toggle="tab">Legal</a></li>
+      <li class="nav-item"><a href="#spk" class="nav-link" data-toggle="tab">SPK</a></li>
+    </ul>
     @endif
 
     <div class="tab-content">
@@ -719,9 +726,9 @@
   </div>
 </div>
 @endsection
-@push('scripts')
-  <script>
-    $(document).ready(function(){
+ @push('scripts')
+<script>
+  $(document).ready(function(){
 
       $('#customer_id').on('change', function(e){
         var id = $(this).val();
@@ -1141,10 +1148,11 @@
     document.addEventListener('DOMContentLoaded', function() {
       DateTimePickers.init();
     });
-  </script>
-  @if (isset($surat))
-    <script>
-      var DatatableSelect = function() {
+
+</script>
+@if (isset($surat))
+<script>
+  var DatatableSelect = function() {
         var _componentDatatableSelect = function() {
             if (!$().DataTable) {
                 console.warn('Warning - datatables.min.js is not loaded.');
@@ -2048,6 +2056,7 @@
       document.addEventListener('DOMContentLoaded', function() {
         DatatableSelect.init();
       });
-    </script>
-  @endif
+
+</script>
+@endif 
 @endpush

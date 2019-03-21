@@ -25,11 +25,10 @@ class StoreUsers extends FormRequest
     {
         return [
             //
-            'staff_id' => ['required', 'integer'],
-            'role_id' => ['required', 'integer'],
+            'role_id' => ['required'],
             'fullname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ];
-    }    
+    }
 }
