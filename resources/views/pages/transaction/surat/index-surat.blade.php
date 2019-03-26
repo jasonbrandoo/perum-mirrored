@@ -111,7 +111,7 @@ var DatatableSelect = function() {
                 },
             ],
             select: {
-                style: 'os'
+                style: 'multi'
             },
             buttons: [
                 {
@@ -123,29 +123,32 @@ var DatatableSelect = function() {
                             text: 'Deactive',
                             className: '_active',
                             action: (e, dt, type, indexes) => {
-                                const { id } = dt.row({selected: true}).data();
-                                $.ajax({
-                                    url: `surat-pesanan/${id}/action`,
-                                    type: 'PATCH',
-                                    data: {
-                                        id: id,
-                                        active: 'Deactive'
-                                    },
-                                    success: (response) => {
-                                        swal({
-                                            type: 'success',
-                                            text: 'Success'
-                                        }).then(() => {
-                                            window.location.reload();
-                                        });
-                                        console.log(response)
-                                    },
-                                    error: (err) => {
-                                        swal({
-                                            type: 'error',
-                                            text: 'Error'
-                                        })
-                                    }
+                                const data = dt.rows({selected: true}).data();
+                                data.each((e) => {
+                                    const id = e.id;
+                                    $.ajax({
+                                        url: `surat-pesanan/${id}/action`,
+                                        type: 'PATCH',
+                                        data: {
+                                            id: id,
+                                            active: 'Deactive'
+                                        },
+                                        success: (response) => {
+                                            swal({
+                                                type: 'success',
+                                                text: 'Success'
+                                            }).then(() => {
+                                                window.location.reload();
+                                            });
+                                            console.log(response)
+                                        },
+                                        error: (err) => {
+                                            swal({
+                                                type: 'error',
+                                                text: 'Error'
+                                            })
+                                        }
+                                    })
                                 })
                             }
                         },
@@ -153,29 +156,32 @@ var DatatableSelect = function() {
                             text: 'Active',
                             className: '_active',
                             action: (e, dt, type, indexes) => {
-                                const { id } = dt.row({selected: true}).data();
-                                $.ajax({
-                                    url: `surat-pesanan/${id}/action`,
-                                    type: 'PATCH',
-                                    data: {
-                                        id: id,
-                                        active: 'Active'
-                                    },
-                                    success: (response) => {
-                                        swal({
-                                            type: 'success',
-                                            text: 'Success'
-                                        }).then(() => {
-                                            window.location.reload();
-                                        });
-                                        console.log(response)
-                                    },
-                                    error: (err) => {
-                                        swal({
-                                            type: 'error',
-                                            text: 'Error'
-                                        })
-                                    }
+                                const data = dt.rows({selected: true}).data();
+                                data.each((e) => {
+                                    const id = e.id;
+                                    $.ajax({
+                                        url: `surat-pesanan/${id}/action`,
+                                        type: 'PATCH',
+                                        data: {
+                                            id: id,
+                                            active: 'Active'
+                                        },
+                                        success: (response) => {
+                                            swal({
+                                                type: 'success',
+                                                text: 'Success'
+                                            }).then(() => {
+                                                window.location.reload();
+                                            });
+                                            console.log(response)
+                                        },
+                                        error: (err) => {
+                                            swal({
+                                                type: 'error',
+                                                text: 'Error'
+                                            })
+                                        }
+                                    })
                                 })
                             }
                         }
