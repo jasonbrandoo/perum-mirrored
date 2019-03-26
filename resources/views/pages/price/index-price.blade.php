@@ -1,24 +1,22 @@
-@extends('layouts.app')
-
+@extends('layouts.app') 
 @section('page-title')
 <div class="mr-auto">
     <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Price</span> - Price List</h4>
     <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 </div>
 <div>
-  <a href="{{ route ('price.create') }}" class="btn btn-lg btn-primary"><i class="icon-plus-circle2 mr-2"></i>Add</a>
+    <a href="{{ route ('price.create') }}" class="btn btn-lg btn-primary"><i class="icon-plus-circle2 mr-2"></i>Add</a>
 </div>
 @endsection
-
+ 
 @section('breadcrumb')
 <a href="{{ route('price.index') }}" class="breadcrumb-item">Price</a>
 @endsection
-
-@section('content')
-@if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
+ 
+@section('content') @if (session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
 @endif
 <div class="card">
     <div class="card-header header-elements-inline">
@@ -47,9 +45,9 @@
     </table>
 </div>
 @endsection
-@push('scripts')
+ @push('scripts')
 <script>
-var DatatableSelect = function() {
+    var DatatableSelect = function() {
     var _componentDatatableSelect = function() {
         if (!$().DataTable) {
             console.warn('Warning - datatables.min.js is not loaded.');
@@ -121,29 +119,32 @@ var DatatableSelect = function() {
                             text: 'Deactive',
                             className: '_active',
                             action: (e, dt, type, indexes) => {
-                                const { id } = dt.row({selected: true}).data();
-                                $.ajax({
-                                    url: `/price/${id}/action`,
-                                    type: 'PATCH',
-                                    data: {
-                                        id: id,
-                                        active: 'Deactive'
-                                    },
-                                    success: (response) => {
-                                        swal({
-                                            type: 'success',
-                                            text: 'Success'
-                                        }).then(() => {
-                                            window.location.reload();
-                                        });
-                                        console.log(response)
-                                    },
-                                    error: (err) => {
-                                        swal({
-                                            type: 'error',
-                                            text: 'Error'
-                                        })
-                                    }
+                                const data = dt.rows({selected: true}).data();
+                                data.each((e) => {
+                                    const id = e.id;
+                                    $.ajax({
+                                        url: `/price/${id}/action`,
+                                        type: 'PATCH',
+                                        data: {
+                                            id: id,
+                                            active: 'Deactive'
+                                        },
+                                        success: (response) => {
+                                            swal({
+                                                type: 'success',
+                                                text: 'Success'
+                                            }).then(() => {
+                                                window.location.reload();
+                                            });
+                                            console.log(response)
+                                        },
+                                        error: (err) => {
+                                            swal({
+                                                type: 'error',
+                                                text: 'Error'
+                                            })
+                                        }
+                                    })
                                 })
                             }
                         },
@@ -151,29 +152,32 @@ var DatatableSelect = function() {
                             text: 'Active',
                             className: '_active',
                             action: (e, dt, type, indexes) => {
-                                const { id } = dt.row({selected: true}).data();
-                                $.ajax({
-                                    url: `/price/${id}/action`,
-                                    type: 'PATCH',
-                                    data: {
-                                        id: id,
-                                        active: 'Active'
-                                    },
-                                    success: (response) => {
-                                        swal({
-                                            type: 'success',
-                                            text: 'Success'
-                                        }).then(() => {
-                                            window.location.reload();
-                                        });
-                                        console.log(response)
-                                    },
-                                    error: (err) => {
-                                        swal({
-                                            type: 'error',
-                                            text: 'Error'
-                                        })
-                                    }
+                                const data = dt.rows({selected: true}).data();
+                                data.each((e) => {
+                                    const id = e.id;
+                                    $.ajax({
+                                        url: `/price/${id}/action`,
+                                        type: 'PATCH',
+                                        data: {
+                                            id: id,
+                                            active: 'Active'
+                                        },
+                                        success: (response) => {
+                                            swal({
+                                                type: 'success',
+                                                text: 'Success'
+                                            }).then(() => {
+                                                window.location.reload();
+                                            });
+                                            console.log(response)
+                                        },
+                                        error: (err) => {
+                                            swal({
+                                                type: 'error',
+                                                text: 'Error'
+                                            })
+                                        }
+                                    })
                                 })
                             }
                         }
@@ -208,6 +212,9 @@ var DatatableSelect = function() {
 document.addEventListener('DOMContentLoaded', function() {
 DatatableSelect.init();
 });
+
 </script>
-    
+
+
+
 @endpush
