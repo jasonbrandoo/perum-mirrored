@@ -27,7 +27,6 @@ class StoreKwitansi extends FormRequest
             //
             'kwitansi_date' => ['required'],
             'kwitansi_sp_id' => ['required'],
-            'kwitansi_faktur' => ['required'],
             'kwitansi_reciever' => ['required'],
             'kwitansi_staff_name' => ['required'],
             'kwitansi_terbilang' => ['required'],

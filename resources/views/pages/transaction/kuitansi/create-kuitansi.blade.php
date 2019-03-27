@@ -58,7 +58,7 @@
                     <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                     </span>
-                    <input type="text" class="form-control pickadate-selectors" name="kwitansi_date" value="{{isset($kwitansi) ? $kwitansi->kwitansi_date->toDateString() : ''}}"
+                    <input type="text" class="form-control pickadate-selectors" name="kwitansi_date" id="default_date" value="{{isset($kwitansi) ? $kwitansi->kwitansi_date->toDateString() : ''}}"
                       required>
                   </div>
                 </div>
@@ -67,8 +67,7 @@
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">No Faktur Penjualan</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" name="kwitansi_faktur" value="{{isset($kwitansi) ? $kwitansi->kwitansi_faktur : ''}}"
-                    required>
+                  <input type="text" class="form-control" name="kwitansi_faktur" value="{{isset($kwitansi) ? $kwitansi->kwitansi_faktur : ''}}">
                 </div>
               </div>
               <div class="form-group row">
@@ -220,6 +219,7 @@
  @push('scripts')
 <script>
   $(document).ready(function(){
+    $('#default_date').val(moment().format('D MMMM, YYYY'));
   $('#sp_id').on('change', function(e){
     var id = $(this).val();
     console.log(id);

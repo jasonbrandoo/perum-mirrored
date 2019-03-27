@@ -157,7 +157,7 @@
                 <div class="form-check">
                   @if (isset($sales))
                     @if ($sales->sales_void)
-                      <input type="checkbox" class="form-check-input" name="sales_void" checked>                      
+                      <input type="checkbox" class="form-check-input" name="sales_void" checked>
                     @endif
                   @else
                     <input type="checkbox" class="form-check-input" name="sales_void">
@@ -168,7 +168,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Supervisor</label>
               <div class="col-lg-9">
-                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sales_spv" required>
+                <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sales_spv">
                   @if (isset($sales))
                     <option value="{{$sales->spv->id}}">{{$sales->spv->sales_name}}</option>
                       @foreach ($supervisor_edit as $spv)

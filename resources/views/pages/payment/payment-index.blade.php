@@ -36,6 +36,7 @@
                 <th></th>
                 <th>No</th>
                 <th>Method</th>
+                <th>Tipe</th>
                 <th>Active</th>
             </tr>
         </thead>
@@ -85,6 +86,9 @@
                 {
                     data: 'payment_method',
                     render: (data, type, row) => `<a href="/payment/${row.id}/edit">${row.payment_method}</a>`
+                },
+                {
+                    data: 'payment_type',
                 },
                 {
                     data: 'active',

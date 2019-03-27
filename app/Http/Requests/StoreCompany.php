@@ -33,7 +33,6 @@ class StoreCompany extends FormRequest
             'company_zipcode' => ['required', 'numeric'],
             'company_state' => ['required', 'string'],
             'company_phone' => ['required', 'numeric'],
-            'company_email' => ['required', 'email']
         ];
     }
 

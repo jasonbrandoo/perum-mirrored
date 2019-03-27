@@ -55,6 +55,7 @@ class PaymentController extends Controller
         //
         $payment_method = new Payment;
         $payment_method->payment_method = $request->input('payment_method');
+        $payment_method->payment_type = $request->input('payment_type');
         $payment_method->active = $request->input('active') == null ? 'Not Active' : 'Active';
         $payment_method->save();
         return redirect('payment')->with('success', 'Successfull create new payment method');

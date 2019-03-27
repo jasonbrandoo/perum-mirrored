@@ -55,7 +55,7 @@
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="payment_type" required>
                   <option value="Kuitansi">Kuitansi</option>
-                  <option value="Surat_Pesanan">Surat Pesanan</option>
+                  <option value="Surat Pesanan">Surat Pesanan</option>
                 </select>
               </div>
             </div>

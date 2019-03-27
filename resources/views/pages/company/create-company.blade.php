@@ -149,7 +149,7 @@
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Email</label>
                 <div class="col-lg-9">
-                  <input type="text" placeholder="Email" class="form-control" name="company_email" value="{{ isset($company) ? $company->company_email : '' }}" required>
+                  <input type="text" placeholder="Email" class="form-control" name="company_email" value="{{ isset($company) ? $company->company_email : '' }}">
                 </div>
               </div>
             </fieldset>
