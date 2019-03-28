@@ -37,6 +37,7 @@
                 <th>ID</th>
                 <th>Kavling</th>
                 <th>Blok</th>
+                <th>No Kavling</th>
                 <th>Cluster</th>
                 <th>Hook</th>
                 <th>Tipe Rumah</th>
@@ -92,6 +93,9 @@
                 },
                 {
                     data: 'kavling_block'
+                },
+                {
+                    data: 'kavling_number'
                 },
                 {
                     data: 'kavling_cluster'

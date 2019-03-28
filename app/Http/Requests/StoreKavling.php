@@ -41,13 +41,9 @@ class StoreKavling extends FormRequest
             'kavling_discount_dp' => ['required'],
             'kavling_sell_status' => ['required'],
             'kavling_build_status' => ['required'],
-            'kavling_start_date' => ['required'],
             'kavling_progress' => ['required'],
-            'kavling_end_date' => ['required'],
             'kavling_shgb' => ['required'],
-            'kavling_shgb_date' => ['required'],
             'kavling_imb' => ['required'],
-            'kavling_imb_date' => ['required']
         ];
     }
 }

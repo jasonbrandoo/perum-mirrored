@@ -76,18 +76,18 @@
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="price_house_id" id="house-type" required>
                   @if (isset($price))
-                      <option value="{{$house->house->id}}">R000{{$house->house->id}} {{$house->house->rumah_type_name}}</option>
+                      <option value="{{$house->house->id}}">R000{{$house->house->id}} - {{$house->house->rumah_type_name}} - {{$house->house->building_area_m2}}/{{$house->house->surface_area_m2}}</option>
                     @foreach ($buildings_edit as $home)
                       @if ($home->id == $house->house->id)
                         <option></option>
                       @else
-                        <option value="{{$home->id}}">R000{{$home->id}} {{$home->rumah_type_name}}</option>
+                        <option value="{{$home->id}}">R000{{$home->id}} - {{$home->rumah_type_name}} - {{$home->building_area_m2}}/{{$home->surface_area_m2}}</option>
                       @endif
                     @endforeach  
                   @else
                     @foreach ($buildings as $home)
                       <option></option>
-                      <option value="{{$home->id}}">R000{{$home->id}} {{$home->rumah_type_name}}</option>
+                      <option value="{{$home->id}}">R000{{$home->id}} - {{$home->rumah_type_name}} - {{$home->building_area_m2}}/{{$home->surface_area_m2}}</option>
                     @endforeach
                   @endif
                 </select>
@@ -227,6 +227,11 @@
 @push('scripts')
 <script>
 $(document).ready(function(){
+  $('.pickadate-selectors').datepicker({
+    changeMonth: true,
+    changeYear: true
+  });
+  
   $('#house-type').on('change', function(e){
     var id = $(this).val();
     console.log(id);
@@ -256,7 +261,7 @@ $(document).ready(function(){
   });
 });
 
-var DateTimePickers = function() {
+/* var DateTimePickers = function() {
   var _componentPickadate = function() {
     if (!$().pickadate) {
       console.warn('Warning - picker.js and/or picker.date.js is not loaded.');
@@ -277,7 +282,7 @@ var DateTimePickers = function() {
 
 document.addEventListener('DOMContentLoaded', function() {
   DateTimePickers.init();
-});
+}); */
 
 var FormValidation = function() {
   var _componentValidation = function() {
