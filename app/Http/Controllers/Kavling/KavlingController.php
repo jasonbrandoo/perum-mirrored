@@ -45,8 +45,8 @@ class KavlingController extends Controller
     public function create()
     {
         //
-        $houseType = Rumah::all();
-        $prices = Price::all();
+        $houseType = Rumah::where('active', 'Active')->get();
+        $prices = Price::where('active', 'Active')->get();
         $id = (new Kavling)->max('id') + 1;
         return view('pages.kavling.create-kavling', compact('prices', 'id', 'houseType'));
     }
@@ -58,7 +58,7 @@ class KavlingController extends Controller
      */
     public function prices(Request $request)
     {
-        $price = Price::find($request->id);
+        $price = Price::where('active', 'Active')->where('id', $request->id)->first();
         return response()->json($price);
     }
 
@@ -69,7 +69,7 @@ class KavlingController extends Controller
      */
     public function type(Request $request)
     {
-        $price = Rumah::find($request->id);
+        $price = Rumah::where('active', 'Active')->where('id', $request->id)->first();
         return response()->json($price);
     }
 

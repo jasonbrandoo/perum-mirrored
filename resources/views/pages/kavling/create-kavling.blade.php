@@ -88,7 +88,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Blok</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="kavling_block" value="{{ isset($kavling) ? $kavling->kavling_block : '' }}" required>
+                <input type="text" class="form-control" name="kavling_block" value="{{ isset($kavling) ? $kavling->kavling_block : '' }}" required>
               </div>
             </div>
             @if (isset($kavling))
@@ -135,7 +135,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No. TL</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="kavling_tl" value="{{ isset($kavling) ? $kavling->kavling_tl : '' }}" required>
+                <input type="text" class="form-control" name="kavling_tl" value="{{ isset($kavling) ? $kavling->kavling_tl : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
@@ -260,7 +260,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="kavling_start_date" value="{{ isset($kavling) ? $kavling->kavling_start_date->toDateString() : '' }}" required>
+                  <input type="text" class="form-control pickadate-selectors" name="kavling_start_date" value="{{ isset($kavling) ? $kavling->kavling_start_date->toDateString() : '' }}">
                 </div>
               </div>
             </div>
@@ -277,14 +277,14 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="kavling_end_date" value="{{ isset($kavling) ? $kavling->kavling_end_date->toDateString() : '' }}" required>
+                  <input type="text" class="form-control pickadate-selectors" name="kavling_end_date" value="{{ isset($kavling) ? $kavling->kavling_end_date->toDateString() : '' }}" >
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No. SHGB Induk</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="kavling_shgb" value="{{ isset($kavling) ? $kavling->kavling_shgb : '' }}" required>
+                <input type="text" class="form-control" name="kavling_shgb" value="{{ isset($kavling) ? $kavling->kavling_shgb : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
@@ -294,14 +294,14 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="kavling_shgb_date" value="{{ isset($kavling) ? $kavling->kavling_shgb_date->toDateString() : '' }}" required>
+                  <input type="text" class="form-control pickadate-selectors" name="kavling_shgb_date" value="{{ isset($kavling) ? $kavling->kavling_shgb_date->toDateString() : '' }}" >
                 </div>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">No. IMB Pecahan</label>
               <div class="col-lg-9">
-                <input type="number" class="form-control" name="kavling_imb" value="{{ isset($kavling) ? $kavling->kavling_imb : '' }}" required>
+                <input type="text" class="form-control" name="kavling_imb" value="{{ isset($kavling) ? $kavling->kavling_imb : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
@@ -311,7 +311,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="kavling_imb_date" value="{{ isset($kavling) ? $kavling->kavling_imb_date->toDateString() : '' }}" required>
+                  <input type="text" class="form-control pickadate-selectors" name="kavling_imb_date" value="{{ isset($kavling) ? $kavling->kavling_imb_date->toDateString() : '' }}" >
                 </div>
               </div>
             </div>
@@ -411,18 +411,18 @@ var FormValidation = function() {
               $(element).removeClass(errorClass);
           },
           rules: {
-            kavling_block : {
-              number: true
-            },
-            kavling_number : {
-              number: true
-            },
+            // kavling_block : {
+            //   number: true
+            // },
+            // kavling_number : {
+            //   number: true
+            // },
             kavling_s_d : {
               number: true
             },
-            kavling_tl : {
-              number: true
-            },
+            // kavling_tl : {
+            //   number: true
+            // },
             kavling_tl_active : {
               number: true
             },
@@ -432,12 +432,12 @@ var FormValidation = function() {
             kavling_discount_dp : {
               number: true
             },
-            kavling_shgb : {
-              number: true
-            },
-            kavling_imb : {
-              number: true
-            },
+            // kavling_shgb : {
+            //   number: true
+            // },
+            // kavling_imb : {
+            //   number: true
+            // },
           },
           // Different components require proper error label placement
           errorPlacement: function(error, element) {

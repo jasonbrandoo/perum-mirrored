@@ -43,7 +43,7 @@ class PriceController extends Controller
     public function create()
     {
         //
-        $buildings = Rumah::all();
+        $buildings = Rumah::where('active', 'Active')->get();
         $id = (new Price)->max('id') + 1;
         return view('pages.price.create-price', compact('buildings', 'id'));
     }
