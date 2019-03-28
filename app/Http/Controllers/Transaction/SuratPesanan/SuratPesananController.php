@@ -27,6 +27,7 @@ use App\Model\Ajb;
 use App\Model\Legal;
 use App\Model\Spk;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
+use App\Model\BiayaLain;
 
 class SuratPesananController extends Controller
 {
@@ -247,6 +248,11 @@ class SuratPesananController extends Controller
         }
         
         Cicilan::insert($data);
+        BiayaLain::create([
+            'sp_id' => (new SuratPesanan)->max('id'),
+            'sp_description' => $request->input('sp_description'),
+            'sp_description_nominal' => Comma::removeComma($request->input('sp_description_nominal'))
+        ]);
         return redirect('transaction/surat-pesanan')->with('success', 'Successfull create Surat Pesanan');
     }
 
@@ -383,7 +389,13 @@ class SuratPesananController extends Controller
         
         Cicilan::whereIn('cicilan_sp_id', [$request->id])->delete();
         Cicilan::insert($data);
-
+        BiayaLain::updateOrCreate([
+            'id' => $request->id,
+        ],[
+            'sp_id' => $request->id,
+            'sp_description' => $request->input('sp_description'),
+            'sp_description_nominal' => Comma::removeComma($request->input('sp_description_nominal'))
+        ]);
         return redirect('transaction/surat-pesanan')->with('success', 'Successfull update Surat Pesanan');
     }
 

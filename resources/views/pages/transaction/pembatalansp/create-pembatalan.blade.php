@@ -112,7 +112,7 @@
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="cancel_sp_id" id="sp_id" required>
                   @if (isset($pembatalan))
-                    <option value="{{$pembatalan->surat->id}}">SP000{{$pembatalan->surat->id}}</option>
+                    <option value="{{$pembatalan->surat->id}}">SP000{{$pembatalan->surat->id}} - {{$pembatalan->surat->customer->customer_name}} - {{$pembatalan->surat->kavling->kavling_block}}</option>
                     @foreach ($surat_edit as $surat)
                       @if ($surat->id == $pembatalan->surat->id)
                         <option></option>
@@ -123,7 +123,7 @@
                   @else
                     @foreach ($sps as $sp)
                       <option value=""></option>
-                      <option value="{{$sp->id}}">SP000{{$sp->id}}</option>
+                      <option value="{{$sp->id}}">SP000{{$sp->id}} - {{$sp->customer->customer_name}} - {{$sp->kavling->kavling_block}}</option>
                     @endforeach
                   @endif
                 </select>

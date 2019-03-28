@@ -451,13 +451,21 @@
               <div class="row justify-content-center">
                 <div class="col-md-8">
                   <fieldset>
-                    {{--
+                    <hr>
+                    <h2>Biaya Lain</h2>
                     <div class="form-group row">
-                      <label class="col-lg-3 col-form-label">Jumlah Pembayaran</label>
+                      <label class="col-lg-3 col-form-label">Deskripsi</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_bill" required>
+                        <input type="text" class="form-control" name="sp_description">
                       </div>
-                    </div> --}}
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label">Nominal</label>
+                      <div class="col-lg-9">
+                        <input type="text" class="form-control price" name="sp_description_nominal">
+                      </div>
+                    </div>
+                    <hr>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Subsidi</label>
                       <div class="col-lg-9">
@@ -571,7 +579,7 @@
               <table class="table table-bordered mb-5" id="result">
                 <thead>
                   <tr>
-                    <th>Sq</th>
+                    <th>Seq</th>
                     <th>Description</th>
                     <th>Piutang</th>
                     <th>Tanggal</th>
