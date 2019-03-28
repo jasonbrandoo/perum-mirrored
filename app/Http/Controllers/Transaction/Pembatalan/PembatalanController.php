@@ -40,7 +40,7 @@ class PembatalanController extends Controller
     {
         //
         $id = (new Pembatalan)->max('id') + 1;
-        $sps = SuratPesanan::all();
+        $sps = SuratPesanan::with('customer', 'kavling')->get();
         $users = User::all();
         return view('pages.transaction.pembatalansp.create-pembatalan', compact('id', 'sps', 'users'));
     }
