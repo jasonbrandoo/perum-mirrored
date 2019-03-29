@@ -240,7 +240,7 @@
                       <option value="proccess">Sedang Dibangun</option>
                       <option value="pending">Belum Dibangun</option>
                     @endif
-                    @if ($kavling->kavling_build_status == 'process')
+                    @if ($kavling->kavling_build_status == 'proccess')
                       <option value="proccess">Sedang Dibangun</option>
                       <option value="finish">Selesai Dibangun</option>
                       <option value="pending">Belum Dibangun</option>
