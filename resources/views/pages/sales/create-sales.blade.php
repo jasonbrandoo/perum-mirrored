@@ -137,7 +137,7 @@
                 <div class="form-check">
                   @if (isset($sales))
                     @if ($sales->sales_komisi)
-                      <input type="checkbox" class="form-check-input" name="sales_komisi" value="no commmision" checked>                      
+                      <input type="checkbox" class="form-check-input" name="sales_komisi" value="no commmision" checked>
                     @endif
                   @else
                     <input type="checkbox" class="form-check-input" name="sales_komisi" value="no commmision">
@@ -170,7 +170,8 @@
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sales_spv">
                   @if (isset($sales))
-                    <option value="{{$sales->spv->id}}">{{$sales->spv->sales_name}}</option>
+                    @if (isset($sales->spv->sales_name))
+                      <option value="{{$sales->spv->id}}">{{$sales->spv->sales_name}}</option>
                       @foreach ($supervisor_edit as $spv)
                         @if ($spv->id == $sales->spv->id)
                           <option></option>
@@ -178,8 +179,12 @@
                           <option value="{{$spv->id}}">{{$spv->sales_name}}</option>
                         @endif
                       @endforeach
+                    @else
+                      <option value=""></option>
+                    @endif
                   @else
                     @foreach ($supervisor as $sp)
+                      <option value=""></option>
                       <option value="{{ $sp->id }}">{{$sp->sales_name}}</option>
                     @endforeach
                   @endif
