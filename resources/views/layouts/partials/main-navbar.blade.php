@@ -26,14 +26,5 @@
       </a>
       </li>
     </ul>
-
-    <ul class="navbar-nav ml-md-auto">
-      <li class="nav-item">
-        <a href="{{ route('logout') }}" class="navbar-nav-link">
-        <i class="icon-switch2"></i>
-        <span class="d-md-none ml-2">Logout</span>
-      </a>
-      </li>
-    </ul>
   </div>
 </div>
