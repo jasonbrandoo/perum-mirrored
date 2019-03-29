@@ -117,6 +117,12 @@
               </div>
             </div>
             <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Ukuran</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" name="kavling_ukuran" value="{{ isset($kavling) ? $kavling->kavling_ukuran : '' }}" required>
+              </div>
+            </div>
+            <div class="form-group row">
               <label class="col-lg-3 col-form-label">Hook</label>
               <div class="col-lg-9">
                 <div class="form-check">
