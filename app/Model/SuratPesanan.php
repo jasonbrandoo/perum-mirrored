@@ -36,6 +36,11 @@ class SuratPesanan extends Model
         return $this->belongsTo('App\Model\Kavling', 'sp_kavling_id');
     }
 
+    public function kwitansi()
+    {
+        return $this->hasMany('App\Model\Kwitansi', 'kwitansi_sp_id');
+    }
+
     public function mou()
     {
         return $this->belongsTo('App\Model\Mou', 'sp_mou_id');

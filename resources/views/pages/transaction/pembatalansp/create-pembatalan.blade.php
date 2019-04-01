@@ -117,7 +117,7 @@
                       @if ($surat->id == $pembatalan->surat->id)
                         <option></option>
                       @else
-                        <option value="{{$surat->id}}">SP000{{$surat->id}}</option>
+                        <option value="{{$surat->id}}">SP000{{$surat->id}} - {{$surat->customer->customer_name}} - {{$surat->kavling->kavling_block}}</option>
                       @endif
                     @endforeach
                   @else
@@ -129,6 +129,22 @@
                 </select>
               </div>
             </div>
+            <hr>
+            <h3>Kwitansi SP</h3>
+            <div id="sp_kwitansi">
+              @if (isset($pembatalan))
+                @if (count($pembatalan->surat->kwitansi) > 0)
+                  @foreach ($pembatalan->surat->kwitansi as $kwitansi)
+                    <p class="kwitansi_for">{{$kwitansi->kwitansi_for_pay}} {{$kwitansi->kwitansi_jumlah}}</p>
+                  @endforeach
+                @elseif(count($pembatalan->surat->kwitansi) === 0)
+                  <p class="kwitansi_for">Tidak memiliki kwitansi</p>                    
+                @endif
+              @else
+              <p class="kwitansi_for">Tidak memiliki kwitansi</p>
+              @endif
+            </div>
+            <hr>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Tanggal SP</label>
               <div class="col-lg-9">
@@ -286,6 +302,14 @@ $(document).ready(function(){
       $('#sp_house_type').val(result.kavling.price.house.rumah_type_name);
       $('#sp_cluster').val(result.kavling.kavling_cluster);
       $('#sp_se').val(result.sales.sales_name);
+      if (result.kwitansi.length > 0) {
+        $('.kwitansi_for').empty();
+        result.kwitansi.map((val) => {
+          $('.kwitansi_for').append(`<li>${val.kwitansi_for_pay} ${$.number(val.kwitansi_jumlah)}</li>`);
+        });
+      } else if (result.kwitansi.length === 0) {
+        $('.kwitansi_for').text('Tidak memiliki kwitansi');
+      }
     },
     error: function (e) {
       console.log(e);

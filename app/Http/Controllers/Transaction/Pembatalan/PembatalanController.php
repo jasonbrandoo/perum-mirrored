@@ -47,7 +47,7 @@ class PembatalanController extends Controller
 
     public function load_sp(Request $request)
     {
-        $sp = SuratPesanan::with('customer', 'sales', 'kavling.price.house')->find($request->id);
+        $sp = SuratPesanan::with('customer', 'sales', 'kavling.price.house', 'kwitansi')->find($request->id);
         return response()->json($sp);
     }
 
@@ -69,8 +69,8 @@ class PembatalanController extends Controller
             'cancel_tambahan' => $request->input('cancel_tambahan'),
             'cancel_status' => $request->input('cancel_status'),
             'cancel_sp_id' => $request->input('cancel_sp_id'),
-            'cancel_consumen_bill' => $request->input('cancel_consumen_bill'),
-            'cancel_total_bill' => $request->input('cancel_total_bill'),
+            'cancel_consumen_bill' => Comma::removeComma($request->input('cancel_consumen_bill')),
+            'cancel_total_bill' => Comma::removeComma($request->input('cancel_total_bill')),
             'cancel_make_by' => $request->input('cancel_make_by'),
             'cancel_approve_by' => $request->input('cancel_approve_by')
         ]);
@@ -97,8 +97,8 @@ class PembatalanController extends Controller
     public function edit(Pembatalan $pembatalan, $id)
     {
         //
-        $pembatalan = Pembatalan::with('surat.customer', 'surat.kavling.house', 'surat.supervisor', 'makeBy', 'approveBy')->find($id);
-        $surat_edit = SuratPesanan::all();
+        $pembatalan = Pembatalan::with('surat.customer', 'surat.kavling.house', 'surat.kwitansi', 'surat.supervisor', 'makeBy', 'approveBy')->find($id);
+        $surat_edit = SuratPesanan::with('kwitansi')->get();
         $user_edit = User::all();
         return view('pages.transaction.pembatalansp.create-pembatalan', compact('pembatalan', 'surat_edit', 'user_edit'));
     }
