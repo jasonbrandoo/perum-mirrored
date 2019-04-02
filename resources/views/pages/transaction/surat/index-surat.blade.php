@@ -214,7 +214,7 @@ var DatatableSelect = function() {
 }();
 
 document.addEventListener('DOMContentLoaded', function() {
-DatatableSelect.init();
+    DatatableSelect.init();
 });
 </script>
     

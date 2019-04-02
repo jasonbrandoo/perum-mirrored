@@ -426,6 +426,7 @@ Route::group([
     Route::patch('/update', 'Sales\SalesController@update')->name('sales.update');
     Route::post('/store', 'Sales\SalesController@store')->name('sales.store');
     Route::get('/data', 'Sales\SalesController@data')->name('sales.data');
+    Route::get('/surat/{id}', 'Sales\SalesController@suratPesanan')->name('sales.surat');
 });
 
 /**

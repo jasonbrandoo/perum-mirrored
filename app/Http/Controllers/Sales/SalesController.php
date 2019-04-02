@@ -113,10 +113,21 @@ class SalesController extends Controller
     public function edit(Sales $sales, $id)
     {
         //
-        $sales = Sales::with('spv')->find($id);
+        $sales = Sales::with('spv', 'surat')->find($id);
         // $spv_edit = Sales::with('spv')->first();
         $supervisor_edit = Sales::where('sales_position', 'Supervisor')->get();
         return view('pages.sales.create-sales', compact('sales', 'spv_edit', 'supervisor_edit'));
+    }
+
+    /**
+     * show surat pesanan
+     *
+     * load sales with surat pesanan
+     **/
+    public function suratPesanan($id)
+    {
+        $sales = Sales::with('surat.customer', 'surat.kavling')->find($id);
+        return DataTables::of($sales->surat)->toJson();
     }
 
     /**
