@@ -331,6 +331,9 @@ document.addEventListener('DOMContentLoaded', function() {
   FormValidation.init();
 });
 
+if ('{{isset($sales)}}') {
+  
+}
 var DatatableSelect = function() {
     var _componentDatatableSelect = function() {
         if (!$().DataTable) {
@@ -357,7 +360,7 @@ var DatatableSelect = function() {
             order: [[1, 'desc']],
             processing: true,
             serverSide: true,
-            ajax: '{!! route('sales.surat', $sales->id) !!}',
+            ajax: '{!! isset($sales) ? route('sales.surat', $sales->id) : "" !!}',
             columns: [
                 {
                     data: 'id',
@@ -497,5 +500,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </script>
 <script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>
-
 @endpush
