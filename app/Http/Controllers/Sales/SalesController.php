@@ -175,7 +175,7 @@ class SalesController extends Controller
             'nominal' => Comma::removeComma($request->input('targetNominal'))
         ]);
         return redirect('/sales')->with('success', 'Successfull Update Sales');
-    } //tes
+    }
 
     /**
      * Remove the specified resource from storage.
