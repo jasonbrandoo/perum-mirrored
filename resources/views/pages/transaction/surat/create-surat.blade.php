@@ -85,7 +85,7 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">No Surat Pesanan</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_no" value="SP000{{isset($surat) ? $surat->sp_no : $id}}" required readonly>
+                        <input type="text" class="form-control" name="sp_no" value="SP000{{isset($surat) ? $surat->id : $id}}" required readonly>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -190,16 +190,7 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Sales Executives ID</label>
                       <div class="col-lg-9">
-                        <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_se_id" id="sales_id" required>
-                        @if (isset($surat))
-                          <option value="{{$surat->sales->id}}">SE000{{$surat->sales->id}} - {{$surat->sales->sales_name}}</option>
-                        @else
-                          @foreach ($sales as $person)
-                            <option></option>
-                            <option value="{{$person->id}}">SE000{{$person->id}} - {{$person->sales_name}}</option>
-                          @endforeach
-                        @endif
-                      </select>
+                        <input type="text" class="form-control" name="sp_se_id" id="sales_id" value="{{isset($surat) ? $surat->sales->id : ''}}" required readonly>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -212,17 +203,7 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Supervisor ID</label>
                       <div class="col-lg-9">
-                        <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_spv_id" required>
-                        @if (isset($surat))
-                          <option value="{{$surat->supervisor->id}}">SP000{{$surat->supervisor->id}} - {{$surat->supervisor->sales_name}}</option>
-                        @else
-                            
-                        @endif
-                        @foreach ($spvs as $person)
-                          <option></option>
-                          <option value="{{$person->id}}">SP000{{$person->id}} - {{$person->sales_name}}</option>
-                        @endforeach
-                      </select>
+                        <input type="text" class="form-control" name="sp_spv_id" id="supervisor_id" value="{{isset($surat) ? $surat->supervisor->id : ''}}" required readonly>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -310,25 +291,8 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Kode Harga</label>
                       <div class="col-lg-9">
-                        {{-- <input type="text" class="form-control" name="sp_price_id" id="price_id" value="{{isset($surat) ? $surat->price->id : ''}}"
-                          readonly required> --}}
-                        <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_price_id" id="price_id" required>
-                          @if (isset($surat))
-                            <option value="{{$surat->price->id}}">H000{{$surat->price->id}} - {{$surat->price->price_selling}}</option>
-                            @foreach ($prices as $price)
-                              @if ($price->id == $surat->price->id)
-                                <option></option>
-                              @else
-                                <option value="{{$price->id}}">H000{{$price->id}} - {{$price->price_selling}}</option>
-                              @endif
-                            @endforeach
-                          @else
-                            @foreach ($prices as $price)
-                              <option></option>
-                              <option value="{{$price->id}}">H000{{$price->id}} - {{$price->price_selling}}</option>
-                            @endforeach
-                          @endif
-                        </select>
+                        <input type="text" class="form-control" name="sp_price_id" id="price_id" value="{{isset($surat) ? $surat->price->id : ''}}"
+                          readonly required>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -430,15 +394,13 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Harga jual pengikatan</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_harga_jual_pengikatan" value="{{isset($surat) ? $surat->sp_harga_jual_pengikatan : ''}}"
-                          required readonly>
+                        <input type="text" class="form-control price" name="sp_harga_jual_pengikatan" value="{{isset($surat) ? $surat->sp_harga_jual_pengikatan : ''}}" required>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Harga Jual AJB</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_ajb_price" value="{{isset($surat) ? $surat->sp_ajb_price : ''}}" required
-                          readonly>
+                        <input type="text" class="form-control price" name="sp_ajb_price" value="{{isset($surat) ? $surat->sp_ajb_price : ''}}" required>
                       </div>
                     </div>
                   </fieldset>
@@ -456,13 +418,13 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Deskripsi</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_description">
+                        <input type="text" class="form-control" name="sp_description" required>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Nominal</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_description_nominal">
+                        <input type="text" class="form-control price" name="sp_description_nominal" required>
                       </div>
                     </div>
                     <hr>
@@ -749,6 +711,9 @@
         success: function (result) {
           console.log(result);
           $('#customer_name').val(result.customer_name);
+          $('#sales_id').val(result.sales_executive.id);
+          $('#sales_name').val(result.sales_executive.sales_name);
+          $('#supervisor_id').val(result.sales_supervisor.sales_name);
         },
         error: function (e) {
           console.log(e);
@@ -826,7 +791,7 @@
           $('#house_no').val(result.id);
           $('#house_building').val(result.price.house.building_area_m2);
           $('#house_surface').val(result.price.house.surface_area_m2);
-          $('#price_id').val($('#price_id option:first').val(result.price.id))
+          $('#price_id').val(result.price.id);
           $('#price').val($.number(result.price.price_selling));
           $('input[name=sp_total_harga_jual]').val(result.price.price_selling);
         },
@@ -836,7 +801,7 @@
         });
       });
 
-      $('#price_id').on('change', function(e){
+      /* $('#price_id').on('change', function(e){
         var id = $(this).val();
         // console.log(id);
         $.ajax({
@@ -853,7 +818,7 @@
           console.log(e);
         }
         });
-      });
+      }); */
 
 
       const price = parseFloat($('input[name=sp_price]').val()) || 0;

@@ -119,7 +119,7 @@ class SuratPesananController extends Controller
         $mous = Mou::where('active', 'Active')->get();
         $sales = Sales::where('sales_position', 'Sales')->get();
         $spvs = Sales::where('sales_position', 'Supervisor')->get();
-        $payments = Payment::all();
+        $payments = Payment::where('payment_type', 'Surat Pesanan')->get();
         $kavlings = Kavling::with('price.house')->get();
         $prices = Price::all();
         return view('pages.transaction.surat.create-surat', compact('customers', 'mous', 'sales', 'spvs', 'kavlings', 'companies', 'prices', 'payments', 'id'));
@@ -300,7 +300,7 @@ class SuratPesananController extends Controller
         $mous = Mou::where('active', 'Active')->get();
         $sales = Sales::where('sales_position', 'Sales')->get();
         $spvs = Sales::where('sales_position', 'Supervisor')->get();
-        $payments = Payment::all();
+        $payments = Payment::where('payment_type', 'Surat Pesanan')->get();        
         $kavlings = Kavling::with('price.house')->get();
         $prices = Price::all();
         return view('pages.transaction.surat.create-surat', compact('surat', 'customers', 'mous', 'sales', 'spvs', 'kavlings', 'companies', 'prices', 'payments'));
