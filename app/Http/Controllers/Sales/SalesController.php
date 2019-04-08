@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSales;
 use Illuminate\Support\Carbon;
 use Yajra\DataTables\DataTables;
+use App\Model\SalesTarget;
+use App\Helpers\Comma;
 
 class SalesController extends Controller
 {
@@ -73,6 +75,12 @@ class SalesController extends Controller
             'sales_in' => Carbon::parse($request->input('sales_in'))->format('Y-m-d H:i:s'),
             'sales_out' => Carbon::parse($request->input('sales_out'))->format('Y-m-d H:i:s')
         ]);
+        SalesTarget::create([
+            'sales_id' => (new Sales)->max('id'),
+            'target_month' => $request->input('targetMonth'),
+            'target_year' => $request->input('targetYear'),
+            'nominal' => Comma::removeComma($request->input('targetNominal'))
+        ]);
         return redirect('sales')->with('success', 'Successfull create Sales');
     }
 
@@ -114,9 +122,9 @@ class SalesController extends Controller
     {
         //
         $sales = Sales::with('spv', 'surat')->find($id);
-        // $spv_edit = Sales::with('spv')->first();
+        $sales_target = SalesTarget::where('sales_id', $id)->first();
         $supervisor_edit = Sales::where('sales_position', 'Supervisor')->get();
-        return view('pages.sales.create-sales', compact('sales', 'spv_edit', 'supervisor_edit'));
+        return view('pages.sales.create-sales', compact('sales', 'spv_edit', 'supervisor_edit', 'sales_target'));
     }
 
     /**
@@ -157,6 +165,14 @@ class SalesController extends Controller
             'sales_spv' => $request->input('sales_spv'),
             'sales_in' => Carbon::parse($request->input('sales_in'))->format('Y-m-d H:i:s'),
             'sales_out' => Carbon::parse($request->input('sales_out'))->format('Y-m-d H:i:s')
+        ]);
+        SalesTarget::where('sales_id', $request->id)->updateOrCreate([
+            'sales_id' => $request->id,
+        ],[
+            'sales_id' => $request->id,
+            'target_month' => $request->input('targetMonth'),
+            'target_year' => $request->input('targetYear'),
+            'nominal' => Comma::removeComma($request->input('targetNominal'))
         ]);
         return redirect('/sales')->with('success', 'Successfull Update Sales');
     }

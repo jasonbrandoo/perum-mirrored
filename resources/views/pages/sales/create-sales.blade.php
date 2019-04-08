@@ -204,27 +204,42 @@
                   </div>
                 </div>
               </div>
-              <button class="btn btn-secondary" id="addTarget">Add Target</button>
-              <div class="form-group row" id="periodeTarget">
-                <label class="col-lg-3 col-form-label">Bulan</label>
-                <div class="col-lg-3">
-                  <div class="input-group">
-                    <span class="input-group-prepend">
-                      <span class="input-group-text"><i class="icon-calendar2"></i></span>
-                    </span>
-                    <input type="text" class="form-control pickadate-selectors" name="sales_out" value="{{ isset($sales) ? $sales->sales_out->toDateString() : '' }}">
+              <div id="periodeTarget">
+                <div class="form-group row">
+                  <label class="col-lg-3 col-form-label">Bulan</label>
+                  <div class="col-lg">
+                    <div class="input-group">
+                      <span class="input-group-prepend">
+                        <span class="input-group-text"><i class="icon-calendar2"></i></span>
+                      </span>
+                      <input type="text" class="form-control" id="anytime-month" name="targetMonth" value="{{ isset($sales_target) ? $sales_target->target_month : '' }}">
+                    </div>
                   </div>
                 </div>
-                <label class="col-form-label">Tahun</label>
-                <div class="col-lg-4">
-                  <div class="input-group">
-                    <span class="input-group-prepend">
-                      <span class="input-group-text"><i class="icon-calendar2"></i></span>
-                    </span>
-                    <input type="text" class="form-control pickadate-selectors" name="sales_out" value="{{ isset($sales) ? $sales->sales_out->toDateString() : '' }}">
+                <div class="form-group row">
+                  <label class="col-lg-3 col-form-label">Tahun</label>
+                  <div class="col-lg-9">
+                    <div class="input-group">
+                      <span class="input-group-prepend">
+                        <span class="input-group-text"><i class="icon-calendar2"></i></span>
+                      </span>
+                      <input type="text" class="form-control" id="anytime-year" name="targetYear" value="{{ isset($sales_target) ? $sales_target->target_year : '' }}">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-lg-3 col-form-label">Nominal</label>
+                  <div class="col-lg-9">
+                    <div class="input-group">
+                      <span class="input-group-prepend">
+                        <span class="input-group-text"><i class="icon-calendar2"></i></span>
+                      </span>
+                      <input type="text" class="form-control price" name="targetNominal" value="{{ isset($sales_target) ? $sales_target->nominal : '' }}">
+                    </div>
                   </div>
                 </div>
               </div>
+              <button type="button" class="btn btn-secondary" id="addTarget">Add Target</button>
             </fieldset>
           </div>
         </div>
@@ -265,259 +280,288 @@
 @endif
 @endsection
  @push('scripts')
+ @if (isset($sales_target))
+<script>
+  $(() => {
+    $('#periodeTarget').css({ display: 'flex', flexDirection: 'column' });
+  })
+</script>
+@else
+<script>
+  $(() => {
+    $('#periodeTarget').css('display', 'none');
+    $('#addTarget').click(() => {
+      $('#periodeTarget').css({
+        display: 'flex',
+        flexDirection: 'column'
+      });
+    })
+  });
+</script>
+@endif
 <script>
   var DateTimePickers = function() {
-  var _componentPickadate = function() {
-    if (!$().pickadate) {
-      console.warn('Warning - picker.js and/or picker.date.js is not loaded.');
-      return;
-    }
-    $('.pickadate-selectors').pickadate({
-      selectYears: true,
-      selectMonths: true
-    });
-  };
-
-  return {
-    init: function() {
-      _componentPickadate();
-    }
-  }
-}();
-
-document.addEventListener('DOMContentLoaded', function() {
-  DateTimePickers.init();
-});
-
-var FormValidation = function() {
-  var _componentValidation = function() {
-      if (!$().validate) {
-          console.warn('Warning - validate.min.js is not loaded.');
-          return;
+    var _componentPickadate = function() {
+      if (!$().pickadate) {
+        console.warn('Warning - picker.js and/or picker.date.js is not loaded.');
+        return;
       }
-
-      // Initialize
-      var validator = $('.form-validate-jquery').validate({
-          ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
-          errorClass: 'validation-invalid-label',
-          successClass: 'validation-valid-label',
-          validClass: 'validation-valid-label',
-          highlight: function(element, errorClass) {
-              $(element).removeClass(errorClass);
-          },
-          unhighlight: function(element, errorClass) {
-              $(element).removeClass(errorClass);
-          },
-
-          // Different components require proper error label placement
-          errorPlacement: function(error, element) {
-
-              // Unstyled checkboxes, radios
-              if (element.parents().hasClass('form-check')) {
-                  error.appendTo( element.parents('.form-check').parent() );
-              }
-
-              // Input with icons and Select2
-              else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
-                  error.appendTo( element.parent() );
-              }
-
-              // Input group, styled file input
-              else if (element.parent().is('.uniform-uploader, .uniform-select') || element.parents().hasClass('input-group')) {
-                  error.appendTo( element.parent().parent() );
-              }
-
-              // Other elements
-              else {
-                  error.insertAfter(element);
-              }
-          }
+      $('.pickadate-selectors').pickadate({
+        selectYears: true,
+        selectMonths: true
       });
+    };
 
-      // Reset form
-      $('#reset').on('click', function() {
-          validator.resetForm();
+    var _componentAnytime = function() {
+      if (!$().AnyTime_picker) {
+        console.warn('Warning - anytime.min.js is not loaded.');
+        return;
+      }
+      $('#anytime-month').AnyTime_picker({
+        format: '%M'
       });
-  };
+      $('#anytime-year').AnyTime_picker({
+        format: '%Y'
+      });
+    }
 
-  return {
+    return {
       init: function() {
-          _componentValidation();
+        _componentPickadate();
+        _componentAnytime();
       }
-  }
-}();
+    }
+  }();
 
-document.addEventListener('DOMContentLoaded', function() {
-  FormValidation.init();
-});
+  document.addEventListener('DOMContentLoaded', function() {
+    DateTimePickers.init();
+  });
 
-if ('{{isset($sales)}}') {
-  
-}
-var DatatableSelect = function() {
-    var _componentDatatableSelect = function() {
-        if (!$().DataTable) {
-            console.warn('Warning - datatables.min.js is not loaded.');
+  var FormValidation = function() {
+    var _componentValidation = function() {
+        if (!$().validate) {
+            console.warn('Warning - validate.min.js is not loaded.');
             return;
         }
 
-        $.extend( $.fn.dataTable.defaults, {
-            autoWidth: false,
-            columnDefs: [{
-                orderable: false,
-                width: 100,
-            }],
-            dom: '<"datatable-header"flB><"datatable-scroll-wrap"t><"datatable-footer"ip>',
-            language: {
-                search: '<span>Search:</span> _INPUT_',
-                searchPlaceholder: 'Type to search...',
-                lengthMenu: '<span>Show:</span> _MENU_',
-                paginate: { 'first': 'First', 'last': 'Last', 'next': $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;', 'previous': $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;' }
+        // Initialize
+        var validator = $('.form-validate-jquery').validate({
+            ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
+            errorClass: 'validation-invalid-label',
+            successClass: 'validation-valid-label',
+            validClass: 'validation-valid-label',
+            highlight: function(element, errorClass) {
+                $(element).removeClass(errorClass);
+            },
+            unhighlight: function(element, errorClass) {
+                $(element).removeClass(errorClass);
+            },
+
+            // Different components require proper error label placement
+            errorPlacement: function(error, element) {
+
+                // Unstyled checkboxes, radios
+                if (element.parents().hasClass('form-check')) {
+                    error.appendTo( element.parents('.form-check').parent() );
+                }
+
+                // Input with icons and Select2
+                else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
+                    error.appendTo( element.parent() );
+                }
+
+                // Input group, styled file input
+                else if (element.parent().is('.uniform-uploader, .uniform-select') || element.parents().hasClass('input-group')) {
+                    error.appendTo( element.parent().parent() );
+                }
+
+                // Other elements
+                else {
+                    error.insertAfter(element);
+                }
             }
         });
 
-        $('#role-table').DataTable({
-            order: [[1, 'desc']],
-            processing: true,
-            serverSide: true,
-            ajax: '{!! isset($sales) ? route('sales.surat', $sales->id) : "" !!}',
-            columns: [
-                {
-                    data: 'id',
-                    className: 'select-checkbox',
-                    orderable: false,
-                    render: () => ''
-                },
-                {
-                    data: 'id',
-                    render: (data, type, row) => `<a href="surat-pesanan/${row.id}/edit">SP000${row.id}</a>`
-                },
-                {
-                    data: 'sp_prebook'
-                },
-                {
-                    data: 'sp_date',
-                    render: (data, type, row) => moment(row.sp_date).format('D MMMM YYYY')
-                },
-                {
-                    data: 'customer.customer_name'
-                },
-                {
-                    data: 'kavling.kavling_cluster'
-                },
-                {
-                    data: 'active',
-                    className: 'text-center',
-                    render: (active) => active === 'Active' ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-danger">Deactive</span>'
-                },
-            ],
-            select: {
-                style: 'multi'
-            },
-            buttons: [
-                {
-                    extend: 'collection',
-                    text: 'Select Action',
-                    className: 'btn',
-                    buttons: [
-                        {
-                            text: 'Deactive',
-                            className: '_active',
-                            action: (e, dt, type, indexes) => {
-                                const data = dt.rows({selected: true}).data();
-                                data.each((e) => {
-                                    const id = e.id;
-                                    $.ajax({
-                                        url: `surat-pesanan/${id}/action`,
-                                        type: 'PATCH',
-                                        data: {
-                                            id: id,
-                                            active: 'Deactive'
-                                        },
-                                        success: (response) => {
-                                            swal({
-                                                type: 'success',
-                                                text: 'Success'
-                                            }).then(() => {
-                                                window.location.reload();
-                                            });
-                                            console.log(response)
-                                        },
-                                        error: (err) => {
-                                            swal({
-                                                type: 'error',
-                                                text: 'Error'
-                                            })
-                                        }
-                                    })
-                                })
-                            }
-                        },
-                        {
-                            text: 'Active',
-                            className: '_active',
-                            action: (e, dt, type, indexes) => {
-                                const data = dt.rows({selected: true}).data();
-                                data.each((e) => {
-                                    const id = e.id;
-                                    $.ajax({
-                                        url: `surat-pesanan/${id}/action`,
-                                        type: 'PATCH',
-                                        data: {
-                                            id: id,
-                                            active: 'Active'
-                                        },
-                                        success: (response) => {
-                                            swal({
-                                                type: 'success',
-                                                text: 'Success'
-                                            }).then(() => {
-                                                window.location.reload();
-                                            });
-                                            console.log(response)
-                                        },
-                                        error: (err) => {
-                                            swal({
-                                                type: 'error',
-                                                text: 'Error'
-                                            })
-                                        }
-                                    })
-                                })
-                            }
-                        }
-                    ]
-                }
-            ]
-        });
-        
-    };
-
-    var _componentSelect2 = function() {
-        if (!$().select2) {
-            console.warn('Warning - select2.min.js is not loaded.');
-            return;
-        }
-
-        $('.dataTables_length select').select2({
-            minimumResultsForSearch: Infinity,
-            dropdownAutoWidth: true,
-            width: 'auto'
+        // Reset form
+        $('#reset').on('click', function() {
+            validator.resetForm();
         });
     };
 
     return {
         init: function() {
-            _componentDatatableSelect();
-            _componentSelect2();
+            _componentValidation();
         }
     }
-}();
+  }();
 
-document.addEventListener('DOMContentLoaded', function() {
-    DatatableSelect.init();
-});
+  document.addEventListener('DOMContentLoaded', function() {
+    FormValidation.init();
+  });
 
+  var DatatableSelect = function() {
+      var _componentDatatableSelect = function() {
+          if (!$().DataTable) {
+              console.warn('Warning - datatables.min.js is not loaded.');
+              return;
+          }
+
+          $.extend( $.fn.dataTable.defaults, {
+              autoWidth: false,
+              columnDefs: [{
+                  orderable: false,
+                  width: 100,
+              }],
+              dom: '<"datatable-header"flB><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+              language: {
+                  search: '<span>Search:</span> _INPUT_',
+                  searchPlaceholder: 'Type to search...',
+                  lengthMenu: '<span>Show:</span> _MENU_',
+                  paginate: { 'first': 'First', 'last': 'Last', 'next': $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;', 'previous': $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;' }
+              }
+          });
+
+          $('#role-table').DataTable({
+              order: [[1, 'desc']],
+              processing: true,
+              serverSide: true,
+              ajax: '{!! isset($sales) ? route('sales.surat', $sales->id) : "" !!}',
+              columns: [
+                  {
+                      data: 'id',
+                      className: 'select-checkbox',
+                      orderable: false,
+                      render: () => ''
+                  },
+                  {
+                      data: 'id',
+                      render: (data, type, row) => `<a href="surat-pesanan/${row.id}/edit">SP000${row.id}</a>`
+                  },
+                  {
+                      data: 'sp_prebook'
+                  },
+                  {
+                      data: 'sp_date',
+                      render: (data, type, row) => moment(row.sp_date).format('D MMMM YYYY')
+                  },
+                  {
+                      data: 'customer.customer_name'
+                  },
+                  {
+                      data: 'kavling.kavling_cluster'
+                  },
+                  {
+                      data: 'active',
+                      className: 'text-center',
+                      render: (active) => active === 'Active' ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-danger">Deactive</span>'
+                  },
+              ],
+              select: {
+                  style: 'multi'
+              },
+              buttons: [
+                  {
+                      extend: 'collection',
+                      text: 'Select Action',
+                      className: 'btn',
+                      buttons: [
+                          {
+                              text: 'Deactive',
+                              className: '_active',
+                              action: (e, dt, type, indexes) => {
+                                  const data = dt.rows({selected: true}).data();
+                                  data.each((e) => {
+                                      const id = e.id;
+                                      $.ajax({
+                                          url: `surat-pesanan/${id}/action`,
+                                          type: 'PATCH',
+                                          data: {
+                                              id: id,
+                                              active: 'Deactive'
+                                          },
+                                          success: (response) => {
+                                              swal({
+                                                  type: 'success',
+                                                  text: 'Success'
+                                              }).then(() => {
+                                                  window.location.reload();
+                                              });
+                                              console.log(response)
+                                          },
+                                          error: (err) => {
+                                              swal({
+                                                  type: 'error',
+                                                  text: 'Error'
+                                              })
+                                          }
+                                      })
+                                  })
+                              }
+                          },
+                          {
+                              text: 'Active',
+                              className: '_active',
+                              action: (e, dt, type, indexes) => {
+                                  const data = dt.rows({selected: true}).data();
+                                  data.each((e) => {
+                                      const id = e.id;
+                                      $.ajax({
+                                          url: `surat-pesanan/${id}/action`,
+                                          type: 'PATCH',
+                                          data: {
+                                              id: id,
+                                              active: 'Active'
+                                          },
+                                          success: (response) => {
+                                              swal({
+                                                  type: 'success',
+                                                  text: 'Success'
+                                              }).then(() => {
+                                                  window.location.reload();
+                                              });
+                                              console.log(response)
+                                          },
+                                          error: (err) => {
+                                              swal({
+                                                  type: 'error',
+                                                  text: 'Error'
+                                              })
+                                          }
+                                      })
+                                  })
+                              }
+                          }
+                      ]
+                  }
+              ]
+          });
+          
+      };
+
+      var _componentSelect2 = function() {
+          if (!$().select2) {
+              console.warn('Warning - select2.min.js is not loaded.');
+              return;
+          }
+
+          $('.dataTables_length select').select2({
+              minimumResultsForSearch: Infinity,
+              dropdownAutoWidth: true,
+              width: 'auto'
+          });
+      };
+
+      return {
+          init: function() {
+              _componentDatatableSelect();
+              _componentSelect2();
+          }
+      }
+  }();
+
+  document.addEventListener('DOMContentLoaded', function() {
+      DatatableSelect.init();
+  });
 </script>
 <script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>
 @endpush
