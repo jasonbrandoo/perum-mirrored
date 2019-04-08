@@ -91,6 +91,7 @@
               <label class="col-lg-3 col-form-label">Alamat Tempat Tinggal (Sekarang)</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="customer_current_address" value="{{ isset($customer) ? $customer->customer_current_address : '' }}" required>
+                <button type="button" class="btn btn-secondary mt-1" id="ktp">Sama dengan KTP</button>
               </div>
             </div>
             <div class="form-group row">
@@ -213,7 +214,18 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Alamat Surat Menyurat</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_address_mail" value="{{ isset($customer) ? $customer->customer_address_mail : '' }}" required>
+                <select data-placeholder="Alamat surat menyurat" class="form-control form-control-select2" data-fouc name="customer_address_mail" id="address_mail" required>
+                  <option></option>
+                  <option value="Alamat KTP">Alamat KTP</option>
+                  <option value="Alamat tempat tinggal">Alamat tempat tinggal</option>
+                  <option value="Alamat kantor">Alamat kantor</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row" id="mailing_address">
+              <label class="col-lg-3 col-form-label">Alamat</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" name="mailing_address" value="{{ isset($customer) ? $customer->mailing_address : '' }}" required>
               </div>
             </div>
             <div class="form-group row">
@@ -298,7 +310,15 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Jenis Pekerjaan</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_job_name" value="{{ isset($customer) ? $customer->customer_job_name : '' }}" required>
+                <select data-placeholder="Pekerjaan" class="form-control form-control-select2" data-fouc name="customer_job_name" id="customer_job" required>
+                  <option></option>
+                  <option value="Karyawan swasta">Karyawan swasta</option>
+                  <option value="Pegawai negeri">Pegawai negeri</option>
+                  <option value="Wiraswata">Wiraswasta</option>
+                  <option value="Lainnya">Lainnya</option>
+                </select>
+                <input type="text" class="form-control mt-3" name="customer_job_name" id="customer_default_job" value="{{ isset($customer) ? $customer->customer_job_name : '' }}"
+                  required>
               </div>
             </div>
             <div class="form-group row">
@@ -378,7 +398,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Fax</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="customer_office_fax" id="customer_office_fax" value="{{ isset($customer) ? $customer->company->company_fax : ''}}" readonly required>
+                <input type="text" class="form-control" name="customer_office_fax" id="customer_office_fax" value="{{ isset($customer) ? $customer->company->company_fax : ''}}" readonly>
               </div>
             </div>
             <div class="form-group row">
@@ -459,16 +479,39 @@
 @push('scripts')
 <script>
 $(document).ready(function(){
+
+  $('#mailing_address').css('display','none');
+
+  $('#ktp').click(() => {
+    $('input[name=customer_current_address]').val($('input[name=customer_ktp_address]').val());
+  });
+
+  $('#address_mail').change(() => {
+    $('#mailing_address').css('display','flex');
+  });
+
+  $('#customer_default_job').css('display', 'none');
+
+  $('#customer_job').change(() => {
+    const job = $('#customer_job').val();
+    console.log(job);
+    if (job === 'Lainnya') {
+      $('#customer_default_job').css('display', 'flex');
+    } else {
+      $('#customer_default_job').css('display', 'none');
+    }
+  })
+
   $('#company').on('change', function(e){
     var id = $(this).val();
-    console.log(id);
+    
     $.ajax({
     url: '{{route('customer.company')}}',
     data: {
       id: id
     },
     success: function (result) {
-      console.log(result);
+      
       $('#customer_office_address').val(result.company_address);
       $('#customer_office_city').val(result.company_city);
       $('#customer_office_zipcode').val(result.company_zipcode);
@@ -477,7 +520,7 @@ $(document).ready(function(){
 
     },
     error: function (e) {
-      console.log(e);
+      
     }
     });
   });
@@ -491,10 +534,8 @@ $(document).ready(function(){
     $('input[name=customer_total_income').val(a + b + c);
     $('input[name=customer_residual_income]').val((a + b + c) - d);
   });
-
-  console.log(total);
-
 });
+
 var FormWizard = function() {
   var _componentWizard = function() {
     if (!$().steps) {

@@ -85,7 +85,7 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">No Surat Pesanan</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_no" value="{{isset($surat) ? $surat->sp_no : ''}}" required>
+                        <input type="text" class="form-control" name="sp_no" value="SP000{{isset($surat) ? $surat->sp_no : $id}}" required readonly>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -121,7 +121,7 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Customer ID</label>
                       <div class="col-lg-9">
-                        <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_customer_id" id="customer_id"
+                        <select data-placeholder="C000" class="form-control form-control-select2-customer" data-fouc name="sp_customer_id" id="customer_id"
                           required>
                         @if (isset($surat))
                           <option value="{{$surat->customer->id}}">C000{{$surat->customer->id}} - {{$surat->customer->customer_name}}</option>
@@ -1111,13 +1111,23 @@
           }
 
           // Initialize
-          var $select = $('.form-control-select2').select2({
+          var $select = $('.form-control-select2-customer').select2({
               minimumResultsForSearch: Infinity,
+              minimumInputLength: 4,
               width: '100%'
+          });
+
+          var $customer = $('.form-control-select2').select2({ 
+            minimumResultsForSearch: Infinity,
+            width: '100%'
           });
 
           // Trigger value change when selection is made
           $select.on('change', function() {
+              $(this).trigger('blur');
+          });
+
+          $customer.on('change', function() {
               $(this).trigger('blur');
           });
       };

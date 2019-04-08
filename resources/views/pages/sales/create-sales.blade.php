@@ -204,6 +204,27 @@
                   </div>
                 </div>
               </div>
+              <button class="btn btn-secondary" id="addTarget">Add Target</button>
+              <div class="form-group row" id="periodeTarget">
+                <label class="col-lg-3 col-form-label">Bulan</label>
+                <div class="col-lg-3">
+                  <div class="input-group">
+                    <span class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-calendar2"></i></span>
+                    </span>
+                    <input type="text" class="form-control pickadate-selectors" name="sales_out" value="{{ isset($sales) ? $sales->sales_out->toDateString() : '' }}">
+                  </div>
+                </div>
+                <label class="col-form-label">Tahun</label>
+                <div class="col-lg-4">
+                  <div class="input-group">
+                    <span class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-calendar2"></i></span>
+                    </span>
+                    <input type="text" class="form-control pickadate-selectors" name="sales_out" value="{{ isset($sales) ? $sales->sales_out->toDateString() : '' }}">
+                  </div>
+                </div>
+              </div>
             </fieldset>
           </div>
         </div>
@@ -213,8 +234,7 @@
       </form>
   </div>
 </div>
-<hr>
-@if (isset($sales))
+<hr> @if (isset($sales))
 <div class="card">
   <div class="card-header header-elements-inline">
     <h5 class="card-title">Surat Pesanan</h5>
@@ -228,7 +248,7 @@
   </div>
   <div class="card-body">
     <table class="table datatable-select-checkbox table-bordered" id="role-table">
-    <thead>
+      <thead>
         <tr>
           <th></th>
           <th>No</th>
@@ -239,14 +259,14 @@
           <th>Active</th>
         </tr>
       </thead>
-  </table>
+    </table>
   </div>
 </div>
 @endif
 @endsection
  @push('scripts')
 <script>
-var DateTimePickers = function() {
+  var DateTimePickers = function() {
   var _componentPickadate = function() {
     if (!$().pickadate) {
       console.warn('Warning - picker.js and/or picker.date.js is not loaded.');

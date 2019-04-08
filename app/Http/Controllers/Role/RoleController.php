@@ -11,6 +11,7 @@ use App\User;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Auth;
 use App\Model\Page;
+use App\Model\RolePage;
 
 class RoleController extends Controller
 {
@@ -211,8 +212,9 @@ class RoleController extends Controller
      */
     public function page(Page $page, $id)
     {
-        $pages = $page::all();
-        $roles = SpatieRole::find($id);
+        $pages = $page::get();
+        $roles = SpatieRole::with('page');
+        return $roles;
         return view('pages.role.page-role', compact('pages', 'roles'));
     }
 
@@ -220,8 +222,12 @@ class RoleController extends Controller
      * Update Page
      *
      */
-    public function updatePage(Request $request)
+    public function updatePage(Request $request, $id)
     {
-        return $request;
+        $role = SpatieRole::find($id);
+        RolePage::create([
+            'role_id' => $role->id,
+            'page_id' => $request->input('page_id')
+        ]);
     }
 }

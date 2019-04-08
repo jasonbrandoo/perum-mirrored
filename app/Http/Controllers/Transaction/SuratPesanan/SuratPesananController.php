@@ -113,6 +113,7 @@ class SuratPesananController extends Controller
     public function create()
     {
         //
+        $id = (new SuratPesanan)->max('id') + 1;
         $customers =  Customer::all();
         $companies = Company::where('company_type', 'mou')->get();
         $mous = Mou::where('active', 'Active')->get();
@@ -121,12 +122,12 @@ class SuratPesananController extends Controller
         $payments = Payment::all();
         $kavlings = Kavling::with('price.house')->get();
         $prices = Price::all();
-        return view('pages.transaction.surat.create-surat', compact('customers', 'mous', 'sales', 'spvs', 'kavlings', 'companies', 'prices', 'payments'));
+        return view('pages.transaction.surat.create-surat', compact('customers', 'mous', 'sales', 'spvs', 'kavlings', 'companies', 'prices', 'payments', 'id'));
     }
 
     public function load_customer(Request $request)
     {
-        $customer = Customer::find($request->id);
+        $customer = Customer::with('sales_executive', 'sales_supervisor')->find($request->id);
         return response()->json($customer);
     }
 

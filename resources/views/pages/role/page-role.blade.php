@@ -56,42 +56,39 @@
 @endsection
  @push('scripts')
 <script>
-  $(() => {
-
-      const checked = $('input[name=active]').click(() => {
-        $('input[name=active]:checked').map((index) => console.log(index))
-      })
-      // console.log(checked)
-   $('#save').click((e) => {
-     e.preventDefault();
-      const checked = $('input[name=active]').is(':checked');
-    //  const id = $('input[name=id]').val();
-    //  const checked = $('input[name=active]').prop('checked') ? $('input[name=active]').get() : 'deactive';
-     $.ajax({
-       url: '{!! route('role.update_page', $roles->id) !!}',
-       method: 'POST',
-       data: {
-         create: checked,
-       },
-       success: (result) => {
-         console.log(result);
-         swal({
-           type: 'success',
-           text: 'Success'
-         });
-       },
-       error: (err) => {
-         console.log(err);
-         swal({
-           type: 'error',
-           text: 'Error'
-         })
-       }
-     })
-   })
- })
+$(() => {
+  $('#save').click((e) => {
+    e.preventDefault();
+    $.each($('input[name=active]:checked'), (index, elem) => {
+      const checked = $(elem).is(':checked') ? ({ id: $(elem).val(), status: 'active' }) : ({ id: $(elem).val(), status: 'deactive' });
+      $.ajax({
+        url: '{!! route('role.update_page', $roles->id) !!}',
+        method: 'POST',
+        data: {
+          role: '{{ $roles->id }}',
+          page_id: checked.id,
+        },
+        success: (result) => {
+          console.log(result);
+          swal({
+            type: 'success',
+            text: 'Success'
+          });
+        },
+        error: (err) => {
+          console.log(err);
+          swal({
+            type: 'error',
+            text: 'Error'
+          });
+        }
+      });
+    });
+  });
+});
 
 </script>
+
 
 
 
