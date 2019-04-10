@@ -336,8 +336,12 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="col-lg-3 col-form-label">Potongan Harga Jual (Discount)</label>
-                      <div class="col-lg-9">
+                      <label class="col-lg-3 col-form-label">Potongan Harga Jual (Nominal)</label>
+                      <div class="col-lg">
+                        <input type="text" class="form-control price" name="sp_discount_nominal" value="{{isset($surat) ? $surat->sp_discount : ''}}">
+                      </div>
+                      <label class="col-form-label">(Persen%)</label>
+                      <div class="col-lg">
                         <input type="text" class="form-control price" name="sp_discount" value="{{isset($surat) ? $surat->sp_discount : ''}}">
                       </div>
                     </div>
@@ -415,19 +419,28 @@
                   <fieldset>
                     <hr>
                     <h2>Biaya Lain</h2>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label">Deskripsi</label>
-                      <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_description" required>
+                    <div class="lain">
+                      <div class="form-group row">
+                        <label class="col-lg-3 col-form-label">Deskripsi</label>
+                        <div class="col-lg-9">
+                          <input type="text" class="form-control" name="sp_description" required>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-lg-3 col-form-label">Nominal</label>
+                        <div class="col-lg-9">
+                          <input type="text" class="form-control price" name="sp_description_nominal" required>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                    <div class="addLain"></div>
+                    <div class="d-flex">
+                      <div class="ml-auto">
+                        <button type="button" class="btn btn-primary rounded-round removeButton">-</button>
+                        <button type="button" class="btn btn-primary rounded-round addButton">+</button>
                       </div>
                     </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label">Nominal</label>
-                      <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_description_nominal" required>
-                      </div>
-                    </div>
-                    <hr>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Subsidi</label>
                       <div class="col-lg-9">
@@ -691,8 +704,6 @@
         </table>
       </div>
     </div>
-
-
   </div>
 </div>
 @endsection
@@ -700,438 +711,430 @@
 <script>
   $(document).ready(function(){
 
-      $('#customer_id').on('change', function(e){
-        var id = $(this).val();
-        console.log(id);
-        $.ajax({
-        url: '{{route('transaction.surat-pesanan.load_customer')}}',
-        data: {
-          id: id
-        },
-        success: function (result) {
-          console.log(result);
-          $('#customer_name').val(result.customer_name);
-          $('#sales_id').val(result.sales_executive.id);
-          $('#sales_name').val(result.sales_executive.sales_name);
-          $('#supervisor_id').val(result.sales_supervisor.sales_name);
-        },
-        error: function (e) {
-          console.log(e);
-        }
-        });
+    $('.addButton').click(() => {
+      $('.lain:first').clone().addClass('adder').appendTo($('.addLain'));
+    });
+
+    $('.removeButton').click(() => {
+      $('.adder').detach();
+    });
+
+    $('#customer_id').on('change', function(e){
+      var id = $(this).val();
+      console.log(id);
+      $.ajax({
+      url: '{{route('transaction.surat-pesanan.load_customer')}}',
+      data: {
+        id: id
+      },
+      success: function (result) {
+        console.log(result);
+        $('#customer_name').val(result.customer_name);
+        $('#sales_id').val(result.sales_executive.id);
+        $('#sales_name').val(result.sales_executive.sales_name);
+        $('#supervisor_id').val(result.sales_supervisor.sales_name);
+      },
+      error: function (e) {
+        console.log(e);
+      }
       });
+    });
 
-      $('#company_id').on('change', function(e){
-        var id = $(this).val();
-        console.log(id);
-        $.ajax({
-        url: '{{route('transaction.surat-pesanan.load_company')}}',
-        data: {
-          id: id
-        },
-        success: function (result) {
-          console.log(result);
-          $('#company_name').val(result.company_name);
-        },
-        error: function (e) {
-          console.log(e);
-        }
-        });
+    $('#company_id').on('change', function(e){
+      var id = $(this).val();
+      console.log(id);
+      $.ajax({
+      url: '{{route('transaction.surat-pesanan.load_company')}}',
+      data: {
+        id: id
+      },
+      success: function (result) {
+        console.log(result);
+        $('#company_name').val(result.company_name);
+      },
+      error: function (e) {
+        console.log(e);
+      }
       });
+    });
 
-      $('#mou_id').on('change', function(e){
-        var id = $(this).val();
-        console.log(id);
-        $.ajax({
-        url: '{{route('transaction.surat-pesanan.load_mou')}}',
-        data: {
-          id: id
-        },
-        success: function (result) {
-          console.log(result);
-          $('#mou_supervisor').val(result.mou_coordinator);
-        },
-        error: function (e) {
-          console.log(e);
-        }
-        });
+    $('#mou_id').on('change', function(e){
+      var id = $(this).val();
+      console.log(id);
+      $.ajax({
+      url: '{{route('transaction.surat-pesanan.load_mou')}}',
+      data: {
+        id: id
+      },
+      success: function (result) {
+        console.log(result);
+        $('#mou_supervisor').val(result.mou_coordinator);
+      },
+      error: function (e) {
+        console.log(e);
+      }
       });
+    });
 
-      $('#sales_id').on('change', function(e){
-        var id = $(this).val();
-        console.log(id);
-        $.ajax({
-        url: '{{route('transaction.surat-pesanan.load_sales')}}',
-        data: {
-          id: id
-        },
-        success: function (result) {
-          console.log(result);
-          $('#sales_name').val(result.sales_name);
-        },
-        error: function (e) {
-          console.log(e);
-        }
-        });
+    $('#sales_id').on('change', function(e){
+      var id = $(this).val();
+      console.log(id);
+      $.ajax({
+      url: '{{route('transaction.surat-pesanan.load_sales')}}',
+      data: {
+        id: id
+      },
+      success: function (result) {
+        console.log(result);
+        $('#sales_name').val(result.sales_name);
+      },
+      error: function (e) {
+        console.log(e);
+      }
       });
+    });
 
-      $('#kavling_id').on('change', function(e){
-        var id = $(this).val();
-        console.log(id);
-        $.ajax({
-        url: '{{route('transaction.surat-pesanan.load_kavling')}}',
-        data: {
-          id: id
-        },
-        success: function (result) {
-          console.log(result);
-          $('#house_type').val(result.price.house.rumah_type_name);
-          $('#house_block').val(result.kavling_block);
-          $('#house_cluster').val(result.kavling_cluster);
-          $('#house_no').val(result.id);
-          $('#house_building').val(result.price.house.building_area_m2);
-          $('#house_surface').val(result.price.house.surface_area_m2);
-          $('#price_id').val(result.price.id);
-          $('#price').val($.number(result.price.price_selling));
-          $('input[name=sp_total_harga_jual]').val(result.price.price_selling);
-        },
-        error: function (e) {
-          console.log(e);
-        }
-        });
+    $('#kavling_id').on('change', function(e){
+      var id = $(this).val();
+      console.log(id);
+      $.ajax({
+      url: '{{route('transaction.surat-pesanan.load_kavling')}}',
+      data: {
+        id: id
+      },
+      success: function (result) {
+        console.log(result);
+        $('#house_type').val(result.price.house.rumah_type_name);
+        $('#house_block').val(result.kavling_block);
+        $('#house_cluster').val(result.kavling_cluster);
+        $('#house_no').val(result.id);
+        $('#house_building').val(result.price.house.building_area_m2);
+        $('#house_surface').val(result.price.house.surface_area_m2);
+        $('#price_id').val(result.price.id);
+        $('#price').val($.number(result.price.price_selling));
+        $('input[name=sp_total_harga_jual]').val(result.price.price_selling);
+      },
+      error: function (e) {
+        console.log(e);
+      }
       });
+    });
 
-      /* $('#price_id').on('change', function(e){
-        var id = $(this).val();
-        // console.log(id);
-        $.ajax({
-        url: '{{route('transaction.surat-pesanan.load_price')}}',
-        data: {
-          id: id
-        },
-        success: function (result) {
-          // console.log(result);
-          $('#price').val($.number(result.price_selling));
-          $('input[name=sp_total_harga_jual]').val(result.price_selling);
-        },
-        error: function (e) {
-          console.log(e);
-        }
-        });
-      }); */
+    /* $('#price_id').on('change', function(e){
+      var id = $(this).val();
+      // console.log(id);
+      $.ajax({
+      url: '{{route('transaction.surat-pesanan.load_price')}}',
+      data: {
+        id: id
+      },
+      success: function (result) {
+        // console.log(result);
+        $('#price').val($.number(result.price_selling));
+        $('input[name=sp_total_harga_jual]').val(result.price_selling);
+      },
+      error: function (e) {
+        console.log(e);
+      }
+      });
+    }); */
 
 
+    const price = parseFloat($('input[name=sp_price]').val()) || 0;
+    console.log(price)
+    $('input[name=sp_price_tl]').keyup(() => {
+      const tl = parseFloat($('input[name=sp_price_tl]').val()) || 0;
       const price = parseFloat($('input[name=sp_price]').val()) || 0;
-      console.log(price)
-      $('input[name=sp_price_tl]').keyup(() => {
-        const tl = parseFloat($('input[name=sp_price_tl]').val()) || 0;
-        const price = parseFloat($('input[name=sp_price]').val()) || 0;
-        $('input[name=sp_total_harga_jual]').val(tl+price);
-      })
+      $('input[name=sp_total_harga_jual]').val(tl+price);
+    })
 
-      $('input[name=sp_included_tl').click(() => {
-        const tl = parseFloat($('input[name=sp_price_tl]').val()) || 0;
-        const price = parseFloat($('input[name=sp_price]').val()) || 0;
-        const total = $('input[name=sp_total_harga_jual]').val(tl+price);
+    $('input[name=sp_included_tl').click(() => {
+      const tl = parseFloat($('input[name=sp_price_tl]').val()) || 0;
+      const price = parseFloat($('input[name=sp_price]').val()) || 0;
+      const total = $('input[name=sp_total_harga_jual]').val(tl+price);
+      $('input[name=sp_harga_jual_tanah]').val(price)
+      if ($('input[name=sp_included_tl').prop('checked')) {
+        $('input[name=sp_harga_jual_tanah]').val($.number(total.val()));
+      } else {
         $('input[name=sp_harga_jual_tanah]').val(price)
-        if ($('input[name=sp_included_tl').prop('checked')) {
-          $('input[name=sp_harga_jual_tanah]').val($.number(total.val()));
-        } else {
-          $('input[name=sp_harga_jual_tanah]').val(price)
-        }
-      })
+      }
+    })
 
-      $('input[name=sp_discount]').keyup(() => {
-        const discount = parseFloat($('input[name=sp_discount]').val()) || 0;
-        const rumah = parseFloat($('input[name=sp_harga_jual_tanah]').val()) || 0;
-        // console.log(rumah)
-        $('input[name=sp_after_discount]').val(rumah - (discount * rumah / 100));
-      })
+    $('input[name=sp_discount]').keyup(() => {
+      const discount = parseFloat($('input[name=sp_discount]').val()) || 0;
+      const rumah = parseFloat($('input[name=sp_harga_jual_tanah]').val()) || 0;
+      $('input[name=sp_after_discount]').val(rumah - (discount * rumah / 100));
+      $('input[name=sp_discount_nominal').val(0);
+    })
 
-      $('input[name=sp_ppn_percentage]').keyup(() => {
-        const total = parseFloat($('input[name=sp_total_harga_jual]').val()) || 0;
-        const rumah = parseFloat($('input[name=sp_harga_jual_tanah]').val()) || 0;
-        const ppn = parseFloat($('input[name=sp_ppn_percentage]').val()) || 0;
-        const afterDiscount = parseFloat($('input[name=sp_after_discount]').val()) || 0;
-        const afterPpn = $('input[name=sp_after_ppn').val(ppn * (afterDiscount / 100));
-        // console.log(parseFloat(afterPpn.val()) + rumah )
-        const tanah = $('input[name=sp_harga_tanah_bangunan]').val(parseFloat(afterPpn.val()) + rumah);
-        $('input[name=sp_harga_jual_pengikatan]').val(tanah.val())
-        $('input[name=sp_ajb_price]').val(total * (110 / 100));
-      })
+    $('input[name=sp_discount_nominal]').keyup(() => {
+      const discount = parseFloat($('input[name=sp_discount_nominal]').val()) || 0;
+      const rumah = parseFloat($('input[name=sp_harga_jual_tanah]').val()) || 0;
+      $('input[name=sp_after_discount]').val(rumah - discount);
+      $('input[name=sp_discount').val(0);
+    })
 
-      $('input[name=sp_tanah_lebih], input[name=sp_harga_m2]').keyup(() => {
-        const tanahLebih = parseFloat($('input[name=sp_tanah_lebih]').val()) || 0;
-        const hargaM2 = parseFloat($('input[name=sp_harga_m2]').val()) || 0;
-        console.log(tanahLebih * hargaM2)
-        $('input[name=sp_total_harga_tanah_lebih]').val(tanahLebih * hargaM2);
-      })
+    $('input[name=sp_ppn_percentage]').keyup(() => {
+      const total = parseFloat($('input[name=sp_total_harga_jual]').val()) || 0;
+      const rumah = parseFloat($('input[name=sp_harga_jual_tanah]').val()) || 0;
+      const ppn = parseFloat($('input[name=sp_ppn_percentage]').val()) || 0;
+      const afterDiscount = parseFloat($('input[name=sp_after_discount]').val()) || 0;
+      const afterPpn = $('input[name=sp_after_ppn').val(ppn * (afterDiscount / 100));
+      // console.log(parseFloat(afterPpn.val()) + rumah )
+      const tanah = $('input[name=sp_harga_tanah_bangunan]').val(parseFloat(afterPpn.val()) + rumah);
+      $('input[name=sp_harga_jual_pengikatan]').val(tanah.val())
+      $('input[name=sp_ajb_price]').val(total * (110 / 100));
+    })
 
-      $('input[name=sp_dp], input[name=sp_ppn]').keyup(() => {
-        const hargaTanahLebih = parseFloat($('input[name=sp_total_harga_tanah_lebih]').val()) || 0;
-        const dp = parseFloat($('input[name=sp_dp]').val()) || 0;
-        const ppn = parseFloat($('input[name=sp_ppn]').val()) || 0;
-        $('input[name=sp_sub_total]').val(hargaTanahLebih + dp + ppn);
-      })
+    $('input[name=sp_tanah_lebih], input[name=sp_harga_m2]').keyup(() => {
+      const tanahLebih = parseFloat($('input[name=sp_tanah_lebih]').val()) || 0;
+      const hargaM2 = parseFloat($('input[name=sp_harga_m2]').val()) || 0;
+      console.log(tanahLebih * hargaM2)
+      $('input[name=sp_total_harga_tanah_lebih]').val(tanahLebih * hargaM2);
+    })
 
-      $('input[name=sp_booking_fee]').change(() => {
-        const subTotal = parseFloat($('input[name=sp_sub_total]').val()) || 0;
-        const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
-        $('input[name=sp_total_bill]').val(subTotal + booking);
-        $('input[name=sp_total]').val(subTotal + booking);
-      })
+    $('input[name=sp_dp], input[name=sp_ppn]').keyup(() => {
+      const hargaTanahLebih = parseFloat($('input[name=sp_total_harga_tanah_lebih]').val()) || 0;
+      const dp = parseFloat($('input[name=sp_dp]').val()) || 0;
+      const ppn = parseFloat($('input[name=sp_ppn]').val()) || 0;
+      $('input[name=sp_sub_total]').val(hargaTanahLebih + dp + ppn);
+    })
 
-      $('input[name=sp_per_month_internal]').focusout(() => {
-        /* Constant variable */
-        const totalBill = parseFloat($('input[name=sp_total_bill]').val()) || 0;
-        const internal = parseFloat($('input[name=sp_per_month_internal]').val()) || 0;
-        const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
-        const subTotal = parseFloat($('input[name=sp_sub_total]').val()) || 0;
-        // const dt = $('#result').DataTable({
-        //   dom: '<"datatable-header"><"datatable-scroll-wrap"><"datatable-footer">',
-        //   paging: false
-        // });
-        // const seq = 1
+    $('input[name=sp_booking_fee]').change(() => {
+      const subTotal = parseFloat($('input[name=sp_sub_total]').val()) || 0;
+      const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
+      $('input[name=sp_total_bill]').val(subTotal + booking);
+      $('input[name=sp_total]').val(subTotal + booking);
+    })
 
-        /* jQuery */
-        $('input[name=sp_internal_bill]').val(Math.round(totalBill / internal));
-
-        /* Initiate Datatables */
-        // dt.row.add([
-        //   seq,
-        //   'Booking Fee',
-        //   $.number(booking),
-        //   moment().format('D MMMM YYYY')
-        // ]).draw()
-
-        /* Iterate Cililan */
-        // console.log(internal)
-        // for (let index = 1; index <= internal; index++) {
-        //   dt.row.add([
-        //     index+1,
-        //     `Cicilan ${index}`,
-        //     $.number(booking/internal),
-        //     moment().format('D MMMM YYYY')
-        //   ]).draw()
-        // }
-      })
-
-      $('input[name=sp_per_month_kreditur]').keyup(() => {
-        const totalBill = parseFloat($('input[name=sp_total_bill]').val()) || 0;
-        const kreditur = parseFloat($('input[name=sp_per_month_kreditur]').val()) || 0;
-        $('input[name=sp_kreditur_bill]').val(totalBill / kreditur);
-      })
-
-      $('input[name=sp_kpr_plan]').keyup(() => {
-        const kpr = parseFloat($('input[name=sp_kpr_plan]').val()) || 0;
-        const total = parseFloat($('input[name=sp_total_bill]').val()) ||0;
-        $('input[name=sp_total]').val(kpr+total);
-      })
-
+    $('input[name=sp_per_month_internal]').focusout(() => {
+      /* Constant variable */
+      const totalBill = parseFloat($('input[name=sp_total_bill]').val()) || 0;
       const internal = parseFloat($('input[name=sp_per_month_internal]').val()) || 0;
       const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
       const subTotal = parseFloat($('input[name=sp_sub_total]').val()) || 0;
-      const piutang = Math.round(booking/internal);
-      console.log(internal);
-      $('#internal').val(internal);
-      $('#piutang').val(piutang);
-      // $('#form_wizard').submit((e) => {
-      //   for (let index = 0; index <= internal; index++) {
-      //     const desc = `Description ${index}`;
-      //     const piutang = Math.round(booking/internal); 
-      //     $.ajax({
-      //       url: '{{route('transaction.surat-pesanan.storeCicilan')}}',
-      //       method: 'POST',
-      //       data: {
-      //         description: desc,
-      //         piutang: piutang
-      //       },
-      //       success: (result) => {
-      //         console.log(result)
-      //         swal('Success')
-      //       },
-      //       error: (err) => {
-      //         console.log(err)
-      //         swal('Eror')
-      //       }
-      //     })
-      //   }
-      // })
-    });
+      // const dt = $('#result').DataTable({
+      //   dom: '<"datatable-header"><"datatable-scroll-wrap"><"datatable-footer">',
+      //   paging: false
+      // });
+      // const seq = 1
 
-    var FormWizard = function() {
+      /* jQuery */
+      $('input[name=sp_internal_bill]').val(Math.round(totalBill / internal));
 
-      var _componentWizard = function() {
-          if (!$().steps) {
-              console.warn('Warning - steps.min.js is not loaded.');
-              return;
-          }
+      /* Initiate Datatables */
+      // dt.row.add([
+      //   seq,
+      //   'Booking Fee',
+      //   $.number(booking),
+      //   moment().format('D MMMM YYYY')
+      // ]).draw()
+
+      /* Iterate Cililan */
+      // console.log(internal)
+      // for (let index = 1; index <= internal; index++) {
+      //   dt.row.add([
+      //     index+1,
+      //     `Cicilan ${index}`,
+      //     $.number(booking/internal),
+      //     moment().format('D MMMM YYYY')
+      //   ]).draw()
+      // }
+    })
+
+    $('input[name=sp_per_month_kreditur]').keyup(() => {
+      const totalBill = parseFloat($('input[name=sp_total_bill]').val()) || 0;
+      const kreditur = parseFloat($('input[name=sp_per_month_kreditur]').val()) || 0;
+      $('input[name=sp_kreditur_bill]').val(totalBill / kreditur);
+    })
+
+    $('input[name=sp_kpr_plan]').keyup(() => {
+      const kpr = parseFloat($('input[name=sp_kpr_plan]').val()) || 0;
+      const total = parseFloat($('input[name=sp_total_bill]').val()) ||0;
+      $('input[name=sp_total]').val(kpr+total);
+    })
+
+    const internal = parseFloat($('input[name=sp_per_month_internal]').val()) || 0;
+    const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
+    const subTotal = parseFloat($('input[name=sp_sub_total]').val()) || 0;
+    const piutang = Math.round(booking/internal);
+    console.log(internal);
+    $('#internal').val(internal);
+    $('#piutang').val(piutang);
+  });
+
+  var FormWizard = function() {
+
+    var _componentWizard = function() {
+        if (!$().steps) {
+            console.warn('Warning - steps.min.js is not loaded.');
+            return;
+        }
 
 
-          if (!$().validate) {
-              console.warn('Warning - validate.min.js is not loaded.');
-              return;
-          }
+        if (!$().validate) {
+            console.warn('Warning - validate.min.js is not loaded.');
+            return;
+        }
 
-          var form = $('.steps-validation').show();
+        var form = $('.steps-validation').show();
 
-          $('.steps-validation').steps({
-              headerTag: 'h6',
-              bodyTag: 'fieldset',
-              titleTemplate: '<span class="number">#index#</span> #title#',
-              labels: {
-                  previous: '<i class="icon-arrow-left13 mr-2" /> Previous',
-                  next: 'Next <i class="icon-arrow-right14 ml-2" />',
-                  finish: 'Submit form <i class="icon-arrow-right14 ml-2" />'
-              },
-              transitionEffect: 'fade',
-              autoFocus: true,
-              onStepChanging: function (event, currentIndex, newIndex) {
+        $('.steps-validation').steps({
+            headerTag: 'h6',
+            bodyTag: 'fieldset',
+            titleTemplate: '<span class="number">#index#</span> #title#',
+            labels: {
+                previous: '<i class="icon-arrow-left13 mr-2" /> Previous',
+                next: 'Next <i class="icon-arrow-right14 ml-2" />',
+                finish: 'Submit form <i class="icon-arrow-right14 ml-2" />'
+            },
+            transitionEffect: 'fade',
+            autoFocus: true,
+            onStepChanging: function (event, currentIndex, newIndex) {
 
-                  // Allways allow previous action even if the current form is not valid!
-                  if (currentIndex > newIndex) {
-                      return true;
-                  }
+                // Allways allow previous action even if the current form is not valid!
+                if (currentIndex > newIndex) {
+                    return true;
+                }
 
-                  // Needed in some cases if the user went back (clean up)
-                  if (currentIndex < newIndex) {
+                // Needed in some cases if the user went back (clean up)
+                if (currentIndex < newIndex) {
 
-                      // To remove error styles
-                      form.find('.body:eq(' + newIndex + ') label.error').remove();
-                      form.find('.body:eq(' + newIndex + ') .error').removeClass('error');
-                  }
+                    // To remove error styles
+                    form.find('.body:eq(' + newIndex + ') label.error').remove();
+                    form.find('.body:eq(' + newIndex + ') .error').removeClass('error');
+                }
 
-                  form.validate().settings.ignore = ':disabled,:hidden';
-                  return form.valid();
-              },
-              onFinishing: function (event, currentIndex) {
-                  form.validate().settings.ignore = ':disabled';
-                  return form.valid();
-              },
-              onFinished: function (event, currentIndex) {
-                  swal({
-                  type: 'success',
-                  title: 'Success',
-                  });
-                  event.target.submit();
-              }
-          });
+                form.validate().settings.ignore = ':disabled,:hidden';
+                return form.valid();
+            },
+            onFinishing: function (event, currentIndex) {
+                form.validate().settings.ignore = ':disabled';
+                return form.valid();
+            },
+            onFinished: function (event, currentIndex) {
+                swal({
+                type: 'success',
+                title: 'Success',
+                });
+                event.target.submit();
+            }
+        });
 
-          $('.steps-validation').validate({
-              ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
-              errorClass: 'validation-invalid-label',
-              highlight: function(element, errorClass) {
-                  $(element).removeClass(errorClass);
-              },
-              unhighlight: function(element, errorClass) {
-                  $(element).removeClass(errorClass);
-              },
+        $('.steps-validation').validate({
+            ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
+            errorClass: 'validation-invalid-label',
+            highlight: function(element, errorClass) {
+                $(element).removeClass(errorClass);
+            },
+            unhighlight: function(element, errorClass) {
+                $(element).removeClass(errorClass);
+            },
 
-              // Different components require proper error label placement
-              errorPlacement: function(error, element) {
+            // Different components require proper error label placement
+            errorPlacement: function(error, element) {
 
-                  // Unstyled checkboxes, radios
-                  if (element.parents().hasClass('form-check')) {
-                      error.appendTo( element.parents('.form-check').parent() );
-                  }
+                // Unstyled checkboxes, radios
+                if (element.parents().hasClass('form-check')) {
+                    error.appendTo( element.parents('.form-check').parent() );
+                }
 
-                  // Input with icons and Select2
-                  else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
-                      error.appendTo( element.parent() );
-                  }
+                // Input with icons and Select2
+                else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
+                    error.appendTo( element.parent() );
+                }
 
-                  // Input group, styled file input
-                  else if (element.parent().is('.uniform-uploader, .uniform-select') || element.parents().hasClass('input-group')) {
-                      error.appendTo( element.parent().parent() );
-                  }
+                // Input group, styled file input
+                else if (element.parent().is('.uniform-uploader, .uniform-select') || element.parents().hasClass('input-group')) {
+                    error.appendTo( element.parent().parent() );
+                }
 
-                  // Other elements
-                  else {
-                      error.insertAfter(element);
-                  }
-              },
-              rules: {
-                  sp_ppn_percentage: {
-                      max: 100
-                  }
-              }
-          });
-      };
+                // Other elements
+                else {
+                    error.insertAfter(element);
+                }
+            },
+            rules: {
+                sp_ppn_percentage: {
+                    max: 100
+                }
+            }
+        });
+    };
 
-      var _componentUniform = function() {
-          if (!$().uniform) {
-              console.warn('Warning - uniform.min.js is not loaded.');
-              return;
-          }
+    var _componentUniform = function() {
+        if (!$().uniform) {
+            console.warn('Warning - uniform.min.js is not loaded.');
+            return;
+        }
 
-          // Initialize
-          $('.form-input-styled').uniform({
-              fileButtonClass: 'action btn bg-blue'
-          });
-      };
-      var _componentSelect2 = function() {
-          if (!$().select2) {
-              console.warn('Warning - select2.min.js is not loaded.');
-              return;
-          }
+        // Initialize
+        $('.form-input-styled').uniform({
+            fileButtonClass: 'action btn bg-blue'
+        });
+    };
+    var _componentSelect2 = function() {
+        if (!$().select2) {
+            console.warn('Warning - select2.min.js is not loaded.');
+            return;
+        }
 
-          // Initialize
-          var $select = $('.form-control-select2-customer').select2({
-              minimumResultsForSearch: Infinity,
-              minimumInputLength: 4,
-              width: '100%'
-          });
-
-          var $customer = $('.form-control-select2').select2({ 
+        // Initialize
+        var $select = $('.form-control-select2-customer').select2({
             minimumResultsForSearch: Infinity,
+            minimumInputLength: 4,
             width: '100%'
-          });
+        });
 
-          // Trigger value change when selection is made
-          $select.on('change', function() {
-              $(this).trigger('blur');
-          });
+        var $customer = $('.form-control-select2').select2({ 
+          minimumResultsForSearch: Infinity,
+          width: '100%'
+        });
 
-          $customer.on('change', function() {
-              $(this).trigger('blur');
-          });
-      };
+        // Trigger value change when selection is made
+        $select.on('change', function() {
+            $(this).trigger('blur');
+        });
 
-      return {
-          init: function() {
-              _componentWizard();
-              _componentUniform();
-              _componentSelect2();
-          }
-      }
-    }();
+        $customer.on('change', function() {
+            $(this).trigger('blur');
+        });
+    };
 
-    document.addEventListener('DOMContentLoaded', function() {
-      FormWizard.init();
-    });
+    return {
+        init: function() {
+            _componentWizard();
+            _componentUniform();
+            _componentSelect2();
+        }
+    }
+  }();
 
-    var DateTimePickers = function() {
-      var _componentPickadate = function() {
-          if (!$().pickadate) {
-              console.warn('Warning - picker.js and/or picker.date.js is not loaded.');
-              return;
-          }
-          $('.pickadate-selectors').pickadate({
-              selectYears: true,
-              selectMonths: true
-          });
-      };
-      return {
-          init: function() {
-              _componentPickadate();
-          }
-      }
-    }();
+  document.addEventListener('DOMContentLoaded', function() {
+    FormWizard.init();
+  });
 
-    document.addEventListener('DOMContentLoaded', function() {
-      DateTimePickers.init();
-    });
+  var DateTimePickers = function() {
+    var _componentPickadate = function() {
+        if (!$().pickadate) {
+            console.warn('Warning - picker.js and/or picker.date.js is not loaded.');
+            return;
+        }
+        $('.pickadate-selectors').pickadate({
+            selectYears: true,
+            selectMonths: true
+        });
+    };
+    return {
+        init: function() {
+            _componentPickadate();
+        }
+    }
+  }();
 
+  document.addEventListener('DOMContentLoaded', function() {
+    DateTimePickers.init();
+  });
 </script>
 @if (isset($surat))
 <script>

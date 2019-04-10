@@ -56,7 +56,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="price_start_date" value="{{ isset($price) ? $price->price_start_date->toDateString() : '' }}" required>
+                  <input type="text" class="form-control pickadate-selectors-start" name="price_start_date" value="{{ isset($price) ? $price->price_start_date->toDateString() : '' }}" required>
                 </div>
               </div>
             </div>
@@ -67,7 +67,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="price_end_date" value="{{ isset($price) ? $price->price_end_date->toDateString() : '' }}" required>
+                  <input type="text" class="form-control pickadate-selectors-end" name="price_end_date" value="{{ isset($price) ? $price->price_end_date->toDateString() : '' }}" required>
                 </div>
               </div>
             </div>
@@ -227,10 +227,19 @@
 @push('scripts')
 <script>
 $(document).ready(function(){
-  $('.pickadate-selectors').datepicker({
+  const startDate = $('.pickadate-selectors-start').datepicker({
     changeMonth: true,
-    changeYear: true
+    changeYear: true,
   });
+
+  startDate.change((e) => {
+    console.log(e.target.value);
+    $('.pickadate-selectors-end').datepicker({
+      changeMonth: true,
+      changeYear: true,
+      minDate: new Date(e.target.value),
+    });
+  })
   
   $('#house-type').on('change', function(e){
     var id = $(this).val();

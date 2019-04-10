@@ -188,7 +188,7 @@
                     <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                     </span>
-                    <input type="text" class="form-control pickadate-selectors" name="sales_in" value="{{ isset($sales) ? $sales->sales_in->toDateString() : '' }}"
+                    <input type="text" class="form-control pickadate-selectors-start" name="sales_in" value="{{ isset($sales) ? $sales->sales_in->toDateString() : '' }}"
                       required>
                   </div>
                 </div>
@@ -200,7 +200,7 @@
                     <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                     </span>
-                    <input type="text" class="form-control pickadate-selectors" name="sales_out" value="{{ isset($sales) ? $sales->sales_out->toDateString() : '' }}">
+                    <input type="text" class="form-control pickadate-selectors-end" name="sales_out" value="{{ isset($sales) ? $sales->sales_out->toDateString() : '' }}">
                   </div>
                 </div>
               </div>
@@ -296,11 +296,24 @@
         flexDirection: 'column'
       });
     })
+    const startDate = $('.pickadate-selectors-start').datepicker({
+      changeMonth: true,
+      changeYear: true,
+    });
+
+    startDate.change((e) => {
+      console.log(e.target.value);
+      $('.pickadate-selectors-end').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        minDate: new Date(e.target.value),
+      });
+    })
   });
 </script>
 @endif
 <script>
-  var DateTimePickers = function() {
+  /* var DateTimePickers = function() {
     var _componentPickadate = function() {
       if (!$().pickadate) {
         console.warn('Warning - picker.js and/or picker.date.js is not loaded.');
@@ -335,7 +348,7 @@
 
   document.addEventListener('DOMContentLoaded', function() {
     DateTimePickers.init();
-  });
+  }); */
 
   var FormValidation = function() {
     var _componentValidation = function() {

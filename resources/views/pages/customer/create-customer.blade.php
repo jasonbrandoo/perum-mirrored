@@ -91,19 +91,21 @@
               <label class="col-lg-3 col-form-label">Alamat Tempat Tinggal (Sekarang)</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="customer_current_address" value="{{ isset($customer) ? $customer->customer_current_address : '' }}" required>
-                <button type="button" class="btn btn-secondary mt-1" id="ktp">Sama dengan KTP</button>
+                <button type="button" class="btn btn-secondary mt-1" id="ktp">Sesuai dengan KTP</button>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kota</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" name="customer_current_city" value="{{ isset($customer) ? $customer->customer_current_city : '' }}" required>
+                <button type="button" class="btn btn-secondary mt-1" id="kota">Sesuai dengan KTP</button>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Kode Pos</label>
               <div class="col-lg-9">
                 <input type="number" class="form-control" name="customer_current_zipcode" value="{{ isset($customer) ? $customer->customer_current_zipcode : '' }}" required>
+                <button type="button" class="btn btn-secondary mt-1" id="pos">Sesuai dengan KTP</button>
               </div>
             </div>
             <div class="form-group row">
@@ -484,6 +486,14 @@ $(document).ready(function(){
 
   $('#ktp').click(() => {
     $('input[name=customer_current_address]').val($('input[name=customer_ktp_address]').val());
+  });
+
+  $('#kota').click(() => {
+    $('input[name=customer_current_city]').val($('input[name=customer_city]').val());
+  });
+
+  $('#pos').click(() => {
+    $('input[name=customer_current_zipcode]').val($('input[name=customer_zipcode]').val());
   });
 
   $('#address_mail').change(() => {

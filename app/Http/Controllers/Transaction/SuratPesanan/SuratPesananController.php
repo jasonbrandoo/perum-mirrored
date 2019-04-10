@@ -390,13 +390,14 @@ class SuratPesananController extends Controller
         
         Cicilan::whereIn('cicilan_sp_id', [$request->id])->delete();
         Cicilan::insert($data);
-        BiayaLain::updateOrCreate([
-            'id' => $request->id,
-        ],[
+        
+        $biaya = [[
             'sp_id' => $request->id,
             'sp_description' => $request->input('sp_description'),
             'sp_description_nominal' => Comma::removeComma($request->input('sp_description_nominal'))
-        ]);
+        ]];
+        return $biaya;
+        BiayaLain::insert($biaya);
         return redirect('transaction/surat-pesanan')->with('success', 'Successfull update Surat Pesanan');
     }
 

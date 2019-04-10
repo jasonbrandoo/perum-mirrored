@@ -266,7 +266,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="kavling_start_date" value="{{ isset($kavling) ? $kavling->kavling_start_date->toDateString() : '' }}">
+                  <input type="text" class="form-control pickadate-selectors-start" name="kavling_start_date" value="{{ isset($kavling) ? $kavling->kavling_start_date->toDateString() : '' }}">
                 </div>
               </div>
             </div>
@@ -283,7 +283,7 @@
                   <span class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-calendar2"></i></span>
                   </span>
-                  <input type="text" class="form-control pickadate-selectors" name="kavling_end_date" value="{{ isset($kavling) ? $kavling->kavling_end_date->toDateString() : '' }}" >
+                  <input type="text" class="form-control pickadate-selectors-end" name="kavling_end_date" value="{{ isset($kavling) ? $kavling->kavling_end_date->toDateString() : '' }}" >
                 </div>
               </div>
             </div>
@@ -372,9 +372,28 @@ $(document).ready(function(){
     }
     });
   });
+
+  $('.pickadate-selectors').datepicker({
+    changeMonth: true,
+    changeYear: true,
+  });
+
+  const startDate = $('.pickadate-selectors-start').datepicker({
+    changeMonth: true,
+    changeYear: true,
+  });
+
+  startDate.change((e) => {
+    console.log(e.target.value);
+    $('.pickadate-selectors-end').datepicker({
+      changeMonth: true,
+      changeYear: true,
+      minDate: new Date(e.target.value),
+    });
+  })
 });
 
-var DateTimePickers = function() {
+/* var DateTimePickers = function() {
   var _componentPickadate = function() {
     if (!$().pickadate) {
       console.warn('Warning - picker.js and/or picker.date.js is not loaded.');
@@ -395,7 +414,7 @@ var DateTimePickers = function() {
 
 document.addEventListener('DOMContentLoaded', function() {
   DateTimePickers.init();
-});
+}); */
 
 var FormValidation = function() {
   var _componentValidation = function() {
