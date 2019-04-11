@@ -924,7 +924,7 @@
 
     $('.biayaLainNominal').each((index, element) => {
       $('.biayaLainNominal').change((e) => {
-        console.log(e.target.value);
+        console.log(e.target);
       })
     })
 
