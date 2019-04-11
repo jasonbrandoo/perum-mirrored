@@ -249,11 +249,18 @@ class SuratPesananController extends Controller
         }
         
         Cicilan::insert($data);
-        BiayaLain::create([
-            'sp_id' => (new SuratPesanan)->max('id'),
-            'sp_description' => $request->input('sp_description'),
-            'sp_description_nominal' => Comma::removeComma($request->input('sp_description_nominal'))
-        ]);
+        
+        $biaya_lain = [];
+        for ($i=0; $i < count($request->sp_description); $i++) { 
+            array_push($biaya_lain, [
+                'sp_id' => $request->id,
+                'sp_description' => $request->input('sp_description')[$i],
+                'sp_description_nominal' => Comma::removeComma($request->input('sp_description_nominal')[$i]),
+                'biaya_lain_status' => $request->input('sp_biaya_lain_status')[$i],
+                'biaya_lain_diperhitungkan' => $request->input('sp_biaya_lain_diperhitungkan')[$i]
+            ]);
+        }
+        BiayaLain::insert($biaya_lain);
         return redirect('transaction/surat-pesanan')->with('success', 'Successfull create Surat Pesanan');
     }
 
@@ -390,14 +397,18 @@ class SuratPesananController extends Controller
         
         Cicilan::whereIn('cicilan_sp_id', [$request->id])->delete();
         Cicilan::insert($data);
-        
-        $biaya = [[
-            'sp_id' => $request->id,
-            'sp_description' => $request->input('sp_description'),
-            'sp_description_nominal' => Comma::removeComma($request->input('sp_description_nominal'))
-        ]];
-        return $biaya;
-        BiayaLain::insert($biaya);
+
+        $biaya_lain = [];
+        for ($i=0; $i < count($request->sp_description); $i++) { 
+            array_push($biaya_lain, [
+                'sp_id' => $request->id,
+                'sp_description' => $request->input('sp_description')[$i],
+                'sp_description_nominal' => Comma::removeComma($request->input('sp_description_nominal')[$i]),
+                'biaya_lain_status' => $request->input('sp_biaya_lain_status')[$i],
+                'biaya_lain_diperhitungkan' => $request->input('sp_biaya_lain_diperhitungkan')[$i]
+            ]);
+        }
+        BiayaLain::insert($biaya_lain);
         return redirect('transaction/surat-pesanan')->with('success', 'Successfull update Surat Pesanan');
     }
 
@@ -416,7 +427,19 @@ class SuratPesananController extends Controller
      * Generate PDF
      *
      */
-    public function generatePdf($id)
+    public function generatePdfBank($id)
+    {
+        // return view('pages.transaction.surat.pdf-surat');
+        $surat = SuratPesanan::with('company', 'customer.company', 'sales', 'supervisor', 'kavling.house', 'mou', 'price', 'paymentMethod')->find($id);
+        $cicilan = Cicilan::with('surat')->where('cicilan_sp_id', $id)->get();
+        $data = [
+            'surat' => $surat,
+            'cicilan' => $cicilan
+        ];
+        return PDF::loadView('pages.transaction.surat.pdf-surat', $data)->inline();
+    }
+
+    public function generatePdfDeveloper($id)
     {
         // return view('pages.transaction.surat.pdf-surat');
         $surat = SuratPesanan::with('company', 'customer.company', 'sales', 'supervisor', 'kavling.house', 'mou', 'price', 'paymentMethod')->find($id);

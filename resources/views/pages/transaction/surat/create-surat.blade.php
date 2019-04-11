@@ -7,7 +7,8 @@
 </div>
 @if (isset($surat))
 <div>
-  <a href="{{isset($surat) ? route('transaction.surat-pesanan.pdf', $surat->id) : ''}}" class="btn btn-lg btn-success"><i class="icon-printer mr-2"></i>Print</a>
+  <a href="{{isset($surat) ? route('transaction.surat-pesanan.bank.pdf', $surat->id) : ''}}" class="btn btn-lg btn-success"><i class="icon-printer mr-2"></i>Print (Bank)</a>
+  <a href="{{isset($surat) ? route('transaction.surat-pesanan.developer.pdf', $surat->id) : ''}}" class="btn btn-lg btn-success"><i class="icon-printer mr-2"></i>Print (Developer)</a>
   <a href="{{isset($surat) ? route('transaction.surat-pesanan.kuitansi_pdf', $surat->id) : ''}}" class="btn btn-lg btn-success"><i class="icon-printer mr-2"></i>Print Kuitansi</a>
 </div>
 @endif
@@ -423,13 +424,23 @@
                       <div class="form-group row">
                         <label class="col-lg-3 col-form-label">Deskripsi</label>
                         <div class="col-lg-9">
-                          <input type="text" class="form-control" name="sp_description" required>
+                          <input type="text" class="form-control" name="sp_description[]" required>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label class="col-lg-3 col-form-label">Nominal</label>
-                        <div class="col-lg-9">
-                          <input type="text" class="form-control price" name="sp_description_nominal" required>
+                        <div class="col-lg">
+                          <input type="text" class="form-control biayaLainNominal" name="sp_description_nominal[]" required>
+                        </div>
+                        <div class="col-lg">
+                          <select name="sp_biaya_lain_status[]" class="form-control form-control-select2">
+                            <option value="Ditambah">Ditambah</option>
+                            <option value="Dikurang">Dikurang</option>
+                          </select>
+                        </div>
+                        <div class="col-lg mt-1">
+                          <label>Diperhitungkan</label>
+                          <input type="checkbox" class="form-check-input col pl-0" name="sp_biaya_lain_diperhitungkan[]">
                         </div>
                       </div>
                       <hr>
@@ -713,6 +724,10 @@
 
     $('.addButton').click(() => {
       $('.lain:first').clone().addClass('adder').appendTo($('.addLain'));
+      $('.adder > .biayaLainNominal').val('');
+      $('.biayaLainNominal').change((e) => {
+        console.log(e.target.value);
+      })
     });
 
     $('.removeButton').click(() => {
@@ -905,6 +920,12 @@
       const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
       $('input[name=sp_total_bill]').val(subTotal + booking);
       $('input[name=sp_total]').val(subTotal + booking);
+    })
+
+    $('.biayaLainNominal').each((index, element) => {
+      $('.biayaLainNominal').change((e) => {
+        console.log(e.target.value);
+      })
     })
 
     $('input[name=sp_per_month_internal]').focusout(() => {

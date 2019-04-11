@@ -267,7 +267,8 @@ Route::group([
         Route::get('/load_kavling', 'Transaction\SuratPesanan\SuratPesananController@load_kavling')->name('transaction.surat-pesanan.load_kavling');
         Route::get('/load_price', 'Transaction\SuratPesanan\SuratPesananController@load_price')->name('transaction.surat-pesanan.load_price');
         Route::get('/load_mou', 'Transaction\SuratPesanan\SuratPesananController@load_mou')->name('transaction.surat-pesanan.load_mou');
-        Route::get('/print/{id}', 'Transaction\SuratPesanan\SuratPesananController@generatePdf')->name('transaction.surat-pesanan.pdf');
+        Route::get('/print/{id}/bank', 'Transaction\SuratPesanan\SuratPesananController@generatePdfBank')->name('transaction.surat-pesanan.bank.pdf');
+        Route::get('/print/{id}/developer', 'Transaction\SuratPesanan\SuratPesananController@generatePdfDeveloper')->name('transaction.surat-pesanan.developer.pdf');
         Route::get('/print_kuitansi/{id}', 'Transaction\SuratPesanan\SuratPesananController@generateKuitansi')->name('transaction.surat-pesanan.kuitansi_pdf');
         /* LOAD DATATABLE EACH TRANSACTION BY ID */
         Route::get('/akad/{id}', 'Transaction\SuratPesanan\SuratPesananController@akad')->name('transaction.surat-pesanan.akad');
