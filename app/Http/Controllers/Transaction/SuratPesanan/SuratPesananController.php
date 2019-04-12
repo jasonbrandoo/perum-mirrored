@@ -444,9 +444,11 @@ class SuratPesananController extends Controller
         // return view('pages.transaction.surat.pdf-surat');
         $surat = SuratPesanan::with('company', 'customer.company', 'sales', 'supervisor', 'kavling.house', 'mou', 'price', 'paymentMethod')->find($id);
         $cicilan = Cicilan::with('surat')->where('cicilan_sp_id', $id)->get();
+        $biayaLain = BiayaLain::where('sp_id', $id)->sum('sp_description_nominal');
         $data = [
             'surat' => $surat,
-            'cicilan' => $cicilan
+            'cicilan' => $cicilan,
+            'biayaLain' => $biayaLain
         ];
         return PDF::loadView('pages.transaction.surat.pdf-surat', $data)->inline();
     }

@@ -16,7 +16,7 @@ class ChangeDataFromBiayaLainTable extends Migration
         Schema::table('biaya_lain', function (Blueprint $table) {
             //
             $table->string('biaya_lain_status');
-            $table->string('biaya_lain_diperhitungkan');
+            $table->string('biaya_lain_diperhitungkan')->nullable();
         });
     }
 

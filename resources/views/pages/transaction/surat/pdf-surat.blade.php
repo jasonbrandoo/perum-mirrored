@@ -76,7 +76,6 @@
 <body class="bg-white">
   <div class="page">
 
-
     <h5 class="text-center mb-3 font-weight-bold">SURAT PEMESANAN TANAH DAN BANGUNAN</h5>
     <!--profile-->
     <div class="__line">
@@ -190,6 +189,12 @@
         <p class="ml-4 pl-5 font-weight-bold __tab">Jumlah</p>
         <p>: Rp. {{$surat->sp_sub_total}}</p>
       </div>
+      @if (isset($biayaLain))
+        <div class="__block">
+          <p class="ml-4 pl-5 font-weight-bold __tab">Biaya Lain</p>
+          <p>: Rp. {{$biayaLain}}</p>
+        </div>
+      @endif
       <div class="__block">
         <p class="ml-4 pl-5 font-weight-bold __tab">Booking Fee</p>
         <p class="__underline">: Rp. {{$surat->sp_booking_fee}}</p>

@@ -424,7 +424,7 @@
                       <div class="form-group row">
                         <label class="col-lg-3 col-form-label">Deskripsi</label>
                         <div class="col-lg-9">
-                          <input type="text" class="form-control" name="sp_description[]" required>
+                          <input type="text" class="form-control biayaLainDescription" name="sp_description[]" required>
                         </div>
                       </div>
                       <div class="form-group row">
@@ -722,18 +722,6 @@
 <script>
   $(document).ready(function(){
 
-    $('.addButton').click(() => {
-      $('.lain:first').clone().addClass('adder').appendTo($('.addLain'));
-      $('.adder > .biayaLainNominal').val('');
-      $('.biayaLainNominal').change((e) => {
-        console.log(e.target.value);
-      })
-    });
-
-    $('.removeButton').click(() => {
-      $('.adder').detach();
-    });
-
     $('#customer_id').on('change', function(e){
       var id = $(this).val();
       console.log(id);
@@ -922,11 +910,33 @@
       $('input[name=sp_total]').val(subTotal + booking);
     })
 
-    $('.biayaLainNominal').each((index, element) => {
-      $('.biayaLainNominal').change((e) => {
-        console.log(e.target);
-      })
+    $('.biayaLainNominal').change((e) => {
+      const biayaLain = parseFloat(e.target.value);
+      const totalBill = parseFloat($('input[name=sp_total_bill]').val());
+      if (isNaN(biayaLain)) {
+        alert('please input number');
+      } else {
+        $('input[name=sp_total_bill]').val(biayaLain + totalBill)
+      }
     })
+
+    $('.addButton').click(() => {
+      $('.lain:first').clone().appendTo($('.addLain')).find('.biayaLainNominal:input, .biayaLainDescription:input').val('');
+      $('.biayaLainNominal').change((e) => {
+        const biayaLain = parseFloat(e.target.value);
+        const totalBill = parseFloat($('input[name=sp_total_bill]').val());
+        if (isNaN(biayaLain)) {
+          alert('please input number');
+        } else {
+          $('input[name=sp_total_bill]').val(biayaLain + totalBill)
+        }
+      })
+    });
+    
+    $('.removeButton').click(() => {
+      $('.addLain').remove();
+      $('<div></div>').addClass('addLain').insertAfter('.lain');
+    });
 
     $('input[name=sp_per_month_internal]').focusout(() => {
       /* Constant variable */
@@ -1078,6 +1088,9 @@
             rules: {
                 sp_ppn_percentage: {
                     max: 100
+                },
+                'sp_description_nominal[]': {
+                  number: true
                 }
             }
         });
