@@ -38,7 +38,7 @@
           </ul>
         </li>
         {{-- {{config('roles')}} --}}
-        {{-- @hasanyrole(config('roles')) --}}
+        @hasanyrole(config('roles'))
         <li class="nav-item nav-item-submenu">
           <a href="#" class="nav-link"><i class="icon-cash"></i> <span>Transaction</span></a>
           <ul class="nav nav-group-sub" data-submenu-title="Layouts">
@@ -77,7 +77,7 @@
             <li class="nav-item"><a href="{{ route('transaction.spk.index') }}" class="nav-link">SPK</a></li>
           </ul>
         </li>
-        {{-- @endhasanyrole --}}
+        @endhasanyrole
         <li class="nav-item nav-item-submenu">
           <a href="#" class="nav-link"><i class="icon-book3"></i><span>Report</span></a>
           <ul class="nav nav-group-sub">

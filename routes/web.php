@@ -1,6 +1,7 @@
 <?php
-use Spatie\Permission\Models\Role;
+/* use Spatie\Permission\Models\Role;
 use App\Model\Page;
+use App\Model\RolePage; */
 
 /*
 |--------------------------------------------------------------------------
@@ -13,13 +14,27 @@ use App\Model\Page;
 |
  */
 
-Route::get('/test', function () {
-    $role = Role::all();
-    $page = Page::all();
-    foreach ($page as $key => $value) {
-        return $value->getRoleNames()->implode('|');
+/* Route::get('/test', function () {
+    $role_id = Role::find(1)->id;
+    $pages = Page::all();
+    $role_pages = RolePage::with('role', 'page')->where('role_id', $role_id)->get();
+    foreach ($pages as $page) {
+        foreach ($role_pages as $role) {
+            return $role;
+        }
     }
-});
+    return [$role_pages, $pages];
+    $merge = collect($pages)->map(function($page) use ($role_pages){
+        foreach ($role_pages as $role) {
+            return $item->id;
+            if ($role->page->id == $page->id) {
+                $page->id = $role->page_id;
+            }
+            $item['page_id'] = $page['id'];
+        }
+    });
+    return $merge;
+}); */
 
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');

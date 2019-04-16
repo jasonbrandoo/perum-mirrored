@@ -214,10 +214,22 @@ class RoleController extends Controller
     {
         $role_id = SpatieRole::find($id)->id;
         $pages = $page::all();
-        $role_pages = RolePage::with('role', 'page')->where('role_id', $role_id)->get();
-        // return $pages[]->name === $role_pages[0]->page->name ? 'true' : 'false';
-        // return $role_pages[];
-        return view('pages.role.page-role', compact('role_pages', 'pages', 'role_id'));
+        $role_pages = RolePage::where('role_id', $role_id)->get();
+
+        foreach ($pages as $key => $value) {
+            $pages_id[] = $value->id;
+        }
+
+        if (count($role_pages) > 0) {
+            foreach ($role_pages as $key => $value) {
+                $roles_id[] = $value->page_id;
+                sort($roles_id);
+            }
+        } else {
+            $roles_id = [];
+        }
+        // return $roles_id;
+        return view('pages.role.page-role', compact('role_pages', 'pages', 'role_id', 'pages_id', 'roles_id'));
     }
 
     /**
@@ -227,9 +239,16 @@ class RoleController extends Controller
     public function updatePage(Request $request, $id)
     {
         $role = SpatieRole::find($id);
-        RolePage::create([
+        RolePage::updateOrCreate([
+            'role_id' => $role->id,
+            'page_id' => $request->input('page_id')
+        ],[
             'role_id' => $role->id,
             'page_id' => $request->input('page_id')
         ]);
+        $pages = Page::all();
+        foreach ($pages as $page) {
+            $page->assignRole($role);
+        }
     }
 }

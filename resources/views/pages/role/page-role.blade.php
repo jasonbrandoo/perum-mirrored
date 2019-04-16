@@ -36,12 +36,12 @@
           <th class="text-center" style="width: 50px">Active</th>
         </tr>
       </thead>
+      {{-- {{$roles_id}} --}}
       @foreach ($pages as $page)
-      {{$role_pages[2]}}
       <tbody>
         <tr>
           <td class="text-center" style="width: 50px">{{$page->name}}</td>
-          <td class="text-center" style="width: 50px"><input type="checkbox" name="active" id="{{$page->id}}"></td>
+          <td class="text-center" style="width: 50px">{{$page->id}}<input type="checkbox" name="active" id="{{$page->id}}" value="{{$page->id}}" {{in_array($page->id, $roles_id) ? 'checked' : ''}}></td>
         </tr>
       </tbody>
       @endforeach
@@ -71,17 +71,10 @@ $(() => {
         },
         success: (result) => {
           console.log(result);
-          swal({
-            type: 'success',
-            text: 'Success'
-          });
+          window.location.reload();
         },
         error: (err) => {
           console.log(err);
-          swal({
-            type: 'error',
-            text: 'Error'
-          });
         }
       });
     });
