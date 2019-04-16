@@ -424,13 +424,13 @@
                       <div class="form-group row">
                         <label class="col-lg-3 col-form-label">Deskripsi</label>
                         <div class="col-lg-9">
-                          <input type="text" class="form-control biayaLainDescription" name="sp_description[]" required>
+                          <input type="text" class="form-control biayaLainDescription" name="sp_description[]" >
                         </div>
                       </div>
                       <div class="form-group row">
                         <label class="col-lg-3 col-form-label">Nominal</label>
                         <div class="col-lg">
-                          <input type="text" class="form-control biayaLainNominal" name="sp_description_nominal[]" required>
+                          <input type="text" class="form-control biayaLainNominal" name="sp_description_nominal[]" >
                         </div>
                         <div class="col-lg">
                           <select name="sp_biaya_lain_status[]" class="form-control form-control-select2">
@@ -735,7 +735,7 @@
         $('#customer_name').val(result.customer_name);
         $('#sales_id').val(result.sales_executive.id);
         $('#sales_name').val(result.sales_executive.sales_name);
-        $('#supervisor_id').val(result.sales_supervisor.sales_name);
+        $('#supervisor_id').val(result.sales_supervisor.id);
       },
       error: function (e) {
         console.log(e);
@@ -810,7 +810,7 @@
         $('#house_type').val(result.price.house.rumah_type_name);
         $('#house_block').val(result.kavling_block);
         $('#house_cluster').val(result.kavling_cluster);
-        $('#house_no').val(result.id);
+        $('#house_no').val(result.kavling_number);
         $('#house_building').val(result.price.house.building_area_m2);
         $('#house_surface').val(result.price.house.surface_area_m2);
         $('#price_id').val(result.price.id);

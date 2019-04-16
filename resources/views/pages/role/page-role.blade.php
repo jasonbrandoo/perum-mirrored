@@ -37,10 +37,11 @@
         </tr>
       </thead>
       @foreach ($pages as $page)
+      {{$role_pages[2]}}
       <tbody>
         <tr>
           <td class="text-center" style="width: 50px">{{$page->name}}</td>
-          <td class="text-center" style="width: 50px"><input type="checkbox" name="active" id="{{$page->id}}" value="{{$page->id}}"></td>
+          <td class="text-center" style="width: 50px"><input type="checkbox" name="active" id="{{$page->id}}"></td>
         </tr>
       </tbody>
       @endforeach
@@ -62,10 +63,10 @@ $(() => {
     $.each($('input[name=active]:checked'), (index, elem) => {
       const checked = $(elem).is(':checked') ? ({ id: $(elem).val(), status: 'active' }) : ({ id: $(elem).val(), status: 'deactive' });
       $.ajax({
-        url: '{!! route('role.update_page', $roles->id) !!}',
+        url: '{!! route('role.update_page', $role_id) !!}',
         method: 'POST',
         data: {
-          role: '{{ $roles->id }}',
+          role: '{{ $role_id }}',
           page_id: checked.id,
         },
         success: (result) => {

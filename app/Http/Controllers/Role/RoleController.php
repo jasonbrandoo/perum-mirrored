@@ -212,10 +212,12 @@ class RoleController extends Controller
      */
     public function page(Page $page, $id)
     {
-        $pages = $page::get();
-        $roles = SpatieRole::with('page');
-        return $roles;
-        return view('pages.role.page-role', compact('pages', 'roles'));
+        $role_id = SpatieRole::find($id)->id;
+        $pages = $page::all();
+        $role_pages = RolePage::with('role', 'page')->where('role_id', $role_id)->get();
+        // return $pages[]->name === $role_pages[0]->page->name ? 'true' : 'false';
+        // return $role_pages[];
+        return view('pages.role.page-role', compact('role_pages', 'pages', 'role_id'));
     }
 
     /**

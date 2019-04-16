@@ -14,6 +14,11 @@ class RolePage extends Model
 
     public function role()
     {
-        return $this->belongsTo(Role::class(), 'role_id');
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function page()
+    {
+        return $this->belongsTo('App\Model\Page', 'page_id');
     }
 }

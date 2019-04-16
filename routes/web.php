@@ -1,4 +1,7 @@
 <?php
+use Spatie\Permission\Models\Role;
+use App\Model\Page;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,9 +13,13 @@
 |
  */
 
-// Route::get('/', function () {
-//     return view('pages.company.index-company');
-// });
+Route::get('/test', function () {
+    $role = Role::all();
+    $page = Page::all();
+    foreach ($page as $key => $value) {
+        return $value->getRoleNames()->implode('|');
+    }
+});
 
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
