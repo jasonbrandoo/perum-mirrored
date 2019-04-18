@@ -6,7 +6,9 @@
     <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 </div>
 <div>
-  <a href="{{ route ('transaction.kwitansi.create') }}" class="btn btn-lg btn-primary"><i class="icon-plus-circle2 mr-2"></i>Add</a>
+    @can('create')
+    <a href="{{ route ('transaction.kwitansi.create') }}" class="btn btn-lg btn-primary"><i class="icon-plus-circle2 mr-2"></i>Add</a>
+    @endcan
 </div>
 @endsection
 

@@ -5,7 +5,9 @@
   <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 </div>
 <div>
+  @can('create')
   <button class="btn btn-lg btn-primary" data-toggle="modal" data-target="#add_role"><i class="icon-plus-circle2 mr-2"></i>Add</button>
+  @endcan
 </div>
 
 <div id="add_role" class="modal fade" tabindex="-1">
