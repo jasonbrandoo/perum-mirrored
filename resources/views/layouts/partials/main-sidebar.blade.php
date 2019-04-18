@@ -17,10 +17,10 @@
     <div class="card card-sidebar-mobile">
       <ul class="nav nav-sidebar text-nowrap" data-nav-type="accordion">
         <!-- Main -->
+        @hasanyrole(config('roles'))
         <li class="nav-item nav-item-submenu">
           <a href="#" class="nav-link"><i class="icon-database"></i><span>Master</span></a>
           <ul class="nav nav-group-sub" data-submenu-title="Layouts">
-          
             <li class="nav-item"><a href="{{ route('rumah.index') }}" class="nav-link">Tipe Rumah</a></li>
             <li class="nav-item"><a href="{{ route('price.index') }}" class="nav-link">Price</a></li>
             <li class="nav-item"><a href="{{ route('kavling.index') }}" class="nav-link"></i>Kavling</a></li>
@@ -38,7 +38,8 @@
             <li class="nav-item"><a href="{{ route('sales.index') }}" class="nav-link">Sales</a></li>
           </ul>
         </li>
-        {{-- {{config('roles')}} --}}
+        @endhasanyrole
+
         @hasanyrole(config('roles'))
         <li class="nav-item nav-item-submenu">
           <a href="#" class="nav-link"><i class="icon-cash"></i> <span>Transaction</span></a>
@@ -79,6 +80,8 @@
           </ul>
         </li>
         @endhasanyrole
+
+        @hasanyrole(config('roles'))
         <li class="nav-item nav-item-submenu">
           <a href="#" class="nav-link"><i class="icon-book3"></i><span>Report</span></a>
           <ul class="nav nav-group-sub">
@@ -107,9 +110,14 @@
             </li>
           </ul>
         </li>
+        @endhasanyrole
+
+        @hasanyrole(config('roles'))
         <li class="nav-item">
-          <a href="{{ route('setting.index') }}" class="nav-link"><i class="icon-gear"><span>Setting</span></a>
+          <a href="{{ route('setting.index') }}" class="nav-link"><i class="icon-gear"></i><span>Setting</span></a>
         </li>
+        @endhasanyrole
+
         <li class="nav-item">
           <a href="{{ route('logout') }}" class="nav-link"><i class="icon-cross"></i><span>Log Out</span></a>
         </li>

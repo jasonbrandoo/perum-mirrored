@@ -212,6 +212,7 @@ class RoleController extends Controller
      */
     public function page(Page $page, $id)
     {
+        // return Auth::user()->assignRole('admin');
         $role_id = SpatieRole::find($id)->id;
         $pages = $page::all();
         $role_pages = RolePage::where('role_id', $role_id)->get();
@@ -239,16 +240,22 @@ class RoleController extends Controller
     public function updatePage(Request $request, $id)
     {
         $role = SpatieRole::find($id);
-        RolePage::updateOrCreate([
-            'role_id' => $role->id,
-            'page_id' => $request->input('page_id')
-        ],[
-            'role_id' => $role->id,
-            'page_id' => $request->input('page_id')
-        ]);
-        $pages = Page::all();
-        foreach ($pages as $page) {
-            $page->assignRole($role);
+        // return $request->input('status') === 'active' ? 'ok' : 'not';
+        if ($request->input('status') === 'deactive') {
+            $pages = Page::find($request->input('page_id'));
+            $pages->removeRole($role->name);
+            RolePage::where('page_id', $request->input('page_id'))->where('role_id', $role->id)->delete();
+        } 
+        if ($request->input('status') === 'active') {
+            RolePage::updateOrCreate([
+                'role_id' => $role->id,
+                'page_id' => $request->input('page_id')
+            ], [
+                'role_id' => $role->id,
+                'page_id' => $request->input('page_id')
+            ]);
+            $pages = Page::find($request->input('page_id'));
+            $pages->assignRole($role->name);
         }
     }
 }

@@ -1,8 +1,4 @@
 <?php
-/* use Spatie\Permission\Models\Role;
-use App\Model\Page;
-use App\Model\RolePage; */
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,16 +10,17 @@ use App\Model\RolePage; */
 |
  */
 
-/* Route::get('/test', function () {
-    $role_id = Role::find(1)->id;
+/* 
+Route::get('/test', function () {
     $pages = Page::all();
-    $role_pages = RolePage::with('role', 'page')->where('role_id', $role_id)->get();
-    foreach ($pages as $page) {
-        foreach ($role_pages as $role) {
-            return $role;
-        }
+    $user = Auth::user();
+    foreach ($pages as $value) {
+        $value->assignRole('admin');
+        $data[] = $value->getRoleNames();
+        $flat = Arr::flatten($data);
     }
-    return [$role_pages, $pages];
+    $collect = collect($flat)->unique()->values()->all();
+    return collect($collect)->implode('|');
     $merge = collect($pages)->map(function($page) use ($role_pages){
         foreach ($role_pages as $role) {
             return $item->id;
@@ -34,7 +31,8 @@ use App\Model\RolePage; */
         }
     });
     return $merge;
-}); */
+});
+ */
 
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');

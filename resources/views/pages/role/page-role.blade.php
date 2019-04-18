@@ -41,12 +41,11 @@
       <tbody>
         <tr>
           <td class="text-center" style="width: 50px">{{$page->name}}</td>
-          <td class="text-center" style="width: 50px">{{$page->id}}<input type="checkbox" name="active" id="{{$page->id}}" value="{{$page->id}}" {{in_array($page->id, $roles_id) ? 'checked' : ''}}></td>
+          <td class="text-center" style="width: 50px"><input type="checkbox" name="active" id="{{$page->id}}" value="{{$page->id}}" {{in_array($page->id, $roles_id) ? 'checked' : ''}}></td>
         </tr>
       </tbody>
       @endforeach
     </table>
-    <button id='tes'>tes</button>
     <div class="row justify-content-end">
       {{--
       <div class="col"> --}} {{-- <input type="hidden" name="id" value="{{$roles->id}}"> --}}
@@ -60,7 +59,8 @@
 $(() => {
   $('#save').click((e) => {
     e.preventDefault();
-    $.each($('input[name=active]:checked'), (index, elem) => {
+    $('#save').text('Please wait ...').prop('disabled', true);
+    $.each($('input[name=active]'), (index, elem) => {
       const checked = $(elem).is(':checked') ? ({ id: $(elem).val(), status: 'active' }) : ({ id: $(elem).val(), status: 'deactive' });
       $.ajax({
         url: '{!! route('role.update_page', $role_id) !!}',
@@ -68,6 +68,7 @@ $(() => {
         data: {
           role: '{{ $role_id }}',
           page_id: checked.id,
+          status: checked.status,
         },
         success: (result) => {
           console.log(result);
@@ -80,66 +81,5 @@ $(() => {
     });
   });
 });
-
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @endpush

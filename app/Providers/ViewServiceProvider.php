@@ -7,6 +7,7 @@ use App\Model\Setting;
 use Illuminate\Support\Facades\View;
 use Spatie\Permission\Models\Role;
 use App\Model\Page;
+use Illuminate\Support\Arr;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -36,8 +37,12 @@ class ViewServiceProvider extends ServiceProvider
         
         $page = Page::all();
         foreach ($page as $key => $value) {
-            config(['roles' => $value->getRoleNames()->implode('|')]);
+            $data[] = $value->getRoleNames();
+            $flatten = Arr::flatten($data);
         }
+        $collect = collect($flatten)->unique()->values()->all();
+        $get_roles = collect($collect)->implode('|');
+        config(['roles' => $get_roles]);
         // foreach ($pages as $value) {
         //     config(['roles' => $value->getRoleNames()]);
         // }
