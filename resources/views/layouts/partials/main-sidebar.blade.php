@@ -20,6 +20,7 @@
         <li class="nav-item nav-item-submenu">
           <a href="#" class="nav-link"><i class="icon-database"></i><span>Master</span></a>
           <ul class="nav nav-group-sub" data-submenu-title="Layouts">
+          
             <li class="nav-item"><a href="{{ route('rumah.index') }}" class="nav-link">Tipe Rumah</a></li>
             <li class="nav-item"><a href="{{ route('price.index') }}" class="nav-link">Price</a></li>
             <li class="nav-item"><a href="{{ route('kavling.index') }}" class="nav-link"></i>Kavling</a></li>
@@ -107,10 +108,10 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a href="{{ route('setting.index') }}" class="nav-link"><i class="icon-gear"></i>Setting</a>
+          <a href="{{ route('setting.index') }}" class="nav-link"><i class="icon-gear"><span>Setting</span></a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('logout') }}" class="nav-link"><i class="icon-cross"></i>Log Out</a>
+          <a href="{{ route('logout') }}" class="nav-link"><i class="icon-cross"></i><span>Log Out</span></a>
         </li>
         <!-- /main -->
       </ul>
