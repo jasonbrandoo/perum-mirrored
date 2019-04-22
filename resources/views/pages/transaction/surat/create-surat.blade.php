@@ -72,7 +72,7 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Kode Pre Book</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_prebook" value="{{isset($surat) ? $surat->sp_prebook : ''}}" required>
+                        <input type="text" class="form-control" name="sp_prebook" value="{{isset($surat) ? $surat->sp_prebook : ''}}" >
                       </div>
                     </div>
                     <div class="form-group row">
@@ -104,7 +104,7 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">No PPJB</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_ppjb" value="{{isset($surat) ? $surat->sp_ppjb : ''}}" required>
+                        <input type="text" class="form-control" name="sp_ppjb" value="{{isset($surat) ? $surat->sp_ppjb : ''}}">
                       </div>
                     </div>
                     <div class="form-group row">
@@ -114,8 +114,7 @@
                           <span class="input-group-prepend">
                           <span class="input-group-text"><i class="icon-calendar2"></i></span>
                           </span>
-                          <input type="text" class="form-control pickadate-selectors" name="sp_ppjb_date" value="{{isset($surat) ? $surat->sp_ppjb_date->toDateString() : ''}}"
-                            required>
+                          <input type="text" class="form-control pickadate-selectors" name="sp_ppjb_date" value="{{isset($surat) ? $surat->sp_ppjb_date->toDateString() : ''}}">
                         </div>
                       </div>
                     </div>
@@ -145,7 +144,9 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Perusahaan ID</label>
                       <div class="col-lg-9">
-                        <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_company_id" id="company_id"
+                        <input type="text" class="form-control" name="sp_company_id" id="customer_company" value="{{isset($surat) ? $surat->customer->customer_name : ''}}"
+                          readonly>
+                        {{-- <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_company_id" id="company_id"
                           required>
                         @if (isset($surat))
                           <option value="{{$surat->company->id}}">P000{{$surat->company->id}} - {{$surat->company->company_name}}</option>
@@ -155,7 +156,7 @@
                             <option value="{{$company->id}}">P000{{$company->id}} - {{$company->company_name}}</option>
                           @endforeach
                         @endif
-                      </select>
+                      </select> --}}
                       </div>
                     </div>
                     <div class="form-group row">
@@ -210,14 +211,14 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Kavling ID</label>
                       <div class="col-lg-9">
-                        <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_kavling_id" id="kavling_id"
+                        <select data-placeholder="Type" class="form-control form-control-select2-kavling" data-fouc name="sp_kavling_id" id="kavling_id"
                           required>
                         @if (isset($surat))
-                          <option value="{{$surat->kavling->id}}">KAV000{{$surat->kavling->id}} - {{$surat->kavling->kavling_cluster}} - No {{$surat->kavling->id}}</option>
+                          <option value="{{$surat->kavling->id}}">KAV000{{$surat->kavling->id}} - BLOK{{$surat->kavling->kavling_block}} - NO {{$surat->kavling->kavling_number}} - TIPE {{$surat->kavling->kavling_cluster}}</option>
                         @else
                           @foreach ($kavlings as $kav)
                             <option></option>
-                            <option value="{{$kav->id}}">KAV000{{$kav->id}} - {{$kav->kavling_cluster}} - No {{$kav->id}}</option>
+                            <option value="{{$kav->id}}">KAV000{{$kav->id}} - BLOK{{$kav->kavling_block}} - NO{{$kav->kavling_number}}- Tipe{{$kav->kavling_cluster}}</option>
                           @endforeach
                         @endif
                       </select>
@@ -270,13 +271,13 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">TL</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_tl" value="{{isset($surat) ? $surat->sp_tl : ''}}">
+                        <input type="text" class="form-control" id="kavling_tl" name="sp_tl" value="{{isset($surat) ? $surat->sp_tl : ''}}" readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">TT</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_tt" value="{{isset($surat) ? $surat->sp_tt : ''}}">
+                        <input type="text" class="form-control" id="kavling_tt" name="sp_tt" value="{{isset($surat) ? $surat->sp_tt : ''}}" readonly>
                       </div>
                     </div>
                   </fieldset>
@@ -291,7 +292,8 @@
                   <fieldset>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Kode Harga</label>
-                      <div class="col-lg-9">
+                      <div class="col-lg col-form-label pr-0">H000</div>
+                      <div class="col-lg-7 pl-0">
                         <input type="text" class="form-control" name="sp_price_id" id="price_id" value="{{isset($surat) ? $surat->price->id : ''}}"
                           readonly required>
                       </div>
@@ -339,11 +341,11 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Potongan Harga Jual (Nominal)</label>
                       <div class="col-lg">
-                        <input type="text" class="form-control price" name="sp_discount_nominal" value="{{isset($surat) ? $surat->sp_discount : ''}}">
+                        <input type="text" placeholder="0" class="form-control price" name="sp_discount_nominal" value="{{isset($surat) ? $surat->sp_discount : ''}}">
                       </div>
                       <label class="col-form-label">(Persen%)</label>
                       <div class="col-lg">
-                        <input type="text" class="form-control price" name="sp_discount" value="{{isset($surat) ? $surat->sp_discount : ''}}">
+                        <input type="text" placeholder="0" class="form-control price" name="sp_discount" value="{{isset($surat) ? $surat->sp_discount : ''}}">
                       </div>
                     </div>
                     <div class="form-group row">
@@ -461,13 +463,13 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Tanah Lebih M2</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_tanah_lebih" value="{{isset($surat) ? $surat->sp_tanah_lebih : ''}}">
+                        <input type="text" class="form-control price" name="sp_tanah_lebih" id="kavling_tanah_lebih" value="{{isset($surat) ? $surat->sp_tanah_lebih : ''}}">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Harga / M2</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_harga_m2" value="{{isset($surat) ? $surat->sp_harga_m2 : ''}}">
+                        <input type="text" class="form-control price" name="sp_harga_m2" id="kavling_tanah_m2" value="{{isset($surat) ? $surat->sp_harga_m2 : ''}}">
                       </div>
                     </div>
                     <div class="form-group row">
@@ -478,9 +480,19 @@
                       </div>
                     </div>
                     <div class="form-group row">
+                      <label class="col-lg-3 col-form-label">Rencana KPR</label>
+                      <div class="col-lg">
+                        <input type="text" id="kpr_plan" class="form-control" name="sp_kpr_plan" value="{{isset($surat) ? $surat->sp_kpr_plan : ''}}">
+                      </div>
+                      <label class="col-form-label">%</label>
+                      <div class="col-lg">
+                        <input type="text" class="form-control price" id="kpr_plan_percen" name="sp_kpr_plan_percentage" value="{{isset($surat) ? $surat->sp_kpr_plan_percentage : ''}}">
+                      </div>
+                    </div>
+                    <div class="form-group row">
                       <label class="col-lg-3 col-form-label">DP</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_dp" value="{{isset($surat) ? $surat->sp_dp : ''}}" required>
+                        <input type="text" class="form-control price" id="sp_dp" name="sp_dp" value="{{isset($surat) ? $surat->sp_dp : ''}}" required>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -536,16 +548,6 @@
                       <div class="col-lg-9">
                         <input type="text" class="form-control price" name="sp_kreditur_bill" value="{{isset($surat) ? $surat->sp_kreditur_bill : ''}}"
                           required readonly>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label">Rencana KPR</label>
-                      <div class="col-lg">
-                        <input type="text" class="form-control price" name="sp_kpr_plan" value="{{isset($surat) ? $surat->sp_kpr_plan : ''}}">
-                      </div>
-                      <label class="col-form-label">%</label>
-                      <div class="col-lg">
-                        <input type="text" class="form-control price" name="sp_kpr_plan_percentage" value="{{isset($surat) ? $surat->sp_kpr_plan_percentage : ''}}">
                       </div>
                     </div>
                     <div class="form-group row">
@@ -736,6 +738,8 @@
         $('#sales_id').val(result.sales_executive.id);
         $('#sales_name').val(result.sales_executive.sales_name);
         $('#supervisor_id').val(result.sales_supervisor.id);
+        $('#customer_company').val(result.company.id);
+        $('#company_name').val(result.company.company_name);
       },
       error: function (e) {
         console.log(e);
@@ -743,23 +747,23 @@
       });
     });
 
-    $('#company_id').on('change', function(e){
-      var id = $(this).val();
-      console.log(id);
-      $.ajax({
-      url: '{{route('transaction.surat-pesanan.load_company')}}',
-      data: {
-        id: id
-      },
-      success: function (result) {
-        console.log(result);
-        $('#company_name').val(result.company_name);
-      },
-      error: function (e) {
-        console.log(e);
-      }
-      });
-    });
+    // $('#company_id').on('change', function(e){
+    //   var id = $(this).val();
+    //   console.log(id);
+    //   $.ajax({
+    //   url: '{{route('transaction.surat-pesanan.load_company')}}',
+    //   data: {
+    //     id: id
+    //   },
+    //   success: function (result) {
+    //     console.log(result);
+    //     $('#company_name').val(result.company_name);
+    //   },
+    //   error: function (e) {
+    //     console.log(e);
+    //   }
+    //   });
+    // });
 
     $('#mou_id').on('change', function(e){
       var id = $(this).val();
@@ -816,12 +820,30 @@
         $('#price_id').val(result.price.id);
         $('#price').val($.number(result.price.price_selling));
         $('input[name=sp_total_harga_jual]').val(result.price.price_selling);
+        $('#kavling_tl').val(result.kavling_tl_active);
+        const tt = parseFloat(result.kavling_surface);
+        $('#kavling_tt').val(tt);
+        $('#kavling_tanah_lebih').val(result.kavling_tl_active);
+        $('#kavling_tanah_m2').val(result.price.price_surface_m2);
+        $('input[name=sp_total_harga_tanah_lebih]').val(result.price.price_surface_m2);
       },
       error: function (e) {
         console.log(e);
       }
       });
     });
+
+    $('#kpr_plan').change((e) => {
+      const ajb = parseFloat($('input[name=sp_ajb_price]').val()) || 0;
+      const dp = parseFloat($('input[name=sp_dp]').val()) || 0;
+      const inputVal = parseFloat(e.target.value) || 0;
+      console.log(ajb);
+      const res = parseFloat($('#kpr_plan_percen').val(ajb * (inputVal / 100)));
+      const float = res[0].value;
+      console.log(res);
+      console.log(float);
+      $('#sp_dp').val(ajb - float);
+    })
 
     /* $('#price_id').on('change', function(e){
       var id = $(this).val();
@@ -884,17 +906,16 @@
       const afterDiscount = parseFloat($('input[name=sp_after_discount]').val()) || 0;
       const afterPpn = $('input[name=sp_after_ppn').val(ppn * (afterDiscount / 100));
       // console.log(parseFloat(afterPpn.val()) + rumah )
-      const tanah = $('input[name=sp_harga_tanah_bangunan]').val(parseFloat(afterPpn.val()) + rumah);
+      const tanah = $('input[name=sp_harga_tanah_bangunan]').val( parseFloat(afterPpn.val()) +afterDiscount );
       $('input[name=sp_harga_jual_pengikatan]').val(tanah.val())
-      $('input[name=sp_ajb_price]').val(total * (110 / 100));
+      $('input[name=sp_ajb_price]').val(tanah.val());
     })
 
-    $('input[name=sp_tanah_lebih], input[name=sp_harga_m2]').keyup(() => {
-      const tanahLebih = parseFloat($('input[name=sp_tanah_lebih]').val()) || 0;
-      const hargaM2 = parseFloat($('input[name=sp_harga_m2]').val()) || 0;
-      console.log(tanahLebih * hargaM2)
-      $('input[name=sp_total_harga_tanah_lebih]').val(tanahLebih * hargaM2);
-    })
+    // $('input[name=sp_tanah_lebih], input[name=sp_harga_m2]').keyup(() => {
+    //   const tanahLebih = parseFloat($('input[name=sp_tanah_lebih]').val()) || 0;
+    //   const hargaM2 = parseFloat($('input[name=sp_harga_m2]').val()) || 0;
+    //   $('input[name=sp_total_harga_tanah_lebih]').val(tanahLebih * hargaM2);
+    // })
 
     $('input[name=sp_dp], input[name=sp_ppn]').keyup(() => {
       const hargaTanahLebih = parseFloat($('input[name=sp_total_harga_tanah_lebih]').val()) || 0;
@@ -1115,6 +1136,12 @@
 
         // Initialize
         var $select = $('.form-control-select2-customer').select2({
+            minimumResultsForSearch: Infinity,
+            minimumInputLength: 4,
+            width: '100%'
+        });
+
+        var $select = $('.form-control-select2-kavling').select2({
             minimumResultsForSearch: Infinity,
             minimumInputLength: 4,
             width: '100%'

@@ -127,7 +127,7 @@ class SuratPesananController extends Controller
 
     public function load_customer(Request $request)
     {
-        $customer = Customer::with('sales_executive', 'sales_supervisor')->find($request->id);
+        $customer = Customer::with('sales_executive', 'sales_supervisor', 'company')->find($request->id);
         return response()->json($customer);
     }
 
