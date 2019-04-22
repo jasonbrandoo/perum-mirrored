@@ -25,11 +25,8 @@ class StoreSuratPesanan extends FormRequest
     {
         return [
             //
-            'sp_prebook' => ['required', 'numeric'],
             'sp_no' => ['required'],
             'sp_date' => ['required'],
-            'sp_ppjb' => ['required'],
-            'sp_ppjb_date' => ['required'],
             'sp_customer_id' => ['required'],
             'sp_customer_name' => ['required'],
             'sp_company_id' => ['required'],

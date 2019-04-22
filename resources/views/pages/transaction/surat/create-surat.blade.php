@@ -839,7 +839,7 @@
       const inputVal = parseFloat(e.target.value) || 0;
       console.log(ajb);
       const res = parseFloat($('#kpr_plan_percen').val(ajb * (inputVal / 100)));
-      const float = res[0].value;
+      // const float = parseFloat(res[0].value;
       console.log(res);
       console.log(float);
       $('#sp_dp').val(ajb - float);
