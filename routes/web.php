@@ -10,29 +10,30 @@
 |
  */
 
-/* 
+
 Route::get('/test', function () {
-    $pages = Page::all();
-    $user = Auth::user();
-    foreach ($pages as $value) {
-        $value->assignRole('admin');
-        $data[] = $value->getRoleNames();
-        $flat = Arr::flatten($data);
-    }
-    $collect = collect($flat)->unique()->values()->all();
-    return collect($collect)->implode('|');
-    $merge = collect($pages)->map(function($page) use ($role_pages){
-        foreach ($role_pages as $role) {
-            return $item->id;
-            if ($role->page->id == $page->id) {
-                $page->id = $role->page_id;
-            }
-            $item['page_id'] = $page['id'];
-        }
-    });
-    return $merge;
+    return view('pages.test');
+    // $pages = Page::all();
+    // $user = Auth::user();
+    // foreach ($pages as $value) {
+    //     $value->assignRole('admin');
+    //     $data[] = $value->getRoleNames();
+    //     $flat = Arr::flatten($data);
+    // }
+    // $collect = collect($flat)->unique()->values()->all();
+    // return collect($collect)->implode('|');
+    // $merge = collect($pages)->map(function($page) use ($role_pages){
+    //     foreach ($role_pages as $role) {
+    //         return $item->id;
+    //         if ($role->page->id == $page->id) {
+    //             $page->id = $role->page_id;
+    //         }
+    //         $item['page_id'] = $page['id'];
+    //     }
+    // });
+    // return $merge;
 });
- */
+
 
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');

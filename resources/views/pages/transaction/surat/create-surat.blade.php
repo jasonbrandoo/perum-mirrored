@@ -211,14 +211,14 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Kavling ID</label>
                       <div class="col-lg-9">
-                        <select data-placeholder="Type" class="form-control form-control-select2-kavling" data-fouc name="sp_kavling_id" id="kavling_id"
+                        <select data-placeholder="BLOK" class="form-control form-control-select2-kavling" data-fouc name="sp_kavling_id" id="kavling_id"
                           required>
                         @if (isset($surat))
-                          <option value="{{$surat->kavling->id}}">KAV000{{$surat->kavling->id}} - BLOK{{$surat->kavling->kavling_block}} - NO {{$surat->kavling->kavling_number}} - TIPE {{$surat->kavling->kavling_cluster}}</option>
+                          <option value="{{$surat->kavling->id}}">KAV000{{$surat->kavling->id}} - BLOK {{$surat->kavling->kavling_block}} - NO {{$surat->kavling->kavling_number}} - Tipe {{$surat->kavling->kavling_cluster}} - {{$surat->kavling->kavling_hook === 'Active' ? 'Hook' : 'Not Hook'}}</option>
                         @else
                           @foreach ($kavlings as $kav)
                             <option></option>
-                            <option value="{{$kav->id}}">KAV000{{$kav->id}} - BLOK{{$kav->kavling_block}} - NO{{$kav->kavling_number}}- Tipe{{$kav->kavling_cluster}}</option>
+                            <option value="{{$kav->id}}">KAV000{{$kav->id}} - BLOK {{$kav->kavling_block}} - NO {{$kav->kavling_number}} - Tipe {{$kav->kavling_cluster}} - {{$kav->kavling_hook === 'Active' ? 'Hook' : 'Not Hook'}}</option>
                           @endforeach
                         @endif
                       </select>
@@ -292,8 +292,7 @@
                   <fieldset>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Kode Harga</label>
-                      <div class="col-lg col-form-label pr-0">H000</div>
-                      <div class="col-lg-7 pl-0">
+                      <div class="col-lg-9">
                         <input type="text" class="form-control" name="sp_price_id" id="price_id" value="{{isset($surat) ? $surat->price->id : ''}}"
                           readonly required>
                       </div>
@@ -422,38 +421,40 @@
                   <fieldset>
                     <hr>
                     <h2>Biaya Lain</h2>
-                    <div class="lain">
-                      <div class="form-group row">
-                        <label class="col-lg-3 col-form-label">Deskripsi</label>
-                        <div class="col-lg-9">
-                          <input type="text" class="form-control biayaLainDescription" name="sp_description[]" >
+                    <div id="sections">
+                      <div class="section">
+                        <div class="form-group row">
+                          <label class="col-lg-3 col-form-label">Deskripsi</label>
+                          <div class="col-lg-9">
+                            <input type="text" class="form-control biayaLainDescription" name="sp_description[]" >
+                          </div>
                         </div>
+                        <div class="form-group row">
+                          <label class="col-lg-3 col-form-label">Nominal</label>
+                          <div class="col-lg-3">
+                            <input type="text" class="form-control price" id="biayaLainNominal" name="sp_description_nominal[]" >
+                          </div>
+                          <div class="col-lg-3">
+                            <select name="sp_biaya_lain_status[]" id="biayaLainStatus" class="form-control" required>
+                              <option value="" disabled selected>Ditambah / Dikurang</option>
+                              <option value="Ditambah">Ditambah</option>
+                              <option value="Dikurang">Dikurang</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-3">
+                            <select name="sp_biaya_lain_diperhitungkan[]" id="biayaLainDiperhitungkan" class="form-control" required>
+                              <option value="" disabled selected>Developer / Kontraktor</option>
+                              <option value="Developer">Developer</option>
+                              <option value="Kontraktor">Kontraktor</option>
+                            </select>
+                          </div>
+                        </div>
+                        <button type="button" class="btn btn-primary rounded-round removeRowButton">-</button>
+                        <button type="button" class="btn btn-primary rounded-round addRowButton">+</button>
+                        <hr>
                       </div>
-                      <div class="form-group row">
-                        <label class="col-lg-3 col-form-label">Nominal</label>
-                        <div class="col-lg">
-                          <input type="text" class="form-control biayaLainNominal" name="sp_description_nominal[]" >
-                        </div>
-                        <div class="col-lg">
-                          <select name="sp_biaya_lain_status[]" class="form-control form-control-select2">
-                            <option value="Ditambah">Ditambah</option>
-                            <option value="Dikurang">Dikurang</option>
-                          </select>
-                        </div>
-                        <div class="col-lg mt-1">
-                          <label>Diperhitungkan</label>
-                          <input type="checkbox" class="form-check-input col pl-0" name="sp_biaya_lain_diperhitungkan[]">
-                        </div>
-                      </div>
-                      <hr>
                     </div>
-                    <div class="addLain"></div>
-                    <div class="d-flex">
-                      <div class="ml-auto">
-                        <button type="button" class="btn btn-primary rounded-round removeButton">-</button>
-                        <button type="button" class="btn btn-primary rounded-round addButton">+</button>
-                      </div>
-                    </div>
+                    <button type="button" class="btn btn-primary rounded-round addButton">Add</button>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Subsidi</label>
                       <div class="col-lg-9">
@@ -481,12 +482,12 @@
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Rencana KPR</label>
-                      <div class="col-lg">
+                      <div class="col-lg-3">
                         <input type="text" id="kpr_plan" class="form-control" name="sp_kpr_plan" value="{{isset($surat) ? $surat->sp_kpr_plan : ''}}">
                       </div>
                       <label class="col-form-label">%</label>
                       <div class="col-lg">
-                        <input type="text" class="form-control price" id="kpr_plan_percen" name="sp_kpr_plan_percentage" value="{{isset($surat) ? $surat->sp_kpr_plan_percentage : ''}}">
+                        <input type="text" class="form-control price" id="kpr_plan_percen" name="sp_kpr_plan_percentage" value="{{isset($surat) ? $surat->sp_kpr_plan_percentage : ''}}" readonly>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -496,7 +497,7 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="col-lg-3 col-form-label">PPN</label>
+                      <label class="col-lg-3 col-form-label">PPN Harga Lebih</label>
                       <div class="col-lg-9">
                         <input type="text" class="form-control price" name="sp_ppn" value="{{isset($surat) ? $surat->sp_ppn : ''}}" required>
                       </div>
@@ -511,8 +512,8 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Booking Fee</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_booking_fee" value="{{isset($surat) ? $surat->sp_booking_fee : ''}}"
-                          required>
+                        <input type="text" class="form-control price" id="sp_booking_fee" name="sp_booking_fee" value="{{isset($surat) ? $surat->sp_booking_fee : ''}}"
+                          required readonly>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -545,6 +546,20 @@
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Nilai Kreditur</label>
+                      <div class="col-lg-9">
+                        <input type="text" class="form-control price" name="sp_kreditur_bill" value="{{isset($surat) ? $surat->sp_kreditur_bill : ''}}"
+                          required readonly>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label">Angsuran/Bulan (Kontraktor)</label>
+                      <div class="col-lg-9">
+                        <input type="text" class="form-control price" name="sp_per_month_kreditur" value="{{isset($surat) ? $surat->sp_per_month_kreditur : ''}}"
+                          required>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label">Nilai Kontraktor</label>
                       <div class="col-lg-9">
                         <input type="text" class="form-control price" name="sp_kreditur_bill" value="{{isset($surat) ? $surat->sp_kreditur_bill : ''}}"
                           required readonly>
@@ -726,14 +741,12 @@
 
     $('#customer_id').on('change', function(e){
       var id = $(this).val();
-      console.log(id);
       $.ajax({
       url: '{{route('transaction.surat-pesanan.load_customer')}}',
       data: {
         id: id
       },
       success: function (result) {
-        console.log(result);
         $('#customer_name').val(result.customer_name);
         $('#sales_id').val(result.sales_executive.id);
         $('#sales_name').val(result.sales_executive.sales_name);
@@ -767,14 +780,12 @@
 
     $('#mou_id').on('change', function(e){
       var id = $(this).val();
-      console.log(id);
       $.ajax({
       url: '{{route('transaction.surat-pesanan.load_mou')}}',
       data: {
         id: id
       },
       success: function (result) {
-        console.log(result);
         $('#mou_supervisor').val(result.mou_coordinator);
       },
       error: function (e) {
@@ -785,14 +796,12 @@
 
     $('#sales_id').on('change', function(e){
       var id = $(this).val();
-      console.log(id);
       $.ajax({
       url: '{{route('transaction.surat-pesanan.load_sales')}}',
       data: {
         id: id
       },
       success: function (result) {
-        console.log(result);
         $('#sales_name').val(result.sales_name);
       },
       error: function (e) {
@@ -803,21 +812,19 @@
 
     $('#kavling_id').on('change', function(e){
       var id = $(this).val();
-      console.log(id);
       $.ajax({
       url: '{{route('transaction.surat-pesanan.load_kavling')}}',
       data: {
         id: id
       },
       success: function (result) {
-        console.log(result);
         $('#house_type').val(result.price.house.rumah_type_name);
         $('#house_block').val(result.kavling_block);
         $('#house_cluster').val(result.kavling_cluster);
         $('#house_no').val(result.kavling_number);
         $('#house_building').val(result.price.house.building_area_m2);
         $('#house_surface').val(result.price.house.surface_area_m2);
-        $('#price_id').val(result.price.id);
+        $('#price_id').val(`H000${result.price.id}`);
         $('#price').val($.number(result.price.price_selling));
         $('input[name=sp_total_harga_jual]').val(result.price.price_selling);
         $('#kavling_tl').val(result.kavling_tl_active);
@@ -826,6 +833,7 @@
         $('#kavling_tanah_lebih').val(result.kavling_tl_active);
         $('#kavling_tanah_m2').val(result.price.price_surface_m2);
         $('input[name=sp_total_harga_tanah_lebih]').val(result.price.price_surface_m2);
+        $('#sp_booking_fee').val(result.price.price_booking);
       },
       error: function (e) {
         console.log(e);
@@ -837,12 +845,11 @@
       const ajb = parseFloat($('input[name=sp_ajb_price]').val()) || 0;
       const dp = parseFloat($('input[name=sp_dp]').val()) || 0;
       const inputVal = parseFloat(e.target.value) || 0;
-      console.log(ajb);
-      const res = parseFloat($('#kpr_plan_percen').val(ajb * (inputVal / 100)));
-      // const float = parseFloat(res[0].value;
-      console.log(res);
-      console.log(float);
-      $('#sp_dp').val(ajb - float);
+      alert(ajb)
+      const res = $('#kpr_plan_percen').val(ajb * (inputVal / 100));
+      const float = res[0].value;
+      const replacer = parseFloat(float.replace(/,/g, ""));
+      $('#sp_dp').val(ajb - replacer);
     })
 
     /* $('#price_id').on('change', function(e){
@@ -866,11 +873,16 @@
 
 
     const price = parseFloat($('input[name=sp_price]').val()) || 0;
-    console.log(price)
+
     $('input[name=sp_price_tl]').keyup(() => {
       const tl = parseFloat($('input[name=sp_price_tl]').val()) || 0;
       const price = parseFloat($('input[name=sp_price]').val()) || 0;
       $('input[name=sp_total_harga_jual]').val(tl+price);
+    })
+
+    $('input[name=sp_harga_jual_tanah').on('keyup keydown keypress change', () => {
+      const tanah = parseFloat($('input[name=sp_harga_jual_tanah').val()) || 0;
+      $('input[name=sp_after_discount]').val(tanah);
     })
 
     $('input[name=sp_included_tl').click(() => {
@@ -888,8 +900,9 @@
     $('input[name=sp_discount]').keyup(() => {
       const discount = parseFloat($('input[name=sp_discount]').val()) || 0;
       const rumah = parseFloat($('input[name=sp_harga_jual_tanah]').val()) || 0;
-      $('input[name=sp_after_discount]').val(rumah - (discount * rumah / 100));
+      const afterDiscount = $('input[name=sp_after_discount]').val(rumah - (discount * rumah / 100));
       $('input[name=sp_discount_nominal').val(0);
+      $('input[name=sp_harga_tanah_bangunan]').val(afterDiscount.val());
     })
 
     $('input[name=sp_discount_nominal]').keyup(() => {
@@ -905,7 +918,6 @@
       const ppn = parseFloat($('input[name=sp_ppn_percentage]').val()) || 0;
       const afterDiscount = parseFloat($('input[name=sp_after_discount]').val()) || 0;
       const afterPpn = $('input[name=sp_after_ppn').val(ppn * (afterDiscount / 100));
-      // console.log(parseFloat(afterPpn.val()) + rumah )
       const tanah = $('input[name=sp_harga_tanah_bangunan]').val( parseFloat(afterPpn.val()) +afterDiscount );
       $('input[name=sp_harga_jual_pengikatan]').val(tanah.val())
       $('input[name=sp_ajb_price]').val(tanah.val());
@@ -918,46 +930,97 @@
     // })
 
     $('input[name=sp_dp], input[name=sp_ppn]').keyup(() => {
+      const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
       const hargaTanahLebih = parseFloat($('input[name=sp_total_harga_tanah_lebih]').val()) || 0;
       const dp = parseFloat($('input[name=sp_dp]').val()) || 0;
       const ppn = parseFloat($('input[name=sp_ppn]').val()) || 0;
-      $('input[name=sp_sub_total]').val(hargaTanahLebih + dp + ppn);
+      const sub = $('input[name=sp_sub_total]').val(hargaTanahLebih + dp + ppn);
+      const subEl = sub[0].value;
+      const subTotal = parseFloat(subEl.replace(/,/g, ""));
+      console.log('sub',subTotal)
+      console.log('book',booking)
+      $('input[name=sp_total_bill]').val(dp + ppn);
+      $('input[name=sp_total]').val(subTotal + booking);
     })
 
-    $('input[name=sp_booking_fee]').change(() => {
+    /* $('input[name=sp_booking_fee]').change(() => {
       const subTotal = parseFloat($('input[name=sp_sub_total]').val()) || 0;
       const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
       $('input[name=sp_total_bill]').val(subTotal + booking);
       $('input[name=sp_total]').val(subTotal + booking);
-    })
+    }) */
 
-    $('.biayaLainNominal').change((e) => {
-      const biayaLain = parseFloat(e.target.value);
-      const totalBill = parseFloat($('input[name=sp_total_bill]').val());
-      if (isNaN(biayaLain)) {
-        alert('please input number');
-      } else {
-        $('input[name=sp_total_bill]').val(biayaLain + totalBill)
-      }
-    })
+    // $('select[name*=sp_biaya_lain_diperhitungkan]').each((index, element) => {
+    //   $('select[name*=sp_biaya_lain_diperhitungkan]').change((e) => {
+    //     console.log(e.target.value);
+    //     const status = $('#biayaLainStatus').val();
+    //     const diperhitungkan = $('select[name*=sp_biaya_lain_diperhitungkan]').val();
+    //     if (diperhitungkan === 'Developer') {
+    //       alert('ok');
+    //       const biayaLain = parseFloat($('#biayaLainNominal').val());
+    //       const totalBill = parseFloat($('input[name=sp_total_bill]').val());
+    //       $('input[name=sp_total_bill]').val(biayaLain + totalBill);
+    //       console.log(biayaLain)
+    //     }
+    //     if (diperhitungkan === 'Kontraktor') {
+    //       alert('fuck')
+    //     }
+    //   })
+    // })
 
-    $('.addButton').click(() => {
-      $('.lain:first').clone().appendTo($('.addLain')).find('.biayaLainNominal:input, .biayaLainDescription:input').val('');
-      $('.biayaLainNominal').change((e) => {
-        const biayaLain = parseFloat(e.target.value);
-        const totalBill = parseFloat($('input[name=sp_total_bill]').val());
-        if (isNaN(biayaLain)) {
-          alert('please input number');
-        } else {
-          $('input[name=sp_total_bill]').val(biayaLain + totalBill)
-        }
-      })
+    const template = $('#sections .section:first').clone();
+    let sectionCount = 1;
+
+    $('#sections').on('click','.addRowButton', () => {
+      sectionCount++;
+      const section = template.clone(true).find(':input').val('').each((index, element) => {
+        const newId = element.id + sectionCount;
+        $(element).prev();
+        element.id = newId;
+      }).end().appendTo('#sections');
+      return false;
     });
     
-    $('.removeButton').click(() => {
-      $('.addLain').remove();
-      $('<div></div>').addClass('addLain').insertAfter('.lain');
+    $('#sections').on('click','.removeRowButton', function() {
+      $(this).parent().fadeOut(300, function() {
+        $(this).empty();
+        return false;
+      });
+      return false;
     });
+
+    $('.addButton').click(() => {
+      // $('.section').each((index, element) => {
+        const array = [];
+        const diperhitungkan = $('select[name="sp_biaya_lain_diperhitungkan[]"]').each(function(i, e) {
+          const val = $(e).val();
+          if (val === 'Developer') {
+            alert(111)
+            const valueEl = $('input[name="sp_description_nominal[]"]')[i];
+            const nominal = parseFloat($(valueEl).val());
+            const arr = array.push(nominal);
+            console.log('array', array);
+          }
+          if (val === 'Kontraktor') {
+            alert(2222)
+            const valueEl = $('input[name="sp_description_nominal[]"]')[i];
+            const nominal = parseFloat($(valueEl).val());
+            console.log(nominal);
+          }
+        });
+
+        // const nominal = $('input[name="sp_description_nominal[]"]').map(function() {
+        //   return parseFloat($(this).val());
+        // }).get();
+
+        // const sum = nominal.reduce((acc, cur) => {
+        //   return cur + acc;
+        // }, 0);
+
+        // const totalBill = parseFloat($('input[name=sp_total_bill]').val());
+        // $('input[name=sp_total_bill]').val(sum + totalBill);
+      // })
+    })
 
     $('input[name=sp_per_month_internal]').focusout(() => {
       /* Constant variable */
@@ -1000,11 +1063,11 @@
       $('input[name=sp_kreditur_bill]').val(totalBill / kreditur);
     })
 
-    $('input[name=sp_kpr_plan]').keyup(() => {
+    /* $('input[name=sp_kpr_plan]').keyup(() => {
       const kpr = parseFloat($('input[name=sp_kpr_plan]').val()) || 0;
       const total = parseFloat($('input[name=sp_total_bill]').val()) ||0;
       $('input[name=sp_total]').val(kpr+total);
-    })
+    }) */
 
     const internal = parseFloat($('input[name=sp_per_month_internal]').val()) || 0;
     const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
