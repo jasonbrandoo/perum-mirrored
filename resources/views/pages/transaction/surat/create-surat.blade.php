@@ -144,7 +144,7 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Perusahaan ID</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_company_id" id="customer_company" value="{{isset($surat) ? $surat->customer->customer_name : ''}}"
+                        <input type="text" class="form-control" name="sp_company_id" id="customer_company" value="{{isset($surat) ? $surat->company->id : ''}}"
                           readonly>
                         {{-- <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_company_id" id="company_id"
                           required>
@@ -432,29 +432,33 @@
                         <div class="form-group row">
                           <label class="col-lg-3 col-form-label">Nominal</label>
                           <div class="col-lg-3">
-                            <input type="text" class="form-control price" id="biayaLainNominal" name="sp_description_nominal[]" >
+                            <input type="text" class="form-control" id="biayaLainNominal" name="sp_description_nominal[]" >
                           </div>
                           <div class="col-lg-3">
-                            <select name="sp_biaya_lain_status[]" id="biayaLainStatus" class="form-control" required>
+                            <select name="sp_biaya_lain_status[]" id="biayaLainStatus" class="form-control">
                               <option value="" disabled selected>Ditambah / Dikurang</option>
                               <option value="Ditambah">Ditambah</option>
                               <option value="Dikurang">Dikurang</option>
                             </select>
                           </div>
                           <div class="col-lg-3">
-                            <select name="sp_biaya_lain_diperhitungkan[]" id="biayaLainDiperhitungkan" class="form-control" required>
+                            <select name="sp_biaya_lain_diperhitungkan[]" id="biayaLainDiperhitungkan" class="form-control">
                               <option value="" disabled selected>Developer / Kontraktor</option>
                               <option value="Developer">Developer</option>
-                              <option value="Kontraktor">Kontraktor</option>
+                              <option value="Contractor">Contractor</option>
                             </select>
                           </div>
                         </div>
-                        <button type="button" class="btn btn-primary rounded-round removeRowButton">-</button>
-                        <button type="button" class="btn btn-primary rounded-round addRowButton">+</button>
-                        <hr>
                       </div>
                     </div>
-                    <button type="button" class="btn btn-primary rounded-round addButton">Add</button>
+                    <div class="d-flex">
+                      <div class="ml-auto">
+                        <button type="button" class="btn btn-primary rounded-round removeRowButton">-</button>
+                        <button type="button" class="btn btn-primary rounded-round addRowButton">+</button>
+                        <button type="button" class="btn btn-primary rounded-round addButton">Add</button>
+                      </div>
+                    </div>
+                    <hr>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Subsidi</label>
                       <div class="col-lg-9">
@@ -554,15 +558,13 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Angsuran/Bulan (Kontraktor)</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_per_month_kreditur" value="{{isset($surat) ? $surat->sp_per_month_kreditur : ''}}"
-                          required>
+                        <input type="text" class="form-control price" name="sp_per_month_contractor" value="{{isset($surat) ? $surat->sp_per_month_contractor : ''}}">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Nilai Kontraktor</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_kreditur_bill" value="{{isset($surat) ? $surat->sp_kreditur_bill : ''}}"
-                          required readonly>
+                        <input type="text" class="form-control price" name="sp_contractor_bill" value="{{isset($surat) ? $surat->sp_contractor_bill : ''}}" readonly>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -579,18 +581,51 @@
             @if (isset($surat))
             <h6>Step 4</h6>
             <fieldset>
-              <table class="table table-bordered mb-5" id="result">
-                <thead>
-                  <tr>
-                    <th>Seq</th>
-                    <th>Description</th>
-                    <th>Piutang</th>
-                    <th>Tanggal</th>
-                  </tr>
-                </thead>
-              </table>
-              <input type="hidden" name="piutang" id="piutang">
-              <input type="hidden" name="internal" id="internal">
+              <ul class="nav nav-tabs nav-tabs-bottom">
+                <li class="nav-item"><a href="#piutang-internal" class="nav-link active" data-toggle="tab">Internal</a></li>
+                <li class="nav-item"><a href="#piutang-developer" class="nav-link" data-toggle="tab">Developer</a></li>
+                <li class="nav-item"><a href="#piutang-kontraktor" class="nav-link" data-toggle="tab">Kontraktor</a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane fade show active" id="piutang-internal">
+                  <table class="table table-bordered mb-5" id="result">
+                    <thead>
+                      <tr>
+                        <th>Seq</th>
+                        <th>Description</th>
+                        <th>Piutang</th>
+                        <th>Tanggal</th>
+                      </tr>
+                    </thead>
+                  </table>
+                  <input type="hidden" name="piutang" id="piutang">
+                  <input type="hidden" name="internal" id="internal">
+                </div>
+                <div class="tab-pane fade" id="piutang-developer">
+                  <table class="table table-bordered mb-5" id="developer">
+                    <thead>
+                      <tr>
+                        <th>Seq</th>
+                        <th>Description</th>
+                        <th>Piutang</th>
+                        <th>Tanggal</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+                <div class="tab-pane fade" id="piutang-kontraktor">
+                  <table class="table table-bordered mb-5" id="kontraktor">
+                    <thead>
+                      <tr>
+                        <th>Seq</th>
+                        <th>Description</th>
+                        <th>Piutang</th>
+                        <th>Tanggal</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
             </fieldset>
             @endif
 
@@ -929,7 +964,7 @@
     //   $('input[name=sp_total_harga_tanah_lebih]').val(tanahLebih * hargaM2);
     // })
 
-    $('input[name=sp_dp], input[name=sp_ppn]').keyup(() => {
+    $('input[name=sp_dp], input[name=sp_ppn]').change(() => {
       const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
       const hargaTanahLebih = parseFloat($('input[name=sp_total_harga_tanah_lebih]').val()) || 0;
       const dp = parseFloat($('input[name=sp_dp]').val()) || 0;
@@ -937,10 +972,17 @@
       const sub = $('input[name=sp_sub_total]').val(hargaTanahLebih + dp + ppn);
       const subEl = sub[0].value;
       const subTotal = parseFloat(subEl.replace(/,/g, ""));
-      console.log('sub',subTotal)
-      console.log('book',booking)
-      $('input[name=sp_total_bill]').val(dp + ppn);
+      const total = parseFloat($('input[name=sp_total_bill]').val()) || 0;
       $('input[name=sp_total]').val(subTotal + booking);
+      console.log('total', total);
+      console.log('dp',dp);
+      console.log('ppn',ppn);
+      if (total) {
+        $('input[name=sp_total_bill]').val(total + dp + ppn)
+      } else {
+        $('input[name=sp_total_bill]').val(dp + ppn);
+      }
+
     })
 
     /* $('input[name=sp_booking_fee]').change(() => {
@@ -971,7 +1013,7 @@
     const template = $('#sections .section:first').clone();
     let sectionCount = 1;
 
-    $('#sections').on('click','.addRowButton', () => {
+    $('body').on('click','.addRowButton', () => {
       sectionCount++;
       const section = template.clone(true).find(':input').val('').each((index, element) => {
         const newId = element.id + sectionCount;
@@ -981,93 +1023,70 @@
       return false;
     });
     
-    $('#sections').on('click','.removeRowButton', function() {
-      $(this).parent().fadeOut(300, function() {
-        $(this).empty();
+    $('body').on('click','.removeRowButton', function() {
+      $('#sections .section:last').fadeOut(300, function() {
+        $(this).remove();
+        console.log($(this));
         return false;
       });
       return false;
     });
-
-    $('.addButton').click(() => {
-      // $('.section').each((index, element) => {
-        const array = [];
-        const diperhitungkan = $('select[name="sp_biaya_lain_diperhitungkan[]"]').each(function(i, e) {
-          const val = $(e).val();
-          if (val === 'Developer') {
-            alert(111)
-            const valueEl = $('input[name="sp_description_nominal[]"]')[i];
-            const nominal = parseFloat($(valueEl).val());
-            const arr = array.push(nominal);
-            console.log('array', array);
+    console.log({total: $("input[name=sp_total_bill]").val()});
+    $(".addButton").click(() => {
+      const totalBill = parseFloat($("input[name=sp_total_bill]").val());
+      let arrayDev = [];
+      let arrayCon = [];
+      const diperhitungkan = $(
+        'select[name="sp_biaya_lain_diperhitungkan[]"]'
+      ).each(function(i, e) {
+        const val = $(e).val();
+        if (val === "Developer") {
+          alert(111);
+          const valueEl = $('input[name="sp_description_nominal[]"]')[i];
+          const nominal = parseFloat($(valueEl).val());
+          arrayDev.push(nominal);
+          const sum = arrayDev.reduce((acc, cur) => {
+            return acc + cur;
+          }, 0);
+          if (totalBill) {
+            $("input[name=sp_total_bill]").val(totalBill + sum);
+          } else {
+            $("input[name=sp_total_bill]").val(sum);
           }
-          if (val === 'Kontraktor') {
-            alert(2222)
-            const valueEl = $('input[name="sp_description_nominal[]"]')[i];
-            const nominal = parseFloat($(valueEl).val());
-            console.log(nominal);
-          }
-        });
+        }
+        if (val === "Contractor") {
+          alert(2222);
+          const valueEl = $('input[name="sp_description_nominal[]"]')[i];
+          const nominal = parseFloat($(valueEl).val());
+          arrayCon.push(nominal);
+          const sum = arrayCon.reduce((acc, cur) => {
+            return acc + cur;
+          }, 0);
+          console.log("Contractor", arrayCon);
+          console.log("sum", sum);
+          $("input[name=sp_contractor_bill]").val(sum);
+        }
+      });
+    });
 
-        // const nominal = $('input[name="sp_description_nominal[]"]').map(function() {
-        //   return parseFloat($(this).val());
-        // }).get();
 
-        // const sum = nominal.reduce((acc, cur) => {
-        //   return cur + acc;
-        // }, 0);
-
-        // const totalBill = parseFloat($('input[name=sp_total_bill]').val());
-        // $('input[name=sp_total_bill]').val(sum + totalBill);
-      // })
-    })
-
-    $('input[name=sp_per_month_internal]').focusout(() => {
-      /* Constant variable */
+    $('input[name=sp_per_month_internal]').change(() => {
       const totalBill = parseFloat($('input[name=sp_total_bill]').val()) || 0;
       const internal = parseFloat($('input[name=sp_per_month_internal]').val()) || 0;
-      const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
-      const subTotal = parseFloat($('input[name=sp_sub_total]').val()) || 0;
-      // const dt = $('#result').DataTable({
-      //   dom: '<"datatable-header"><"datatable-scroll-wrap"><"datatable-footer">',
-      //   paging: false
-      // });
-      // const seq = 1
-
-      /* jQuery */
       $('input[name=sp_internal_bill]').val(Math.round(totalBill / internal));
+    });
 
-      /* Initiate Datatables */
-      // dt.row.add([
-      //   seq,
-      //   'Booking Fee',
-      //   $.number(booking),
-      //   moment().format('D MMMM YYYY')
-      // ]).draw()
-
-      /* Iterate Cililan */
-      // console.log(internal)
-      // for (let index = 1; index <= internal; index++) {
-      //   dt.row.add([
-      //     index+1,
-      //     `Cicilan ${index}`,
-      //     $.number(booking/internal),
-      //     moment().format('D MMMM YYYY')
-      //   ]).draw()
-      // }
-    })
-
-    $('input[name=sp_per_month_kreditur]').keyup(() => {
+    $('input[name=sp_per_month_kreditur]').change(() => {
       const totalBill = parseFloat($('input[name=sp_total_bill]').val()) || 0;
       const kreditur = parseFloat($('input[name=sp_per_month_kreditur]').val()) || 0;
-      $('input[name=sp_kreditur_bill]').val(totalBill / kreditur);
-    })
+      $('input[name=sp_kreditur_bill]').val(Math.round(totalBill / kreditur));
+    });
 
-    /* $('input[name=sp_kpr_plan]').keyup(() => {
-      const kpr = parseFloat($('input[name=sp_kpr_plan]').val()) || 0;
-      const total = parseFloat($('input[name=sp_total_bill]').val()) ||0;
-      $('input[name=sp_total]').val(kpr+total);
-    }) */
+    $('input[name=sp_per_month_contractor]').change(() => {
+      const totalContractor = parseFloat($('input[name=sp_contractor_bill]').val());
+      const contractor = parseFloat($('input[name=sp_per_month_contractor]').val()) || 0;
+      $('input[name=sp_contractor_bill]').val(Math.round(totalContractor / contractor));
+    });
 
     const internal = parseFloat($('input[name=sp_per_month_internal]').val()) || 0;
     const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
@@ -2123,7 +2142,7 @@
                 ajax: '{!! route('transaction.surat-pesanan.cicilan', $surat->id) !!}',
                 columns: [
                     {
-                        data: 'id',
+                        data: 'no',
                     },
                     {
                         data: 'description',
@@ -2139,7 +2158,57 @@
                 select: {
                     style: 'os'
                 },
-            })
+            });
+
+            $('#developer').DataTable({
+                dom: '<"datatable-header"><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+                processing: true,
+                serverSide: true,
+                ajax: '{!! route('transaction.surat-pesanan.developer', $surat->id) !!}',
+                columns: [
+                    {
+                        data: 'no',
+                    },
+                    {
+                        data: 'sp_description',
+                    },
+                    {
+                        data: 'sp_description_nominal',
+                    },
+                    {
+                        data: 'created_at',
+                        render: (data) => moment().format('D MMMM YYYY')
+                    },
+                ],
+                select: {
+                    style: 'os'
+                },
+            });
+
+            $('#kontraktor').DataTable({
+                dom: '<"datatable-header"><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+                processing: true,
+                serverSide: true,
+                ajax: '{!! route('transaction.surat-pesanan.contractor', $surat->id) !!}',
+                columns: [
+                    {
+                        data: 'no',
+                    },
+                    {
+                        data: 'sp_description',
+                    },
+                    {
+                        data: 'sp_description_nominal',
+                    },
+                    {
+                        data: 'created_at',
+                        render: (data) => moment().format('D MMMM YYYY')
+                    },
+                ],
+                select: {
+                    style: 'os'
+                },
+            });
         };
 
         var _componentSelect2 = function() {

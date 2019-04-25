@@ -302,6 +302,8 @@ Route::group([
         Route::get('/legal/{id}', 'Transaction\SuratPesanan\SuratPesananController@legal')->name('transaction.surat-pesanan.legal');
         Route::get('/spk/{id}', 'Transaction\SuratPesanan\SuratPesananController@spk')->name('transaction.surat-pesanan.spk');
         Route::get('/cicilan/{id}', 'Transaction\SuratPesanan\SuratPesananController@cicilan')->name('transaction.surat-pesanan.cicilan');
+        Route::get('/developer/{id}', 'Transaction\SuratPesanan\SuratPesananController@developer')->name('transaction.surat-pesanan.developer');
+        Route::get('/contractor/{id}', 'Transaction\SuratPesanan\SuratPesananController@contractor')->name('transaction.surat-pesanan.contractor');
     });
 
     /**

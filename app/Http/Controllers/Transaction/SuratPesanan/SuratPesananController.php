@@ -167,6 +167,18 @@ class SuratPesananController extends Controller
         return DataTables::of($cicilan)->make();
     }
 
+    public function developer($id)
+    {
+        $developer = BiayaLain::with('cicilan')->where('sp_id', $id);
+        return DataTables::of($developer)->make();
+    }
+
+    public function contractor($id)
+    {
+        $contractor = BiayaLain::with('cicilan')->where('sp_id', $id);
+        return DataTables::of($contractor)->make();
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -231,6 +243,8 @@ class SuratPesananController extends Controller
             'sp_internal_bill' => Comma::removeComma($request->input('sp_internal_bill')),
             'sp_per_month_kreditur' => Comma::removeComma($request->input('sp_per_month_kreditur')),
             'sp_kreditur_bill' => Comma::removeComma($request->input('sp_kreditur_bill')),
+            'sp_per_month_contractor' => Comma::removeComma($request->input('sp_per_month_contractor')),
+            'sp_contractor_bill' => Comma::removeComma($request->input('sp_contractor_bill')),
             'active' => $request->input('active') == null ? 'Not Active' : 'Active'
         ]);
 
@@ -241,6 +255,7 @@ class SuratPesananController extends Controller
         $piutang = round($booking_fee / $cicilan);
         for ($i=1; $i <= $cicilan; $i++) {
             array_push($data, [
+                'no' => $i,
                 'cicilan_sp_id' => (new SuratPesanan)->max('id'),
                 'customer_id' => $customer_id,
                 'description' => 'cicilan '.$i,
@@ -251,9 +266,10 @@ class SuratPesananController extends Controller
         Cicilan::insert($data);
         
         $biaya_lain = [];
-        for ($i=0; $i < count($request->sp_description); $i++) { 
+        for ($i=1; $i < count($request->sp_description); $i++) { 
             array_push($biaya_lain, [
-                'sp_id' => $request->id,
+                'no' => $i,
+                'sp_id' => (new SuratPesanan)->max('id'),
                 'sp_description' => $request->input('sp_description')[$i],
                 'sp_description_nominal' => Comma::removeComma($request->input('sp_description_nominal')[$i]),
                 'biaya_lain_status' => $request->input('sp_biaya_lain_status')[$i],
@@ -378,6 +394,8 @@ class SuratPesananController extends Controller
             'sp_internal_bill' => Comma::removeComma($request->input('sp_internal_bill')),
             'sp_per_month_kreditur' => Comma::removeComma($request->input('sp_per_month_kreditur')),
             'sp_kreditur_bill' => Comma::removeComma($request->input('sp_kreditur_bill')),
+            'sp_per_month_contractor' => Comma::removeComma($request->input('sp_per_month_contractor')),
+            'sp_contractor_bill' => Comma::removeComma($request->input('sp_contractor_bill')),
             'active' => $request->input('active') == null ? 'Not Active' : 'Active'
         ]);
 
@@ -388,6 +406,7 @@ class SuratPesananController extends Controller
         $piutang = round($booking_fee / $cicilan);
         for ($i=1; $i <= $cicilan; $i++) {
             array_push($data, [
+                'no' => $i,
                 'cicilan_sp_id' => $request->id,
                 'customer_id' => $customer_id,
                 'description' => 'cicilan '.$i,
@@ -399,8 +418,9 @@ class SuratPesananController extends Controller
         Cicilan::insert($data);
 
         $biaya_lain = [];
-        for ($i=0; $i < count($request->sp_description); $i++) { 
+        for ($i=1; $i < count($request->sp_description); $i++) { 
             array_push($biaya_lain, [
+                'no' => $i,
                 'sp_id' => $request->id,
                 'sp_description' => $request->input('sp_description')[$i],
                 'sp_description_nominal' => Comma::removeComma($request->input('sp_description_nominal')[$i]),
@@ -408,6 +428,7 @@ class SuratPesananController extends Controller
                 'biaya_lain_diperhitungkan' => $request->input('sp_biaya_lain_diperhitungkan')[$i]
             ]);
         }
+        BiayaLain::whereIn('sp_id', [$request->id])->delete();
         BiayaLain::insert($biaya_lain);
         return redirect('transaction/surat-pesanan')->with('success', 'Successfull update Surat Pesanan');
     }
