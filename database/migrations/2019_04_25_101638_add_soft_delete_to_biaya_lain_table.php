@@ -15,7 +15,7 @@ class AddSoftDeleteToBiayaLainTable extends Migration
     {
         Schema::table('biaya_lain', function (Blueprint $table) {
             //
-            $table->dropColumn('deleted_at');
+            $table->drop();
         });
     }
 

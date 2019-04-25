@@ -13,8 +13,16 @@ class AddAgainSoftDeleteToBiayaLainTable extends Migration
      */
     public function up()
     {
-        Schema::table('biaya_lain', function (Blueprint $table) {
+        Schema::create('biaya_lain', function (Blueprint $table) {
             //
+            $table->increments('id');
+            $table->integer('sp_id');
+            $table->integer('no');
+            $table->string('sp_description');
+            $table->decimal('sp_description_nominal', 12, 2);
+            $table->string('biaya_lain_status')->nullable();
+            $table->string('biaya_lain_diperhitungkan')->nullable();
+            $table->timestamps();
             $table->softDeletes();
         });
     }
