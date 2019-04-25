@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChangeDataFromBiayaLainTable extends Migration
+class AddSoftDeleteToBiayaLainTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class ChangeDataFromBiayaLainTable extends Migration
     {
         Schema::table('biaya_lain', function (Blueprint $table) {
             //
-            $table->softDeletes();
+            $table->dropColumn('deleted_at');
         });
     }
 
