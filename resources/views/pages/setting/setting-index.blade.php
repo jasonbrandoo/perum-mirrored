@@ -51,7 +51,7 @@
             <div class="form-group row">
               <div class="col-lg-3"></div>
               <div class="col-lg-9">
-                <input type="text" class="form-control" name="pt_name">
+                <input type="text" class="form-control" name="pt_name" required>
               </div>
             </div>
           </fieldset>

@@ -7,7 +7,6 @@
 @endsection
  
 @section('breadcrumb')
-<a href="#" class="breadcrumb-item">Report</a>
 <a href="{{ route('transaction.report.penerimaan') }}" class="breadcrumb-item">Penerimaan dan Pembayaran</a>
 @endsection
  
@@ -164,7 +163,7 @@
                     className: 'btn btn-primary __filter'
                 },
                 {
-                    text: 'Import',
+                    text: 'Export',
                     className: 'btn btn-success __import',
                     extend: 'excelHtml5'
                 }

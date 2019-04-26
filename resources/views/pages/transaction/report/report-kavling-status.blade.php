@@ -7,8 +7,7 @@
 @endsection
  
 @section('breadcrumb')
-<a href="#" class="breadcrumb-item">Report</a>
-<a href="{{ route('transaction.report.penerimaan') }}" class="breadcrumb-item">Kavling Status dan SP</a>
+<a href="{{ route('transaction.report.kavling_status') }}" class="breadcrumb-item">Kavling Status dan SP</a>
 @endsection
  
 @section('content')
@@ -149,7 +148,7 @@ var DatatableSelect = function() {
           ],
           buttons: [
               {
-                  text: 'Import',
+                  text: 'Export',
                   className: 'btn btn-success __import',
                   extend: 'excelHtml5'
               }
