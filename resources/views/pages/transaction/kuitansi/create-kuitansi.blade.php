@@ -88,7 +88,7 @@
                 <label class="col-lg-3 col-form-label">Terbilang</label>
                 <div class="col-lg-9">
                   <input type="text" class="form-control" name="kwitansi_terbilang" value="{{isset($kwitansi) ? $kwitansi->kwitansi_terbilang : ''}}"
-                    required>
+                    required readonly>
                 </div>
               </div>
               <div class="form-group row">
@@ -218,37 +218,41 @@
 @endsection
  @push('scripts')
 <script>
-  $(document).ready(function(){
-    $('#default_date').val(moment().format('D MMMM, YYYY'));
-  $('#sp_id').on('change', function(e){
+$(document).ready(function() {
+  $("#default_date").val(moment().format("D MMMM, YYYY"));
+  $('input[name=kwitansi_jumlah]').terbilang({
+    lang: 'id',
+    output: $('input[name=kwitansi_terbilang]')
+  });
+  $("#sp_id").on("change", function(e) {
     var id = $(this).val();
     console.log(id);
     $.ajax({
-    url: '{{route('transaction.kwitansi.load_sp')}}',
-    data: {
-      id: id
-    },
-    success: function (result) {
-      console.log(result);
-      $('#sp_kavling').val(result.kavling.kavling_cluster);
-      $('#sp_block').val(result.kavling.kavling_block);
-      $('#sp_number').val(result.kavling.id);
-      $('#sp_house_type').val(result.kavling.house.rumah_type_name);
-    },
-    error: function (e) {
-      console.log(e);
-    }
+      url: "{{route('transaction.kwitansi.load_sp')}}",
+      data: {
+        id: id
+      },
+      success: function(result) {
+        console.log(result);
+        $("#sp_kavling").val(result.kavling.kavling_cluster);
+        $("#sp_block").val(result.kavling.kavling_block);
+        $("#sp_number").val(result.kavling.id);
+        $("#sp_house_type").val(result.kavling.house.rumah_type_name);
+      },
+      error: function(e) {
+        console.log(e);
+      }
     });
   });
 });
 
-var DateTimePickers = function() {
+var DateTimePickers = (function() {
   var _componentPickadate = function() {
     if (!$().pickadate) {
-      console.warn('Warning - picker.js and/or picker.date.js is not loaded.');
+      console.warn("Warning - picker.js and/or picker.date.js is not loaded.");
       return;
     }
-    $('.pickadate-selectors').pickadate({
+    $(".pickadate-selectors").pickadate({
       selectYears: true,
       selectMonths: true
     });
@@ -257,75 +261,79 @@ var DateTimePickers = function() {
     init: function() {
       _componentPickadate();
     }
-  }
-}();
+  };
+})();
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function() {
   DateTimePickers.init();
 });
 
-var FormValidation = function() {
+var FormValidation = (function() {
   var _componentValidation = function() {
-      if (!$().validate) {
-          console.warn('Warning - validate.min.js is not loaded.');
-          return;
+    if (!$().validate) {
+      console.warn("Warning - validate.min.js is not loaded.");
+      return;
+    }
+
+    // Initialize
+    var validator = $(".form-validate-jquery").validate({
+      ignore: "input[type=hidden], .select2-search__field", // ignore hidden fields
+      errorClass: "validation-invalid-label",
+      successClass: "validation-valid-label",
+      validClass: "validation-valid-label",
+      highlight: function(element, errorClass) {
+        $(element).removeClass(errorClass);
+      },
+      unhighlight: function(element, errorClass) {
+        $(element).removeClass(errorClass);
+      },
+
+      // Different components require proper error label placement
+      errorPlacement: function(error, element) {
+        // Unstyled checkboxes, radios
+        if (element.parents().hasClass("form-check")) {
+          error.appendTo(element.parents(".form-check").parent());
+        }
+
+        // Input with icons and Select2
+        else if (
+          element.parents().hasClass("form-group-feedback") ||
+          element.hasClass("select2-hidden-accessible")
+        ) {
+          error.appendTo(element.parent());
+        }
+
+        // Input group, styled file input
+        else if (
+          element.parent().is(".uniform-uploader, .uniform-select") ||
+          element.parents().hasClass("input-group")
+        ) {
+          error.appendTo(element.parent().parent());
+        }
+
+        // Other elements
+        else {
+          error.insertAfter(element);
+        }
       }
+    });
 
-      // Initialize
-      var validator = $('.form-validate-jquery').validate({
-          ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
-          errorClass: 'validation-invalid-label',
-          successClass: 'validation-valid-label',
-          validClass: 'validation-valid-label',
-          highlight: function(element, errorClass) {
-              $(element).removeClass(errorClass);
-          },
-          unhighlight: function(element, errorClass) {
-              $(element).removeClass(errorClass);
-          },
-
-          // Different components require proper error label placement
-          errorPlacement: function(error, element) {
-
-              // Unstyled checkboxes, radios
-              if (element.parents().hasClass('form-check')) {
-                  error.appendTo( element.parents('.form-check').parent() );
-              }
-
-              // Input with icons and Select2
-              else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
-                  error.appendTo( element.parent() );
-              }
-
-              // Input group, styled file input
-              else if (element.parent().is('.uniform-uploader, .uniform-select') || element.parents().hasClass('input-group')) {
-                  error.appendTo( element.parent().parent() );
-              }
-
-              // Other elements
-              else {
-                  error.insertAfter(element);
-              }
-          }
-      });
-
-      // Reset form
-      $('#reset').on('click', function() {
-          validator.resetForm();
-      });
+    // Reset form
+    $("#reset").on("click", function() {
+      validator.resetForm();
+    });
   };
 
   return {
-      init: function() {
-          _componentValidation();
-      }
-  }
-}();
+    init: function() {
+      _componentValidation();
+    }
+  };
+})();
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function() {
   FormValidation.init();
 });
-
 </script>
 <script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>
 
