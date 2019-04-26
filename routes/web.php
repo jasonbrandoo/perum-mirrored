@@ -294,6 +294,8 @@ Route::group([
         Route::get('/print_kuitansi_internal/{id}', 'Transaction\SuratPesanan\SuratPesananController@internalKuitansi')->name('transaction.surat-pesanan.internalKuitansi_pdf');
         Route::get('/print_kuitansi_developer/{id}', 'Transaction\SuratPesanan\SuratPesananController@developerKuitansi')->name('transaction.surat-pesanan.developerKuitansi_pdf');
         Route::get('/print_kuitansi_contractor/{id}', 'Transaction\SuratPesanan\SuratPesananController@contractorKuitansi')->name('transaction.surat-pesanan.contractorKuitansi_pdf');
+        Route::get('/edit_cicilan/{id}', 'Transaction\SuratPesanan\SuratPesananController@cicilanSp')->name('transaction.surat-pesanan.cicilanSp');
+        Route::patch('/update_cicilan/{id}', 'Transaction\SuratPesanan\SuratPesananController@updateCicilanSp')->name('transaction.surat-pesanan.updateCicilanSp');
 
         /* LOAD DATATABLE EACH TRANSACTION BY ID */
         Route::get('/akad/{id}', 'Transaction\SuratPesanan\SuratPesananController@akad')->name('transaction.surat-pesanan.akad');

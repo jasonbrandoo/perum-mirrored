@@ -594,11 +594,25 @@
                         <th>Seq</th>
                         <th>Description</th>
                         <th>Piutang</th>
-                        <th>Tanggal</th>
-                        <th></th>
+                        <th>Tgl</th>
+                        <th>Tgl Pembayaran</th>
+                        <th>Status</th>
+                        <th><i class="icon-printer"></i></th>
                       </tr>
                     </thead>
                   </table>
+
+                    <div class="d-flex">
+                      <div class="col-3">
+                        <h3>Total Lunas</h3>
+                        <h3>Rp. {{$totalLunas}}</h3>
+                      </div>
+                      <div class="col-9">
+                        <h3>Total Belum Lunas</h3>
+                        <h3>Rp. {{$totalBelumLunas}}</h3>
+                      </div>
+                    </div>
+
                   <input type="hidden" name="piutang" id="piutang">
                   <input type="hidden" name="internal" id="internal">
                 </div>
@@ -623,7 +637,8 @@
                         <th>Description</th>
                         <th>Piutang</th>
                         <th>Tanggal</th>
-                        <th></th>
+                        <th>Tgl Pembayaran</th>
+                        <th>Status</th>
                       </tr>
                     </thead>
                   </table>
@@ -775,26 +790,25 @@
 @endsection
  @push('scripts')
 <script>
-  $(document).ready(function(){
-
-    $('#customer_id').on('change', function(e){
+  $(document).ready(function() {
+    $("#customer_id").on("change", function(e) {
       var id = $(this).val();
       $.ajax({
-      url: '{{route('transaction.surat-pesanan.load_customer')}}',
-      data: {
-        id: id
-      },
-      success: function (result) {
-        $('#customer_name').val(result.customer_name);
-        $('#sales_id').val(result.sales_executive.id);
-        $('#sales_name').val(result.sales_executive.sales_name);
-        $('#supervisor_id').val(result.sales_supervisor.id);
-        $('#customer_company').val(result.company.id);
-        $('#company_name').val(result.company.company_name);
-      },
-      error: function (e) {
-        console.log(e);
-      }
+        url: "{{route('transaction.surat-pesanan.load_customer')}}",
+        data: {
+          id: id
+        },
+        success: function(result) {
+          $("#customer_name").val(result.customer_name);
+          $("#sales_id").val(result.sales_executive.id);
+          $("#sales_name").val(result.sales_executive.sales_name);
+          $("#supervisor_id").val(result.sales_supervisor.id);
+          $("#customer_company").val(result.company.id);
+          $("#company_name").val(result.company.company_name);
+        },
+        error: function(e) {
+          console.log(e);
+        }
       });
     });
 
@@ -816,150 +830,162 @@
     //   });
     // });
 
-    $('#mou_id').on('change', function(e){
+    $("#mou_id").on("change", function(e) {
       var id = $(this).val();
       $.ajax({
-      url: '{{route('transaction.surat-pesanan.load_mou')}}',
-      data: {
-        id: id
-      },
-      success: function (result) {
-        $('#mou_supervisor').val(result.mou_coordinator);
-      },
-      error: function (e) {
-        console.log(e);
-      }
+        url: "{{route('transaction.surat-pesanan.load_mou')}}",
+        data: {
+          id: id
+        },
+        success: function(result) {
+          $("#mou_supervisor").val(result.mou_coordinator);
+        },
+        error: function(e) {
+          console.log(e);
+        }
       });
     });
 
-    $('#sales_id').on('change', function(e){
+    $("#sales_id").on("change", function(e) {
       var id = $(this).val();
       $.ajax({
-      url: '{{route('transaction.surat-pesanan.load_sales')}}',
-      data: {
-        id: id
-      },
-      success: function (result) {
-        $('#sales_name').val(result.sales_name);
-      },
-      error: function (e) {
-        console.log(e);
-      }
+        url: "{{route('transaction.surat-pesanan.load_sales')}}",
+        data: {
+          id: id
+        },
+        success: function(result) {
+          $("#sales_name").val(result.sales_name);
+        },
+        error: function(e) {
+          console.log(e);
+        }
       });
     });
 
-    $('#kavling_id').on('change', function(e){
+    $("#kavling_id").on("change", function(e) {
       var id = $(this).val();
       $.ajax({
-      url: '{{route('transaction.surat-pesanan.load_kavling')}}',
-      data: {
-        id: id
-      },
-      success: function (result) {
-        $('#house_type').val(result.price.house.rumah_type_name);
-        $('#house_block').val(result.kavling_block);
-        $('#house_cluster').val(result.kavling_cluster);
-        $('#house_no').val(result.kavling_number);
-        $('#house_building').val(result.price.house.building_area_m2);
-        $('#house_surface').val(result.price.house.surface_area_m2);
-        $('#price_id').val(`H000${result.price.id}`);
-        $('#price').val($.number(result.price.price_selling));
-        $('input[name=sp_total_harga_jual]').val(result.price.price_selling);
-        $('#kavling_tl').val(result.kavling_tl_active);
-        const tt = parseFloat(result.kavling_surface);
-        $('#kavling_tt').val(tt);
-        $('#kavling_tanah_lebih').val(result.kavling_tl_active);
-        $('#kavling_tanah_m2').val(result.price.price_surface_m2);
-        $('input[name=sp_total_harga_tanah_lebih]').val(result.price.price_surface_m2);
-        $('#sp_booking_fee').val(result.price.price_booking);
-      },
-      error: function (e) {
-        console.log(e);
-      }
+        url: "{{route('transaction.surat-pesanan.load_kavling')}}",
+        data: {
+          id: id
+        },
+        success: function(result) {
+          $("#house_type").val(result.price.house.rumah_type_name);
+          $("#house_block").val(result.kavling_block);
+          $("#house_cluster").val(result.kavling_cluster);
+          $("#house_no").val(result.kavling_number);
+          $("#house_building").val(result.price.house.building_area_m2);
+          $("#house_surface").val(result.price.house.surface_area_m2);
+          $("#price_id").val(`H000${result.price.id}`);
+          $("#price").val($.number(result.price.price_selling));
+          $("input[name=sp_total_harga_jual]").val(result.price.price_selling);
+          $("#kavling_tl").val(result.kavling_tl_active);
+          const tt = parseFloat(result.kavling_surface);
+          $("#kavling_tt").val(tt);
+          $("#kavling_tanah_lebih").val(result.kavling_tl_active);
+          $("#kavling_tanah_m2").val(result.price.price_surface_m2);
+          $("input[name=sp_total_harga_tanah_lebih]").val(
+            result.price.price_surface_m2
+          );
+          $("#sp_booking_fee").val(result.price.price_booking);
+        },
+        error: function(e) {
+          console.log(e);
+        }
       });
     });
 
-    $('#kpr_plan').change((e) => {
-      const ajb = parseFloat($('input[name=sp_ajb_price]').val()) || 0;
-      const dp = parseFloat($('input[name=sp_dp]').val()) || 0;
+    $("#kpr_plan").change(e => {
+      const ajb = parseFloat($("input[name=sp_ajb_price]").val()) || 0;
+      const dp = parseFloat($("input[name=sp_dp]").val()) || 0;
       const inputVal = parseFloat(e.target.value) || 0;
-      alert(ajb)
-      const res = $('#kpr_plan_percen').val(ajb * (inputVal / 100));
+      alert(ajb);
+      const res = $("#kpr_plan_percen").val(ajb * (inputVal / 100));
       const float = res[0].value;
       const replacer = parseFloat(float.replace(/,/g, ""));
-      $('#sp_dp').val(ajb - replacer);
-    })
+      $("#sp_dp").val(ajb - replacer);
+    });
 
     /* $('#price_id').on('change', function(e){
-      var id = $(this).val();
-      // console.log(id);
-      $.ajax({
-      url: '{{route('transaction.surat-pesanan.load_price')}}',
-      data: {
-        id: id
-      },
-      success: function (result) {
-        // console.log(result);
-        $('#price').val($.number(result.price_selling));
-        $('input[name=sp_total_harga_jual]').val(result.price_selling);
-      },
-      error: function (e) {
-        console.log(e);
+        var id = $(this).val();
+        // console.log(id);
+        $.ajax({
+        url: '{{route('transaction.surat-pesanan.load_price')}}',
+        data: {
+          id: id
+        },
+        success: function (result) {
+          // console.log(result);
+          $('#price').val($.number(result.price_selling));
+          $('input[name=sp_total_harga_jual]').val(result.price_selling);
+        },
+        error: function (e) {
+          console.log(e);
+        }
+        });
+      }); */
+
+    const price = parseFloat($("input[name=sp_price]").val()) || 0;
+
+    $("input[name=sp_price_tl]").keyup(() => {
+      const tl = parseFloat($("input[name=sp_price_tl]").val()) || 0;
+      const price = parseFloat($("input[name=sp_price]").val()) || 0;
+      $("input[name=sp_total_harga_jual]").val(tl + price);
+    });
+
+    $("input[name=sp_harga_jual_tanah").on(
+      "keyup keydown keypress change",
+      () => {
+        const tanah = parseFloat($("input[name=sp_harga_jual_tanah").val()) || 0;
+        $("input[name=sp_after_discount]").val(tanah);
       }
-      });
-    }); */
+    );
 
-
-    const price = parseFloat($('input[name=sp_price]').val()) || 0;
-
-    $('input[name=sp_price_tl]').keyup(() => {
-      const tl = parseFloat($('input[name=sp_price_tl]').val()) || 0;
-      const price = parseFloat($('input[name=sp_price]').val()) || 0;
-      $('input[name=sp_total_harga_jual]').val(tl+price);
-    })
-
-    $('input[name=sp_harga_jual_tanah').on('keyup keydown keypress change', () => {
-      const tanah = parseFloat($('input[name=sp_harga_jual_tanah').val()) || 0;
-      $('input[name=sp_after_discount]').val(tanah);
-    })
-
-    $('input[name=sp_included_tl').click(() => {
-      const tl = parseFloat($('input[name=sp_price_tl]').val()) || 0;
-      const price = parseFloat($('input[name=sp_price]').val()) || 0;
-      const total = $('input[name=sp_total_harga_jual]').val(tl+price);
-      $('input[name=sp_harga_jual_tanah]').val(price)
-      if ($('input[name=sp_included_tl').prop('checked')) {
-        $('input[name=sp_harga_jual_tanah]').val($.number(total.val()));
+    $("input[name=sp_included_tl").click(() => {
+      const tl = parseFloat($("input[name=sp_price_tl]").val()) || 0;
+      const price = parseFloat($("input[name=sp_price]").val()) || 0;
+      const total = $("input[name=sp_total_harga_jual]").val(tl + price);
+      $("input[name=sp_harga_jual_tanah]").val(price);
+      if ($("input[name=sp_included_tl").prop("checked")) {
+        $("input[name=sp_harga_jual_tanah]").val($.number(total.val()));
       } else {
-        $('input[name=sp_harga_jual_tanah]').val(price)
+        $("input[name=sp_harga_jual_tanah]").val(price);
       }
-    })
+    });
 
-    $('input[name=sp_discount]').keyup(() => {
-      const discount = parseFloat($('input[name=sp_discount]').val()) || 0;
-      const rumah = parseFloat($('input[name=sp_harga_jual_tanah]').val()) || 0;
-      const afterDiscount = $('input[name=sp_after_discount]').val(rumah - (discount * rumah / 100));
-      $('input[name=sp_discount_nominal').val(0);
-      $('input[name=sp_harga_tanah_bangunan]').val(afterDiscount.val());
-    })
+    $("input[name=sp_discount]").keyup(() => {
+      const discount = parseFloat($("input[name=sp_discount]").val()) || 0;
+      const rumah = parseFloat($("input[name=sp_harga_jual_tanah]").val()) || 0;
+      const afterDiscount = $("input[name=sp_after_discount]").val(
+        rumah - (discount * rumah) / 100
+      );
+      $("input[name=sp_discount_nominal").val(0);
+      $("input[name=sp_harga_tanah_bangunan]").val(afterDiscount.val());
+    });
 
-    $('input[name=sp_discount_nominal]').keyup(() => {
-      const discount = parseFloat($('input[name=sp_discount_nominal]').val()) || 0;
-      const rumah = parseFloat($('input[name=sp_harga_jual_tanah]').val()) || 0;
-      $('input[name=sp_after_discount]').val(rumah - discount);
-      $('input[name=sp_discount').val(0);
-    })
+    $("input[name=sp_discount_nominal]").keyup(() => {
+      const discount =
+        parseFloat($("input[name=sp_discount_nominal]").val()) || 0;
+      const rumah = parseFloat($("input[name=sp_harga_jual_tanah]").val()) || 0;
+      $("input[name=sp_after_discount]").val(rumah - discount);
+      $("input[name=sp_discount").val(0);
+    });
 
-    $('input[name=sp_ppn_percentage]').keyup(() => {
-      const total = parseFloat($('input[name=sp_total_harga_jual]').val()) || 0;
-      const rumah = parseFloat($('input[name=sp_harga_jual_tanah]').val()) || 0;
-      const ppn = parseFloat($('input[name=sp_ppn_percentage]').val()) || 0;
-      const afterDiscount = parseFloat($('input[name=sp_after_discount]').val()) || 0;
-      const afterPpn = $('input[name=sp_after_ppn').val(ppn * (afterDiscount / 100));
-      const tanah = $('input[name=sp_harga_tanah_bangunan]').val( parseFloat(afterPpn.val()) +afterDiscount );
-      $('input[name=sp_harga_jual_pengikatan]').val(tanah.val())
-      $('input[name=sp_ajb_price]').val(tanah.val());
-    })
+    $("input[name=sp_ppn_percentage]").keyup(() => {
+      const total = parseFloat($("input[name=sp_total_harga_jual]").val()) || 0;
+      const rumah = parseFloat($("input[name=sp_harga_jual_tanah]").val()) || 0;
+      const ppn = parseFloat($("input[name=sp_ppn_percentage]").val()) || 0;
+      const afterDiscount =
+        parseFloat($("input[name=sp_after_discount]").val()) || 0;
+      const afterPpn = $("input[name=sp_after_ppn").val(
+        ppn * (afterDiscount / 100)
+      );
+      const tanah = $("input[name=sp_harga_tanah_bangunan]").val(
+        parseFloat(afterPpn.val()) + afterDiscount
+      );
+      $("input[name=sp_harga_jual_pengikatan]").val(tanah.val());
+      $("input[name=sp_ajb_price]").val(tanah.val());
+    });
 
     // $('input[name=sp_tanah_lebih], input[name=sp_harga_m2]').keyup(() => {
     //   const tanahLebih = parseFloat($('input[name=sp_tanah_lebih]').val()) || 0;
@@ -967,33 +993,33 @@
     //   $('input[name=sp_total_harga_tanah_lebih]').val(tanahLebih * hargaM2);
     // })
 
-    $('input[name=sp_dp], input[name=sp_ppn]').change(() => {
-      const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
-      const hargaTanahLebih = parseFloat($('input[name=sp_total_harga_tanah_lebih]').val()) || 0;
-      const dp = parseFloat($('input[name=sp_dp]').val()) || 0;
-      const ppn = parseFloat($('input[name=sp_ppn]').val()) || 0;
-      const sub = $('input[name=sp_sub_total]').val(hargaTanahLebih + dp + ppn);
+    $("input[name=sp_dp], input[name=sp_ppn]").change(() => {
+      const booking = parseFloat($("input[name=sp_booking_fee]").val()) || 0;
+      const hargaTanahLebih =
+        parseFloat($("input[name=sp_total_harga_tanah_lebih]").val()) || 0;
+      const dp = parseFloat($("input[name=sp_dp]").val()) || 0;
+      const ppn = parseFloat($("input[name=sp_ppn]").val()) || 0;
+      const sub = $("input[name=sp_sub_total]").val(hargaTanahLebih + dp + ppn);
       const subEl = sub[0].value;
       const subTotal = parseFloat(subEl.replace(/,/g, ""));
-      const total = parseFloat($('input[name=sp_total_bill]').val()) || 0;
-      $('input[name=sp_total]').val(subTotal + booking);
-      console.log('total', total);
-      console.log('dp',dp);
-      console.log('ppn',ppn);
+      const total = parseFloat($("input[name=sp_total_bill]").val()) || 0;
+      $("input[name=sp_total]").val(subTotal + booking);
+      console.log("total", total);
+      console.log("dp", dp);
+      console.log("ppn", ppn);
       if (total) {
-        $('input[name=sp_total_bill]').val(total + dp + ppn)
+        $("input[name=sp_total_bill]").val(total + dp + ppn);
       } else {
-        $('input[name=sp_total_bill]').val(dp + ppn);
+        $("input[name=sp_total_bill]").val(dp + ppn);
       }
-
-    })
+    });
 
     /* $('input[name=sp_booking_fee]').change(() => {
-      const subTotal = parseFloat($('input[name=sp_sub_total]').val()) || 0;
-      const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
-      $('input[name=sp_total_bill]').val(subTotal + booking);
-      $('input[name=sp_total]').val(subTotal + booking);
-    }) */
+        const subTotal = parseFloat($('input[name=sp_sub_total]').val()) || 0;
+        const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
+        $('input[name=sp_total_bill]').val(subTotal + booking);
+        $('input[name=sp_total]').val(subTotal + booking);
+      }) */
 
     // $('select[name*=sp_biaya_lain_diperhitungkan]').each((index, element) => {
     //   $('select[name*=sp_biaya_lain_diperhitungkan]').change((e) => {
@@ -1013,28 +1039,34 @@
     //   })
     // })
 
-    const template = $('#sections .section:first').clone();
+    const template = $("#sections .section:first").clone();
     let sectionCount = 1;
 
-    $('body').on('click','.addRowButton', () => {
+    $("body").on("click", ".addRowButton", () => {
       sectionCount++;
-      const section = template.clone(true).find(':input').val('').each((index, element) => {
-        const newId = element.id + sectionCount;
-        $(element).prev();
-        element.id = newId;
-      }).end().appendTo('#sections');
+      const section = template
+        .clone(true)
+        .find(":input")
+        .val("")
+        .each((index, element) => {
+          const newId = element.id + sectionCount;
+          $(element).prev();
+          element.id = newId;
+        })
+        .end()
+        .appendTo("#sections");
       return false;
     });
-    
-    $('body').on('click','.removeRowButton', function() {
-      $('#sections .section:last').fadeOut(300, function() {
+
+    $("body").on("click", ".removeRowButton", function() {
+      $("#sections .section:last").fadeOut(300, function() {
         $(this).remove();
         console.log($(this));
         return false;
       });
       return false;
     });
-    console.log({total: $("input[name=sp_total_bill]").val()});
+    console.log({ total: $("input[name=sp_total_bill]").val() });
     $(".addButton").click(() => {
       const totalBill = parseFloat($("input[name=sp_total_bill]").val());
       let arrayDev = [];
@@ -1072,1185 +1104,1264 @@
       });
     });
 
-
-    $('input[name=sp_per_month_internal]').change(() => {
-      const totalBill = parseFloat($('input[name=sp_total_bill]').val()) || 0;
-      const internal = parseFloat($('input[name=sp_per_month_internal]').val()) || 0;
-      $('input[name=sp_internal_bill]').val(Math.round(totalBill / internal));
+    $("input[name=sp_per_month_internal]").change(() => {
+      const totalBill = parseFloat($("input[name=sp_total_bill]").val()) || 0;
+      const internal =
+        parseFloat($("input[name=sp_per_month_internal]").val()) || 0;
+      $("input[name=sp_internal_bill]").val(Math.round(totalBill / internal));
     });
 
-    $('input[name=sp_per_month_kreditur]').change(() => {
-      const totalBill = parseFloat($('input[name=sp_total_bill]').val()) || 0;
-      const kreditur = parseFloat($('input[name=sp_per_month_kreditur]').val()) || 0;
-      $('input[name=sp_kreditur_bill]').val(Math.round(totalBill / kreditur));
+    $("input[name=sp_per_month_kreditur]").change(() => {
+      const totalBill = parseFloat($("input[name=sp_total_bill]").val()) || 0;
+      const kreditur =
+        parseFloat($("input[name=sp_per_month_kreditur]").val()) || 0;
+      $("input[name=sp_kreditur_bill]").val(Math.round(totalBill / kreditur));
     });
 
-    $('input[name=sp_per_month_contractor]').change(() => {
-      const totalContractor = parseFloat($('input[name=sp_contractor_bill]').val());
-      const contractor = parseFloat($('input[name=sp_per_month_contractor]').val()) || 0;
-      $('input[name=sp_contractor_bill]').val(Math.round(totalContractor / contractor));
+    $("input[name=sp_per_month_contractor]").change(() => {
+      const totalContractor = parseFloat(
+        $("input[name=sp_contractor_bill]").val()
+      );
+      const contractor =
+        parseFloat($("input[name=sp_per_month_contractor]").val()) || 0;
+      $("input[name=sp_contractor_bill]").val(
+        Math.round(totalContractor / contractor)
+      );
     });
 
-    const internal = parseFloat($('input[name=sp_per_month_internal]').val()) || 0;
-    const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
-    const subTotal = parseFloat($('input[name=sp_sub_total]').val()) || 0;
-    const piutang = Math.round(booking/internal);
+    const internal =
+      parseFloat($("input[name=sp_per_month_internal]").val()) || 0;
+    const booking = parseFloat($("input[name=sp_booking_fee]").val()) || 0;
+    const subTotal = parseFloat($("input[name=sp_sub_total]").val()) || 0;
+    const piutang = Math.round(booking / internal);
     console.log(internal);
-    $('#internal').val(internal);
-    $('#piutang').val(piutang);
+    $("#internal").val(internal);
+    $("#piutang").val(piutang);
   });
 
-  var FormWizard = function() {
-
+  var FormWizard = (function() {
     var _componentWizard = function() {
-        if (!$().steps) {
-            console.warn('Warning - steps.min.js is not loaded.');
-            return;
+      if (!$().steps) {
+        console.warn("Warning - steps.min.js is not loaded.");
+        return;
+      }
+
+      if (!$().validate) {
+        console.warn("Warning - validate.min.js is not loaded.");
+        return;
+      }
+
+      var form = $(".steps-validation").show();
+
+      $(".steps-validation").steps({
+        headerTag: "h6",
+        bodyTag: "fieldset",
+        titleTemplate: '<span class="number">#index#</span> #title#',
+        labels: {
+          previous: '<i class="icon-arrow-left13 mr-2" /> Previous',
+          next: 'Next <i class="icon-arrow-right14 ml-2" />',
+          finish: 'Submit form <i class="icon-arrow-right14 ml-2" />'
+        },
+        transitionEffect: "fade",
+        autoFocus: true,
+        onStepChanging: function(event, currentIndex, newIndex) {
+          // Allways allow previous action even if the current form is not valid!
+          if (currentIndex > newIndex) {
+            return true;
+          }
+
+          // Needed in some cases if the user went back (clean up)
+          if (currentIndex < newIndex) {
+            // To remove error styles
+            form.find(".body:eq(" + newIndex + ") label.error").remove();
+            form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+          }
+
+          form.validate().settings.ignore = ":disabled,:hidden";
+          return form.valid();
+        },
+        onFinishing: function(event, currentIndex) {
+          form.validate().settings.ignore = ":disabled";
+          return form.valid();
+        },
+        onFinished: function(event, currentIndex) {
+          swal({
+            type: "success",
+            title: "Success"
+          });
+          event.target.submit();
         }
+      });
 
+      $(".steps-validation").validate({
+        ignore: "input[type=hidden], .select2-search__field", // ignore hidden fields
+        errorClass: "validation-invalid-label",
+        highlight: function(element, errorClass) {
+          $(element).removeClass(errorClass);
+        },
+        unhighlight: function(element, errorClass) {
+          $(element).removeClass(errorClass);
+        },
 
-        if (!$().validate) {
-            console.warn('Warning - validate.min.js is not loaded.');
-            return;
+        // Different components require proper error label placement
+        errorPlacement: function(error, element) {
+          // Unstyled checkboxes, radios
+          if (element.parents().hasClass("form-check")) {
+            error.appendTo(element.parents(".form-check").parent());
+          }
+
+          // Input with icons and Select2
+          else if (
+            element.parents().hasClass("form-group-feedback") ||
+            element.hasClass("select2-hidden-accessible")
+          ) {
+            error.appendTo(element.parent());
+          }
+
+          // Input group, styled file input
+          else if (
+            element.parent().is(".uniform-uploader, .uniform-select") ||
+            element.parents().hasClass("input-group")
+          ) {
+            error.appendTo(element.parent().parent());
+          }
+
+          // Other elements
+          else {
+            error.insertAfter(element);
+          }
+        },
+        rules: {
+          sp_ppn_percentage: {
+            max: 100
+          },
+          "sp_description_nominal[]": {
+            number: true
+          }
         }
-
-        var form = $('.steps-validation').show();
-
-        $('.steps-validation').steps({
-            headerTag: 'h6',
-            bodyTag: 'fieldset',
-            titleTemplate: '<span class="number">#index#</span> #title#',
-            labels: {
-                previous: '<i class="icon-arrow-left13 mr-2" /> Previous',
-                next: 'Next <i class="icon-arrow-right14 ml-2" />',
-                finish: 'Submit form <i class="icon-arrow-right14 ml-2" />'
-            },
-            transitionEffect: 'fade',
-            autoFocus: true,
-            onStepChanging: function (event, currentIndex, newIndex) {
-
-                // Allways allow previous action even if the current form is not valid!
-                if (currentIndex > newIndex) {
-                    return true;
-                }
-
-                // Needed in some cases if the user went back (clean up)
-                if (currentIndex < newIndex) {
-
-                    // To remove error styles
-                    form.find('.body:eq(' + newIndex + ') label.error').remove();
-                    form.find('.body:eq(' + newIndex + ') .error').removeClass('error');
-                }
-
-                form.validate().settings.ignore = ':disabled,:hidden';
-                return form.valid();
-            },
-            onFinishing: function (event, currentIndex) {
-                form.validate().settings.ignore = ':disabled';
-                return form.valid();
-            },
-            onFinished: function (event, currentIndex) {
-                swal({
-                type: 'success',
-                title: 'Success',
-                });
-                event.target.submit();
-            }
-        });
-
-        $('.steps-validation').validate({
-            ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
-            errorClass: 'validation-invalid-label',
-            highlight: function(element, errorClass) {
-                $(element).removeClass(errorClass);
-            },
-            unhighlight: function(element, errorClass) {
-                $(element).removeClass(errorClass);
-            },
-
-            // Different components require proper error label placement
-            errorPlacement: function(error, element) {
-
-                // Unstyled checkboxes, radios
-                if (element.parents().hasClass('form-check')) {
-                    error.appendTo( element.parents('.form-check').parent() );
-                }
-
-                // Input with icons and Select2
-                else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
-                    error.appendTo( element.parent() );
-                }
-
-                // Input group, styled file input
-                else if (element.parent().is('.uniform-uploader, .uniform-select') || element.parents().hasClass('input-group')) {
-                    error.appendTo( element.parent().parent() );
-                }
-
-                // Other elements
-                else {
-                    error.insertAfter(element);
-                }
-            },
-            rules: {
-                sp_ppn_percentage: {
-                    max: 100
-                },
-                'sp_description_nominal[]': {
-                  number: true
-                }
-            }
-        });
+      });
     };
 
     var _componentUniform = function() {
-        if (!$().uniform) {
-            console.warn('Warning - uniform.min.js is not loaded.');
-            return;
-        }
+      if (!$().uniform) {
+        console.warn("Warning - uniform.min.js is not loaded.");
+        return;
+      }
 
-        // Initialize
-        $('.form-input-styled').uniform({
-            fileButtonClass: 'action btn bg-blue'
-        });
+      // Initialize
+      $(".form-input-styled").uniform({
+        fileButtonClass: "action btn bg-blue"
+      });
     };
     var _componentSelect2 = function() {
-        if (!$().select2) {
-            console.warn('Warning - select2.min.js is not loaded.');
-            return;
-        }
+      if (!$().select2) {
+        console.warn("Warning - select2.min.js is not loaded.");
+        return;
+      }
 
-        // Initialize
-        var $select = $('.form-control-select2-customer').select2({
-            minimumResultsForSearch: Infinity,
-            minimumInputLength: 4,
-            width: '100%'
-        });
+      // Initialize
+      var $select = $(".form-control-select2-customer").select2({
+        minimumResultsForSearch: Infinity,
+        minimumInputLength: 4,
+        width: "100%"
+      });
 
-        var $select = $('.form-control-select2-kavling').select2({
-            minimumResultsForSearch: Infinity,
-            minimumInputLength: 4,
-            width: '100%'
-        });
+      var $select = $(".form-control-select2-kavling").select2({
+        minimumResultsForSearch: Infinity,
+        minimumInputLength: 4,
+        width: "100%"
+      });
 
-        var $customer = $('.form-control-select2').select2({ 
-          minimumResultsForSearch: Infinity,
-          width: '100%'
-        });
+      var $customer = $(".form-control-select2").select2({
+        minimumResultsForSearch: Infinity,
+        width: "100%"
+      });
 
-        // Trigger value change when selection is made
-        $select.on('change', function() {
-            $(this).trigger('blur');
-        });
+      // Trigger value change when selection is made
+      $select.on("change", function() {
+        $(this).trigger("blur");
+      });
 
-        $customer.on('change', function() {
-            $(this).trigger('blur');
-        });
+      $customer.on("change", function() {
+        $(this).trigger("blur");
+      });
     };
 
     return {
-        init: function() {
-            _componentWizard();
-            _componentUniform();
-            _componentSelect2();
-        }
-    }
-  }();
+      init: function() {
+        _componentWizard();
+        _componentUniform();
+        _componentSelect2();
+      }
+    };
+  })();
 
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener("DOMContentLoaded", function() {
     FormWizard.init();
   });
 
-  var DateTimePickers = function() {
+  var DateTimePickers = (function() {
     var _componentPickadate = function() {
-        if (!$().pickadate) {
-            console.warn('Warning - picker.js and/or picker.date.js is not loaded.');
-            return;
-        }
-        $('.pickadate-selectors').pickadate({
-            selectYears: true,
-            selectMonths: true
-        });
+      if (!$().pickadate) {
+        console.warn("Warning - picker.js and/or picker.date.js is not loaded.");
+        return;
+      }
+      $(".pickadate-selectors").pickadate({
+        selectYears: true,
+        selectMonths: true
+      });
     };
     return {
-        init: function() {
-            _componentPickadate();
-        }
-    }
-  }();
+      init: function() {
+        _componentPickadate();
+      }
+    };
+  })();
 
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener("DOMContentLoaded", function() {
     DateTimePickers.init();
   });
 </script>
 @if (isset($surat))
 <script>
-  var DatatableSelect = function() {
-        var _componentDatatableSelect = function() {
-            if (!$().DataTable) {
-                console.warn('Warning - datatables.min.js is not loaded.');
-                return;
-            }
+  var DatatableSelect = (function() {
+    var _componentDatatableSelect = function() {
+      if (!$().DataTable) {
+        console.warn("Warning - datatables.min.js is not loaded.");
+        return;
+      }
 
-            $.extend( $.fn.dataTable.defaults, {
-                autoWidth: false,
-                columnDefs: [{
-                    orderable: false,
-                    width: 100,
-                }],
-                dom: '<"datatable-header"flB><"datatable-scroll-wrap"t><"datatable-footer"ip>',
-                language: {
-                    search: '<span>Search:</span> _INPUT_',
-                    searchPlaceholder: 'Type to search...',
-                    lengthMenu: '<span>Show:</span> _MENU_',
-                    paginate: { 'first': 'First', 'last': 'Last', 'next': $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;', 'previous': $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;' }
-                }
-            });
-
-            $('#akad-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: '{!! route('transaction.surat-pesanan.akad', $surat->id) !!}',
-                columns: [
-                    {
-                        data: 'id',
-                        className: 'select-checkbox',
-                        orderable: false,
-                        render: () => ''
-                    },
-                    {
-                        data: 'id',
-                        render: (data, type, row) => `<a href="/transaction/komisi-akad/${row.id}/edit">TBK000${row.id}</a>`
-                    },
-                    {
-                        data: 'akad_date',
-                        render: (data) => moment(data).format('D MMMM YYYY')
-                    },
-                    {
-                        data: 'akad_sp_id'
-                    },
-                    {
-                        data: 'surat.sp_date',
-                        render: (data) => moment(data).format('D MMMM YYYY')
-                    },
-                    {
-                        data: 'akad_ajb_date',
-                        render: (data) => moment(data).format('D MMMM YYYY')
-                    },
-                    {
-                        data: 'active',
-                        className: 'text-center',
-                        render: (active) => active === 'Active' ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-danger">Deactive</span>'
-                    },
-                ],
-                select: {
-                    style: 'os'
-                },
-                buttons: [
-                    {
-                        extend: 'collection',
-                        text: 'Select Action',
-                        className: 'btn',
-                        buttons: [
-                            {
-                                text: 'Deactive',
-                                className: '_active',
-                                action: (e, dt, type, indexes) => {
-                                    const { id } = dt.row({selected: true}).data();
-                                    $.ajax({
-                                        url: `/transaction/komisi-akad/${id}/action`,
-                                        type: 'PATCH',
-                                        data: {
-                                            id: id,
-                                            active: 'Deactive'
-                                        },
-                                        success: (response) => {
-                                            swal({
-                                                type: 'success',
-                                                text: 'Success'
-                                            }).then(() => {
-                                                window.location.reload();
-                                            });
-                                            console.log(response)
-                                        },
-                                        error: (err) => {
-                                            swal({
-                                                type: 'error',
-                                                text: 'Error'
-                                            })
-                                        }
-                                    })
-                                }
-                            },
-                            {
-                                text: 'Active',
-                                className: '_active',
-                                action: (e, dt, type, indexes) => {
-                                    const { id } = dt.row({selected: true}).data();
-                                    $.ajax({
-                                        url: `/transaction/komisi-akad/${id}/action`,
-                                        type: 'PATCH',
-                                        data: {
-                                            id: id,
-                                            active: 'Active'
-                                        },
-                                        success: (response) => {
-                                            swal({
-                                                type: 'success',
-                                                text: 'Success'
-                                            }).then(() => {
-                                                window.location.reload();
-                                            });
-                                            console.log(response)
-                                        },
-                                        error: (err) => {
-                                            swal({
-                                                type: 'error',
-                                                text: 'Error'
-                                            })
-                                        }
-                                    })
-                                }
-                            }
-                        ]
-                    }
-                ]
-            });
-            
-            $('#eksternal-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: '{!! route('transaction.surat-pesanan.eksternal', $surat->id) !!}',
-                columns: [
-                    {
-                        data: 'id',
-                        className: 'select-checkbox',
-                        orderable: false,
-                        render: () => ''
-                    },
-                    {
-                        data: 'id',
-                        render: (data, type, row) => `<a href="/transaction/komisi-eksternal/${row.id}/edit">KE000${row.id}</a>`
-                    },
-                    {
-                        data: 'eksternal_date',
-                        render: (date) => moment(date).format('D MMMM YYYY')
-                    },
-                    {
-                        data: 'mou.id'
-                    },
-                    {
-                        data: 'eksternal_sp_id',
-                    },
-                    {
-                        data: 'surat.sp_date',
-                        render: (data) => moment(data).format('D MMMM YYYY')
-                    },
-                    {
-                        data: 'eksternal_ajb_date',
-                        render: (data) => moment(data).format('D MMMM YYYY')
-                    },
-                    {
-                        data: 'active',
-                        className: 'text-center',
-                        render: (active) => active === 'Active' ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-danger">Deactive</span>'
-                    },
-                ],
-                select: {
-                    style: 'os'
-                },
-                buttons: [
-                    {
-                        extend: 'collection',
-                        text: 'Select Action',
-                        className: 'btn __active',
-                        buttons: [
-                            {
-                                text: 'Deactive',
-                                className: '_active',
-                                action: (e, dt, type, indexes) => {
-                                    const { id } = dt.row({selected: true}).data();
-                                    $.ajax({
-                                        url: `/transaction/komisi-eksternal/${id}/action`,
-                                        type: 'PATCH',
-                                        data: {
-                                            id: id,
-                                            active: 'Deactive'
-                                        },
-                                        success: (response) => {
-                                            swal({
-                                                type: 'success',
-                                                text: 'Success'
-                                            }).then(() => {
-                                                window.location.reload();
-                                            });
-                                            console.log(response)
-                                        },
-                                        error: (err) => {
-                                            swal({
-                                                type: 'error',
-                                                text: 'Error'
-                                            })
-                                        }
-                                    })
-                                }
-                            },
-                            {
-                                text: 'Active',
-                                className: '_active',
-                                action: (e, dt, type, indexes) => {
-                                    const { id } = dt.row({selected: true}).data();
-                                    $.ajax({
-                                        url: `/transaction/komisi-eksternal/${id}/action`,
-                                        type: 'PATCH',
-                                        data: {
-                                            id: id,
-                                            active: 'Active'
-                                        },
-                                        success: (response) => {
-                                            swal({
-                                                type: 'success',
-                                                text: 'Success'
-                                            }).then(() => {
-                                                window.location.reload();
-                                            });
-                                            console.log(response)
-                                        },
-                                        error: (err) => {
-                                            swal({
-                                                type: 'error',
-                                                text: 'Error'
-                                            })
-                                        }
-                                    })
-                                }
-                            }
-                        ]
-                    }
-                ]
-            });
-
-            $('#kuitansi-table').DataTable({
-              processing: true,
-              serverSide: true,
-              ajax: '{!! route('transaction.surat-pesanan.kuitansi', $surat->id) !!}',
-              columns: [
-                  {
-                      data: 'id',
-                      className: 'select-checkbox',
-                      orderable: false,
-                      render: () => ''
-                  },
-                  {
-                      data: 'id',
-                      render: (data, type, row) => `<a href="/transaction/kwitansi/${row.id}/edit">KRF000${row.id}</a>`                    
-                  },
-                  {
-                      data: 'kwitansi_date',
-                      render: (data) => moment(data).format('D MMMM YYYY')
-                  },
-                  {
-                      data: 'kwitansi_sp_id'
-                  },
-                  {
-                      data: 'kwitansi_staff_name'
-                  },
-                  {
-                      data: 'surat.customer.customer_name'
-                  },
-                  {
-                      data: 'payment.payment_method'
-                  },
-                  {
-                      data: 'active',
-                      className: 'text-center',
-                      render: (active) => active === 'Active' ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-danger">Deactive</span>'
-                  },
-              ],
-              select: {
-                  style: 'os'
-              },
-              buttons: [
-                  {
-                      extend: 'collection',
-                      text: 'Select Action',
-                      className: 'btn __active',
-                      buttons: [
-                          {
-                              text: 'Deactive',
-                              className: '_active',
-                              action: (e, dt, type, indexes) => {
-                                  const { id } = dt.row({selected: true}).data();
-                                  $.ajax({
-                                      url: `/transaction/kwitansi/${id}/action`,
-                                      type: 'PATCH',
-                                      data: {
-                                          id: id,
-                                          active: 'Deactive'
-                                      },
-                                      success: (response) => {
-                                          swal({
-                                              type: 'success',
-                                              text: 'Success'
-                                          }).then(() => {
-                                              window.location.reload();
-                                          });
-                                          console.log(response)
-                                      },
-                                      error: (err) => {
-                                          swal({
-                                              type: 'error',
-                                              text: 'Error'
-                                          })
-                                      }
-                                  })
-                              }
-                          },
-                          {
-                              text: 'Active',
-                              className: '_active',
-                              action: (e, dt, type, indexes) => {
-                                  const { id } = dt.row({selected: true}).data();
-                                  $.ajax({
-                                      url: `/transaction/kwitansi/${id}/action`,
-                                      type: 'PATCH',
-                                      data: {
-                                          id: id,
-                                          active: 'Active'
-                                      },
-                                      success: (response) => {
-                                          swal({
-                                              type: 'success',
-                                              text: 'Success'
-                                          }).then(() => {
-                                              window.location.reload();
-                                          });
-                                          console.log(response)
-                                      },
-                                      error: (err) => {
-                                          swal({
-                                              type: 'error',
-                                              text: 'Error'
-                                          })
-                                      }
-                                  })
-                              }
-                          }
-                      ]
-                  }
-              ]
-            });
-
-            $('#berkas-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: '{!! route('transaction.surat-pesanan.berkas', $surat->id) !!}',
-                columns: [
-                    {
-                        data: 'id',
-                        className: 'select-checkbox',
-                        orderable: false,
-                        render: () => ''
-                    },
-                    {
-                        data: 'id',
-                        render: (data, type, row) => `<a href="/transaction/berkas/${row.id}/edit">TBK000${row.id}</a>`
-                    },
-                    {
-                        data: 'berkas_date',
-                        render: (data) => moment(data).format('D MMMM YYYY')
-                    },
-                    {
-                        data: 'berkas_reciever_id',
-                        render: (data, type, row) => row.user.name
-                    },
-                    {
-                        data: 'berkas_sp_id'
-                    },
-                    {
-                        data: 'surat.customer.customer_name'
-                    },
-                    {
-                        data: 'active',
-                        className: 'text-center',
-                        render: (active) => active === 'Active' ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-danger">Deactive</span>'
-                    },
-                ],
-                select: {
-                    style: 'os'
-                },
-                buttons: [
-                    {
-                        extend: 'collection',
-                        text: 'Select Action',
-                        className: 'btn',
-                        buttons: [
-                            {
-                                text: 'Deactive',
-                                className: '_active',
-                                action: (e, dt, type, indexes) => {
-                                    const { id } = dt.row({selected: true}).data();
-                                    $.ajax({
-                                        url: `/transaction/berkas/${id}/action`,
-                                        type: 'PATCH',
-                                        data: {
-                                            id: id,
-                                            active: 'Deactive'
-                                        },
-                                        success: (response) => {
-                                            swal({
-                                                type: 'success',
-                                                text: 'Success'
-                                            }).then(() => {
-                                                window.location.reload();
-                                            });
-                                            console.log(response)
-                                        },
-                                        error: (err) => {
-                                            swal({
-                                                type: 'error',
-                                                text: 'Error'
-                                            })
-                                        }
-                                    })
-                                }
-                            },
-                            {
-                                text: 'Active',
-                                className: '_active',
-                                action: (e, dt, type, indexes) => {
-                                    const { id } = dt.row({selected: true}).data();
-                                    $.ajax({
-                                        url: `/transaction/berkas/${id}/action`,
-                                        type: 'PATCH',
-                                        data: {
-                                            id: id,
-                                            active: 'Active'
-                                        },
-                                        success: (response) => {
-                                            swal({
-                                                type: 'success',
-                                                text: 'Success'
-                                            }).then(() => {
-                                                window.location.reload();
-                                            });
-                                            console.log(response)
-                                        },
-                                        error: (err) => {
-                                            swal({
-                                                type: 'error',
-                                                text: 'Error'
-                                            })
-                                        }
-                                    })
-                                }
-                            }
-                        ]
-                    }
-                ]
-            });
-
-            $('#wawancara-table').DataTable({
-                dom: '<"datatable-header"><"datatable-scroll-wrap"t><"datatable-footer"ip>',
-                processing: true,
-                serverSide: true,
-                ajax: '{!! route('transaction.surat-pesanan.wawancara', $surat->id) !!}',
-                columns: [
-                    {
-                        data: 'id', className: 'select-checkbox', orderable: false, render: () => ''
-                    },
-                    {
-                        data: 'id', render: (id) => `RW000${id}`
-                    },
-                    {
-                        data: 'wawancara_date',
-                        render: (data) => moment(data).format('D MMMM YYYY')
-                    },
-                    {
-                        data: 'wawancara_sp_id'
-                    },
-                    {
-                        data: 'surat.customer.customer_name'
-                    },
-                    {
-                        data: 'wawancara_analyst'
-                    },
-                    {
-                        data: 'realisasi.rlw_date',
-                        render: (data) => moment(data).format('D MMMM YYYY')
-                    },
-                    {
-                        data: 'wawancara_status'
-                    },
-                ],
-                select: {
-                    style: 'multi'
-                }
-            });
-
-            $('#lpa-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: '{!! route('transaction.surat-pesanan.lpa', $surat->id) !!}',
-                columns: [
-                    {
-                        data: 'id',
-                        className: 'select-checkbox',
-                        orderable: false,
-                        render: () => ''
-                    },
-                    {
-                        data: 'id',
-                        render: (data, type, row) => `<a href="/transaction/lpa/${row.id}/edit">KRF000${row.id}</a>`                    
-                    },
-                    {
-                        data: 'lpa_date',
-                        render: (data) => moment(data).format('D MMMM YYYY')
-                    },
-                    {
-                        data: 'lpa_type'
-                    },
-                    {
-                        data: 'lpa_sp_id'
-                    },
-                    {
-                        data: 'surat.customer.customer_name'
-                    },
-                    {
-                        data: 'surat.kavling.kavling_cluster'
-                    },
-                    {
-                        data: 'active',
-                        className: 'text-center',
-                        render: (active) => active === 'Active' ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-danger">Deactive</span>'
-                    },
-                ],
-                select: {
-                    style: 'os'
-                },
-                buttons: [
-                    {
-                        extend: 'collection',
-                        text: 'Select Action',
-                        className: 'btn __active',
-                        buttons: [
-                            {
-                                text: 'Deactive',
-                                className: '_active',
-                                action: (e, dt, type, indexes) => {
-                                    const { id } = dt.row({selected: true}).data();
-                                    $.ajax({
-                                        url: `/transaction/lpa/${id}/action`,
-                                        type: 'PATCH',
-                                        data: {
-                                            id: id,
-                                            active: 'Deactive'
-                                        },
-                                        success: (response) => {
-                                            swal({
-                                                type: 'success',
-                                                text: 'Success'
-                                            }).then(() => {
-                                                window.location.reload();
-                                            });
-                                            console.log(response)
-                                        },
-                                        error: (err) => {
-                                            swal({
-                                                type: 'error',
-                                                text: 'Error'
-                                            })
-                                        }
-                                    })
-                                }
-                            },
-                            {
-                                text: 'Active',
-                                className: '_active',
-                                action: (e, dt, type, indexes) => {
-                                    const { id } = dt.row({selected: true}).data();
-                                    $.ajax({
-                                        url: `/transaction/lpa/${id}/action`,
-                                        type: 'PATCH',
-                                        data: {
-                                            id: id,
-                                            active: 'Active'
-                                        },
-                                        success: (response) => {
-                                            swal({
-                                                type: 'success',
-                                                text: 'Success'
-                                            }).then(() => {
-                                                window.location.reload();
-                                            });
-                                            console.log(response)
-                                        },
-                                        error: (err) => {
-                                            swal({
-                                                type: 'error',
-                                                text: 'Error'
-                                            })
-                                        }
-                                    })
-                                }
-                            }
-                        ]
-                    }
-                ]
-            });
-
-            $('#ajb-table').DataTable({
-                dom: '<"datatable-header"><"datatable-scroll-wrap"t><"datatable-footer"ip>',
-                processing: true,
-                serverSide: true,
-                ajax: '{!! route('transaction.surat-pesanan.ajb', $surat->id) !!}',
-                columns: [
-                    {
-                        data: 'id'
-                    },
-                    {
-                        data: 'ajb_date',
-                        render: (data) => moment(data).format('D MMMM YYYY')
-                    },
-                    {
-                        data: 'ajb_notaris'
-                    },
-                    {
-                        data: 'ajb_sp_id'
-                    },
-                ],
-                select: {
-                    style: 'multi'
-                }
-            });
-
-            $('#legal-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: '{!! route('transaction.surat-pesanan.legal', $surat->id) !!}',
-                columns: [
-                    {
-                        data: 'id',
-                        className: 'select-checkbox',
-                        orderable: false,
-                        render: () => ''
-                    },
-                    {
-                        data: 'id',
-                        render: (data, type, row) => `<a href="/transaction/legal/${row.id}/edit">KRF000${row.id}</a>`
-                    },
-                    {
-                        data: 'legal_date',
-                        render: (data) => moment(data).format('D MMMM YYYY')
-                    },
-                    {
-                        data: 'legal_shgb_parent_date',
-                        render: (data) => moment(data).format('D MMMM YYYY')
-                    },
-                    {
-                        data: 'legal_shgb_fraction_date',
-                        render: (data) => moment(data).format('D MMMM YYYY')
-                    },
-                    {
-                        data: 'surat.id'
-                    },
-                    {
-                        data: 'active',
-                        className: 'text-center',
-                        render: (active) => active === 'Active' ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-danger">Deactive</span>'
-                    },
-                ],
-                select: {
-                    style: 'os'
-                },
-                buttons: [
-                    {
-                        extend: 'collection',
-                        text: 'Select Action',
-                        className: 'btn __active',
-                        buttons: [
-                            {
-                                text: 'Deactive',
-                                className: '_active',
-                                action: (e, dt, type, indexes) => {
-                                    const { id } = dt.row({selected: true}).data();
-                                    $.ajax({
-                                        url: `/transaction/legal/${id}/action`,
-                                        type: 'PATCH',
-                                        data: {
-                                            id: id,
-                                            active: 'Deactive'
-                                        },
-                                        success: (response) => {
-                                            swal({
-                                                type: 'success',
-                                                text: 'Success'
-                                            }).then(() => {
-                                                window.location.reload();
-                                            });
-                                            console.log(response)
-                                        },
-                                        error: (err) => {
-                                            swal({
-                                                type: 'error',
-                                                text: 'Error'
-                                            })
-                                        }
-                                    })
-                                }
-                            },
-                            {
-                                text: 'Active',
-                                className: '_active',
-                                action: (e, dt, type, indexes) => {
-                                    const { id } = dt.row({selected: true}).data();
-                                    $.ajax({
-                                        url: `/transaction/legal/${id}/action`,
-                                        type: 'PATCH',
-                                        data: {
-                                            id: id,
-                                            active: 'Active'
-                                        },
-                                        success: (response) => {
-                                            swal({
-                                                type: 'success',
-                                                text: 'Success'
-                                            }).then(() => {
-                                                window.location.reload();
-                                            });
-                                            console.log(response)
-                                        },
-                                        error: (err) => {
-                                            swal({
-                                                type: 'error',
-                                                text: 'Error'
-                                            })
-                                        }
-                                    })
-                                }
-                            }
-                        ]
-                    }
-                ]
-            });
-
-            $('#spk-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: '{!! route('transaction.surat-pesanan.spk', $surat->id) !!}',
-                columns: [
-                    {
-                        data: 'id',
-                        className: 'select-checkbox',
-                        orderable: false,
-                        render: () => ''
-                    },
-                    {
-                        data: 'id',
-                        render: (id) => `<a href="/transaction/spk/${id}/edit">SPK000${id}</a>`
-                    },
-                    {
-                        data: 'spk_date',
-                        render: (data) => moment(data).format('D MMMM YYYY')
-                    },
-                    {
-                        data: 'spk_sp_id'
-                    },
-                    {
-                        data: 'surat.customer.customer_name'
-                    },
-                    {
-                        data: 'active',
-                        className: 'text-center',
-                        render: (active) => active === 'Active' ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-danger">Deactive</span>'
-                    },
-                ],
-                select: {
-                    style: 'os'
-                },
-                buttons: [
-                    {
-                        extend: 'collection',
-                        text: 'Select Action',
-                        className: 'btn',
-                        buttons: [
-                            {
-                                text: 'Deactive',
-                                className: '_active',
-                                action: (e, dt, type, indexes) => {
-                                    const { id } = dt.row({selected: true}).data();
-                                    $.ajax({
-                                        url: `/transaction/spk/${id}/action`,
-                                        type: 'PATCH',
-                                        data: {
-                                            id: id,
-                                            active: 'Deactive'
-                                        },
-                                        success: (response) => {
-                                            swal({
-                                                type: 'success',
-                                                text: 'Success'
-                                            }).then(() => {
-                                                window.location.reload();
-                                            });
-                                            console.log(response)
-                                        },
-                                        error: (err) => {
-                                            swal({
-                                                type: 'error',
-                                                text: 'Error'
-                                            })
-                                        }
-                                    })
-                                }
-                            },
-                            {
-                                text: 'Active',
-                                className: '_active',
-                                action: (e, dt, type, indexes) => {
-                                    const { id } = dt.row({selected: true}).data();
-                                    $.ajax({
-                                        url: `/transaction/spk/${id}/action`,
-                                        type: 'PATCH',
-                                        data: {
-                                            id: id,
-                                            active: 'Active'
-                                        },
-                                        success: (response) => {
-                                            swal({
-                                                type: 'success',
-                                                text: 'Success'
-                                            }).then(() => {
-                                                window.location.reload();
-                                            });
-                                            console.log(response)
-                                        },
-                                        error: (err) => {
-                                            swal({
-                                                type: 'error',
-                                                text: 'Error'
-                                            })
-                                        }
-                                    })
-                                }
-                            }
-                        ]
-                    }
-                ]
-            });
-
-            $('#result').DataTable({
-                dom: '<"datatable-header"><"datatable-scroll-wrap"t><"datatable-footer"ip>',
-                processing: true,
-                serverSide: true,
-                ajax: '{!! route('transaction.surat-pesanan.cicilan', $surat->id) !!}',
-                columns: [
-                    {
-                        data: 'no',
-                    },
-                    {
-                        data: 'description',
-                    },
-                    {
-                        data: 'piutang',
-                    },
-                    {
-                        data: 'created_at',
-                        render: (data) => moment().format('D MMMM YYYY')
-                    },
-                    {
-                        data: 'id',
-                        render: (id) => `<span><a href="/transaction/surat-pesanan/print_kuitansi_internal/${id}">Print</a></span>`
-                    }
-                ],
-                select: {
-                    style: 'os'
-                },
-            });
-
-            $('#developer').DataTable({
-                dom: '<"datatable-header"><"datatable-scroll-wrap"t><"datatable-footer"ip>',
-                processing: true,
-                serverSide: true,
-                ajax: '{!! route('transaction.surat-pesanan.developer', $surat->id) !!}',
-                columns: [
-                    {
-                        data: 'no',
-                    },
-                    {
-                        data: 'sp_description',
-                    },
-                    {
-                        data: 'sp_description_nominal',
-                    },
-                    {
-                        data: 'created_at',
-                        render: (data) => moment().format('D MMMM YYYY')
-                    },
-                    {
-                        data: 'sp_id',
-                        render: (id) => `<span><a href="/transaction/surat-pesanan/print_kuitansi_developer/${id}">Print</a></span>`
-                    }
-                ],
-                select: {
-                    style: 'os'
-                },
-            });
-
-            $('#kontraktor').DataTable({
-                dom: '<"datatable-header"><"datatable-scroll-wrap"t><"datatable-footer"ip>',
-                processing: true,
-                serverSide: true,
-                ajax: '{!! route('transaction.surat-pesanan.contractor', $surat->id) !!}',
-                columns: [
-                    {
-                        data: 'no',
-                    },
-                    {
-                        data: 'sp_description',
-                    },
-                    {
-                        data: 'sp_description_nominal',
-                    },
-                    {
-                        data: 'created_at',
-                        render: (data) => moment().format('D MMMM YYYY')
-                    },
-                    {
-                        data: 'sp_id',
-                        render: (id) => `<span><a href="/transaction/surat-pesanan/print_kuitansi_contractor/${id}">Print</a></span>`
-                    }
-                ],
-                select: {
-                    style: 'os'
-                },
-            });
-        };
-
-        var _componentSelect2 = function() {
-            if (!$().select2) {
-                console.warn('Warning - select2.min.js is not loaded.');
-                return;
-            }
-
-            $('.dataTables_length select').select2({
-                minimumResultsForSearch: Infinity,
-                dropdownAutoWidth: true,
-                width: 'auto'
-            });
-        };
-
-        return {
-            init: function() {
-                _componentDatatableSelect();
-                _componentSelect2();
-            }
+      $.extend($.fn.dataTable.defaults, {
+        autoWidth: false,
+        columnDefs: [
+          {
+            orderable: false,
+            width: 100
+          }
+        ],
+        dom:
+          '<"datatable-header"flB><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+        language: {
+          search: "<span>Search:</span> _INPUT_",
+          searchPlaceholder: "Type to search...",
+          lengthMenu: "<span>Show:</span> _MENU_",
+          paginate: {
+            first: "First",
+            last: "Last",
+            next: $("html").attr("dir") == "rtl" ? "&larr;" : "&rarr;",
+            previous: $("html").attr("dir") == "rtl" ? "&rarr;" : "&larr;"
+          }
         }
-      }();
-
-      document.addEventListener('DOMContentLoaded', function() {
-        DatatableSelect.init();
       });
 
+      $("#akad-table").DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{!! route('transaction.surat-pesanan.akad', $surat->id) !!}",
+        columns: [
+          {
+            data: "id",
+            className: "select-checkbox",
+            orderable: false,
+            render: () => ""
+          },
+          {
+            data: "id",
+            render: (data, type, row) =>
+              `<a href="/transaction/komisi-akad/${row.id}/edit">TBK000${
+                row.id
+              }</a>`
+          },
+          {
+            data: "akad_date",
+            render: data => moment(data).format("D MMMM YYYY")
+          },
+          {
+            data: "akad_sp_id"
+          },
+          {
+            data: "surat.sp_date",
+            render: data => moment(data).format("D MMMM YYYY")
+          },
+          {
+            data: "akad_ajb_date",
+            render: data => moment(data).format("D MMMM YYYY")
+          },
+          {
+            data: "active",
+            className: "text-center",
+            render: active =>
+              active === "Active"
+                ? '<span class="badge badge-primary">Active</span>'
+                : '<span class="badge badge-danger">Deactive</span>'
+          }
+        ],
+        select: {
+          style: "os"
+        },
+        buttons: [
+          {
+            extend: "collection",
+            text: "Select Action",
+            className: "btn",
+            buttons: [
+              {
+                text: "Deactive",
+                className: "_active",
+                action: (e, dt, type, indexes) => {
+                  const { id } = dt.row({ selected: true }).data();
+                  $.ajax({
+                    url: `/transaction/komisi-akad/${id}/action`,
+                    type: "PATCH",
+                    data: {
+                      id: id,
+                      active: "Deactive"
+                    },
+                    success: response => {
+                      swal({
+                        type: "success",
+                        text: "Success"
+                      }).then(() => {
+                        window.location.reload();
+                      });
+                      console.log(response);
+                    },
+                    error: err => {
+                      swal({
+                        type: "error",
+                        text: "Error"
+                      });
+                    }
+                  });
+                }
+              },
+              {
+                text: "Active",
+                className: "_active",
+                action: (e, dt, type, indexes) => {
+                  const { id } = dt.row({ selected: true }).data();
+                  $.ajax({
+                    url: `/transaction/komisi-akad/${id}/action`,
+                    type: "PATCH",
+                    data: {
+                      id: id,
+                      active: "Active"
+                    },
+                    success: response => {
+                      swal({
+                        type: "success",
+                        text: "Success"
+                      }).then(() => {
+                        window.location.reload();
+                      });
+                      console.log(response);
+                    },
+                    error: err => {
+                      swal({
+                        type: "error",
+                        text: "Error"
+                      });
+                    }
+                  });
+                }
+              }
+            ]
+          }
+        ]
+      });
+
+      $("#eksternal-table").DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{!! route('transaction.surat-pesanan.eksternal', $surat->id) !!}",
+        columns: [
+          {
+            data: "id",
+            className: "select-checkbox",
+            orderable: false,
+            render: () => ""
+          },
+          {
+            data: "id",
+            render: (data, type, row) =>
+              `<a href="/transaction/komisi-eksternal/${row.id}/edit">KE000${
+                row.id
+              }</a>`
+          },
+          {
+            data: "eksternal_date",
+            render: date => moment(date).format("D MMMM YYYY")
+          },
+          {
+            data: "mou.id"
+          },
+          {
+            data: "eksternal_sp_id"
+          },
+          {
+            data: "surat.sp_date",
+            render: data => moment(data).format("D MMMM YYYY")
+          },
+          {
+            data: "eksternal_ajb_date",
+            render: data => moment(data).format("D MMMM YYYY")
+          },
+          {
+            data: "active",
+            className: "text-center",
+            render: active =>
+              active === "Active"
+                ? '<span class="badge badge-primary">Active</span>'
+                : '<span class="badge badge-danger">Deactive</span>'
+          }
+        ],
+        select: {
+          style: "os"
+        },
+        buttons: [
+          {
+            extend: "collection",
+            text: "Select Action",
+            className: "btn __active",
+            buttons: [
+              {
+                text: "Deactive",
+                className: "_active",
+                action: (e, dt, type, indexes) => {
+                  const { id } = dt.row({ selected: true }).data();
+                  $.ajax({
+                    url: `/transaction/komisi-eksternal/${id}/action`,
+                    type: "PATCH",
+                    data: {
+                      id: id,
+                      active: "Deactive"
+                    },
+                    success: response => {
+                      swal({
+                        type: "success",
+                        text: "Success"
+                      }).then(() => {
+                        window.location.reload();
+                      });
+                      console.log(response);
+                    },
+                    error: err => {
+                      swal({
+                        type: "error",
+                        text: "Error"
+                      });
+                    }
+                  });
+                }
+              },
+              {
+                text: "Active",
+                className: "_active",
+                action: (e, dt, type, indexes) => {
+                  const { id } = dt.row({ selected: true }).data();
+                  $.ajax({
+                    url: `/transaction/komisi-eksternal/${id}/action`,
+                    type: "PATCH",
+                    data: {
+                      id: id,
+                      active: "Active"
+                    },
+                    success: response => {
+                      swal({
+                        type: "success",
+                        text: "Success"
+                      }).then(() => {
+                        window.location.reload();
+                      });
+                      console.log(response);
+                    },
+                    error: err => {
+                      swal({
+                        type: "error",
+                        text: "Error"
+                      });
+                    }
+                  });
+                }
+              }
+            ]
+          }
+        ]
+      });
+
+      $("#kuitansi-table").DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{!! route('transaction.surat-pesanan.kuitansi', $surat->id) !!}",
+        columns: [
+          {
+            data: "id",
+            className: "select-checkbox",
+            orderable: false,
+            render: () => ""
+          },
+          {
+            data: "id",
+            render: (data, type, row) =>
+              `<a href="/transaction/kwitansi/${row.id}/edit">KRF000${row.id}</a>`
+          },
+          {
+            data: "kwitansi_date",
+            render: data => moment(data).format("D MMMM YYYY")
+          },
+          {
+            data: "kwitansi_sp_id"
+          },
+          {
+            data: "kwitansi_staff_name"
+          },
+          {
+            data: "surat.customer.customer_name"
+          },
+          {
+            data: "payment.payment_method"
+          },
+          {
+            data: "active",
+            className: "text-center",
+            render: active =>
+              active === "Active"
+                ? '<span class="badge badge-primary">Active</span>'
+                : '<span class="badge badge-danger">Deactive</span>'
+          }
+        ],
+        select: {
+          style: "os"
+        },
+        buttons: [
+          {
+            extend: "collection",
+            text: "Select Action",
+            className: "btn __active",
+            buttons: [
+              {
+                text: "Deactive",
+                className: "_active",
+                action: (e, dt, type, indexes) => {
+                  const { id } = dt.row({ selected: true }).data();
+                  $.ajax({
+                    url: `/transaction/kwitansi/${id}/action`,
+                    type: "PATCH",
+                    data: {
+                      id: id,
+                      active: "Deactive"
+                    },
+                    success: response => {
+                      swal({
+                        type: "success",
+                        text: "Success"
+                      }).then(() => {
+                        window.location.reload();
+                      });
+                      console.log(response);
+                    },
+                    error: err => {
+                      swal({
+                        type: "error",
+                        text: "Error"
+                      });
+                    }
+                  });
+                }
+              },
+              {
+                text: "Active",
+                className: "_active",
+                action: (e, dt, type, indexes) => {
+                  const { id } = dt.row({ selected: true }).data();
+                  $.ajax({
+                    url: `/transaction/kwitansi/${id}/action`,
+                    type: "PATCH",
+                    data: {
+                      id: id,
+                      active: "Active"
+                    },
+                    success: response => {
+                      swal({
+                        type: "success",
+                        text: "Success"
+                      }).then(() => {
+                        window.location.reload();
+                      });
+                      console.log(response);
+                    },
+                    error: err => {
+                      swal({
+                        type: "error",
+                        text: "Error"
+                      });
+                    }
+                  });
+                }
+              }
+            ]
+          }
+        ]
+      });
+
+      $("#berkas-table").DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{!! route('transaction.surat-pesanan.berkas', $surat->id) !!}",
+        columns: [
+          {
+            data: "id",
+            className: "select-checkbox",
+            orderable: false,
+            render: () => ""
+          },
+          {
+            data: "id",
+            render: (data, type, row) =>
+              `<a href="/transaction/berkas/${row.id}/edit">TBK000${row.id}</a>`
+          },
+          {
+            data: "berkas_date",
+            render: data => moment(data).format("D MMMM YYYY")
+          },
+          {
+            data: "berkas_reciever_id",
+            render: (data, type, row) => row.user.name
+          },
+          {
+            data: "berkas_sp_id"
+          },
+          {
+            data: "surat.customer.customer_name"
+          },
+          {
+            data: "active",
+            className: "text-center",
+            render: active =>
+              active === "Active"
+                ? '<span class="badge badge-primary">Active</span>'
+                : '<span class="badge badge-danger">Deactive</span>'
+          }
+        ],
+        select: {
+          style: "os"
+        },
+        buttons: [
+          {
+            extend: "collection",
+            text: "Select Action",
+            className: "btn",
+            buttons: [
+              {
+                text: "Deactive",
+                className: "_active",
+                action: (e, dt, type, indexes) => {
+                  const { id } = dt.row({ selected: true }).data();
+                  $.ajax({
+                    url: `/transaction/berkas/${id}/action`,
+                    type: "PATCH",
+                    data: {
+                      id: id,
+                      active: "Deactive"
+                    },
+                    success: response => {
+                      swal({
+                        type: "success",
+                        text: "Success"
+                      }).then(() => {
+                        window.location.reload();
+                      });
+                      console.log(response);
+                    },
+                    error: err => {
+                      swal({
+                        type: "error",
+                        text: "Error"
+                      });
+                    }
+                  });
+                }
+              },
+              {
+                text: "Active",
+                className: "_active",
+                action: (e, dt, type, indexes) => {
+                  const { id } = dt.row({ selected: true }).data();
+                  $.ajax({
+                    url: `/transaction/berkas/${id}/action`,
+                    type: "PATCH",
+                    data: {
+                      id: id,
+                      active: "Active"
+                    },
+                    success: response => {
+                      swal({
+                        type: "success",
+                        text: "Success"
+                      }).then(() => {
+                        window.location.reload();
+                      });
+                      console.log(response);
+                    },
+                    error: err => {
+                      swal({
+                        type: "error",
+                        text: "Error"
+                      });
+                    }
+                  });
+                }
+              }
+            ]
+          }
+        ]
+      });
+
+      $("#wawancara-table").DataTable({
+        dom:
+          '<"datatable-header"><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+        processing: true,
+        serverSide: true,
+        ajax: "{!! route('transaction.surat-pesanan.wawancara', $surat->id) !!}",
+        columns: [
+          {
+            data: "id",
+            className: "select-checkbox",
+            orderable: false,
+            render: () => ""
+          },
+          {
+            data: "id",
+            render: id => `RW000${id}`
+          },
+          {
+            data: "wawancara_date",
+            render: data => moment(data).format("D MMMM YYYY")
+          },
+          {
+            data: "wawancara_sp_id"
+          },
+          {
+            data: "surat.customer.customer_name"
+          },
+          {
+            data: "wawancara_analyst"
+          },
+          {
+            data: "realisasi.rlw_date",
+            render: data => moment(data).format("D MMMM YYYY")
+          },
+          {
+            data: "wawancara_status"
+          }
+        ],
+        select: {
+          style: "multi"
+        }
+      });
+
+      $("#lpa-table").DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{!! route('transaction.surat-pesanan.lpa', $surat->id) !!}",
+        columns: [
+          {
+            data: "id",
+            className: "select-checkbox",
+            orderable: false,
+            render: () => ""
+          },
+          {
+            data: "id",
+            render: (data, type, row) =>
+              `<a href="/transaction/lpa/${row.id}/edit">KRF000${row.id}</a>`
+          },
+          {
+            data: "lpa_date",
+            render: data => moment(data).format("D MMMM YYYY")
+          },
+          {
+            data: "lpa_type"
+          },
+          {
+            data: "lpa_sp_id"
+          },
+          {
+            data: "surat.customer.customer_name"
+          },
+          {
+            data: "surat.kavling.kavling_cluster"
+          },
+          {
+            data: "active",
+            className: "text-center",
+            render: active =>
+              active === "Active"
+                ? '<span class="badge badge-primary">Active</span>'
+                : '<span class="badge badge-danger">Deactive</span>'
+          }
+        ],
+        select: {
+          style: "os"
+        },
+        buttons: [
+          {
+            extend: "collection",
+            text: "Select Action",
+            className: "btn __active",
+            buttons: [
+              {
+                text: "Deactive",
+                className: "_active",
+                action: (e, dt, type, indexes) => {
+                  const { id } = dt.row({ selected: true }).data();
+                  $.ajax({
+                    url: `/transaction/lpa/${id}/action`,
+                    type: "PATCH",
+                    data: {
+                      id: id,
+                      active: "Deactive"
+                    },
+                    success: response => {
+                      swal({
+                        type: "success",
+                        text: "Success"
+                      }).then(() => {
+                        window.location.reload();
+                      });
+                      console.log(response);
+                    },
+                    error: err => {
+                      swal({
+                        type: "error",
+                        text: "Error"
+                      });
+                    }
+                  });
+                }
+              },
+              {
+                text: "Active",
+                className: "_active",
+                action: (e, dt, type, indexes) => {
+                  const { id } = dt.row({ selected: true }).data();
+                  $.ajax({
+                    url: `/transaction/lpa/${id}/action`,
+                    type: "PATCH",
+                    data: {
+                      id: id,
+                      active: "Active"
+                    },
+                    success: response => {
+                      swal({
+                        type: "success",
+                        text: "Success"
+                      }).then(() => {
+                        window.location.reload();
+                      });
+                      console.log(response);
+                    },
+                    error: err => {
+                      swal({
+                        type: "error",
+                        text: "Error"
+                      });
+                    }
+                  });
+                }
+              }
+            ]
+          }
+        ]
+      });
+
+      $("#ajb-table").DataTable({
+        dom:
+          '<"datatable-header"><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+        processing: true,
+        serverSide: true,
+        ajax: "{!! route('transaction.surat-pesanan.ajb', $surat->id) !!}",
+        columns: [
+          {
+            data: "id"
+          },
+          {
+            data: "ajb_date",
+            render: data => moment(data).format("D MMMM YYYY")
+          },
+          {
+            data: "ajb_notaris"
+          },
+          {
+            data: "ajb_sp_id"
+          }
+        ],
+        select: {
+          style: "multi"
+        }
+      });
+
+      $("#legal-table").DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{!! route('transaction.surat-pesanan.legal', $surat->id) !!}",
+        columns: [
+          {
+            data: "id",
+            className: "select-checkbox",
+            orderable: false,
+            render: () => ""
+          },
+          {
+            data: "id",
+            render: (data, type, row) =>
+              `<a href="/transaction/legal/${row.id}/edit">KRF000${row.id}</a>`
+          },
+          {
+            data: "legal_date",
+            render: data => moment(data).format("D MMMM YYYY")
+          },
+          {
+            data: "legal_shgb_parent_date",
+            render: data => moment(data).format("D MMMM YYYY")
+          },
+          {
+            data: "legal_shgb_fraction_date",
+            render: data => moment(data).format("D MMMM YYYY")
+          },
+          {
+            data: "surat.id"
+          },
+          {
+            data: "active",
+            className: "text-center",
+            render: active =>
+              active === "Active"
+                ? '<span class="badge badge-primary">Active</span>'
+                : '<span class="badge badge-danger">Deactive</span>'
+          }
+        ],
+        select: {
+          style: "os"
+        },
+        buttons: [
+          {
+            extend: "collection",
+            text: "Select Action",
+            className: "btn __active",
+            buttons: [
+              {
+                text: "Deactive",
+                className: "_active",
+                action: (e, dt, type, indexes) => {
+                  const { id } = dt.row({ selected: true }).data();
+                  $.ajax({
+                    url: `/transaction/legal/${id}/action`,
+                    type: "PATCH",
+                    data: {
+                      id: id,
+                      active: "Deactive"
+                    },
+                    success: response => {
+                      swal({
+                        type: "success",
+                        text: "Success"
+                      }).then(() => {
+                        window.location.reload();
+                      });
+                      console.log(response);
+                    },
+                    error: err => {
+                      swal({
+                        type: "error",
+                        text: "Error"
+                      });
+                    }
+                  });
+                }
+              },
+              {
+                text: "Active",
+                className: "_active",
+                action: (e, dt, type, indexes) => {
+                  const { id } = dt.row({ selected: true }).data();
+                  $.ajax({
+                    url: `/transaction/legal/${id}/action`,
+                    type: "PATCH",
+                    data: {
+                      id: id,
+                      active: "Active"
+                    },
+                    success: response => {
+                      swal({
+                        type: "success",
+                        text: "Success"
+                      }).then(() => {
+                        window.location.reload();
+                      });
+                      console.log(response);
+                    },
+                    error: err => {
+                      swal({
+                        type: "error",
+                        text: "Error"
+                      });
+                    }
+                  });
+                }
+              }
+            ]
+          }
+        ]
+      });
+
+      $("#spk-table").DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{!! route('transaction.surat-pesanan.spk', $surat->id) !!}",
+        columns: [
+          {
+            data: "id",
+            className: "select-checkbox",
+            orderable: false,
+            render: () => ""
+          },
+          {
+            data: "id",
+            render: id => `<a href="/transaction/spk/${id}/edit">SPK000${id}</a>`
+          },
+          {
+            data: "spk_date",
+            render: data => moment(data).format("D MMMM YYYY")
+          },
+          {
+            data: "spk_sp_id"
+          },
+          {
+            data: "surat.customer.customer_name"
+          },
+          {
+            data: "active",
+            className: "text-center",
+            render: active =>
+              active === "Active"
+                ? '<span class="badge badge-primary">Active</span>'
+                : '<span class="badge badge-danger">Deactive</span>'
+          }
+        ],
+        select: {
+          style: "os"
+        },
+        buttons: [
+          {
+            extend: "collection",
+            text: "Select Action",
+            className: "btn",
+            buttons: [
+              {
+                text: "Deactive",
+                className: "_active",
+                action: (e, dt, type, indexes) => {
+                  const { id } = dt.row({ selected: true }).data();
+                  $.ajax({
+                    url: `/transaction/spk/${id}/action`,
+                    type: "PATCH",
+                    data: {
+                      id: id,
+                      active: "Deactive"
+                    },
+                    success: response => {
+                      swal({
+                        type: "success",
+                        text: "Success"
+                      }).then(() => {
+                        window.location.reload();
+                      });
+                      console.log(response);
+                    },
+                    error: err => {
+                      swal({
+                        type: "error",
+                        text: "Error"
+                      });
+                    }
+                  });
+                }
+              },
+              {
+                text: "Active",
+                className: "_active",
+                action: (e, dt, type, indexes) => {
+                  const { id } = dt.row({ selected: true }).data();
+                  $.ajax({
+                    url: `/transaction/spk/${id}/action`,
+                    type: "PATCH",
+                    data: {
+                      id: id,
+                      active: "Active"
+                    },
+                    success: response => {
+                      swal({
+                        type: "success",
+                        text: "Success"
+                      }).then(() => {
+                        window.location.reload();
+                      });
+                      console.log(response);
+                    },
+                    error: err => {
+                      swal({
+                        type: "error",
+                        text: "Error"
+                      });
+                    }
+                  });
+                }
+              }
+            ]
+          }
+        ]
+      });
+
+      $("#result").DataTable({
+        dom:
+          '<"datatable-header"><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+        processing: true,
+        serverSide: true,
+        ajax: "{!! route('transaction.surat-pesanan.cicilan', $surat->id) !!}",
+        columns: [
+          {
+            data: "no"
+          },
+          {
+            data: "description",
+            render: (data, type, row) => `<span><a href="/transaction/surat-pesanan/edit_cicilan/${row.id}">${row.description}</a></span>` || console.log(row)
+          },
+          {
+            data: "piutang"
+          },
+          {
+            data: "created_at",
+            render: data => moment().format("D MMMM YYYY")
+          },
+          {
+            data: "deleted_at",
+            className: "text-center",
+            render: (data) => data === null ? "Belum Dibayar" : "Tgl"
+          },
+          {
+            data: "deleted_at",
+            className: "text-center",
+            render: (data) => data !== null ? "<span class='badge badge-success'>Lunas</span>" : "<span class='badge badge-danger'>Belum Lunas</span>"
+          },
+          {
+            data: "id",
+            render: id =>
+              `<span><a href="/transaction/surat-pesanan/print_kuitansi_internal/${id}">Print</a></span>`
+          }
+        ],
+        select: {
+          style: "os"
+        }
+      });
+
+      $("#developer").DataTable({
+        dom:
+          '<"datatable-header"><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+        processing: true,
+        serverSide: true,
+        ajax: "{!! route('transaction.surat-pesanan.developer', $surat->id) !!}",
+        columns: [
+          {
+            data: "no"
+          },
+          {
+            data: "sp_description"
+          },
+          {
+            data: "sp_description_nominal"
+          },
+          {
+            data: "created_at",
+            render: data => moment().format("D MMMM YYYY")
+          },
+          {
+            data: "sp_id",
+            render: id =>
+              `<span><a href="/transaction/surat-pesanan/print_kuitansi_developer/${id}">Print</a></span>`
+          }
+        ],
+        select: {
+          style: "os"
+        }
+      });
+
+      $("#kontraktor").DataTable({
+        dom:
+          '<"datatable-header"><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+        processing: true,
+        serverSide: true,
+        ajax: "{!! route('transaction.surat-pesanan.contractor', $surat->id) !!}",
+        columns: [
+          {
+            data: "no"
+          },
+          {
+            data: "sp_description"
+          },
+          {
+            data: "sp_description_nominal"
+          },
+          {
+            data: "created_at",
+            render: data => moment().format("D MMMM YYYY")
+          },
+          {
+            data: "deleted_at",
+            className: "text-center",
+            render: (data) => data === null ? "Belum Dibayar" : "Tgl"
+          },
+          {
+            data: "deleted_at",
+            className: "text-center",
+            render: (data) => data !== null ? "<span class='badge-success p-1'>Lunas</span>" : "<span class='badge-danger p-1'>Belum Lunas</span>"
+          },
+          {
+            data: "sp_id",
+            render: id =>
+              `<span><a href="/transaction/surat-pesanan/print_kuitansi_contractor/${id}">Print</a></span>`
+          }
+        ],
+        select: {
+          style: "os"
+        }
+      });
+    };
+
+    var _componentSelect2 = function() {
+      if (!$().select2) {
+        console.warn("Warning - select2.min.js is not loaded.");
+        return;
+      }
+
+      $(".dataTables_length select").select2({
+        minimumResultsForSearch: Infinity,
+        dropdownAutoWidth: true,
+        width: "auto"
+      });
+    };
+
+    return {
+      init: function() {
+        _componentDatatableSelect();
+        _componentSelect2();
+      }
+    };
+  })();
+
+  document.addEventListener("DOMContentLoaded", function() {
+    DatatableSelect.init();
+  });
 </script>
 @endif 
 @endpush

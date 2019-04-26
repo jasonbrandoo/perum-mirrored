@@ -259,7 +259,8 @@ class SuratPesananController extends Controller
                 'cicilan_sp_id' => (new SuratPesanan)->max('id'),
                 'customer_id' => $customer_id,
                 'description' => 'cicilan '.$i,
-                'piutang' => $piutang
+                'piutang' => $piutang,
+                'created_at' => Carbon::now()                
             ]);
         }
         
@@ -273,7 +274,8 @@ class SuratPesananController extends Controller
                 'sp_description' => $request->input('sp_description')[$i],
                 'sp_description_nominal' => Comma::removeComma($request->input('sp_description_nominal')[$i]),
                 'biaya_lain_status' => $request->input('sp_biaya_lain_status')[$i],
-                'biaya_lain_diperhitungkan' => $request->input('sp_biaya_lain_diperhitungkan')[$i]
+                'biaya_lain_diperhitungkan' => $request->input('sp_biaya_lain_diperhitungkan')[$i],
+                'created_at' => Carbon::now()
             ]);
         }
         BiayaLain::insert($biaya_lain);
@@ -323,10 +325,14 @@ class SuratPesananController extends Controller
         $mous = Mou::where('active', 'Active')->get();
         $sales = Sales::where('sales_position', 'Sales')->get();
         $spvs = Sales::where('sales_position', 'Supervisor')->get();
-        $payments = Payment::where('payment_type', 'Surat Pesanan')->get();        
+        $payments = Payment::where('payment_type', 'Surat Pesanan')->get();
         $kavlings = Kavling::with('price.house')->get();
         $prices = Price::all();
-        return view('pages.transaction.surat.create-surat', compact('surat', 'customers', 'mous', 'sales', 'spvs', 'kavlings', 'companies', 'prices', 'payments'));
+        $cicilanBelumLunas = Cicilan::where('cicilan_sp_id', $id)->whereNull('deleted_at')->get()->pluck('piutang');
+        $totalBelumLunas = $cicilanBelumLunas->sum();
+        $cicilanLunas = Cicilan::where('cicilan_sp_id', $id)->whereNotNull('deleted_at')->get()->pluck('piutang');
+        $totalLunas = $cicilanLunas->sum();
+        return view('pages.transaction.surat.create-surat', compact('surat', 'customers', 'mous', 'sales', 'spvs', 'kavlings', 'companies', 'prices', 'payments', 'totalBelumLunas', 'totalLunas'));
     }
 
     /**
@@ -410,7 +416,8 @@ class SuratPesananController extends Controller
                 'cicilan_sp_id' => $request->id,
                 'customer_id' => $customer_id,
                 'description' => 'cicilan '.$i,
-                'piutang' => $piutang
+                'piutang' => $piutang,
+                'updated_at' => Carbon::now()
             ]);
         }
         
@@ -425,7 +432,8 @@ class SuratPesananController extends Controller
                 'sp_description' => $request->input('sp_description')[$i],
                 'sp_description_nominal' => Comma::removeComma($request->input('sp_description_nominal')[$i]),
                 'biaya_lain_status' => $request->input('sp_biaya_lain_status')[$i],
-                'biaya_lain_diperhitungkan' => $request->input('sp_biaya_lain_diperhitungkan')[$i]
+                'biaya_lain_diperhitungkan' => $request->input('sp_biaya_lain_diperhitungkan')[$i],
+                'updated_at' => Carbon::now()
             ]);
         }
         BiayaLain::whereIn('sp_id', [$request->id])->delete();
@@ -514,5 +522,20 @@ class SuratPesananController extends Controller
         ];
         // return $data;
         return PDF::loadView('pages.transaction.surat.pdf-kuitansi', $data)->inline();
+    }
+
+    public function cicilanSp($id)
+    {
+        $cicilan = Cicilan::find($id);
+        return view('pages.transaction.surat.edit-cicilan', compact('cicilan'));
+    }
+
+    public function updateCicilanSp(Request $request, $id)
+    {
+        Cicilan::find($id)->update([
+            'description' => $request->input('description'),
+            'piutang' => Comma::removeComma($request->input('piutang'))
+        ]);
+        return redirect('transaction/surat-pesanan/'.$request->sp_id.'/edit')->with('success', 'Successfull update Cicilan Surat Pesanan');
     }
 }
