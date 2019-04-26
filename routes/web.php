@@ -291,6 +291,10 @@ Route::group([
         Route::get('/print/{id}/bank', 'Transaction\SuratPesanan\SuratPesananController@generatePdfBank')->name('transaction.surat-pesanan.bank.pdf');
         Route::get('/print/{id}/developer', 'Transaction\SuratPesanan\SuratPesananController@generatePdfDeveloper')->name('transaction.surat-pesanan.developer.pdf');
         Route::get('/print_kuitansi/{id}', 'Transaction\SuratPesanan\SuratPesananController@generateKuitansi')->name('transaction.surat-pesanan.kuitansi_pdf');
+        Route::get('/print_kuitansi_internal/{id}', 'Transaction\SuratPesanan\SuratPesananController@internalKuitansi')->name('transaction.surat-pesanan.internalKuitansi_pdf');
+        Route::get('/print_kuitansi_developer/{id}', 'Transaction\SuratPesanan\SuratPesananController@developerKuitansi')->name('transaction.surat-pesanan.developerKuitansi_pdf');
+        Route::get('/print_kuitansi_contractor/{id}', 'Transaction\SuratPesanan\SuratPesananController@contractorKuitansi')->name('transaction.surat-pesanan.contractorKuitansi_pdf');
+
         /* LOAD DATATABLE EACH TRANSACTION BY ID */
         Route::get('/akad/{id}', 'Transaction\SuratPesanan\SuratPesananController@akad')->name('transaction.surat-pesanan.akad');
         Route::get('/eksternal/{id}', 'Transaction\SuratPesanan\SuratPesananController@eksternal')->name('transaction.surat-pesanan.eksternal');

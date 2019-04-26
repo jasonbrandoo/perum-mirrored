@@ -595,6 +595,7 @@
                         <th>Description</th>
                         <th>Piutang</th>
                         <th>Tanggal</th>
+                        <th></th>
                       </tr>
                     </thead>
                   </table>
@@ -609,6 +610,7 @@
                         <th>Description</th>
                         <th>Piutang</th>
                         <th>Tanggal</th>
+                        <th></th>
                       </tr>
                     </thead>
                   </table>
@@ -621,6 +623,7 @@
                         <th>Description</th>
                         <th>Piutang</th>
                         <th>Tanggal</th>
+                        <th></th>
                       </tr>
                     </thead>
                   </table>
@@ -2154,6 +2157,10 @@
                         data: 'created_at',
                         render: (data) => moment().format('D MMMM YYYY')
                     },
+                    {
+                        data: 'id',
+                        render: (id) => `<span><a href="/transaction/surat-pesanan/print_kuitansi_internal/${id}">Print</a></span>`
+                    }
                 ],
                 select: {
                     style: 'os'
@@ -2179,6 +2186,10 @@
                         data: 'created_at',
                         render: (data) => moment().format('D MMMM YYYY')
                     },
+                    {
+                        data: 'sp_id',
+                        render: (id) => `<span><a href="/transaction/surat-pesanan/print_kuitansi_developer/${id}">Print</a></span>`
+                    }
                 ],
                 select: {
                     style: 'os'
@@ -2204,6 +2215,10 @@
                         data: 'created_at',
                         render: (data) => moment().format('D MMMM YYYY')
                     },
+                    {
+                        data: 'sp_id',
+                        render: (id) => `<span><a href="/transaction/surat-pesanan/print_kuitansi_contractor/${id}">Print</a></span>`
+                    }
                 ],
                 select: {
                     style: 'os'

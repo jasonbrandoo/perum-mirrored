@@ -169,13 +169,13 @@ class SuratPesananController extends Controller
 
     public function developer($id)
     {
-        $developer = BiayaLain::with('cicilan')->where('sp_id', $id);
+        $developer = BiayaLain::with('cicilan')->where('sp_id', $id)->where('biaya_lain_diperhitungkan', 'Developer');
         return DataTables::of($developer)->make();
     }
 
     public function contractor($id)
     {
-        $contractor = BiayaLain::with('cicilan')->where('sp_id', $id);
+        $contractor = BiayaLain::with('cicilan')->where('sp_id', $id)->where('biaya_lain_diperhitungkan', 'Contractor');
         return DataTables::of($contractor)->make();
     }
 
@@ -481,6 +481,36 @@ class SuratPesananController extends Controller
         $kuitansi = Kwitansi::with('surat.kavling.house')->where('kwitansi_sp_id', $id)->orderBy('created_at', 'desc')->first();
         $data = [
             'kuitansi' => $kuitansi,
+        ];
+        // return $data;
+        return PDF::loadView('pages.transaction.surat.pdf-kuitansi', $data)->inline();
+    }
+
+    public function internalKuitansi($id)
+    {
+        $internal = Cicilan::with('surat.kavling.house', 'surat.customer')->where('id', $id)->first();
+        $data = [
+            'internal' => $internal,
+        ];
+        // return $data;
+        return PDF::loadView('pages.transaction.surat.pdf-kuitansi', $data)->inline();
+    }
+
+    public function developerKuitansi($id)
+    {
+        $developer = BiayaLain::with('cicilan.kavling.house', 'cicilan.customer')->where('sp_id', $id)->first();
+        $data = [
+            'developer' => $developer,
+        ];
+        // return $developer;
+        return PDF::loadView('pages.transaction.surat.pdf-kuitansi', $data)->inline();
+    }
+
+    public function contractorKuitansi($id)
+    {
+        $contractor = BiayaLain::with('cicilan.kavling.house', 'cicilan.customer')->where('sp_id', $id)->first();
+        $data = [
+            'contractor' => $contractor,
         ];
         // return $data;
         return PDF::loadView('pages.transaction.surat.pdf-kuitansi', $data)->inline();

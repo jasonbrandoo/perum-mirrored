@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
   <link href="{{asset('/template/global_assets/css/icons/icomoon/styles.css')}}" rel="stylesheet" type="text/css">
   <link href="{{asset('/template/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
   <link href="{{asset('/template/assets/css/bootstrap_limitless.min.css')}}" rel="stylesheet" type="text/css">
