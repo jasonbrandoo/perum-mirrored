@@ -40,7 +40,7 @@ class KomisiEksternalController extends Controller
     {
         //
         $id = (new KomisiEksternal)->max('id') + 1;
-        $sps = SuratPesanan::all();
+        $sps = SuratPesanan::with('customer', 'kavling')->get();
         $company_mou = Company::where('company_type', 'mou')->get();
         $mous = Mou::all();
         return view('pages.transaction.komisieksternal.create-komisi-eksternal', compact('id', 'sps', 'company_mou', 'mous'));
@@ -124,7 +124,7 @@ class KomisiEksternalController extends Controller
     {
         //
         $eksternal = KomisiEksternal::with('surat.customer', 'surat.kavling.house', 'surat.paymentMethod', 'mou', 'company')->find($id);
-        $surat_edit = SuratPesanan::all();
+        $surat_edit = SuratPesanan::with('customer', 'kavling')->get();
         $company_edit = Company::where('company_type', 'mou')->get();
         $mou_edit = Mou::all();
         return view('pages.transaction.komisieksternal.create-komisi-eksternal', compact('eksternal', 'surat_edit', 'company_edit', 'mou_edit'));

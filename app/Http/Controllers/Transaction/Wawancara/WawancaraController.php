@@ -38,7 +38,7 @@ class WawancaraController extends Controller
     {
         //
         $id = (new Wawancara)->max('id') + 1;
-        $sps = SuratPesanan::all();
+        $sps = SuratPesanan::with('customer', 'kavling')->get();
         return view('pages.transaction.wawancara.create-wawancara', compact('sps', 'id'));
     }
 
@@ -91,7 +91,7 @@ class WawancaraController extends Controller
     {
         //
         $wawancara = Wawancara::with('surat.sales', 'surat.customer', 'surat.kavling.house')->find($id);
-        $surat = SuratPesanan::all();
+        $surat = SuratPesanan::with('customer', 'kavling')->get();
         return view('pages.transaction.wawancara.create-wawancara', compact('wawancara', 'surat'));
     }
 

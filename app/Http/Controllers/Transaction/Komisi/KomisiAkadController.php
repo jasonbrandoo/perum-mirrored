@@ -39,7 +39,7 @@ class KomisiAkadController extends Controller
     {
         //
         $id = (new KomisiAkad)->max('id') + 1;
-        $sps = SuratPesanan::all();
+        $sps = SuratPesanan::with('customer', 'kavling')->get();
         $mou = Company::where('company_type', 'mou')->get();
         return view('pages.transaction.komisiakad.create-komisi-akad', compact('mou', 'sps', 'id'));
     }
@@ -110,7 +110,7 @@ class KomisiAkadController extends Controller
     {
         //
         $akad = KomisiAkad::with('surat.customer', 'surat.kavling.house', 'surat.paymentMethod', 'company')->find($id);
-        $surat = SuratPesanan::all();
+        $surat = SuratPesanan::with('customer', 'kavling')->get();
         $mou_edit = Company::where('company_type', 'mou')->get();
         return view('pages.transaction.komisiakad.create-komisi-akad', compact('akad', 'surat', 'mou_edit'));
     }

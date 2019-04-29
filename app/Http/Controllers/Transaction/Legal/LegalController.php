@@ -38,7 +38,7 @@ class LegalController extends Controller
     {
         //
         $id = (new Legal)->max('id') + 1;
-        $sps = SuratPesanan::all();
+        $sps = SuratPesanan::with('customer', 'kavling')->get();
         return view('pages.transaction.legal.create-legal', compact('id', 'sps'));
     }
 
@@ -114,8 +114,8 @@ class LegalController extends Controller
     public function edit(Legal $legal, $id)
     {
         //
-        $legal = Legal::with('surat.company', 'surat.sales', 'surat.kavling')->find($id);
-        $surat_edit = SuratPesanan::all();
+        $legal = Legal::with('surat.company', 'surat.sales', 'surat.kavling', 'surat.customer')->find($id);
+        $surat_edit = SuratPesanan::with('customer', 'kavling')->get();
         return view('pages.transaction.legal.create-legal', compact('legal', 'surat_edit'));
     }
 

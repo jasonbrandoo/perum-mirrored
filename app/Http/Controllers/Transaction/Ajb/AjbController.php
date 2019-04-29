@@ -43,7 +43,7 @@ class AjbController extends Controller
     {
         //
         $id = (new Ajb)->max('id') + 1;
-        $sps = SuratPesanan::all();
+        $sps = SuratPesanan::with('customer', 'kavling')->get();
         return view('pages.transaction.ajb.create-ajb', compact('sps', 'id'));
     }
 
@@ -141,8 +141,8 @@ class AjbController extends Controller
     public function edit(Ajb $ajb, $id)
     {
         //
-        $ajb = AJB::with('surat.kavling.house', 'surat.sales')->find($id);
-        $sps_edit = SuratPesanan::all();
+        $ajb = AJB::with('surat.kavling.house', 'surat.sales', 'surat.customer')->find($id);
+        $sps_edit = SuratPesanan::with('customer', 'kavling')->get();
         return view('pages.transaction.ajb.create-ajb', compact('ajb', 'sps_edit'));
     }
 

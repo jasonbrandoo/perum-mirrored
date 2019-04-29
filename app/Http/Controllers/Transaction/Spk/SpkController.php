@@ -38,7 +38,7 @@ class SpkController extends Controller
     {
         //
         $id = (new Spk)->max('id') + 1;
-        $sps = SuratPesanan::all();
+        $sps = SuratPesanan::with('customer', 'kavling')->get();
         return view('pages.transaction.spk.create-spk', compact('sps', 'id'));
     }
 
@@ -61,7 +61,7 @@ class SpkController extends Controller
             'spk_date' => Carbon::parse($request->input('spk_date'))->format('Y-m-d H:i:s'),
             'spk_price' => $request->input('spk_price'),
             'spk_sp_id' => $request->input('spk_sp_id'),
-            'active' => $request->input('active') == null ? 'Not Active' : 'Active'            
+            'active' => $request->input('active') == null ? 'Not Active' : 'Active'
         ]);
         return redirect('transaction/spk')->with('success', 'Successful create new SPK');
     }
@@ -104,7 +104,7 @@ class SpkController extends Controller
     {
         //
         $spk = Spk::with('surat.customer', 'surat.kavling.house')->find($id);
-        $surat_edit = Spk::all();
+        $surat_edit = SuratPesanan::with('customer', 'kavling')->get();
         return view('pages.transaction.spk.create-spk', compact('spk', 'surat_edit'));
     }
 

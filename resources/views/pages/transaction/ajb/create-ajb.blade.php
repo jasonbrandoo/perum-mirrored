@@ -104,18 +104,18 @@
                 <div class="col-lg-9">
                   <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="ajb_sp_id" id="sp_id" required>
                     @if (isset($ajb))
-                      <option value="{{$ajb->surat->id}}">SP000{{$ajb->surat->id}}</option>
+                      <option value="{{$ajb->surat->id}}">SP000{{$ajb->surat->id}} - {{$ajb->surat->customer->customer_name}} - BLOK {{$ajb->surat->kavling->kavling_block}}</option>
                       @foreach ($sps_edit as $sp)
                       @if ($sp->id == $ajb->surat->id)
                         <option></option>
                       @else
-                      <option value="{{$sp->id}}">SP000{{$sp->id}}</option>
+                      <option value="{{$sp->id}}">SP000{{$sp->id}} - {{$sp->customer->customer_name}} - BLOK {{$sp->kavling->kavling_block}}</option>
                       @endif
                       @endforeach
                         @else
                         @foreach ($sps as $sp)
                         <option value=""></option>
-                        <option value="{{$sp->id}}">SP000{{$sp->id}}</option>
+                        <option value="{{$sp->id}}">SP000{{$sp->id}} - {{$sp->customer->customer_name}} - BLOK {{$sp->kavling->kavling_block}}</option>
                       @endforeach
                     @endif
                 </select>
@@ -124,19 +124,19 @@
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Harga Jual Sp</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control price" id="sp_price" value="{{$ajb->surat->sp_price}}" readonly required>
+                  <input type="text" class="form-control price" id="sp_price" value="{{isset($ajb) ? $ajb->surat->sp_price : ''}}" readonly required>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Tanggal Sp</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_date" name="sp_date" value="{{$ajb->surat->sp_date}}" readonly required>
+                  <input type="text" class="form-control" id="sp_date" name="sp_date" value="{{isset($ajb) ? $ajb->surat->sp_date : ''}}" readonly required>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">KPR Disetujui</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_kpr" name="sp_kpr" value="{{$ajb->surat->sp_kpr_plan}}" readonly required>
+                  <input type="text" class="form-control" id="sp_kpr" name="sp_kpr" value="{{isset($ajb) ? $ajb->surat->sp_kpr_plan : ''}}" readonly required>
                 </div>
               </div>
               <div class="form-group row">
@@ -144,12 +144,12 @@
                 <div class="col-lg-9">
                   <div class="row">
                     <div class="col-md-6">
-                      <input type="text" class="form-control" id="sp_block" name="sp_block" value="{{$ajb->surat->kavling->kavling_block}}" readonly
+                      <input type="text" class="form-control" id="sp_block" name="sp_block" value="{{isset($ajb) ? $ajb->surat->kavling->kavling_block : ''}}" readonly
                         required>
                     </div>
                     <label class="col-form-label">No</label>
                     <div class="col-md-5">
-                      <input type="text" class="form-control" id="sp_number" name="sp_number" value="{{$ajb->surat->kavling->kavling_number}}"
+                      <input type="text" class="form-control" id="sp_number" name="sp_number" value="{{isset($ajb) ? $ajb->surat->kavling->kavling_number : ''}}"
                         readonly required>
                     </div>
                   </div>
@@ -158,21 +158,21 @@
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Luas Bangunan</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_building" name="sp_building" value="{{$ajb->surat->kavling->house->building_area_m2}}"
+                  <input type="text" class="form-control" id="sp_building" name="sp_building" value="{{isset($ajb) ? $ajb->surat->kavling->house->building_area_m2 : ''}}"
                     readonly required>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Luas Tanah</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_surface" name="sp_surface" value="{{$ajb->surat->kavling->house->surface_area_m2}}"
+                  <input type="text" class="form-control" id="sp_surface" name="sp_surface" value="{{isset($ajb) ? $ajb->surat->kavling->house->surface_area_m2 : ''}}"
                     readonly required>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">TL</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_tl" name="sp_tl" value="{{$ajb->surat->sp_tl}}" readonly required>
+                  <input type="text" class="form-control" id="sp_tl" name="sp_tl" value="{{isset($ajb) ? $ajb->surat->sp_tl : ''}}" readonly required>
                 </div>
               </div>
               <div class="form-group row">
@@ -217,14 +217,14 @@
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Kode Sales</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_sales_id" name="sp_sales_id" value="{{$ajb->surat->sales->id}}" readonly required>
+                  <input type="text" class="form-control" id="sp_sales_id" name="sp_sales_id" value="{{isset($ajb) ? $ajb->surat->sales->id : ''}}" readonly required>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Nama Sales</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_sales_name" name="sp_sales_name" value="{{$ajb->surat->sales->sales_name}}"
+                  <input type="text" class="form-control" id="sp_sales_name" name="sp_sales_name" value="{{isset($ajb) ? $ajb->surat->sales->sales_name : ''}}"
                     readonly required>
                 </div>
               </div>

@@ -41,7 +41,7 @@ class KwitansiController extends Controller
     {
         //
         $id = (new Kwitansi)->max('id') + 1;
-        $surats = SuratPesanan::all();
+        $surats = SuratPesanan::with('customer', 'kavling')->get();
         $payments = Payment::where('payment_type', 'Kuitansi')->get();
         return view('pages.transaction.kuitansi.create-kuitansi', compact('surats', 'id', 'payments'));
     }
@@ -115,9 +115,9 @@ class KwitansiController extends Controller
     {
         //MATA BERAT BENER KAMPRET
         //KAYA DI CANTOLIN MONYET
-        $kwitansi = Kwitansi::with('surat.kavling.house', 'payment')->find($id);
+        $kwitansi = Kwitansi::with('surat.kavling.house', 'surat.customer', 'payment')->find($id);
         $payment_edit = Payment::where('payment_type', 'Kuitansi')->get();
-        $surat_edit = SuratPesanan::all();
+        $surat_edit = SuratPesanan::with('customer', 'kavling')->get();
         return view('pages.transaction.kuitansi.create-kuitansi', compact('kwitansi', 'surat_edit', 'payment_edit'));
     }
 

@@ -200,18 +200,18 @@
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="legal_sp_id" id="sp_id">
                   @if (isset($legal))
-                    <option value="{{$legal->surat->id}}">SP000{{$legal->surat->id}}</option>
+                    <option value="{{$legal->surat->id}}">SP000{{$legal->surat->id}} - {{$legal->surat->customer->customer_name}} - BLOK {{$legal->surat->kavling->kavling_block}}</option>
                     @foreach ($surat_edit as $surat)
                       @if ($surat->id == $legal->surat->id)
                         <option></option>
                       @else
-                        <option value="{{$surat->id}}">SP000{{$surat->id}}</option>
+                        <option value="{{$surat->id}}">SP000{{$surat->id}} - {{$surat->customer->customer_name}} - BLOK {{$surat->kavling->kavling_name}}</option>
                       @endif
                     @endforeach
                   @else
                     @foreach ($sps as $surat)
                       <option value=""></option>
-                      <option value="{{$surat->id}}">SP000{{$surat->id}}</option>
+                      <option value="{{$surat->id}}">SP000{{$surat->id}} - {{$surat->customer->customer_name}} - BLOK {{$surat->kavling->kavling_block}}</option>
                     @endforeach
                   @endif
                 </select>

@@ -125,7 +125,7 @@
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="result_sp_id" id="sp_id">
                   @foreach ($sps as $sp)
                     <option></option>
-                    <option value="{{$sp->id}}">SP000{{$sp->id}}</option>
+                    <option value="{{$sp->id}}">SP000{{$sp->id}} - {{$sp->customer->customer_name}} - BLOK {{$sp->kavling->kavling_block}}</option>
                   @endforeach
                 </select>
               </div>

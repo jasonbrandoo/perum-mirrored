@@ -38,7 +38,7 @@ class BerkasController extends Controller
     {
         //
         $id = (new Berkas)->max('id') + 1;
-        $sps = SuratPesanan::all();
+        $sps = SuratPesanan::with('customer', 'kavling')->get();
         $customer = Customer::all();
         return view('pages.transaction.berkas.create-berkas', compact('sps', 'id', 'customer'));
     }
@@ -108,7 +108,7 @@ class BerkasController extends Controller
         //
         $berkas = Berkas::with('surat.customer', 'surat.sales', 'surat.kavling.house', 'surat.paymentMethod', 'user', 'customer')->find($id);
         $customer_edit = Customer::all();
-        $surat_edit = SuratPesanan::all();
+        $surat_edit = SuratPesanan::with('customer', 'kavling')->get();
         return view('pages.transaction.berkas.create-berkas', compact('berkas', 'customer_edit', 'surat_edit'));
     }
 

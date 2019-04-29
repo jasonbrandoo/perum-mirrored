@@ -40,7 +40,7 @@ class LPAController extends Controller
         //
         $id = (new LPA)->max('id') + 1;
         $kavling = Kavling::all();
-        $sps = SuratPesanan::all();
+        $sps = SuratPesanan::with('customer', 'kavling')->get();
         return view('pages.transaction.lpa.create-lpa', compact('kavling', 'sps', 'id'));
     }
 
@@ -112,7 +112,7 @@ class LPAController extends Controller
     {
         //
         $lpa = LPA::with('surat.company', 'surat.sales', 'surat.kavling.house', 'surat.customer')->find($id);
-        $surat_edit = SuratPesanan::all();
+        $surat_edit = SuratPesanan::with('customer', 'kavling')->get();
         return view('pages.transaction.lpa.create-lpa', compact('lpa', 'surat_edit'));
     }
 

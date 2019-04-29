@@ -162,18 +162,18 @@
               <div class="col-lg-9">
                 <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="eksternal_sp_id" id="sp_id" required>
                   @if (isset($eksternal))
-                    <option value="{{$eksternal->surat->id}}">SP00{{$eksternal->surat->id}}</option>
+                    <option value="{{$eksternal->surat->id}}">SP00{{$eksternal->surat->id}} - {{$eksternal->surat->customer->customer_name}} - BLOK {{$eksternal->surat->kavling->kavling_block}}</option>
                     @foreach ($surat_edit as $surat)
                       @if ($surat->id == $eksternal->surat->id)
                         <option></option>
                       @else
-                        <option value="{{$surat->id}}">SP000{{$surat->id}}</option>
+                        <option value="{{$surat->id}}">SP000{{$surat->id}} - {{$surat->customer->customer_name}} - BLOK {{$surat->kavling->kavling_block}}</option>
                       @endif
                     @endforeach
                   @else
                     @foreach ($sps as $sp)
                       <option value=""></option>
-                      <option value="{{$sp->id}}">SP000{{$sp->id}}</option>
+                      <option value="{{$sp->id}}">SP000{{$sp->id}} - {{$sp->customer->customer_name}} - {{$sp->kavling->kavling_block}}</option>
                     @endforeach
                   @endif
                 </select>

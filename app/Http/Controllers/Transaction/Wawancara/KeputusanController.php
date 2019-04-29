@@ -30,7 +30,7 @@ class KeputusanController extends Controller
         //
         $id = (new Keputusan)->max('id') + 1;
         $rlw = RealisasiWawancara::all();
-        $sps = SuratPesanan::all();
+        $sps = SuratPesanan::with('customer', 'kavling')->get();
         return view('pages.transaction.wawancara.create-keputusan', compact('id', 'rlw', 'sps'));
     }
 
