@@ -64,27 +64,11 @@
 
 @push('scripts')
 <script>
-var DateTimePickers = function() {
-  var _componentPickadate = function() {
-    if (!$().pickadate) {
-      console.warn('Warning - picker.js and/or picker.date.js is not loaded.');
-      return;
-    }
-    $('.pickadate-selectors').pickadate({
-      selectYears: true,
-      selectMonths: true
-    });
-  };
-  return {
-    init: function() {
-      _componentPickadate();
-    }
-  }
-}();
-
-document.addEventListener('DOMContentLoaded', function() {
-  DateTimePickers.init();
-});
+$(() => {
+  $('.pickadate-selectors').datepicker({
+    autoclose: true
+  });
+})
 </script>
 <script src="/template/global_assets/js/demo_pages/form_layouts.js"></script>
 @endpush

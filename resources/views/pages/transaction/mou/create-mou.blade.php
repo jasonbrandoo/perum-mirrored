@@ -149,57 +149,11 @@
 
 @push('scripts')
 <script>
-var DateTimePickers = function() {
-    // Pickadate picker
-    var _componentPickadate = function() {
-        if (!$().pickadate) {
-            console.warn('Warning - picker.js and/or picker.date.js is not loaded.');
-            return;
-        }
-
-        // Dropdown selectors
-        $('.pickadate-selectors').pickadate({
-            selectYears: true,
-            selectMonths: true
-        });
-
-        // Events
-        $('.pickadate-events').pickadate({
-            onStart: function() {
-                console.log('Hello there :)')
-            },
-            onRender: function() {
-                console.log('Whoa.. rendered anew')
-            },
-            onOpen: function() {
-                console.log('Opened up')
-            },
-            onClose: function() {
-                console.log('Closed now')
-            },
-            onStop: function() {
-                console.log('See ya.')
-            },
-            onSet: function(context) {
-                console.log('Just set stuff:', context)
-            }
-        });
-    };
-
-    //
-    // Return objects assigned to module
-    //
-
-    return {
-        init: function() {
-            _componentPickadate();
-        }
-    }
-}();
-
-document.addEventListener('DOMContentLoaded', function() {
-  DateTimePickers.init();
-});
+$(() => {
+  $('.pickadate-selectors').datepicker({
+    autoclose: true
+  });
+})
 
 var FormValidation = function() {
   var _componentValidation = function() {

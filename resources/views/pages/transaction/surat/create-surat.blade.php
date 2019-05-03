@@ -1306,9 +1306,8 @@
         console.warn("Warning - picker.js and/or picker.date.js is not loaded.");
         return;
       }
-      $(".pickadate-selectors").pickadate({
-        selectYears: true,
-        selectMonths: true
+      $(".pickadate-selectors").datepicker({
+        autoclose: true
       });
     };
     return {

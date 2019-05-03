@@ -297,16 +297,14 @@
       });
     })
     const startDate = $('.pickadate-selectors-start').datepicker({
-      changeMonth: true,
-      changeYear: true,
+      autoclose: true,
     });
 
     startDate.change((e) => {
       console.log(e.target.value);
       $('.pickadate-selectors-end').datepicker({
-        changeMonth: true,
-        changeYear: true,
-        minDate: new Date(e.target.value),
+        autoclose: true,
+        startDate: new Date(e.target.value),
       });
     })
   });

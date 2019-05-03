@@ -482,6 +482,10 @@
 <script>
 $(document).ready(function(){
 
+  $('.pickadate-selectors').datepicker({
+    autoclose: true
+  });
+
   $('#mailing_address').css('display','none');
 
   $('#ktp').click(() => {
@@ -677,27 +681,29 @@ document.addEventListener('DOMContentLoaded', function() {
   FormWizard.init();
 });
 
-var DateTimePickers = function() {
-  var _componentPickadate = function() {
-    if (!$().pickadate) {
-      console.warn('Warning - picker.js and/or picker.date.js is not loaded.');
-      return;
-    }
-    $('.pickadate-selectors').pickadate({
-      selectYears: true,
-      selectMonths: true
-    });
-  };
-  return {
-    init: function() {
-      _componentPickadate();
-    }
-  }
-}();
 
-document.addEventListener('DOMContentLoaded', function() {
-  DateTimePickers.init();
-});
+
+// var DateTimePickers = function() {
+//   var _componentPickadate = function() {
+//     if (!$().pickadate) {
+//       console.warn('Warning - picker.js and/or picker.date.js is not loaded.');
+//       return;
+//     }
+//     $('.pickadate-selectors').pickadate({
+//       selectYears: true,
+//       selectMonths: true
+//     });
+//   };
+//   return {
+//     init: function() {
+//       _componentPickadate();
+//     }
+//   }
+// }();
+
+// document.addEventListener('DOMContentLoaded', function() {
+//   DateTimePickers.init();
+// });
 
 </script>
 @endpush
