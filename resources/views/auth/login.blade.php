@@ -26,7 +26,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-user"></i></span>
                   </div>
-                  <input id="username" type="text" class="form-control" name="name" placeholder="Username" required autofocus>
+                  <input id="username" type="text" class="form-control" name="name" placeholder="Username" required>
                 </div>
               </div>
             </div>
@@ -66,36 +66,60 @@
 @endsection
  @push('scripts')
 <script>
-  $(document).ready(function(){
-      $('#submit-button').click(function(e){
-        e.preventDefault();
+  $(document).ready(function() {
+    $("#submit-button").click(function(e) {
+      e.preventDefault();
+      if ($("#username").val() === "") {
+        swal({
+          type: "error",
+          text: "Please fill username field",
+          confirmButtonClass: "btn btn-primary"
+        });
+      }
+      if ($("#password").val() === "") {
+        swal({
+          type: "error",
+          text: "Please fill password field",
+          confirmButtonClass: "btn btn-primary"
+        });
+      }
+      if ($("#username").val() === "" && $("#password").val() === "") {
+        swal({
+          type: "error",
+          text: "Please fill all field",
+          confirmButtonClass: "btn btn-primary"
+        });
+      }
+      if ($("#username").val() && $("#password").val()) {
         $(this).text('Please wait ...').prop('disabled', true)
         $.ajax({
-            url: '{{ route('login') }}',
-            data: $('form').serialize(),
-            type: 'POST',
-            success: function(response){
-                swal({
-                    type: 'success',
-                    text: 'Login Successfull',
-                    confirmButtonClass: 'btn btn-primary',
-                }).then(() => {
-                    window.location.href = '/home';
-                });
-            },
-            error: function (err) {
-                swal({
-                    type: 'error',
-                    text: err.responseJSON.message,
-                    confirmButtonClass: 'btn btn-primary',
-                });
-                console.log($(this));
-                $('#submit-button').text('Login').prop('disabled', false)
-            }
+          url: "{{ route('login') }}",
+          data: $("form").serialize(),
+          type: "POST",
+          success: function(response) {
+            swal({
+              type: "success",
+              text: "Login Successfull",
+              confirmButtonClass: "btn btn-primary"
+            }).then(() => {
+              window.location.href = "/home";
+            });
+          },
+          error: function(err) {
+            swal({
+              type: "error",
+              text: err.responseJSON.message,
+              confirmButtonClass: "btn btn-primary"
+            });
+            console.log($(this));
+            $("#submit-button")
+              .text("Login")
+              .prop("disabled", false);
+          }
         });
-      });
+      }
     });
-
+  });
 </script>
 
 @endpush

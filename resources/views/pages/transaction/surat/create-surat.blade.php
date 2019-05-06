@@ -1076,7 +1076,6 @@
       ).each(function(i, e) {
         const val = $(e).val();
         if (val === "Developer") {
-          alert(111);
           const valueEl = $('input[name="sp_description_nominal[]"]')[i];
           const nominal = parseFloat($(valueEl).val());
           arrayDev.push(nominal);
@@ -1090,7 +1089,6 @@
           }
         }
         if (val === "Contractor") {
-          alert(2222);
           const valueEl = $('input[name="sp_description_nominal[]"]')[i];
           const nominal = parseFloat($(valueEl).val());
           arrayCon.push(nominal);
@@ -2224,7 +2222,7 @@
 
       $("#result").DataTable({
         dom:
-          '<"datatable-header"><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+          '<"datatable-header"><"datatable-scroll-wrap"t><"datatable-footer"ipB>',
         processing: true,
         serverSide: true,
         ajax: "{!! route('transaction.surat-pesanan.cicilan', $surat->id) !!}",
@@ -2257,6 +2255,15 @@
             data: "id",
             render: id =>
               `<span><a href="/transaction/surat-pesanan/print_kuitansi_internal/${id}">Print</a></span>`
+          }
+        ],
+        buttons: [
+          {
+            text: 'Add Cicilan',
+            action: (e, dt, node, config) => {
+              const id = '{{$surat->id}}';
+              location.href = `/transaction/surat-pesanan/add_cicilan/${id}`
+            }
           }
         ],
         select: {

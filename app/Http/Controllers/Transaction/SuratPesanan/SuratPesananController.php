@@ -260,7 +260,7 @@ class SuratPesananController extends Controller
                 'customer_id' => $customer_id,
                 'description' => 'cicilan '.$i,
                 'piutang' => $piutang,
-                'created_at' => Carbon::now()                
+                'created_at' => Carbon::now()
             ]);
         }
         
@@ -537,5 +537,29 @@ class SuratPesananController extends Controller
             'piutang' => Comma::removeComma($request->input('piutang'))
         ]);
         return redirect('transaction/surat-pesanan/'.$request->sp_id.'/edit')->with('success', 'Successfull update Cicilan Surat Pesanan');
+    }
+
+    public function addCicilanSp(Request $request, $id)
+    {
+        $cicilan = Cicilan::with('surat.customer')->where('cicilan_sp_id', $id)->first();
+        $customer_id = $cicilan->surat->customer->id;
+        return view('pages.transaction.surat.add-cicilan', compact('customer_id', 'id'));
+    }
+    
+    public function updateAddCicilanSp(Request $request, $id)
+    {
+        $no = Cicilan::where('cicilan_sp_id', $id)->max('no') + 1;
+        $data = [];
+        for ($i=0; $i < count($request->data); $i++) { 
+            array_push($data, [
+                'no' => $i + $no,
+                'cicilan_sp_id' => $id,
+                'customer_id' => $request->cust_id,
+                'description' => $request->data[$i]['description'],
+                'piutang' => Comma::removeComma($request->data[$i]['piutang']),
+                'created_at' => Carbon::now()
+            ]);
+        }
+        Cicilan::insert($data);
     }
 }
