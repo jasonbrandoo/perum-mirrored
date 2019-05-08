@@ -169,24 +169,37 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">MOU ID</label>
                       <div class="col-lg-9">
-                        <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_mou_id" id="mou_id" required>
+                        <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_mou_id" id="mou_id">
                         @if (isset($surat))
-                          <option value="{{$surat->mou->id}}">MOU000{{$surat->mou->id}} - {{$surat->mou->mou_coordinator}}</option>
+                          @if ($surat->mou === null)
+                            @foreach ($mous_edit as $mou)
+                              <option></option>
+                              <option value="{{$mou->id}}">MOU000{{$mou->mou_coordinator}}</option>
+                            @endforeach
+                          @else
+                            <option value="{{$surat->mou->id}}">MOU000{{$surat->mou->id}} - {{$surat->mou->mou_coordinator}}</option>
+                            @foreach ($mous_edit as $mou)
+                              @if ($mou->id == $surat->mou->id)
+                                <option></option>
+                              @else
+                                <option value="{{$mou->id}}">MOU000{{$mou->mou_coordinator}}</option>
+                              @endif
+                            @endforeach
+                          @endif
                         @else
-                            
+                          @foreach ($mous as $mou)
+                            <option></option>
+                            <option value="{{$mou->id}}">MOU000{{$mou->id}} - {{$mou->mou_coordinator}}</option>
+                          @endforeach
                         @endif
-                        @foreach ($mous as $mou)
-                          <option></option>
-                          <option value="{{$mou->id}}">MOU000{{$mou->id}} - {{$mou->mou_coordinator}}</option>
-                        @endforeach
                       </select>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Koordinator</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_koordinator" id="mou_supervisor" value="{{isset($surat) ? $surat->mou->mou_coordinator : ''}}"
-                          required readonly>
+                        <input type="text" class="form-control" name="sp_koordinator" id="mou_supervisor" value="{{isset($surat->mou) ? $surat->mou->mou_coordinator : ''}}"
+                          readonly>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -639,6 +652,7 @@
                         <th>Tanggal</th>
                         <th>Tgl Pembayaran</th>
                         <th>Status</th>
+                        <th></th>
                       </tr>
                     </thead>
                   </table>
@@ -788,7 +802,7 @@
   </div>
 </div>
 @endsection
- @push('scripts')
+@push('scripts')
 <script>
   $(document).ready(function() {
     $("#customer_id").on("change", function(e) {
@@ -811,24 +825,6 @@
         }
       });
     });
-
-    // $('#company_id').on('change', function(e){
-    //   var id = $(this).val();
-    //   console.log(id);
-    //   $.ajax({
-    //   url: '{{route('transaction.surat-pesanan.load_company')}}',
-    //   data: {
-    //     id: id
-    //   },
-    //   success: function (result) {
-    //     console.log(result);
-    //     $('#company_name').val(result.company_name);
-    //   },
-    //   error: function (e) {
-    //     console.log(e);
-    //   }
-    //   });
-    // });
 
     $("#mou_id").on("change", function(e) {
       var id = $(this).val();
@@ -899,31 +895,11 @@
       const ajb = parseFloat($("input[name=sp_ajb_price]").val()) || 0;
       const dp = parseFloat($("input[name=sp_dp]").val()) || 0;
       const inputVal = parseFloat(e.target.value) || 0;
-      alert(ajb);
       const res = $("#kpr_plan_percen").val(ajb * (inputVal / 100));
       const float = res[0].value;
       const replacer = parseFloat(float.replace(/,/g, ""));
       $("#sp_dp").val(ajb - replacer);
     });
-
-    /* $('#price_id').on('change', function(e){
-        var id = $(this).val();
-        // console.log(id);
-        $.ajax({
-        url: '{{route('transaction.surat-pesanan.load_price')}}',
-        data: {
-          id: id
-        },
-        success: function (result) {
-          // console.log(result);
-          $('#price').val($.number(result.price_selling));
-          $('input[name=sp_total_harga_jual]').val(result.price_selling);
-        },
-        error: function (e) {
-          console.log(e);
-        }
-        });
-      }); */
 
     const price = parseFloat($("input[name=sp_price]").val()) || 0;
 
@@ -987,12 +963,6 @@
       $("input[name=sp_ajb_price]").val(tanah.val());
     });
 
-    // $('input[name=sp_tanah_lebih], input[name=sp_harga_m2]').keyup(() => {
-    //   const tanahLebih = parseFloat($('input[name=sp_tanah_lebih]').val()) || 0;
-    //   const hargaM2 = parseFloat($('input[name=sp_harga_m2]').val()) || 0;
-    //   $('input[name=sp_total_harga_tanah_lebih]').val(tanahLebih * hargaM2);
-    // })
-
     $("input[name=sp_dp], input[name=sp_ppn]").change(() => {
       const booking = parseFloat($("input[name=sp_booking_fee]").val()) || 0;
       const hargaTanahLebih =
@@ -1013,31 +983,6 @@
         $("input[name=sp_total_bill]").val(dp + ppn);
       }
     });
-
-    /* $('input[name=sp_booking_fee]').change(() => {
-        const subTotal = parseFloat($('input[name=sp_sub_total]').val()) || 0;
-        const booking = parseFloat($('input[name=sp_booking_fee]').val()) || 0;
-        $('input[name=sp_total_bill]').val(subTotal + booking);
-        $('input[name=sp_total]').val(subTotal + booking);
-      }) */
-
-    // $('select[name*=sp_biaya_lain_diperhitungkan]').each((index, element) => {
-    //   $('select[name*=sp_biaya_lain_diperhitungkan]').change((e) => {
-    //     console.log(e.target.value);
-    //     const status = $('#biayaLainStatus').val();
-    //     const diperhitungkan = $('select[name*=sp_biaya_lain_diperhitungkan]').val();
-    //     if (diperhitungkan === 'Developer') {
-    //       alert('ok');
-    //       const biayaLain = parseFloat($('#biayaLainNominal').val());
-    //       const totalBill = parseFloat($('input[name=sp_total_bill]').val());
-    //       $('input[name=sp_total_bill]').val(biayaLain + totalBill);
-    //       console.log(biayaLain)
-    //     }
-    //     if (diperhitungkan === 'Kontraktor') {
-    //       alert('fuck')
-    //     }
-    //   })
-    // })
 
     const template = $("#sections .section:first").clone();
     let sectionCount = 1;
@@ -1068,38 +1013,47 @@
     });
     console.log({ total: $("input[name=sp_total_bill]").val() });
     $(".addButton").click(() => {
-      const totalBill = parseFloat($("input[name=sp_total_bill]").val());
-      let arrayDev = [];
-      let arrayCon = [];
-      const diperhitungkan = $(
-        'select[name="sp_biaya_lain_diperhitungkan[]"]'
-      ).each(function(i, e) {
-        const val = $(e).val();
-        if (val === "Developer") {
-          const valueEl = $('input[name="sp_description_nominal[]"]')[i];
-          const nominal = parseFloat($(valueEl).val());
-          arrayDev.push(nominal);
-          const sum = arrayDev.reduce((acc, cur) => {
-            return acc + cur;
-          }, 0);
-          if (totalBill) {
-            $("input[name=sp_total_bill]").val(totalBill + sum);
-          } else {
-            $("input[name=sp_total_bill]").val(sum);
+      console.log($('#biayaLainDiperhitungkan').val());
+      if ($('#biayaLainDiperhitungkan').val() === null || $('#biayaLainStatus').val() === null) {
+        swal({
+          type: "error",
+          text: "Please select all options",
+          confirmButtonClass: "btn btn-primary"
+        })
+      } else {
+        const totalBill = parseFloat($("input[name=sp_total_bill]").val());
+        let arrayDev = [];
+        let arrayCon = [];
+        const diperhitungkan = $(
+          'select[name="sp_biaya_lain_diperhitungkan[]"]'
+        ).each(function(i, e) {
+          const val = $(e).val();
+          if (val === "Developer") {
+            const valueEl = $('input[name="sp_description_nominal[]"]')[i];
+            const nominal = parseFloat($(valueEl).val());
+            arrayDev.push(nominal);
+            const sum = arrayDev.reduce((acc, cur) => {
+              return acc + cur;
+            }, 0);
+            if (totalBill) {
+              $("input[name=sp_total_bill]").val(totalBill + sum);
+            } else {
+              $("input[name=sp_total_bill]").val(sum);
+            }
           }
-        }
-        if (val === "Contractor") {
-          const valueEl = $('input[name="sp_description_nominal[]"]')[i];
-          const nominal = parseFloat($(valueEl).val());
-          arrayCon.push(nominal);
-          const sum = arrayCon.reduce((acc, cur) => {
-            return acc + cur;
-          }, 0);
-          console.log("Contractor", arrayCon);
-          console.log("sum", sum);
-          $("input[name=sp_contractor_bill]").val(sum);
-        }
-      });
+          if (val === "Contractor") {
+            const valueEl = $('input[name="sp_description_nominal[]"]')[i];
+            const nominal = parseFloat($(valueEl).val());
+            arrayCon.push(nominal);
+            const sum = arrayCon.reduce((acc, cur) => {
+              return acc + cur;
+            }, 0);
+            console.log("Contractor", arrayCon);
+            console.log("sum", sum);
+            $("input[name=sp_contractor_bill]").val(sum);
+          }
+        });
+      }
     });
 
     $("input[name=sp_per_month_internal]").change(() => {
@@ -2228,18 +2182,22 @@
         ajax: "{!! route('transaction.surat-pesanan.cicilan', $surat->id) !!}",
         columns: [
           {
-            data: "no"
+            data: "no",
+            render: (data, type, row, meta) => {
+              return meta.row + meta.settings._iDisplayStart + 1;
+            }
           },
           {
             data: "description",
             render: (data, type, row) => `<span><a href="/transaction/surat-pesanan/edit_cicilan/${row.id}">${row.description}</a></span>` || console.log(row)
           },
           {
-            data: "piutang"
+            data: "piutang",
+            render: $.fn.dataTable.render.number(',', '.', 2)
           },
           {
             data: "created_at",
-            render: data => moment().format("D MMMM YYYY")
+            render: data => moment(data).format("D MMMM YYYY")
           },
           {
             data: "deleted_at",
@@ -2279,17 +2237,21 @@
         ajax: "{!! route('transaction.surat-pesanan.developer', $surat->id) !!}",
         columns: [
           {
-            data: "no"
+            data: "no",
+            render: (data, type, row, meta) => {
+              return meta.row + meta.settings._iDisplayStart + 1;
+            }
           },
           {
             data: "sp_description"
           },
           {
-            data: "sp_description_nominal"
+            data: "sp_description_nominal",
+            render: $.fn.dataTable.render.number(',', '.', 2)
           },
           {
             data: "created_at",
-            render: data => moment().format("D MMMM YYYY")
+            render: data => moment(data).format("D MMMM YYYY")
           },
           {
             data: "sp_id",
@@ -2310,17 +2272,21 @@
         ajax: "{!! route('transaction.surat-pesanan.contractor', $surat->id) !!}",
         columns: [
           {
-            data: "no"
+            data: "no",
+            render: (data, type, row, meta) => {
+              return meta.row + meta.settings._iDisplayStart + 1;
+            }
           },
           {
             data: "sp_description"
           },
           {
-            data: "sp_description_nominal"
+            data: "sp_description_nominal",
+            render: $.fn.dataTable.render.number(',', '.', 2)
           },
           {
             data: "created_at",
-            render: data => moment().format("D MMMM YYYY")
+            render: data => moment(data).format("D MMMM YYYY")
           },
           {
             data: "deleted_at",

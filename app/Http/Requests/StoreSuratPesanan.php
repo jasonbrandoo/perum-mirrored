@@ -31,8 +31,6 @@ class StoreSuratPesanan extends FormRequest
             'sp_customer_name' => ['required'],
             'sp_company_id' => ['required'],
             'sp_company_name' => ['required'],
-            'sp_mou_id' => ['required'],
-            'sp_koordinator' => ['required'],
             'sp_se_id' => ['required'],
             'sp_se_name' => ['required'],
             'sp_spv_id' => ['required'],
