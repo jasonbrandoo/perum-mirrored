@@ -595,8 +595,8 @@
             <h6>Step 4</h6>
             <fieldset>
               <ul class="nav nav-tabs nav-tabs-bottom">
-                <li class="nav-item"><a href="#piutang-internal" class="nav-link active" data-toggle="tab">Internal</a></li>
-                <li class="nav-item"><a href="#piutang-developer" class="nav-link" data-toggle="tab">Developer</a></li>
+                <li class="nav-item"><a href="#piutang-internal" class="nav-link active" data-toggle="tab">Internal / Developer</a></li>
+                <li class="nav-item"><a href="#piutang-kreditur" class="nav-link" data-toggle="tab">Kreditur</a></li>
                 <li class="nav-item"><a href="#piutang-kontraktor" class="nav-link" data-toggle="tab">Kontraktor</a></li>
               </ul>
               <div class="tab-content">
@@ -629,8 +629,8 @@
                   <input type="hidden" name="piutang" id="piutang">
                   <input type="hidden" name="internal" id="internal">
                 </div>
-                <div class="tab-pane fade" id="piutang-developer">
-                  <table class="table table-bordered mb-5" id="developer">
+                <div class="tab-pane fade" id="piutang-kreditur">
+                  <table class="table table-bordered mb-5" id="kreditur">
                     <thead>
                       <tr>
                         <th>Seq</th>
@@ -2229,24 +2229,24 @@
         }
       });
 
-      $("#developer").DataTable({
+      $("#kreditur").DataTable({
         dom:
           '<"datatable-header"><"datatable-scroll-wrap"t><"datatable-footer"ip>',
         processing: true,
         serverSide: true,
-        ajax: "{!! route('transaction.surat-pesanan.developer', $surat->id) !!}",
+        ajax: "{!! route('transaction.surat-pesanan.kreditur', $surat->id) !!}",
         columns: [
           {
-            data: "no",
+            data: "id",
             render: (data, type, row, meta) => {
               return meta.row + meta.settings._iDisplayStart + 1;
             }
           },
           {
-            data: "sp_description"
+            data: "description"
           },
           {
-            data: "sp_description_nominal",
+            data: "piutang",
             render: $.fn.dataTable.render.number(',', '.', 2)
           },
           {
@@ -2254,7 +2254,7 @@
             render: data => moment(data).format("D MMMM YYYY")
           },
           {
-            data: "sp_id",
+            data: "id",
             render: id =>
               `<span><a href="/transaction/surat-pesanan/print_kuitansi_developer/${id}">Print</a></span>`
           }
@@ -2272,16 +2272,16 @@
         ajax: "{!! route('transaction.surat-pesanan.contractor', $surat->id) !!}",
         columns: [
           {
-            data: "no",
+            data: "id",
             render: (data, type, row, meta) => {
               return meta.row + meta.settings._iDisplayStart + 1;
             }
           },
           {
-            data: "sp_description"
+            data: "description"
           },
           {
-            data: "sp_description_nominal",
+            data: "piutang",
             render: $.fn.dataTable.render.number(',', '.', 2)
           },
           {
@@ -2299,7 +2299,7 @@
             render: (data) => data !== null ? "<span class='badge-success p-1'>Lunas</span>" : "<span class='badge-danger p-1'>Belum Lunas</span>"
           },
           {
-            data: "sp_id",
+            data: "id",
             render: id =>
               `<span><a href="/transaction/surat-pesanan/print_kuitansi_contractor/${id}">Print</a></span>`
           }

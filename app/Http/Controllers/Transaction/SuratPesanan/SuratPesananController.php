@@ -28,6 +28,8 @@ use App\Model\Legal;
 use App\Model\Spk;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use App\Model\BiayaLain;
+use App\Model\CicilanKreditur;
+use App\Model\CicilanKontraktor;
 
 class SuratPesananController extends Controller
 {
@@ -167,15 +169,15 @@ class SuratPesananController extends Controller
     return DataTables::of($cicilan)->make();
   }
 
-  public function developer($id)
+  public function kreditur($id)
   {
-    $developer = BiayaLain::with('cicilan')->where('sp_id', $id)->where('biaya_lain_diperhitungkan', 'Developer');
-    return DataTables::of($developer)->make();
+    $kreditur = CicilanKreditur::with('surat')->where('cicilan_sp_id', $id);
+    return DataTables::of($kreditur)->make();
   }
 
   public function contractor($id)
   {
-    $contractor = BiayaLain::with('cicilan')->where('sp_id', $id)->where('biaya_lain_diperhitungkan', 'Contractor');
+    $contractor = CicilanKontraktor::with('surat')->where('cicilan_sp_id', $id);
     return DataTables::of($contractor)->make();
   }
 
@@ -249,13 +251,33 @@ class SuratPesananController extends Controller
     ]);
 
     $data = [];
-    $cicilan = Comma::removeComma($request->sp_per_month_internal);
-    $booking_fee = Comma::removeComma($request->sp_booking_fee);
+    $data_kreditur = [];
+    $data_kontraktor = [];
+
     $customer_id = $request->sp_customer_id;
-    $piutang = round($booking_fee / $cicilan);
+    $booking_fee = Comma::removeComma($request->sp_booking_fee);
+
+    $cicilan = Comma::removeComma($request->sp_per_month_internal);
+    $cicilan_kreditur = Comma::removeComma($request->input('sp_per_month_kreditur'));
+    $cicilan_kontraktor = Comma::removeComma($request->input('sp_per_month_contractor'));
+
+    $sp_total_bill = Comma::removeComma($request->input('sp_total_bill'));
+    $sp_contractor_bill = Comma::removeComma($request->input('sp_contractor_bill'));
+
+    $piutang = round($sp_total_bill / $cicilan);
+    $piutang_kreditur = round($sp_total_bill / $cicilan_kreditur);
+    $piutang_contractor = $sp_contractor_bill === 0 ? 0 : round($sp_contractor_bill / $cicilan_kontraktor);
 
     Cicilan::create([
       'no' => 0,
+      'cicilan_sp_id' => (new SuratPesanan)->max('id'),
+      'customer_id' => $customer_id,
+      'description' => 'Booking fee',
+      'piutang' => $booking_fee,
+      'created_at' => Carbon::now(),
+    ]);
+
+    CicilanKreditur::create([
       'cicilan_sp_id' => (new SuratPesanan)->max('id'),
       'customer_id' => $customer_id,
       'description' => 'Booking fee',
@@ -275,7 +297,27 @@ class SuratPesananController extends Controller
       ]);
     }
 
-    Cicilan::insert($data);
+    for ($i = 1; $i <= $cicilan_kreditur; $i++) {
+      $date_kreditur = Carbon::now();
+      array_push($data_kreditur, [
+        'cicilan_sp_id' => (new SuratPesanan)->max('id'),
+        'customer_id' => $customer_id,
+        'description' => 'cicilan ' . $i,
+        'piutang' => $piutang_kreditur,
+        'created_at' => $date_kreditur->addWeek(2)->addMonth($i)
+      ]);
+    }
+
+    for ($i = 1; $i <= $cicilan_kontraktor; $i++) {
+      $date_contractor = new Carbon($date);
+      array_push($data_kontraktor, [
+        'cicilan_sp_id' => (new SuratPesanan)->max('id'),
+        'customer_id' => $customer_id,
+        'description' => 'cicilan biaya ' . $i,
+        'piutang' => $piutang_contractor,
+        'created_at' => $date_contractor->addMonth($i)
+      ]);
+    }
 
     $biaya_lain_dev = [];
     $biaya_lain_con = [];
@@ -306,6 +348,12 @@ class SuratPesananController extends Controller
       }
     }
 
+    Cicilan::insert($data);
+    CicilanKreditur::insert($data_kreditur);
+
+    if ($piutang_contractor > 0) {
+      CicilanKontraktor::insert($data_kontraktor);
+    }
     if (count($biaya_lain_dev) > 0) {
       BiayaLain::insert($biaya_lain_dev);
     }
@@ -441,13 +489,37 @@ class SuratPesananController extends Controller
     Cicilan::whereIn('cicilan_sp_id', [$request->id])->delete();
 
     $data = [];
-    $cicilan = Comma::removeComma($request->sp_per_month_internal);
-    $booking_fee = Comma::removeComma($request->sp_booking_fee);
+    $data_kreditur = [];
+    $data_kontraktor = [];
+
     $customer_id = $request->sp_customer_id;
-    $piutang = round($booking_fee / $cicilan);
+    $booking_fee = Comma::removeComma($request->sp_booking_fee);
+
+    $cicilan = Comma::removeComma($request->sp_per_month_internal);
+    $cicilan_kreditur = Comma::removeComma($request->input('sp_per_month_kreditur'));
+    $cicilan_kontraktor = Comma::removeComma($request->input('sp_per_month_contractor'));
+
+    $sp_total_bill = Comma::removeComma($request->input('sp_total_bill'));
+    $sp_contractor_bill = Comma::removeComma($request->input('sp_contractor_bill'));
+
+    $piutang = round($sp_total_bill / $cicilan);
+    $piutang_kreditur = round($sp_total_bill / $cicilan_kreditur);
+    $piutang_contractor = $sp_contractor_bill === 0 ? 0 : round($sp_contractor_bill / $cicilan_kontraktor);
+
+    Cicilan::whereIn('cicilan_sp_id', [$request->id])->delete();
+    CicilanKreditur::whereIn('cicilan_sp_id', [$request->id])->delete();
+    CicilanKontraktor::whereIn('cicilan_sp_id', [$request->id])->delete();
 
     Cicilan::create([
       'no' => 0,
+      'cicilan_sp_id' => (new SuratPesanan)->max('id'),
+      'customer_id' => $customer_id,
+      'description' => 'Booking fee',
+      'piutang' => $booking_fee,
+      'created_at' => Carbon::now(),
+    ]);
+
+    CicilanKreditur::create([
       'cicilan_sp_id' => (new SuratPesanan)->max('id'),
       'customer_id' => $customer_id,
       'description' => 'Booking fee',
@@ -467,7 +539,34 @@ class SuratPesananController extends Controller
       ]);
     }
 
+    for ($i = 1; $i <= $cicilan_kreditur; $i++) {
+      $date_kreditur = Carbon::now();
+      array_push($data_kreditur, [
+        'cicilan_sp_id' => (new SuratPesanan)->max('id'),
+        'customer_id' => $customer_id,
+        'description' => 'cicilan ' . $i,
+        'piutang' => $piutang_kreditur,
+        'created_at' => $date_kreditur->addWeek(2)->addMonth($i)
+      ]);
+    }
+
+    for ($i = 1; $i <= $cicilan_kontraktor; $i++) {
+      $date_contractor = new Carbon($date);
+      array_push($data_kontraktor, [
+        'cicilan_sp_id' => (new SuratPesanan)->max('id'),
+        'customer_id' => $customer_id,
+        'description' => 'cicilan biaya ' . $i,
+        'piutang' => $piutang_contractor,
+        'created_at' => $date_contractor->addMonth($i)
+      ]);
+    }
+
     Cicilan::insert($data);
+    CicilanKreditur::insert($data_kreditur);
+
+    if ($piutang_contractor > 0) {
+      CicilanKontraktor::insert($data_kontraktor);
+    }
 
     $biaya_lain_dev = [];
     $biaya_lain_con = [];
@@ -575,17 +674,17 @@ class SuratPesananController extends Controller
 
   public function developerKuitansi($id)
   {
-    $developer = BiayaLain::with('cicilan.kavling.house', 'cicilan.customer')->where('sp_id', $id)->first();
+    $developer = CicilanKreditur::with( 'surat.kavling.house', 'surat.customer')->where('id', $id)->first();
     $data = [
       'developer' => $developer,
     ];
-    // return $developer;
+    // return $data;
     return PDF::loadView('pages.transaction.surat.pdf-kuitansi', $data)->inline();
   }
 
   public function contractorKuitansi($id)
   {
-    $contractor = BiayaLain::with('cicilan.kavling.house', 'cicilan.customer')->where('sp_id', $id)->first();
+    $contractor = CicilanKontraktor::with('surat.kavling.house', 'surat.customer')->where('id', $id)->first();
     $data = [
       'contractor' => $contractor,
     ];

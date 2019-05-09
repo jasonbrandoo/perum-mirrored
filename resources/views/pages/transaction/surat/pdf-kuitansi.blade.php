@@ -201,29 +201,29 @@
   <h1 class="__kwitansi">KWITANSI</h1>
   <div class="__content">
     <p class="__tab">Sudah diterima dari</p>
-    <p>: {{$developer->cicilan->customer->customer_name}}</p>
+    <p>: {{$developer->surat->customer->customer_name}}</p>
   </div>
   <div class="__content">
     <p class="__tab">Banyaknya uang</p>
-    <p>: Rp. {{$developer->sp_description_nominal}} </p>
+    <p>: Rp. {{$developer->piutang}} </p>
   </div>
   <div class="__content">
     <p class="__tab">Untuk Pembayaran</p>
-    <p>: {{$developer->sp_description}} </p>
+    <p>: {{$developer->description}} </p>
   </div>
   <div class="__flex">
     <div class="__info-left">Mengenai Penjualan</div>
     <div class="__info-right">
-      <p>: Rumah Cluster <span>{{$developer->cicilan->kavling->kavling_cluster}}</span></p>
-      <p>: Type : <span>{{$developer->cicilan->kavling->house->rumah_type_name}}</span> Blok: <span>{{$developer->cicilan->kavling->kavling_block}}</span>      Kav.No:
-        <span>{{$developer->cicilan->kavling->kavling_number}}</span></p>
-      <p>: Sesuai dengan SP Jual/Beli No : SP{{$developer->cicilan->id}}</p>
+      <p>: Rumah Cluster <span>{{$developer->surat->kavling->kavling_cluster}}</span></p>
+      <p>: Type : <span>{{$developer->surat->kavling->house->rumah_type_name}}</span> Blok: <span>{{$developer->surat->kavling->kavling_block}}</span>      Kav.No:
+        <span>{{$developer->surat->kavling->kavling_number}}</span></p>
+      <p>: Sesuai dengan SP Jual/Beli No : SP{{$developer->surat->id}}</p>
     </div>
   </div>
   <div class="__jumlah">
     <div class="__content-left">
       <p>Jumlah</p>
-      <p>Rp. {{$developer->sp_description_nominal}}</p>
+      <p>Rp. {{$developer->piutang}}</p>
     </div>
     <div class="__content-right">
       {{--
@@ -245,29 +245,29 @@
   <h1 class="__kwitansi">KWITANSI</h1>
   <div class="__content">
     <p class="__tab">Sudah diterima dari</p>
-    <p>: {{$contractor->cicilan->customer->customer_name}}</p>
+    <p>: {{$contractor->surat->customer->customer_name}}</p>
   </div>
   <div class="__content">
     <p class="__tab">Banyaknya uang</p>
-    <p>: Rp. {{$contractor->sp_description_nominal}} </p>
+    <p>: Rp. {{$contractor->piutang}} </p>
   </div>
   <div class="__content">
     <p class="__tab">Untuk Pembayaran</p>
-    <p>: {{$contractor->sp_description}} </p>
+    <p>: {{$contractor->description}} </p>
   </div>
   <div class="__flex">
     <div class="__info-left">Mengenai Penjualan</div>
     <div class="__info-right">
-      <p>: Rumah Cluster <span>{{$contractor->cicilan->kavling->kavling_cluster}}</span></p>
-      <p>: Type : <span>{{$contractor->cicilan->kavling->house->rumah_type_name}}</span> Blok: <span>{{$contractor->cicilan->kavling->kavling_block}}</span>      Kav.No:
-        <span>{{$contractor->cicilan->kavling->kavling_number}}</span></p>
-      <p>: Sesuai dengan SP Jual/Beli No : SP{{$contractor->cicilan->id}}</p>
+      <p>: Rumah Cluster <span>{{$contractor->surat->kavling->kavling_cluster}}</span></p>
+      <p>: Type : <span>{{$contractor->surat->kavling->house->rumah_type_name}}</span> Blok: <span>{{$contractor->surat->kavling->kavling_block}}</span>      Kav.No:
+        <span>{{$contractor->surat->kavling->kavling_number}}</span></p>
+      <p>: Sesuai dengan SP Jual/Beli No : SP{{$contractor->surat->id}}</p>
     </div>
   </div>
   <div class="__jumlah">
     <div class="__content-left">
       <p>Jumlah</p>
-      <p>Rp. {{$contractor->sp_description_nominal}}</p>
+      <p>Rp. {{$contractor->piutang}}</p>
     </div>
     <div class="__content-right">
       {{--
