@@ -187,7 +187,7 @@ class SuratPesananController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(StoreSuratPesanan $request)
+  public function store(Request $request)
   {
     //
     SuratPesanan::create([
