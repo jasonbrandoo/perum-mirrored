@@ -122,7 +122,7 @@ class SuratPesananController extends Controller
     $sales = Sales::where('sales_position', 'Sales')->get();
     $spvs = Sales::where('sales_position', 'Supervisor')->get();
     $payments = Payment::where('payment_type', 'Surat Pesanan')->get();
-    $kavlings = Kavling::with('price.house')->get();
+    $kavlings = Kavling::with('price.house')->doesntHave('surat')->get();
     $prices = Price::all();
     return view('pages.transaction.surat.create-surat', compact('customers', 'mous', 'sales', 'spvs', 'kavlings', 'companies', 'prices', 'payments', 'id'));
   }
