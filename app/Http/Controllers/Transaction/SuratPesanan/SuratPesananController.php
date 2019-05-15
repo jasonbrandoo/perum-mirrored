@@ -275,6 +275,7 @@ class SuratPesananController extends Controller
       'description' => 'Booking fee',
       'piutang' => $booking_fee,
       'created_at' => Carbon::now(),
+      'status' => 'unpaid'
     ]);
 
     CicilanKreditur::create([
@@ -283,6 +284,7 @@ class SuratPesananController extends Controller
       'description' => 'Booking fee',
       'piutang' => $booking_fee,
       'created_at' => Carbon::now(),
+      'status' => 'unpaid'
     ]);
 
     for ($i = 1; $i <= $cicilan; $i++) {
@@ -293,7 +295,8 @@ class SuratPesananController extends Controller
         'customer_id' => $customer_id,
         'description' => 'cicilan ' . $i,
         'piutang' => $piutang,
-        'created_at' => $date->addWeek(2)->addMonth($i)
+        'created_at' => $date->addWeek(2)->addMonth($i),
+        'status' => 'unpaid'
       ]);
     }
 
@@ -304,7 +307,8 @@ class SuratPesananController extends Controller
         'customer_id' => $customer_id,
         'description' => 'cicilan ' . $i,
         'piutang' => $piutang_kreditur,
-        'created_at' => $date_kreditur->addWeek(2)->addMonth($i)
+        'created_at' => $date_kreditur->addWeek(2)->addMonth($i),
+        'status' => 'unpaid'
       ]);
     }
 
@@ -315,7 +319,8 @@ class SuratPesananController extends Controller
         'customer_id' => $customer_id,
         'description' => 'cicilan biaya ' . $i,
         'piutang' => $piutang_contractor,
-        'created_at' => $date_contractor->addMonth($i)
+        'created_at' => $date_contractor->addMonth($i),
+        'status' => 'unpaid'
       ]);
     }
 
@@ -517,6 +522,7 @@ class SuratPesananController extends Controller
       'description' => 'Booking fee',
       'piutang' => $booking_fee,
       'created_at' => Carbon::now(),
+      'status' => 'unpaid'
     ]);
 
     CicilanKreditur::create([
@@ -525,6 +531,7 @@ class SuratPesananController extends Controller
       'description' => 'Booking fee',
       'piutang' => $booking_fee,
       'created_at' => Carbon::now(),
+      'status' => 'unpaid'
     ]);
 
     for ($i = 1; $i <= $cicilan; $i++) {
@@ -535,7 +542,8 @@ class SuratPesananController extends Controller
         'customer_id' => $customer_id,
         'description' => 'cicilan ' . $i,
         'piutang' => $piutang,
-        'created_at' => $date->addWeek(2)->addMonth($i)
+        'created_at' => $date->addWeek(2)->addMonth($i),
+        'status' => 'unpaid'
       ]);
     }
 
@@ -546,7 +554,8 @@ class SuratPesananController extends Controller
         'customer_id' => $customer_id,
         'description' => 'cicilan ' . $i,
         'piutang' => $piutang_kreditur,
-        'created_at' => $date_kreditur->addWeek(2)->addMonth($i)
+        'created_at' => $date_kreditur->addWeek(2)->addMonth($i),
+        'status' => 'unpaid'
       ]);
     }
 
@@ -557,7 +566,8 @@ class SuratPesananController extends Controller
         'customer_id' => $customer_id,
         'description' => 'cicilan biaya ' . $i,
         'piutang' => $piutang_contractor,
-        'created_at' => $date_contractor->addMonth($i)
+        'created_at' => $date_contractor->addMonth($i),
+        'status' => 'unpaid'
       ]);
     }
 
@@ -668,13 +678,15 @@ class SuratPesananController extends Controller
     $data = [
       'internal' => $internal,
     ];
-    // return $data;
+    Cicilan::find($id)->update([
+      'status' => 'paid'
+    ]);
     return PDF::loadView('pages.transaction.surat.pdf-kuitansi', $data)->inline();
   }
 
   public function developerKuitansi($id)
   {
-    $developer = CicilanKreditur::with( 'surat.kavling.house', 'surat.customer')->where('id', $id)->first();
+    $developer = CicilanKreditur::with('surat.kavling.house', 'surat.customer')->where('id', $id)->first();
     $data = [
       'developer' => $developer,
     ];

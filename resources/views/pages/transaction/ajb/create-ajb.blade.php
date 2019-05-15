@@ -1,10 +1,10 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 @section('page-title')
 <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">AJB</span> - {{isset($ajb) ? 'Edit Ajb' : 'Create
   New AJB'}}</h4>
 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 @endsection
- 
+
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">
@@ -46,10 +46,10 @@
                 <div class="col-lg-9">
                   <div class="input-group">
                     <span class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-calendar2"></i></span>
+                      <span class="input-group-text"><i class="icon-calendar2"></i></span>
                     </span>
-                    <input type="text" class="form-control pickadate-selectors" name="ajb_date" value="{{isset($ajb) ? $ajb->ajb_date : ''}}"
-                      required>
+                    <input type="text" class="form-control pickadate-selectors" name="ajb_date"
+                      value="{{isset($ajb) ? $ajb->ajb_date : ''}}" required>
                   </div>
                 </div>
               </div>
@@ -57,41 +57,47 @@
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Harga AJB 1</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control price" name="ajb_price_1" value="{{isset($ajb) ? $ajb->ajb_price_1 : ''}}" required>
+                  <input type="text" class="form-control price" name="ajb_price_1"
+                    value="{{isset($ajb) ? $ajb->ajb_price_1 : ''}}" required>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Harga AJB 2</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control price" name="ajb_price_2" value="{{isset($ajb) ? $ajb->ajb_price_2 : ''}}" required>
+                  <input type="text" class="form-control price" name="ajb_price_2"
+                    value="{{isset($ajb) ? $ajb->ajb_price_2 : ''}}" required>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">LT AJB 1(M2)</label>
                 <div class="col-lg-9">
-                  <input type="number" class="form-control" name="ajb_lt" value="{{isset($ajb) ? $ajb->ajb_lt : ''}}" required>
+                  <input type="number" class="form-control" name="ajb_lt" value="{{isset($ajb) ? $ajb->ajb_lt : ''}}"
+                    required>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">TL AJB 2(M2)</label>
                 <div class="col-lg-9">
-                  <input type="number" class="form-control" name="ajb_tl" value="{{isset($ajb) ? $ajb->ajb_tl : ''}}" required>
+                  <input type="number" class="form-control" name="ajb_tl" value="{{isset($ajb) ? $ajb->ajb_tl : ''}}"
+                    required>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Notaris / PPAT</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" name="ajb_notaris" value="{{isset($ajb) ? $ajb->ajb_notaris : ''}}" required>
+                  <input type="text" class="form-control" name="ajb_notaris"
+                    value="{{isset($ajb) ? $ajb->ajb_notaris : ''}}" required>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Keterangan</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" name="ajb_description" value="{{isset($ajb) ? $ajb->ajb_description : ''}}">
+                  <input type="text" class="form-control" name="ajb_description"
+                    value="{{isset($ajb) ? $ajb->ajb_description : ''}}">
                 </div>
               </div>
             </fieldset>
@@ -102,41 +108,50 @@
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">No Sp</label>
                 <div class="col-lg-9">
-                  <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="ajb_sp_id" id="sp_id" required>
+                  <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="ajb_sp_id"
+                    id="sp_id" required>
                     @if (isset($ajb))
-                      <option value="{{$ajb->surat->id}}">SP000{{$ajb->surat->id}} - {{$ajb->surat->customer->customer_name}} - BLOK {{$ajb->surat->kavling->kavling_block}}</option>
-                      @foreach ($sps_edit as $sp)
-                      @if ($sp->id == $ajb->surat->id)
-                        <option></option>
-                      @else
-                      <option value="{{$sp->id}}">SP000{{$sp->id}} - {{$sp->customer->customer_name}} - BLOK {{$sp->kavling->kavling_block}}</option>
-                      @endif
-                      @endforeach
-                        @else
-                        @foreach ($sps as $sp)
-                        <option value=""></option>
-                        <option value="{{$sp->id}}">SP000{{$sp->id}} - {{$sp->customer->customer_name}} - BLOK {{$sp->kavling->kavling_block}}</option>
-                      @endforeach
+                    <option value="{{$ajb->surat->id}}">SP000{{$ajb->surat->id}} -
+                      {{$ajb->surat->customer->customer_name}} - BLOK {{$ajb->surat->kavling->kavling_block}}</option>
+                    @foreach ($sps_edit as $sp)
+                    @if ($sp->id == $ajb->surat->id)
+                    <option></option>
+                    @else
+                    <option value="{{$sp->id}}">SP000{{$sp->id}} - {{$sp->customer->customer_name}} - BLOK
+                      {{$sp->kavling->kavling_block}}</option>
                     @endif
-                </select>
+                    @endforeach
+                    @else
+                    @foreach ($sps as $sp)
+                    <option value=""></option>
+                    <option value="{{$sp->realisasi->wawancara->surat->id}}">
+                      SP000{{$sp->realisasi->wawancara->surat->id}} -
+                      {{$sp->realisasi->wawancara->surat->customer->customer_name}} - BLOK
+                      {{$sp->realisasi->wawancara->surat->kavling->kavling_block}}</option>
+                    @endforeach
+                    @endif
+                  </select>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Harga Jual Sp</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control price" id="sp_price" value="{{isset($ajb) ? $ajb->surat->sp_price : ''}}" readonly required>
+                  <input type="text" class="form-control price" id="sp_price"
+                    value="{{isset($ajb) ? $ajb->surat->sp_price : ''}}" readonly required>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Tanggal Sp</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_date" name="sp_date" value="{{isset($ajb) ? $ajb->surat->sp_date : ''}}" readonly required>
+                  <input type="text" class="form-control" id="sp_date" name="sp_date"
+                    value="{{isset($ajb) ? $ajb->surat->sp_date : ''}}" readonly required>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">KPR Disetujui</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_kpr" name="sp_kpr" value="{{isset($ajb) ? $ajb->surat->sp_kpr_plan : ''}}" readonly required>
+                  <input type="text" class="form-control" id="sp_kpr" name="sp_kpr"
+                    value="{{isset($ajb) ? $ajb->surat->sp_kpr_plan : ''}}" readonly required>
                 </div>
               </div>
               <div class="form-group row">
@@ -144,13 +159,13 @@
                 <div class="col-lg-9">
                   <div class="row">
                     <div class="col-md-6">
-                      <input type="text" class="form-control" id="sp_block" name="sp_block" value="{{isset($ajb) ? $ajb->surat->kavling->kavling_block : ''}}" readonly
-                        required>
+                      <input type="text" class="form-control" id="sp_block" name="sp_block"
+                        value="{{isset($ajb) ? $ajb->surat->kavling->kavling_block : ''}}" readonly required>
                     </div>
                     <label class="col-form-label">No</label>
                     <div class="col-md-5">
-                      <input type="text" class="form-control" id="sp_number" name="sp_number" value="{{isset($ajb) ? $ajb->surat->kavling->kavling_number : ''}}"
-                        readonly required>
+                      <input type="text" class="form-control" id="sp_number" name="sp_number"
+                        value="{{isset($ajb) ? $ajb->surat->kavling->kavling_number : ''}}" readonly required>
                     </div>
                   </div>
                 </div>
@@ -158,27 +173,29 @@
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Luas Bangunan</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_building" name="sp_building" value="{{isset($ajb) ? $ajb->surat->kavling->house->building_area_m2 : ''}}"
-                    readonly required>
+                  <input type="text" class="form-control" id="sp_building" name="sp_building"
+                    value="{{isset($ajb) ? $ajb->surat->kavling->house->building_area_m2 : ''}}" readonly required>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Luas Tanah</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_surface" name="sp_surface" value="{{isset($ajb) ? $ajb->surat->kavling->house->surface_area_m2 : ''}}"
-                    readonly required>
+                  <input type="text" class="form-control" id="sp_surface" name="sp_surface"
+                    value="{{isset($ajb) ? $ajb->surat->kavling->house->surface_area_m2 : ''}}" readonly required>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">TL</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_tl" name="sp_tl" value="{{isset($ajb) ? $ajb->surat->sp_tl : ''}}" readonly required>
+                  <input type="text" class="form-control" id="sp_tl" name="sp_tl"
+                    value="{{isset($ajb) ? $ajb->surat->sp_tl : ''}}" readonly required>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">No SHGB</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_shgb" name="ajb_shgb" value="{{isset($ajb) ? $ajb->ajb_shgb : ''}}" required>
+                  <input type="text" class="form-control" id="sp_shgb" name="ajb_shgb"
+                    value="{{isset($ajb) ? $ajb->ajb_shgb : ''}}" required>
                 </div>
               </div>
               <div class="form-group row">
@@ -186,10 +203,10 @@
                 <div class="col-lg-9">
                   <div class="input-group">
                     <span class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-calendar2"></i></span>
+                      <span class="input-group-text"><i class="icon-calendar2"></i></span>
                     </span>
-                    <input type="text" class="form-control pickadate-selectors" id="sp_shgb_date" name="ajb_shgb_date" value="{{isset($ajb) ? $ajb->ajb_shgb_date : ''}}"
-                      required>
+                    <input type="text" class="form-control pickadate-selectors" id="sp_shgb_date" name="ajb_shgb_date"
+                      value="{{isset($ajb) ? $ajb->ajb_shgb_date : ''}}" required>
                   </div>
                 </div>
               </div>
@@ -197,7 +214,8 @@
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">No IMB Pecahan</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_imb" name="ajb_imb" value="{{isset($ajb) ? $ajb->ajb_imb : ''}}" required>
+                  <input type="text" class="form-control" id="sp_imb" name="ajb_imb"
+                    value="{{isset($ajb) ? $ajb->ajb_imb : ''}}" required>
                 </div>
               </div>
 
@@ -206,10 +224,10 @@
                 <div class="col-lg-9">
                   <div class="input-group">
                     <span class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-calendar2"></i></span>
+                      <span class="input-group-text"><i class="icon-calendar2"></i></span>
                     </span>
-                    <input type="text" class="form-control pickadate-selectors" id="sp_imb_date" name="ajb_imb_date" value="{{isset($ajb) ? $ajb->ajb_imb_date : ''}}"
-                      required>
+                    <input type="text" class="form-control pickadate-selectors" id="sp_imb_date" name="ajb_imb_date"
+                      value="{{isset($ajb) ? $ajb->ajb_imb_date : ''}}" required>
                   </div>
                 </div>
               </div>
@@ -217,22 +235,24 @@
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Kode Sales</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_sales_id" name="sp_sales_id" value="{{isset($ajb) ? $ajb->surat->sales->id : ''}}" readonly required>
+                  <input type="text" class="form-control" id="sp_sales_id" name="sp_sales_id"
+                    value="{{isset($ajb) ? $ajb->surat->sales->id : ''}}" readonly required>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">Nama Sales</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_sales_name" name="sp_sales_name" value="{{isset($ajb) ? $ajb->surat->sales->sales_name : ''}}"
-                    readonly required>
+                  <input type="text" class="form-control" id="sp_sales_name" name="sp_sales_name"
+                    value="{{isset($ajb) ? $ajb->surat->sales->sales_name : ''}}" readonly required>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label">No SP3K</label>
                 <div class="col-lg-9">
-                  <input type="text" class="form-control" id="sp_sp3k" name="ajb_sp3k" value="{{isset($ajb) ? $ajb->ajb_sp3k : ''}}" required>
+                  <input type="text" class="form-control" id="sp_sp3k" name="ajb_sp3k"
+                    value="{{isset($ajb) ? $ajb->ajb_sp3k : ''}}" required>
                 </div>
               </div>
 
@@ -241,10 +261,10 @@
                 <div class="col-lg-9">
                   <div class="input-group">
                     <span class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-calendar2"></i></span>
+                      <span class="input-group-text"><i class="icon-calendar2"></i></span>
                     </span>
-                    <input type="text" class="form-control pickadate-selectors" id="sp_sp3k_date" name="ajb_sp3k_date" value="{{isset($ajb) ? $ajb->ajb_sp3k_date : ''}}"
-                      required>
+                    <input type="text" class="form-control pickadate-selectors" id="sp_sp3k_date" name="ajb_sp3k_date"
+                      value="{{isset($ajb) ? $ajb->ajb_sp3k_date : ''}}" required>
                   </div>
                 </div>
               </div>
@@ -260,7 +280,7 @@
   </div>
 </div>
 @endsection
- @push('scripts')
+@push('scripts')
 <script>
   $(document).ready(function(){
 

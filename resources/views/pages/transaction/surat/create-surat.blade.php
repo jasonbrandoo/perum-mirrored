@@ -1,4 +1,4 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 @section('page-title')
 <div class="mr-auto">
   <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">SP</span> - {{isset($surat) ? 'Edit surat pesanan'
@@ -7,18 +7,22 @@
 </div>
 @if (isset($surat))
 <div>
-  <a href="{{isset($surat) ? route('transaction.surat-pesanan.bank.pdf', $surat->id) : ''}}" class="btn btn-lg btn-success"><i class="icon-printer mr-2"></i>Print (Bank)</a>
-  <a href="{{isset($surat) ? route('transaction.surat-pesanan.developer.pdf', $surat->id) : ''}}" class="btn btn-lg btn-success"><i class="icon-printer mr-2"></i>Print (Developer)</a>
-  <a href="{{isset($surat) ? route('transaction.surat-pesanan.kuitansi_pdf', $surat->id) : ''}}" class="btn btn-lg btn-success"><i class="icon-printer mr-2"></i>Print Kuitansi</a>
+  <a href="{{isset($surat) ? route('transaction.surat-pesanan.bank.pdf', $surat->id) : ''}}"
+    class="btn btn-lg btn-success"><i class="icon-printer mr-2"></i>Print (Bank)</a>
+  <a href="{{isset($surat) ? route('transaction.surat-pesanan.developer.pdf', $surat->id) : ''}}"
+    class="btn btn-lg btn-success"><i class="icon-printer mr-2"></i>Print (Developer)</a>
+  <a href="{{isset($surat) ? route('transaction.surat-pesanan.kuitansi_pdf', $surat->id) : ''}}"
+    class="btn btn-lg btn-success"><i class="icon-printer mr-2"></i>Print Kuitansi</a>
 </div>
 @endif
 @endsection
- 
+
 @section('breadcrumb')
 <a href="{{ route('transaction.surat-pesanan.index') }}" class="breadcrumb-item">Surat Pesanan</a>
-<a href="{{ route('transaction.surat-pesanan.create') }}" class="breadcrumb-item">{{isset($surat) ? 'Edit surat pesanan' : 'Create new surat pesanan'}}</a>
+<a href="{{ route('transaction.surat-pesanan.create') }}"
+  class="breadcrumb-item">{{isset($surat) ? 'Edit surat pesanan' : 'Create new surat pesanan'}}</a>
 @endsection
- 
+
 @section('content')
 <div class="card">
   <div class="card-header header-elements-inline">
@@ -58,11 +62,12 @@
     <div class="tab-content">
       <div class="tab-pane fade show active" id="surat-pesanan">
         @if (isset($surat))
-        <form class="wizard-form steps-validation" action="{{ route('transaction.surat-pesanan.update') }}" method="POST" data-fouc>
+        <form class="wizard-form steps-validation" action="{{ route('transaction.surat-pesanan.update') }}"
+          method="POST" data-fouc>
           @method('PATCH')
           <input type="hidden" name="id" value="{{$surat->id}}"> @else
-          <form class="wizard-form steps-validation" id="form_wizard" action="{{ route('transaction.surat-pesanan.store') }}" method="POST"
-            data-fouc>
+          <form class="wizard-form steps-validation" id="form_wizard"
+            action="{{ route('transaction.surat-pesanan.store') }}" method="POST" data-fouc>
             @endif @csrf
             <h6>Step 1</h6>
             <fieldset>
@@ -72,7 +77,8 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Kode Pre Book</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_prebook" value="{{isset($surat) ? $surat->sp_prebook : ''}}" >
+                        <input type="text" class="form-control" name="sp_prebook"
+                          value="{{isset($surat) ? $surat->sp_prebook : ''}}">
                       </div>
                     </div>
                     <div class="form-group row">
@@ -86,7 +92,8 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">No Surat Pesanan</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_no" value="SP000{{isset($surat) ? $surat->id : $id}}" required readonly>
+                        <input type="text" class="form-control" name="sp_no"
+                          value="SP000{{isset($surat) ? $surat->id : $id}}" required readonly>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -94,17 +101,18 @@
                       <div class="col-lg-9">
                         <div class="input-group">
                           <span class="input-group-prepend">
-                          <span class="input-group-text"><i class="icon-calendar2"></i></span>
+                            <span class="input-group-text"><i class="icon-calendar2"></i></span>
                           </span>
-                          <input type="text" class="form-control pickadate-selectors" name="sp_date" value="{{isset($surat) ? $surat->sp_date->toDateString() : ''}}"
-                            required>
+                          <input type="text" class="form-control pickadate-selectors" name="sp_date"
+                            value="{{isset($surat) ? $surat->sp_date->toDateString() : ''}}" required>
                         </div>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">No PPJB</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_ppjb" value="{{isset($surat) ? $surat->sp_ppjb : ''}}">
+                        <input type="text" class="form-control" name="sp_ppjb"
+                          value="{{isset($surat) ? $surat->sp_ppjb : ''}}">
                       </div>
                     </div>
                     <div class="form-group row">
@@ -112,136 +120,149 @@
                       <div class="col-lg-9">
                         <div class="input-group">
                           <span class="input-group-prepend">
-                          <span class="input-group-text"><i class="icon-calendar2"></i></span>
+                            <span class="input-group-text"><i class="icon-calendar2"></i></span>
                           </span>
-                          <input type="text" class="form-control pickadate-selectors" name="sp_ppjb_date" value="{{isset($surat) ? $surat->sp_ppjb_date->toDateString() : ''}}">
+                          <input type="text" class="form-control pickadate-selectors" name="sp_ppjb_date"
+                            value="{{isset($surat) ? $surat->sp_ppjb_date->toDateString() : ''}}">
                         </div>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Customer ID</label>
                       <div class="col-lg-9">
-                        <select data-placeholder="C000" class="form-control form-control-select2-customer" data-fouc name="sp_customer_id" id="customer_id"
-                          required>
-                        @if (isset($surat))
-                          <option value="{{$surat->customer->id}}">C000{{$surat->customer->id}} - {{$surat->customer->customer_name}}</option>
-                        @else
+                        <select data-placeholder="C000" class="form-control form-control-select2-customer" data-fouc
+                          name="sp_customer_id" id="customer_id" required>
+                          @if (isset($surat))
+                          <option value="{{$surat->customer->id}}">C000{{$surat->customer->id}} -
+                            {{$surat->customer->customer_name}}</option>
+                          @else
                           @foreach ($customers as $customer)
-                            <option></option>
-                            <option value="{{$customer->id}}">C000{{$customer->id}} - {{$customer->customer_name}}</option>
+                          <option></option>
+                          <option value="{{$customer->id}}">C000{{$customer->id}} - {{$customer->customer_name}}
+                          </option>
                           @endforeach
-                        @endif
-                      </select>
+                          @endif
+                        </select>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Name</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_customer_name" id="customer_name" value="{{isset($surat) ? $surat->customer->customer_name : ''}}"
-                          readonly>
+                        <input type="text" class="form-control" name="sp_customer_name" id="customer_name"
+                          value="{{isset($surat) ? $surat->customer->customer_name : ''}}" readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Perusahaan ID</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_company_id" id="customer_company" value="{{isset($surat) ? $surat->company->id : ''}}"
-                          readonly>
+                        <input type="text" class="form-control" name="sp_company_id" id="customer_company"
+                          value="{{isset($surat) ? $surat->company->id : ''}}" readonly>
                         {{-- <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_company_id" id="company_id"
                           required>
                         @if (isset($surat))
-                          <option value="{{$surat->company->id}}">P000{{$surat->company->id}} - {{$surat->company->company_name}}</option>
+                          <option value="{{$surat->company->id}}">P000{{$surat->company->id}} -
+                        {{$surat->company->company_name}}</option>
                         @else
-                          @foreach ($companies as $company)
-                            <option></option>
-                            <option value="{{$company->id}}">P000{{$company->id}} - {{$company->company_name}}</option>
-                          @endforeach
+                        @foreach ($companies as $company)
+                        <option></option>
+                        <option value="{{$company->id}}">P000{{$company->id}} - {{$company->company_name}}</option>
+                        @endforeach
                         @endif
-                      </select> --}}
+                        </select> --}}
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Nama Perusahaan</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_company_name" id="company_name" value="{{isset($surat) ? $surat->company->company_name : ''}}"
-                          readonly>
+                        <input type="text" class="form-control" name="sp_company_name" id="company_name"
+                          value="{{isset($surat) ? $surat->company->company_name : ''}}" readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">MOU ID</label>
                       <div class="col-lg-9">
-                        <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_mou_id" id="mou_id">
-                        @if (isset($surat))
+                        <select data-placeholder="Type" class="form-control form-control-select2" data-fouc
+                          name="sp_mou_id" id="mou_id">
+                          @if (isset($surat))
                           @if ($surat->mou === null)
-                            @foreach ($mous_edit as $mou)
-                              <option></option>
-                              <option value="{{$mou->id}}">MOU000{{$mou->mou_coordinator}}</option>
-                            @endforeach
-                          @else
-                            <option value="{{$surat->mou->id}}">MOU000{{$surat->mou->id}} - {{$surat->mou->mou_coordinator}}</option>
-                            @foreach ($mous_edit as $mou)
-                              @if ($mou->id == $surat->mou->id)
-                                <option></option>
-                              @else
-                                <option value="{{$mou->id}}">MOU000{{$mou->mou_coordinator}}</option>
-                              @endif
-                            @endforeach
-                          @endif
-                        @else
-                          @foreach ($mous as $mou)
-                            <option></option>
-                            <option value="{{$mou->id}}">MOU000{{$mou->id}} - {{$mou->mou_coordinator}}</option>
+                          @foreach ($mous_edit as $mou)
+                          <option></option>
+                          <option value="{{$mou->id}}">MOU000{{$mou->mou_coordinator}}</option>
                           @endforeach
-                        @endif
-                      </select>
+                          @else
+                          <option value="{{$surat->mou->id}}">MOU000{{$surat->mou->id}} -
+                            {{$surat->mou->mou_coordinator}}</option>
+                          @foreach ($mous_edit as $mou)
+                          @if ($mou->id == $surat->mou->id)
+                          <option></option>
+                          @else
+                          <option value="{{$mou->id}}">MOU000{{$mou->mou_coordinator}}</option>
+                          @endif
+                          @endforeach
+                          @endif
+                          @else
+                          @foreach ($mous as $mou)
+                          <option></option>
+                          <option value="{{$mou->id}}">MOU000{{$mou->id}} - {{$mou->mou_coordinator}}</option>
+                          @endforeach
+                          @endif
+                        </select>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Koordinator</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_koordinator" id="mou_supervisor" value="{{isset($surat->mou) ? $surat->mou->mou_coordinator : ''}}"
-                          readonly>
+                        <input type="text" class="form-control" name="sp_koordinator" id="mou_supervisor"
+                          value="{{isset($surat->mou) ? $surat->mou->mou_coordinator : ''}}" readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Sales Executives ID</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_se_id" id="sales_id" value="{{isset($surat) ? $surat->sales->id : ''}}" required readonly>
+                        <input type="text" class="form-control" name="sp_se_id" id="sales_id"
+                          value="{{isset($surat) ? $surat->sales->id : ''}}" required readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Sales Executives name</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_se_name" id="sales_name" value="{{isset($surat) ? $surat->sales->sales_name : ''}}"
-                          readonly>
+                        <input type="text" class="form-control" name="sp_se_name" id="sales_name"
+                          value="{{isset($surat) ? $surat->sales->sales_name : ''}}" readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Supervisor ID</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_spv_id" id="supervisor_id" value="{{isset($surat) ? $surat->supervisor->id : ''}}" required readonly>
+                        <input type="text" class="form-control" name="sp_spv_id" id="supervisor_id"
+                          value="{{isset($surat) ? $surat->supervisor->id : ''}}" required readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Kavling ID</label>
                       <div class="col-lg-9">
-                        <select data-placeholder="BLOK" class="form-control form-control-select2-kavling" data-fouc name="sp_kavling_id" id="kavling_id"
-                          required>
-                        @if (isset($surat))
-                          <option value="{{$surat->kavling->id}}">KAV000{{$surat->kavling->id}} - BLOK {{$surat->kavling->kavling_block}} - NO {{$surat->kavling->kavling_number}} - Tipe {{$surat->kavling->kavling_cluster}} - {{$surat->kavling->kavling_hook === 'Active' ? 'Hook' : 'Not Hook'}}</option>
-                        @else
+                        <select data-placeholder="BLOK" class="form-control form-control-select2-kavling" data-fouc
+                          name="sp_kavling_id" id="kavling_id" required>
+                          @if (isset($surat))
+                          <option value="{{$surat->kavling->id}}">KAV000{{$surat->kavling->id}} - BLOK
+                            {{$surat->kavling->kavling_block}} - NO {{$surat->kavling->kavling_number}} - Tipe
+                            {{$surat->kavling->kavling_cluster}} -
+                            {{$surat->kavling->kavling_hook === 'Active' ? 'Hook' : 'Not Hook'}}</option>
+                          @else
                           @foreach ($kavlings as $kav)
-                            <option></option>
-                            <option value="{{$kav->id}}">KAV000{{$kav->id}} - BLOK {{$kav->kavling_block}} - NO {{$kav->kavling_number}} - Tipe {{$kav->kavling_cluster}} - {{$kav->kavling_hook === 'Active' ? 'Hook' : 'Not Hook'}}</option>
+                          <option></option>
+                          <option value="{{$kav->id}}">KAV000{{$kav->id}} - BLOK {{$kav->kavling_block}} - NO
+                            {{$kav->kavling_number}} - Tipe {{$kav->kavling_cluster}} -
+                            {{$kav->kavling_hook === 'Active' ? 'Hook' : 'Not Hook'}}</option>
                           @endforeach
-                        @endif
-                      </select>
+                          @endif
+                        </select>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">House Type</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_house_type" id="house_type" value="{{isset($surat) ? $surat->kavling->house->rumah_type_name : ''}}"
-                          required readonly>
+                        <input type="text" class="form-control" name="sp_house_type" id="house_type"
+                          value="{{isset($surat) ? $surat->kavling->house->rumah_type_name : ''}}" required readonly>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -249,13 +270,13 @@
                       <div class="col-lg-9">
                         <div class="row">
                           <div class="col-md-6">
-                            <input type="text" class="form-control" name="sp_house_block" id="house_block" value="{{isset($surat) ? $surat->kavling->kavling_block : ''}}"
-                              required readonly>
+                            <input type="text" class="form-control" name="sp_house_block" id="house_block"
+                              value="{{isset($surat) ? $surat->kavling->kavling_block : ''}}" required readonly>
                           </div>
                           <label class="col-form-label">No</label>
                           <div class="col-md-5">
-                            <input type="text" class="form-control" name="sp_house_no" id="house_no" value="{{isset($surat) ? $surat->kavling->id : ''}}"
-                              required readonly>
+                            <input type="text" class="form-control" name="sp_house_no" id="house_no"
+                              value="{{isset($surat) ? $surat->kavling->id : ''}}" required readonly>
                           </div>
                         </div>
                       </div>
@@ -263,34 +284,36 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Cluster</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_house_cluster" id="house_cluster" value="{{isset($surat) ? $surat->kavling->kavling_cluster : ''}}"
-                          required readonly>
+                        <input type="text" class="form-control" name="sp_house_cluster" id="house_cluster"
+                          value="{{isset($surat) ? $surat->kavling->kavling_cluster : ''}}" required readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Luas Bangunan</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_house_building" id="house_building" value="{{isset($surat) ? $surat->kavling->house->building_area_m2 : ''}}"
-                          required readonly>
+                        <input type="text" class="form-control" name="sp_house_building" id="house_building"
+                          value="{{isset($surat) ? $surat->kavling->house->building_area_m2 : ''}}" required readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Luas Tanah</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_house_surface" id="house_surface" value="{{isset($surat) ? $surat->kavling->house->surface_area_m2 : ''}}"
-                          required readonly>
+                        <input type="text" class="form-control" name="sp_house_surface" id="house_surface"
+                          value="{{isset($surat) ? $surat->kavling->house->surface_area_m2 : ''}}" required readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">TL</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" id="kavling_tl" name="sp_tl" value="{{isset($surat) ? $surat->sp_tl : ''}}" readonly>
+                        <input type="text" class="form-control" id="kavling_tl" name="sp_tl"
+                          value="{{isset($surat) ? $surat->sp_tl : ''}}" readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">TT</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" id="kavling_tt" name="sp_tt" value="{{isset($surat) ? $surat->sp_tt : ''}}" readonly>
+                        <input type="text" class="form-control" id="kavling_tt" name="sp_tt"
+                          value="{{isset($surat) ? $surat->sp_tt : ''}}" readonly>
                       </div>
                     </div>
                   </fieldset>
@@ -306,21 +329,22 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Kode Harga</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" name="sp_price_id" id="price_id" value="{{isset($surat) ? $surat->price->id : ''}}"
-                          readonly required>
+                        <input type="text" class="form-control" name="sp_price_id" id="price_id"
+                          value="{{isset($surat) ? $surat->price->id : ''}}" readonly required>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Harga</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_price" id="price" value="{{isset($surat) ? $surat->price->price_selling : ''}}"
-                          readonly required>
+                        <input type="text" class="form-control price" name="sp_price" id="price"
+                          value="{{isset($surat) ? $surat->price->price_selling : ''}}" readonly required>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Total Harga TL</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_price_tl" value="{{isset($surat) ? $surat->sp_price_tl : ''}}">
+                        <input type="text" class="form-control price" name="sp_price_tl"
+                          value="{{isset($surat) ? $surat->sp_price_tl : ''}}">
                       </div>
                     </div>
                     <!--<div class="form-group row">
@@ -332,15 +356,15 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Total Harga Jual</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_total_harga_jual" value="{{isset($surat) ? $surat->sp_total_harga_jual : ''}}"
-                          required>
+                        <input type="text" class="form-control price" name="sp_total_harga_jual"
+                          value="{{isset($surat) ? $surat->sp_total_harga_jual : ''}}" required>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Harga Jual rumah</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_harga_jual_tanah" value="{{isset($surat) ? $surat->sp_harga_jual_tanah : ''}}"
-                          required>
+                        <input type="text" class="form-control price" name="sp_harga_jual_tanah"
+                          value="{{isset($surat) ? $surat->sp_harga_jual_tanah : ''}}" required>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -353,59 +377,63 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Potongan Harga Jual (Nominal)</label>
                       <div class="col-lg">
-                        <input type="text" placeholder="0" class="form-control price" name="sp_discount_nominal" value="{{isset($surat) ? $surat->sp_discount : ''}}">
+                        <input type="text" placeholder="0" class="form-control price" name="sp_discount_nominal"
+                          value="{{isset($surat) ? $surat->sp_discount : ''}}">
                       </div>
                       <label class="col-form-label">(Persen%)</label>
                       <div class="col-lg">
-                        <input type="text" placeholder="0" class="form-control price" name="sp_discount" value="{{isset($surat) ? $surat->sp_discount : ''}}">
+                        <input type="text" placeholder="0" class="form-control price" name="sp_discount"
+                          value="{{isset($surat) ? $surat->sp_discount : ''}}">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Harga Setelah Discount</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_after_discount" value="{{isset($surat) ? $surat->sp_after_discount : ''}}"
-                          readonly>
+                        <input type="text" class="form-control price" name="sp_after_discount"
+                          value="{{isset($surat) ? $surat->sp_after_discount : ''}}" readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Persentase Pajak (%)</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_ppn_percentage" value="{{isset($surat) ? $surat->sp_ppn_percentage : ''}}"
-                          required>
+                        <input type="text" class="form-control price" name="sp_ppn_percentage"
+                          value="{{isset($surat) ? $surat->sp_ppn_percentage : ''}}" required>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Nilai Pajak</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_after_ppn" value="{{isset($surat) ? $surat->sp_after_ppn : ''}}" required
-                          readonly>
+                        <input type="text" class="form-control price" name="sp_after_ppn"
+                          value="{{isset($surat) ? $surat->sp_after_ppn : ''}}" required readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Harga Tanah dan Bangunan</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_harga_tanah_bangunan" value="{{isset($surat) ? $surat->sp_harga_tanah_bangunan : ''}}"
-                          readonly>
+                        <input type="text" class="form-control price" name="sp_harga_tanah_bangunan"
+                          value="{{isset($surat) ? $surat->sp_harga_tanah_bangunan : ''}}" readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Cara Pembayaran</label>
                       <div class="col-lg-9">
-                        <select data-placeholder="Type" class="form-control form-control-select2" data-fouc name="sp_payment_method" required>
+                        <select data-placeholder="Type" class="form-control form-control-select2" data-fouc
+                          name="sp_payment_method" required>
                           @if (isset($surat))
-                            <option value="{{$surat->paymentMethod->id}}">{{$surat->paymentMethod->payment_method}}</option>
-                            @foreach ($payments as $pay)
-                              @if ($pay->id == $surat->paymentMethod->id)
-                                <option></option>
-                              @else
-                                <option value="{{$pay->id}}">{{$pay->payment_method}}</option>
-                              @endif
-                            @endforeach
+                          <option value="{{$surat->paymentMethod->id}}">{{$surat->paymentMethod->payment_method}}
+                          </option>
+                          @foreach ($payments as $pay)
+                          @if ($pay->id == $surat->paymentMethod->id)
+                          <option></option>
                           @else
-                            @foreach ($payments as $pay)
-                              <option></option>
-                              <option value="{{$pay->id}}">{{$pay->payment_method}}</option>
-                            @endforeach
+                          <option value="{{$pay->id}}">{{$pay->payment_method}}</option>
+                          @endif
+                          @endforeach
+                          @else
+                          @foreach ($payments as $pay)
+                          <option></option>
+                          <option value="{{$pay->id}}">{{$pay->payment_method}}</option>
+                          @endforeach
                           @endif
                         </select>
                       </div>
@@ -413,13 +441,15 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Harga jual pengikatan</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_harga_jual_pengikatan" value="{{isset($surat) ? $surat->sp_harga_jual_pengikatan : ''}}" required>
+                        <input type="text" class="form-control price" name="sp_harga_jual_pengikatan"
+                          value="{{isset($surat) ? $surat->sp_harga_jual_pengikatan : ''}}" required>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Harga Jual AJB</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_ajb_price" value="{{isset($surat) ? $surat->sp_ajb_price : ''}}" required>
+                        <input type="text" class="form-control price" name="sp_ajb_price"
+                          value="{{isset($surat) ? $surat->sp_ajb_price : ''}}" required>
                       </div>
                     </div>
                   </fieldset>
@@ -439,13 +469,14 @@
                         <div class="form-group row">
                           <label class="col-lg-3 col-form-label">Deskripsi</label>
                           <div class="col-lg-9">
-                            <input type="text" class="form-control biayaLainDescription" name="sp_description[]" >
+                            <input type="text" class="form-control biayaLainDescription" name="sp_description[]">
                           </div>
                         </div>
                         <div class="form-group row">
                           <label class="col-lg-3 col-form-label">Nominal</label>
                           <div class="col-lg-3">
-                            <input type="text" class="form-control" id="biayaLainNominal" name="sp_description_nominal[]" >
+                            <input type="text" class="form-control" id="biayaLainNominal"
+                              name="sp_description_nominal[]">
                           </div>
                           <div class="col-lg-3">
                             <select name="sp_biaya_lain_status[]" id="biayaLainStatus" class="form-control">
@@ -455,7 +486,8 @@
                             </select>
                           </div>
                           <div class="col-lg-3">
-                            <select name="sp_biaya_lain_diperhitungkan[]" id="biayaLainDiperhitungkan" class="form-control">
+                            <select name="sp_biaya_lain_diperhitungkan[]" id="biayaLainDiperhitungkan"
+                              class="form-control">
                               <option value="" disabled selected>Developer / Kontraktor</option>
                               <option value="Developer">Developer</option>
                               <option value="Contractor">Contractor</option>
@@ -481,109 +513,118 @@
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Tanah Lebih M2</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_tanah_lebih" id="kavling_tanah_lebih" value="{{isset($surat) ? $surat->sp_tanah_lebih : ''}}">
+                        <input type="text" class="form-control price" name="sp_tanah_lebih" id="kavling_tanah_lebih"
+                          value="{{isset($surat) ? $surat->sp_tanah_lebih : ''}}">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Harga / M2</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_harga_m2" id="kavling_tanah_m2" value="{{isset($surat) ? $surat->sp_harga_m2 : ''}}">
+                        <input type="text" class="form-control price" name="sp_harga_m2" id="kavling_tanah_m2"
+                          value="{{isset($surat) ? $surat->sp_harga_m2 : ''}}">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Total Harga Tanah Lebih</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_total_harga_tanah_lebih" value="{{isset($surat) ? $surat->sp_total_harga_tanah_lebih : ''}}"
-                          readonly>
+                        <input type="text" class="form-control price" name="sp_total_harga_tanah_lebih"
+                          value="{{isset($surat) ? $surat->sp_total_harga_tanah_lebih : ''}}" readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Rencana KPR</label>
                       <div class="col-lg-3">
-                        <input type="text" id="kpr_plan" class="form-control" name="sp_kpr_plan" value="{{isset($surat) ? $surat->sp_kpr_plan : ''}}">
+                        <input type="text" id="kpr_plan" class="form-control" name="sp_kpr_plan"
+                          value="{{isset($surat) ? $surat->sp_kpr_plan : ''}}">
                       </div>
                       <label class="col-form-label">%</label>
                       <div class="col-lg">
-                        <input type="text" class="form-control price" id="kpr_plan_percen" name="sp_kpr_plan_percentage" value="{{isset($surat) ? $surat->sp_kpr_plan_percentage : ''}}" readonly>
+                        <input type="text" class="form-control price" id="kpr_plan_percen" name="sp_kpr_plan_percentage"
+                          value="{{isset($surat) ? $surat->sp_kpr_plan_percentage : ''}}" readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">DP</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" id="sp_dp" name="sp_dp" value="{{isset($surat) ? $surat->sp_dp : ''}}" required>
+                        <input type="text" class="form-control price" id="sp_dp" name="sp_dp"
+                          value="{{isset($surat) ? $surat->sp_dp : ''}}" required>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">PPN Harga Lebih</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_ppn" value="{{isset($surat) ? $surat->sp_ppn : ''}}" required>
+                        <input type="text" class="form-control price" name="sp_ppn"
+                          value="{{isset($surat) ? $surat->sp_ppn : ''}}" required>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Sub Total</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_sub_total" value="{{isset($surat) ? $surat->sp_sub_total : ''}}" required
-                          readonly>
+                        <input type="text" class="form-control price" name="sp_sub_total"
+                          value="{{isset($surat) ? $surat->sp_sub_total : ''}}" required readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Booking Fee</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" id="sp_booking_fee" name="sp_booking_fee" value="{{isset($surat) ? $surat->sp_booking_fee : ''}}"
-                          required readonly>
+                        <input type="text" class="form-control price" id="sp_booking_fee" name="sp_booking_fee"
+                          value="{{isset($surat) ? $surat->sp_booking_fee : ''}}" required readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Jumlah Harus Dibayar</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_total_bill" value="{{isset($surat) ? $surat->sp_total_bill : ''}}"
-                          required readonly>
+                        <input type="text" class="form-control price" name="sp_total_bill"
+                          value="{{isset($surat) ? $surat->sp_total_bill : ''}}" required readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Angsuran/Bulan (Internal)</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_per_month_internal" value="{{isset($surat) ? $surat->sp_per_month_internal : ''}}"
-                          required>
+                        <input type="text" class="form-control price" name="sp_per_month_internal"
+                          value="{{isset($surat) ? $surat->sp_per_month_internal : ''}}" required>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Nilai Internal</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_internal_bill" value="{{isset($surat) ? $surat->sp_internal_bill : ''}}"
-                          required readonly>
+                        <input type="text" class="form-control price" name="sp_internal_bill"
+                          value="{{isset($surat) ? $surat->sp_internal_bill : ''}}" required readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Angsuran/Bulan (Kreditur)</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_per_month_kreditur" value="{{isset($surat) ? $surat->sp_per_month_kreditur : ''}}"
-                          required>
+                        <input type="text" class="form-control price" name="sp_per_month_kreditur"
+                          value="{{isset($surat) ? $surat->sp_per_month_kreditur : ''}}" required>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Nilai Kreditur</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_kreditur_bill" value="{{isset($surat) ? $surat->sp_kreditur_bill : ''}}"
-                          required readonly>
+                        <input type="text" class="form-control price" name="sp_kreditur_bill"
+                          value="{{isset($surat) ? $surat->sp_kreditur_bill : ''}}" required readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Angsuran/Bulan (Kontraktor)</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_per_month_contractor" value="{{isset($surat) ? $surat->sp_per_month_contractor : ''}}">
+                        <input type="text" class="form-control price" name="sp_per_month_contractor"
+                          value="{{isset($surat) ? $surat->sp_per_month_contractor : ''}}">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Nilai Kontraktor</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_contractor_bill" value="{{isset($surat) ? $surat->sp_contractor_bill : ''}}" readonly>
+                        <input type="text" class="form-control price" name="sp_contractor_bill"
+                          value="{{isset($surat) ? $surat->sp_contractor_bill : ''}}" readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-lg-3 col-form-label">Total Surat Pesanan</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control price" name="sp_total" value="{{isset($surat) ? $surat->sp_total : ''}}" required>
+                        <input type="text" class="form-control price" name="sp_total"
+                          value="{{isset($surat) ? $surat->sp_total : ''}}" required>
                       </div>
                     </div>
                   </fieldset>
@@ -595,9 +636,11 @@
             <h6>Step 4</h6>
             <fieldset>
               <ul class="nav nav-tabs nav-tabs-bottom">
-                <li class="nav-item"><a href="#piutang-internal" class="nav-link active" data-toggle="tab">Internal / Developer</a></li>
+                <li class="nav-item"><a href="#piutang-internal" class="nav-link active" data-toggle="tab">Internal /
+                    Developer</a></li>
                 <li class="nav-item"><a href="#piutang-kreditur" class="nav-link" data-toggle="tab">Kreditur</a></li>
-                <li class="nav-item"><a href="#piutang-kontraktor" class="nav-link" data-toggle="tab">Kontraktor</a></li>
+                <li class="nav-item"><a href="#piutang-kontraktor" class="nav-link" data-toggle="tab">Kontraktor</a>
+                </li>
               </ul>
               <div class="tab-content">
                 <div class="tab-pane fade show active" id="piutang-internal">
@@ -615,16 +658,16 @@
                     </thead>
                   </table>
 
-                    <div class="d-flex">
-                      <div class="col-3">
-                        <h3>Total Lunas</h3>
-                        <h3>Rp. {{$totalLunas}}</h3>
-                      </div>
-                      <div class="col-9">
-                        <h3>Total Belum Lunas</h3>
-                        <h3>Rp. {{$totalBelumLunas}}</h3>
-                      </div>
+                  <div class="d-flex">
+                    <div class="col-3">
+                      <h3>Total Lunas</h3>
+                      <h3>Rp. {{$totalLunas}}</h3>
                     </div>
+                    <div class="col-9">
+                      <h3>Total Belum Lunas</h3>
+                      <h3>Rp. {{$totalBelumLunas}}</h3>
+                    </div>
+                  </div>
 
                   <input type="hidden" name="piutang" id="piutang">
                   <input type="hidden" name="internal" id="internal">
@@ -2200,14 +2243,14 @@
             render: data => moment(data).format("D MMMM YYYY")
           },
           {
-            data: "deleted_at",
+            data: "status",
             className: "text-center",
-            render: (data) => data === null ? "Belum Dibayar" : "Tgl"
+            render: (data, type, row) => data === "paid" ? moment(row.updated_at).format('D MMMM YYYY') : "Belum Dibayar"
           },
           {
-            data: "deleted_at",
+            data: "status",
             className: "text-center",
-            render: (data) => data !== null ? "<span class='badge badge-success'>Lunas</span>" : "<span class='badge badge-danger'>Belum Lunas</span>"
+            render: (data) => data === "paid" ? "<span class='badge badge-success'>Lunas</span>" : "<span class='badge badge-danger'>Belum Lunas</span>"
           },
           {
             data: "id",
@@ -2335,5 +2378,5 @@
     DatatableSelect.init();
   });
 </script>
-@endif 
+@endif
 @endpush
